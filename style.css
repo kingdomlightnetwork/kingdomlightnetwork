@@ -94,3 +94,29 @@ footer {
         width: 80%;
     }
 }
+
+/* Logo Design */
+
+.logo-placeholder img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: white;
+    padding: 8px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.logo-area h1 {
+    margin: 0;
+}
+
+.logo-area p {
+    margin: 5px 0;
+}

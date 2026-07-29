@@ -98,14 +98,13 @@ footer {
 /* Logo Design */
 
 .logo-placeholder img {
-    width: 100px;
-    height: 100px;
+    width: 85px;
+    height: 85px;
     object-fit: contain;
     border-radius: 50%;
     background: white;
-    padding: 8px;
+    padding: 6px;
 }
-
 .logo-area {
     display: flex;
     align-items: center;

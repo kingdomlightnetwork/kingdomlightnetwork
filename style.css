@@ -121,14 +121,13 @@ footer {
 }
 /* Hero Banner Design */
 
-.hero {
+ .hero {
     min-height: 500px;
     background:
     linear-gradient(
     rgba(11,61,145,0.65),
     rgba(30,136,229,0.65)
-    ),
-    url("images/paster%201.png");
+    );
 
     background-size: cover;
     background-position: center;

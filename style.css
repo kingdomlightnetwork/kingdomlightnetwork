@@ -119,3 +119,49 @@ footer {
 .logo-area p {
     margin: 5px 0;
 }
+/* Hero Banner Design */
+
+.hero {
+    min-height: 500px;
+    background:
+    linear-gradient(
+    rgba(11,61,145,0.65),
+    rgba(30,136,229,0.65)
+    ),
+    url("images/paster%201.png");
+
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 40px;
+}
+
+.hero h2 {
+    font-size: 55px;
+    margin-bottom: 20px;
+}
+
+.hero h3 {
+    font-size: 30px;
+    font-weight: normal;
+}
+
+.hero p {
+    font-size: 22px;
+    line-height: 1.6;
+}
+
+
+/* Hero Buttons */
+
+.hero-buttons button {
+    margin-top: 25px;
+    padding: 16px 35px;
+}

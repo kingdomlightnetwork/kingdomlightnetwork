@@ -177,3 +177,33 @@ footer {
     margin-top: 25px;
     padding: 16px 35px;
 }
+.menu-toggle {
+    display: none;
+    background: #0b3d91;
+    color: white;
+    border: none;
+    font-size: 30px;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+/* Mobile Menu */
+@media screen and (max-width: 600px) {
+
+    .menu-toggle {
+        display: block;
+        margin: 10px auto;
+    }
+
+    nav {
+        display: none;
+    }
+
+    nav a {
+        display: block;
+        padding: 12px;
+    }
+
+}

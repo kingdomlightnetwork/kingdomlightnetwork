@@ -10,11 +10,14 @@
 
 /* Header */
 header {
-    background: linear-gradient(135deg, #0b3d91, #1e88e5);
-    color: white;
-    padding: 40px 20px;
-}
 
+   background: linear-gradient(135deg, #0b3d91, #1e88e5);
+    color: white;
+    padding: 20px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 header h1 {
     font-size: 42px;
     margin: 10px 0;

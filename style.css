@@ -120,8 +120,8 @@ footer {
 .logo-area {
     display: flex;
     align-items: center;
-  justify-content: space-between;
-width: 100%;
+    justify-content: space-between;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     gap: 20px;
@@ -130,7 +130,13 @@ width: 100%;
 .logo-area h1 {
     margin: 0;
 }
-
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    white-space: nowrap;
+    font-size: 16px;
+}
 .logo-area p {
     margin: 5px 0;
 }

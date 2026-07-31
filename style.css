@@ -248,12 +248,21 @@ footer {
 
     .logo-area {
         flex-direction: column;
+        align-items: center;
         gap: 15px;
     }
 
     .header-icons {
-        flex-direction: column;
-        gap: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .header-icons span {
+        font-size: 13px;
+        padding: 6px 10px;
     }
 
     .logo-placeholder img {
@@ -262,7 +271,7 @@ footer {
     }
 
     header h1 {
-        font-size: 28px;
+        font-size: 26px;
     }
 
 }

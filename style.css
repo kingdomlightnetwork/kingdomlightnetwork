@@ -244,3 +244,25 @@ footer {
         display: none;
     }
 }
+@media screen and (max-width: 600px) {
+
+    .logo-area {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .header-icons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .logo-placeholder img {
+        width: 70px;
+        height: 70px;
+    }
+
+    header h1 {
+        font-size: 28px;
+    }
+
+}

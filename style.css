@@ -236,7 +236,15 @@ footer {
 nav.show {
     display: block;
 }
+nav.show {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
 
+nav.show a {
+    background: #f5f8ff;
+    border-radius: 8px;
+    margin: 8px 15px;
+}
     nav a {
         display: block;
         padding: 12px;

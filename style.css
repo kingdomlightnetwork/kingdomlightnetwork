@@ -54,7 +54,11 @@ nav a {
 nav a:hover {
     color: #d4af37;
 }
-
+nav a.active {
+    color: #d4af37;
+    border-bottom: 3px solid #d4af37;
+    padding-bottom: 5px;
+}
 /* Main Section */
 section {
     padding: 50px 20px;

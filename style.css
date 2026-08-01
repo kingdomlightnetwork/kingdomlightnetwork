@@ -209,6 +209,20 @@ footer {
     margin-top: 25px;
     padding: 16px 35px;
 }
+.hero-buttons button {
+    border-radius: 30px;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hero-buttons button:hover {
+    background: #d4af37;
+    color: white;
+    transform: translateY(-3px);
+}
 .menu-toggle {
     display: none;
     background: #0b3d91;

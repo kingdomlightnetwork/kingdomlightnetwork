@@ -222,6 +222,8 @@ footer {
     background: #d4af37;
     color: white;
     transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212,175,55,0.5);
+    letter-spacing: 1px;
 }
 .menu-toggle {
     display: none;

@@ -14,15 +14,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         menuButton.addEventListener("click", function () {
 
-            if (nav.style.display === "block") {
+          if (nav.classList.contains("show")) {
 
-                nav.style.display = "none";
+    nav.classList.remove("show");
 
-            } else {
+} else {
 
-                nav.style.display = "block";
+    nav.classList.add("show");
 
-            }
+} 
 
         });
 

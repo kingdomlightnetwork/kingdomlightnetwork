@@ -229,9 +229,13 @@ footer {
         margin: 10px auto;
     }
 
-    nav {
-        display: none;
-    }
+  nav {
+    display: none;
+}
+
+nav.show {
+    display: block;
+}
 
     nav a {
         display: block;

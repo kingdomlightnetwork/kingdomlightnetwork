@@ -54,7 +54,8 @@ nav a {
 
 nav a:hover {
     color: #d4af37;
-    transform: translateY(-5px);
+    transform: translateY(-8px) scale(1.08);
+    text-shadow: 0 4px 10px rgba(212,175,55,0.5);
 }
 nav a.active {
     color: #d4af37;

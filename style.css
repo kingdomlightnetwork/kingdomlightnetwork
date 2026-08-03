@@ -378,3 +378,49 @@ nav.show a {
     }
 
 }
+/* Social Media Center Design */
+
+.social-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.social-buttons button {
+    min-width: 140px;
+    padding: 15px 25px;
+    border-radius: 30px;
+    background: #0b3d91;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+
+/* Hover Effect */
+
+.social-buttons button:hover {
+    background: #d4af37;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(212,175,55,0.4);
+}
+
+
+/* Mobile Social Buttons */
+
+@media screen and (max-width: 600px) {
+
+    .social-buttons button {
+        width: 80%;
+        font-size: 16px;
+    }
+
+}

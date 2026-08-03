@@ -313,3 +313,68 @@ nav.show a {
     }
 
 }
+/* Ministry Cards Design */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    transition: all 0.3s ease;
+    border-top: 5px solid #0b3d91;
+}
+
+.card h3 {
+    color: #0b3d91;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #555;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+
+/* Card Hover Effect */
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(11,61,145,0.25);
+    border-top-color: #d4af37;
+}
+
+
+/* Mobile Cards */
+
+@media screen and (max-width: 900px) {
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media screen and (max-width: 600px) {
+
+    .cards {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .card {
+        padding: 25px 15px;
+    }
+
+}

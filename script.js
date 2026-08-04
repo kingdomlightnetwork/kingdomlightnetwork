@@ -41,5 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
+    <script src="translations.js"></script>
+<script src="language.js"></script>
 
 });

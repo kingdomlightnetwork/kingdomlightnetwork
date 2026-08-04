@@ -17,3 +17,6 @@ window.onload = function () {
     }
 
 };
+
+<script src="translations.js"></script>
+<script src="language.js"></script>

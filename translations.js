@@ -75,3 +75,6 @@ const translations = {
     }
 
 };
+
+<script src="translations.js"></script>
+<script src="language.js"></script>

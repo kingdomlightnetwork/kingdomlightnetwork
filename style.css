@@ -40,8 +40,8 @@ nav {
     justify-content: center;
     align-items: center;
     gap: 15px;
+    flex-wrap: wrap;
 }
-
 nav a {
     color: #0b3d91;
     text-decoration: none;

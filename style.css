@@ -546,3 +546,7 @@ nav.show a {
 #createAccountForm {
     display: none;
 }
+
+#createAccountForm {
+    display: none !important;
+}

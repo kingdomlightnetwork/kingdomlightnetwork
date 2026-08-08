@@ -1,291 +1,363 @@
-
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
 
-```
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<title>
-    Create Account - Kingdom Light Network
-</title>
+    <title>
+        Create Account - Kingdom Light Network
+    </title>
 
-<link rel="stylesheet" href="style.css">
-```
+    <link rel="stylesheet"
+          href="style.css">
 
 </head>
 
+
 <body>
+
+
+<!-- HERO -->
 
 <section class="hero">
 
-```
-<div class="hero-content">
-
-    <h2>
-        🌍 Create Your Kingdom Light Account
-    </h2>
-
-    <h3>
-        Church / Ministry Account
-    </h3>
-
-    <p>
-        Create your account once and use Kingdom Light Network for Live, Registration, Join, Sunday School, Media and Ministry services.
-    </p>
-
-</div>
-```
-
-</section>
-
-<section>
-
-```
-<div class="create-account-card">
-
-    <h2>
-        ➕ Create Account
-    </h2>
-
-    <p>
-        Create your Church or Ministry account to continue.
-    </p>
-
-
-    <div
-        id="createAccountForm"
-        class="create-account-form"
-    >
+    <div class="hero-content">
 
         <h2>
-            🏠 Church / Ministry Account
+            🌍 Create Your Kingdom Light Account
         </h2>
 
+        <h3>
+            Church / Ministry Account
+        </h3>
 
-        <form id="churchAccountForm">
-
-
-            <label>
-                Church / Ministry Name
-            </label>
-
-            <input
-                type="text"
-                name="churchName"
-                placeholder="Church / Ministry Name"
-                required
-            >
-
-
-            <label>
-                Pastor / Leader Name
-            </label>
-
-            <input
-                type="text"
-                name="pastorName"
-                placeholder="Pastor / Leader Name"
-                required
-            >
-
-
-            <label>
-                Country
-            </label>
-
-            <select
-                name="country"
-                required
-            >
-
-                <option value="">
-                    🌍 Select Country
-                </option>
-
-                <option value="Pakistan">
-                    Pakistan
-                </option>
-
-                <option value="India">
-                    India
-                </option>
-
-                <option value="United Kingdom">
-                    United Kingdom
-                </option>
-
-                <option value="United States">
-                    United States
-                </option>
-
-                <option value="Canada">
-                    Canada
-                </option>
-
-                <option value="Australia">
-                    Australia
-                </option>
-
-                <option value="Other">
-                    Other
-                </option>
-
-            </select>
-
-
-            <label>
-                City
-            </label>
-
-            <input
-                type="text"
-                name="city"
-                placeholder="City"
-                required
-            >
-
-
-            <label>
-                WhatsApp Number
-            </label>
-
-            <input
-                type="tel"
-                name="whatsapp"
-                placeholder="WhatsApp Number"
-                required
-            >
-
-
-            <label>
-                Gmail / Email Address
-            </label>
-
-            <input
-                type="email"
-                name="email"
-                placeholder="Gmail / Email Address"
-                required
-            >
-
-
-            <label>
-                Ministry Introduction
-            </label>
-
-            <textarea
-                name="ministryIntroduction"
-                placeholder="Tell us briefly about your Church / Ministry"
-                rows="6"
-            ></textarea>
-
-
-            <label>
-                YouTube Link
-            </label>
-
-            <input
-                type="url"
-                name="youtube"
-                placeholder="YouTube Channel Link"
-            >
-
-
-            <label>
-                Facebook Page / Group
-            </label>
-
-            <input
-                type="url"
-                name="facebook"
-                placeholder="Facebook Page / Group Link"
-            >
-
-
-            <label>
-                Instagram Link
-            </label>
-
-            <input
-                type="url"
-                name="instagram"
-                placeholder="Instagram Link"
-            >
-
-
-            <label>
-                TikTok Link
-            </label>
-
-            <input
-                type="url"
-                name="tiktok"
-                placeholder="TikTok Link"
-            >
-
-
-            <label>
-                Telegram Link
-            </label>
-
-            <input
-                type="url"
-                name="telegram"
-                placeholder="Telegram Link"
-            >
-
-
-            <label class="consent-label">
-
-                <input
-                    type="checkbox"
-                    name="agreement"
-                    required
-                >
-
-                I confirm that the information provided is correct and I agree to create this Church / Ministry account.
-
-            </label>
-
-
-            <br>
-
-
-            <button
-                type="submit"
-                class="submit-account-button"
-            >
-                🚀 Create Account
-            </button>
-
-
-        </form>
+        <p>
+            Create your account once and use Kingdom Light Network
+            for Live, Registration, Join, Sunday School, Media
+            and Ministry services.
+        </p>
 
     </div>
 
-</div>
-```
+</section>
+
+
+
+<!-- CREATE ACCOUNT SECTION -->
+
+<section>
+
+    <div class="create-account-card">
+
+        <h2>
+            ➕ Create Account
+        </h2>
+
+        <p>
+            Create your Church or Ministry account to continue.
+        </p>
+
+
+        <!-- CREATE MY ACCOUNT BUTTON -->
+
+        <button
+            type="button"
+            id="openCreateAccount"
+            class="create-account-button"
+        >
+            ➕ Create My Account
+        </button>
+
+
+
+        <!-- MASTER ACCOUNT FORM -->
+
+        <div
+            id="createAccountForm"
+            class="create-account-form"
+            style="display: none;"
+        >
+
+            <h2>
+                🏠 Church / Ministry Account
+            </h2>
+
+
+            <form id="churchAccountForm">
+
+
+                <label>
+                    Church / Ministry Name
+                </label>
+
+                <input
+                    type="text"
+                    name="churchName"
+                    placeholder="Church / Ministry Name"
+                    required
+                >
+
+
+                <label>
+                    Pastor / Leader Name
+                </label>
+
+                <input
+                    type="text"
+                    name="pastorName"
+                    placeholder="Pastor / Leader Name"
+                    required
+                >
+
+
+                <label>
+                    Country
+                </label>
+
+                <select
+                    name="country"
+                    required
+                >
+
+                    <option value="">
+                        🌍 Select Country
+                    </option>
+
+                    <option value="Pakistan">
+                        Pakistan
+                    </option>
+
+                    <option value="India">
+                        India
+                    </option>
+
+                    <option value="United Kingdom">
+                        United Kingdom
+                    </option>
+
+                    <option value="United States">
+                        United States
+                    </option>
+
+                    <option value="Canada">
+                        Canada
+                    </option>
+
+                    <option value="Australia">
+                        Australia
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+
+                <label>
+                    City
+                </label>
+
+                <input
+                    type="text"
+                    name="city"
+                    placeholder="City"
+                    required
+                >
+
+
+                <label>
+                    WhatsApp Number
+                </label>
+
+                <input
+                    type="tel"
+                    name="whatsapp"
+                    placeholder="WhatsApp Number"
+                    required
+                >
+
+
+                <label>
+                    Gmail / Email Address
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Gmail / Email Address"
+                    required
+                >
+
+
+                <label>
+                    Ministry Introduction
+                </label>
+
+                <textarea
+                    name="ministryIntroduction"
+                    placeholder="Tell us briefly about your Church / Ministry"
+                    rows="6"
+                ></textarea>
+
+
+
+                <!-- SOCIAL MEDIA -->
+
+                <h3>
+                    📡 Social & Media Connections
+                </h3>
+
+
+                <label>
+                    YouTube Link
+                </label>
+
+                <input
+                    type="url"
+                    name="youtube"
+                    placeholder="YouTube Channel Link"
+                >
+
+
+                <label>
+                    Facebook Page / Group 1
+                </label>
+
+                <input
+                    type="url"
+                    name="facebook1"
+                    placeholder="Facebook Page / Group Link"
+                >
+
+
+                <label>
+                    Facebook Page / Group 2
+                </label>
+
+                <input
+                    type="url"
+                    name="facebook2"
+                    placeholder="Facebook Page / Group Link"
+                >
+
+
+                <label>
+                    Facebook Page / Group 3
+                </label>
+
+                <input
+                    type="url"
+                    name="facebook3"
+                    placeholder="Facebook Page / Group Link"
+                >
+
+
+                <label>
+                    Instagram Link
+                </label>
+
+                <input
+                    type="url"
+                    name="instagram"
+                    placeholder="Instagram Link"
+                >
+
+
+                <label>
+                    TikTok Link
+                </label>
+
+                <input
+                    type="url"
+                    name="tiktok"
+                    placeholder="TikTok Link"
+                >
+
+
+                <label>
+                    Telegram Link
+                </label>
+
+                <input
+                    type="url"
+                    name="telegram"
+                    placeholder="Telegram Link"
+                >
+
+
+                <label>
+                    Other Platform / Website
+                </label>
+
+                <input
+                    type="url"
+                    name="otherPlatform"
+                    placeholder="Other Platform Link"
+                >
+
+
+
+                <!-- AGREEMENT -->
+
+                <label class="consent-label">
+
+                    <input
+                        type="checkbox"
+                        name="agreement"
+                        required
+                    >
+
+                    I confirm that the information provided is correct
+                    and I agree to create this Church / Ministry account.
+
+                </label>
+
+
+                <br>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="submit-account-button"
+                >
+                    🚀 Create Account
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </div>
 
 </section>
 
+
+
+<!-- FOOTER -->
+
 <footer>
 
-```
-<h3>
-    Kingdom Light Network
-</h3>
+    <h3>
+        Kingdom Light Network
+    </h3>
 
-<p>
-    Powered by Christ Church
-</p>
-```
+    <p>
+        Powered by Christ Church
+    </p>
 
 </footer>
+
+
+
+<!-- JAVASCRIPT -->
 
 <script src="translations.js"></script>
 
@@ -293,8 +365,7 @@
 
 <script src="script.js"></script>
 
+
 </body>
 
 </html>
-
-

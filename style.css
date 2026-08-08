@@ -540,3 +540,186 @@ nav.show a {
     padding: 16px 30px;
     font-size: 21px;
 }
+
+/* ==============================
+   CREATE ACCOUNT FORM
+   Final Size & Layout
+============================== */
+
+.create-account-card {
+    max-width: 850px;
+    width: 92%;
+    margin: 35px auto;
+    padding: 35px 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    box-sizing: border-box;
+}
+
+.create-account-card h2 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0b3d91;
+    margin-bottom: 15px;
+}
+
+.create-account-card p {
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+/* Labels */
+
+.create-account-form label {
+    display: block;
+    width: 100%;
+    text-align: left;
+    font-size: 19px;
+    font-weight: 700;
+    color: #0b3d91;
+    margin: 18px 0 7px;
+}
+
+/* Input Fields */
+
+.create-account-form input[type="text"],
+.create-account-form input[type="tel"],
+.create-account-form input[type="email"],
+.create-account-form input[type="url"],
+.create-account-form select,
+.create-account-form textarea {
+
+    display: block;
+    width: 100%;
+    min-height: 62px;
+
+    padding: 16px 20px;
+    margin: 0 auto 12px;
+
+    border: 2px solid #b8c4d8;
+    border-radius: 12px;
+
+    background: #ffffff;
+    color: #333;
+
+    font-family: Arial, sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+
+    box-sizing: border-box;
+
+    outline: none;
+}
+
+/* Textarea */
+
+.create-account-form textarea {
+    min-height: 150px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+/* Focus */
+
+.create-account-form input:focus,
+.create-account-form select:focus,
+.create-account-form textarea:focus {
+    border-color: #0b3d91;
+    box-shadow: 0 0 0 3px rgba(11,61,145,0.12);
+}
+
+/* Agreement */
+
+.create-account-form .consent-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.5;
+
+    color: #333;
+    margin-top: 20px;
+}
+
+.create-account-form .consent-label input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    margin-top: 3px;
+}
+
+/* Create Account Button */
+
+.create-account-form .submit-account-button {
+    display: block;
+
+    width: 75%;
+    max-width: 420px;
+
+    min-height: 62px;
+
+    margin: 30px auto 10px;
+
+    padding: 15px 25px;
+
+    background: #0b3d91;
+    color: white;
+
+    border: none;
+    border-radius: 30px;
+
+    font-size: 21px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.create-account-form .submit-account-button:hover {
+    background: #d4af37;
+    transform: translateY(-3px);
+}
+
+/* Mobile */
+
+@media screen and (max-width: 600px) {
+
+    .create-account-card {
+        width: 94%;
+        padding: 25px 18px;
+        margin: 25px auto;
+    }
+
+    .create-account-card h2 {
+        font-size: 26px;
+    }
+
+    .create-account-card p {
+        font-size: 17px;
+    }
+
+    .create-account-form label {
+        font-size: 17px;
+    }
+
+    .create-account-form input[type="text"],
+    .create-account-form input[type="tel"],
+    .create-account-form input[type="email"],
+    .create-account-form input[type="url"],
+    .create-account-form select,
+    .create-account-form textarea {
+
+        min-height: 58px;
+        font-size: 17px;
+        padding: 15px 16px;
+    }
+
+    .create-account-form .submit-account-button {
+        width: 90%;
+        font-size: 19px;
+    }
+}

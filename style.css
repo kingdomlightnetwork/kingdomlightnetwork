@@ -59,13 +59,23 @@ nav a:hover {
     transform: translateY(-3px);
 }
 
-nav a:last-child {
-    background: #d4af37;
-    color: white;
-    border-radius: 25px;
-    padding: 8px 18px;
+/* CREATE ACCOUNT - NAVIGATION BUTTON */
+
+nav a.create-nav-button {
+    background: #d4af37 !important;
+    color: #ffffff !important;
+    border: 2px solid #b8860b !important;
+    border-radius: 25px !important;
+    padding: 9px 18px !important;
+    font-weight: bold !important;
+    display: inline-block !important;
+    text-decoration: none !important;
 }
 
+nav a.create-nav-button:hover {
+    background: #b8860b !important;
+    color: #ffffff !important;
+}
 nav a.active {
     color: #d4af37;
     border-bottom: 3px solid #d4af37;

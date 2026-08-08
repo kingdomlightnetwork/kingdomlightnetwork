@@ -5,81 +5,84 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("Kingdom Light Network is running");
 
+    /* ==============================
+       MOBILE MENU
+    ============================== */
 
-    const menuButton = document.querySelector(".menu-toggle");
+    const menuButton = document.getElementById("menuToggle");
     const nav = document.querySelector("nav");
 
-
-    if (menuButton) {
+    if (menuButton && nav) {
 
         menuButton.addEventListener("click", function () {
 
-          if (nav.classList.contains("show")) {
+            nav.classList.toggle("show");
 
-    nav.classList.remove("show");
+            const isOpen = nav.classList.contains("show");
 
-} else {
+            menuButton.setAttribute(
+                "aria-expanded",
+                isOpen ? "true" : "false"
+            );
 
-    nav.classList.add("show");
-
-} 
+            menuButton.setAttribute(
+                "aria-label",
+                isOpen ? "Close Menu" : "Open Menu"
+            );
 
         });
 
     }
 
 
+    /* ==============================
+       BUTTON CLICK MESSAGE
+    ============================== */
+
     const buttons = document.querySelectorAll("button");
 
-    buttons.forEach(function(button) {
+    buttons.forEach(function (button) {
 
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
 
-            console.log("Button clicked:", button.innerText);
+            console.log(
+                "Button clicked:",
+                button.innerText
+            );
 
         });
 
     });
 
-   
+
+    /* ==============================
+       CREATE ACCOUNT
+    ============================== */
+
+    const openCreateAccount =
+        document.getElementById("openCreateAccount");
+
+    const createAccountForm =
+        document.getElementById("createAccountForm");
+
+    if (openCreateAccount && createAccountForm) {
+
+        openCreateAccount.addEventListener(
+            "click",
+            function () {
+
+                createAccountForm.style.display = "block";
+
+                openCreateAccount.style.display = "none";
+
+                createAccountForm.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }
+        );
+
+    }
+
 });
-
-const openCreateAccount = document.getElementById("openCreateAccount");
-const createAccountForm = document.getElementById("createAccountForm");
-
-if (openCreateAccount && createAccountForm) {
-
-    openCreateAccount.addEventListener("click", function () {
-
-        createAccountForm.style.display = "block";
-
-        openCreateAccount.style.display = "none";
-
-        createAccountForm.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-
-    });
-
-}
-
-const openCreateAccount = document.getElementById("openCreateAccount");
-const createAccountForm = document.getElementById("createAccountForm");
-
-if (openCreateAccount && createAccountForm) {
-
-    openCreateAccount.addEventListener("click", function () {
-
-        createAccountForm.style.display = "block";
-
-        openCreateAccount.style.display = "none";
-
-        createAccountForm.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-
-    });
-
-}

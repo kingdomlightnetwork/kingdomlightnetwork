@@ -723,3 +723,27 @@ nav.show a {
         font-size: 19px;
     }
 }
+
+/* ==============================
+   CREATE ACCOUNT BUTTON
+============================== */
+
+.create-account-button {
+    background: #d4af37 !important;
+    color: #ffffff !important;
+
+    font-size: 19px;
+    font-weight: 800;
+
+    padding: 14px 28px;
+
+    border: none;
+    border-radius: 30px;
+
+    cursor: pointer;
+}
+
+.create-account-button:hover {
+    background: #0b3d91 !important;
+    color: #ffffff !important;
+}

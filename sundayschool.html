@@ -364,55 +364,103 @@ Every child is covered with prayer and God's love.
     <section class="services">
 
 <h2>
-📝 Child Registration Form
+📝 Join Sunday School
 </h2>
 
-<form>
+<p>
+Register your child for Sunday School Bible lessons, prayer, worship and weekly activities.
+</p>
 
-<input type="text" placeholder="Child Name" required>
+<form id="sundaySchoolForm">
+
+<input
+type="text"
+name="childName"
+placeholder="Child Full Name"
+required
+>
+
 <br><br>
 
-<input type="number" placeholder="Child Age" required>
+<input
+type="number"
+name="childAge"
+placeholder="Child Age"
+min="3"
+max="18"
+required
+>
+
 <br><br>
 
-<input type="text" placeholder="Parent Name" required>
+<input
+type="text"
+name="parentName"
+placeholder="Parent / Guardian Name"
+required
+>
+
 <br><br>
 
-<input type="tel" placeholder="WhatsApp Number" required>
+<input
+type="tel"
+name="whatsapp"
+placeholder="Parent WhatsApp Number"
+required
+>
+
 <br><br>
 
-<select>
+<select name="class" required>
 
-<option>
-Select Class
+<option value="">
+Select Sunday School Class
 </option>
 
-<option>
-Nursery Class
+<option value="Nursery">
+👶 Nursery Class
 </option>
 
-<option>
-Junior Class
+<option value="Junior">
+👦 Junior Class
 </option>
 
-<option>
-Youth Bible Class
+<option value="Youth">
+👧 Youth Bible Class
 </option>
 
 </select>
 
 <br><br>
 
-<textarea placeholder="Prayer Request or Message"
-rows="5"></textarea>
+<textarea
+name="prayerRequest"
+placeholder="Prayer Request or Message"
+rows="5">
+</textarea>
+
+<br><br>
+
+<label>
+
+<input
+type="checkbox"
+name="parentConsent"
+required
+>
+
+I am the parent/guardian and I agree to register this child for Sunday School.
+
+<label>
 
 <br><br>
 
 <button type="submit">
-Submit Registration
+🙏 Join Sunday School
 </button>
 
 </form>
+
 
 </section>
     

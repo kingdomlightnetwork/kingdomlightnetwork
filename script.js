@@ -63,3 +63,23 @@ if (openCreateAccount && createAccountForm) {
     });
 
 }
+
+const openCreateAccount = document.getElementById("openCreateAccount");
+const createAccountForm = document.getElementById("createAccountForm");
+
+if (openCreateAccount && createAccountForm) {
+
+    openCreateAccount.addEventListener("click", function () {
+
+        createAccountForm.style.display = "block";
+
+        openCreateAccount.style.display = "none";
+
+        createAccountForm.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    });
+
+}

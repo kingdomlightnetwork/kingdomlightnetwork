@@ -747,3 +747,23 @@ nav.show a {
     background: #0b3d91 !important;
     color: #ffffff !important;
 }
+
+/* Create My Account Button */
+
+button.create-account-button {
+    background: #d4af37 !important;
+    color: #ffffff !important;
+    font-weight: bold !important;
+    font-size: 19px !important;
+    border: none !important;
+    padding: 15px 30px !important;
+    border-radius: 30px !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    opacity: 1 !important;
+}
+
+button.create-account-button:hover {
+    background: #0b3d91 !important;
+    color: #ffffff !important;
+}

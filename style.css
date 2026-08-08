@@ -540,13 +540,3 @@ nav.show a {
     padding: 16px 30px;
     font-size: 21px;
 }
-
-/* Create Account Form - Hidden Until Button Click */
-
-#createAccountForm {
-    display: none;
-}
-
-#createAccountForm {
-    display: none !important;
-}

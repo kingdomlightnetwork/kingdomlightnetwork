@@ -498,3 +498,45 @@ nav.show a {
     font-size: 20px;
     border-radius: 30px;
 }
+
+/* Final Sunday School Form Size */
+
+.services form {
+    max-width: 850px;
+    width: 96%;
+    padding: 45px;
+}
+
+.services form input[type="text"],
+.services form input[type="number"],
+.services form input[type="tel"],
+.services form input[type="email"],
+.services form select,
+.services form textarea {
+    width: 100%;
+    min-height: 62px;
+    padding: 18px 22px;
+    margin: 10px 0;
+    font-size: 20px;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.services form textarea {
+    min-height: 170px;
+}
+
+.services form label {
+    font-size: 19px;
+}
+
+.services form input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+}
+
+.services form button {
+    min-height: 60px;
+    padding: 16px 30px;
+    font-size: 21px;
+}

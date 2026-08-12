@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,143 +11,13 @@
     >
 
     <title>
-        Bible Research Center - Kingdom Light Network
+        Bible Research Center | Kingdom Light Network
     </title>
 
     <link
         rel="stylesheet"
         href="style.css"
     >
-
-    <style>
-
-        /* ==============================
-           BIBLE RESEARCH PAGE
-        ============================== */
-
-        .research-intro {
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto 30px;
-        }
-
-        .research-search-box {
-            max-width: 850px;
-            margin: 25px auto;
-            padding: 25px;
-            background: #ffffff;
-            border-radius: 18px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
-        }
-
-        .research-search-box input,
-        .research-search-box select {
-            width: 100%;
-            padding: 13px;
-            margin: 8px 0 15px;
-            border: 1px solid #d4af37;
-            border-radius: 10px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        .research-search-box button {
-            background: #d4af37;
-            color: #ffffff;
-            border: none;
-            padding: 13px 25px;
-            border-radius: 25px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .research-search-box button:hover {
-            background: #0b3d91;
-        }
-
-        .language-card {
-            text-align: center;
-        }
-
-        .language-card h3 {
-            margin-bottom: 10px;
-        }
-
-        .language-card button {
-            background: #0b3d91;
-            color: #ffffff;
-            border: none;
-            padding: 10px 18px;
-            margin-top: 10px;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-
-        .language-card button:hover {
-            background: #d4af37;
-        }
-
-        .parallel-bible {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 25px;
-            background: #ffffff;
-            border-radius: 18px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
-        }
-
-        .parallel-columns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .bible-column {
-            padding: 20px;
-            border: 1px solid #d4af37;
-            border-radius: 15px;
-            background: #fafafa;
-        }
-
-        .bible-column h3 {
-            color: #0b3d91;
-        }
-
-        .bible-column p {
-            line-height: 1.8;
-        }
-
-        .resource-button {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 10px 20px;
-            background: #d4af37;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 22px;
-            font-weight: bold;
-        }
-
-        .resource-button:hover {
-            background: #0b3d91;
-        }
-
-        @media (max-width: 700px) {
-
-            .parallel-columns {
-                grid-template-columns: 1fr;
-            }
-
-            .research-search-box,
-            .parallel-bible {
-                margin-left: 12px;
-                margin-right: 12px;
-            }
-
-        }
-
-    </style>
 
 </head>
 
@@ -300,13 +169,12 @@
         </h2>
 
         <h3>
-            Search • Compare • Study • Discover
+            Read • Compare • Study • Research
         </h3>
 
         <p>
-            Explore Bible languages, translations,
-            people, places, history, culture and
-            biblical research resources.
+            Explore the Bible by language, testament,
+            book, chapter and verse.
         </p>
 
     </div>
@@ -315,7 +183,7 @@
 
 
 <!-- ==============================
-     BIBLE SEARCH
+     BIBLE SELECTOR
 ============================== -->
 
 <section class="services">
@@ -323,12 +191,16 @@
     <div class="research-intro">
 
         <h2>
-            🔎 Bible Research Search
+            📚 Bible Reading & Research
         </h2>
 
         <p>
-            Search for a Bible passage, verse, person,
-            place, word or topic.
+            Select the Bible language, translation,
+            testament, book, chapter and verse.
+        </p>
+
+        <p>
+            You do not need to type the Bible reference manually.
         </p>
 
     </div>
@@ -336,25 +208,17 @@
 
     <div class="research-search-box">
 
-        <label>
-            Research Topic / Bible Passage
-        </label>
 
-        <input
-            type="text"
-            id="bibleResearchQuery"
-            placeholder="Example: John 3:16, Moses, Jerusalem, Salvation"
-        >
+        <!-- ORIGINAL LANGUAGE -->
 
-
-        <label>
-            Original / Source Language
+        <label for="sourceLanguage">
+            🌍 Original Bible Language
         </label>
 
         <select id="sourceLanguage">
 
             <option value="hebrew">
-                Hebrew
+                🇮🇱 Hebrew
             </option>
 
             <option value="aramaic">
@@ -362,30 +226,16 @@
             </option>
 
             <option value="greek">
-                Greek
-            </option>
-
-            <option value="english">
-                English
-            </option>
-
-            <option value="arabic">
-                Arabic
-            </option>
-
-            <option value="punjabi">
-                Punjabi
-            </option>
-
-            <option value="urdu">
-                Urdu
+                🇬🇷 Koine Greek
             </option>
 
         </select>
 
 
-        <label>
-            Translation / Reading Language
+        <!-- TRANSLATION LANGUAGE -->
+
+        <label for="translationLanguage">
+            🌐 Translation / Reading Language
         </label>
 
         <select id="translationLanguage">
@@ -406,19 +256,127 @@
                 🇸🇦 العربية
             </option>
 
-            <option value="other">
-                🌍 Other Language
+        </select>
+
+
+        <!-- TESTAMENT -->
+
+        <label for="testamentSelect">
+            📜 Testament
+        </label>
+
+        <select id="testamentSelect">
+
+            <option value="">
+                Select Testament
+            </option>
+
+            <option value="old">
+                📜 Old Testament
+            </option>
+
+            <option value="new">
+                ✝️ New Testament
             </option>
 
         </select>
 
 
-        <button
-            type="button"
-            id="bibleResearchButton"
+        <!-- BOOK -->
+
+        <label for="bookSelect">
+            📖 Bible Book
+        </label>
+
+        <select
+            id="bookSelect"
+            disabled
         >
-            🔎 Start Bible Research
-        </button>
+
+            <option value="">
+                Select Bible Book
+            </option>
+
+        </select>
+
+
+        <!-- CHAPTER -->
+
+        <label for="chapterSelect">
+            📑 Chapter
+        </label>
+
+        <select
+            id="chapterSelect"
+            disabled
+        >
+
+            <option value="">
+                Select Chapter
+            </option>
+
+        </select>
+
+
+        <!-- VERSE -->
+
+        <label for="verseSelect">
+            🔢 Verse
+        </label>
+
+        <select
+            id="verseSelect"
+            disabled
+        >
+
+            <option value="">
+                Select Verse
+            </option>
+
+        </select>
+
+
+        <!-- ACTION BUTTONS -->
+
+        <div class="research-action-buttons">
+
+            <button
+                type="button"
+                id="readBibleButton"
+            >
+                📖 Read Bible
+            </button>
+
+
+            <button
+                type="button"
+                id="listenBibleButton"
+            >
+                🔊 Listen
+            </button>
+
+
+            <button
+                type="button"
+                id="researchBibleButton"
+            >
+                🔎 Research
+            </button>
+
+        </div>
+
+
+        <!-- SELECTION RESULT -->
+
+        <div
+            id="bibleSelectionResult"
+            class="research-result"
+        >
+
+            Select a testament, book, chapter and verse.
+
+        </div>
+
 
     </div>
 
@@ -426,60 +384,57 @@
 
 
 <!-- ==============================
-     PARALLEL BIBLE
+     BIBLE BOOKS
 ============================== -->
 
 <section class="services">
 
-    <div class="parallel-bible">
+    <h2>
+        📚 Bible Books
+    </h2>
 
-        <h2>
-            📖 Parallel Bible
-        </h2>
-
-        <p>
-            Read the source language together with
-            an available Urdu or Punjabi translation.
-        </p>
+    <p>
+        The complete Bible contains 66 books.
+        Select a testament above to browse the books.
+    </p>
 
 
-        <div class="parallel-columns">
+    <div class="cards">
 
 
-            <div class="bible-column">
+        <div class="card">
 
-                <h3>
-                    📜 Source / Original Text
-                </h3>
+            <h3>
+                📜 Old Testament
+            </h3>
 
-                <p>
-                    Hebrew • Aramaic • Greek • English
-                </p>
+            <p>
+                39 Books
+            </p>
 
-                <p>
-                    Select a passage and an available
-                    licensed or open Bible resource.
-                </p>
-
-            </div>
-
-
-            <div class="bible-column">
-
-                <h3>
-                    🇵🇰 اردو ترجمہ
-                </h3>
-
-                <p>
-                    یہاں منتخب passage کا دستیاب اور
-                    قانونی طور پر استعمال ہونے والا اردو
-                    ترجمہ دکھایا جائے گا۔
-                </p>
-
-            </div>
-
+            <p>
+                Law • History • Poetry • Prophets
+            </p>
 
         </div>
+
+
+        <div class="card">
+
+            <h3>
+                ✝️ New Testament
+            </h3>
+
+            <p>
+                27 Books
+            </p>
+
+            <p>
+                Gospels • Acts • Letters • Revelation
+            </p>
+
+        </div>
+
 
     </div>
 
@@ -497,7 +452,7 @@
     </h2>
 
     <p>
-        Choose a language for Bible reading and research.
+        Bible reading and research languages.
     </p>
 
 
@@ -511,12 +466,8 @@
             </h3>
 
             <p>
-                Urdu Bible Research
+                Urdu Bible Reading & Research
             </p>
-
-            <button>
-                Open Urdu Resources
-            </button>
 
         </div>
 
@@ -528,12 +479,8 @@
             </h3>
 
             <p>
-                Punjabi Bible Research
+                Punjabi Bible Reading & Research
             </p>
-
-            <button>
-                Open Punjabi Resources
-            </button>
 
         </div>
 
@@ -545,12 +492,8 @@
             </h3>
 
             <p>
-                English Bible Research
+                English Bible Reading & Research
             </p>
-
-            <button>
-                Open English Resources
-            </button>
 
         </div>
 
@@ -565,10 +508,6 @@
                 Hebrew Old Testament Research
             </p>
 
-            <button>
-                Open Hebrew Resources
-            </button>
-
         </div>
 
 
@@ -582,26 +521,18 @@
                 Koine Greek New Testament Research
             </p>
 
-            <button>
-                Open Greek Resources
-            </button>
-
         </div>
 
 
         <div class="card language-card">
 
             <h3>
-                🇸🇦 Arabic
+                🇸🇦 العربية
             </h3>
 
             <p>
-                Arabic Bible Research
+                Arabic Bible Reading & Research
             </p>
-
-            <button>
-                Open Arabic Resources
-            </button>
 
         </div>
 
@@ -612,15 +543,14 @@
 
 
 <!-- ==============================
-     RESEARCH CATEGORIES
+     RESEARCH AREAS
 ============================== -->
 
 <section class="services">
 
     <h2>
-        📚 Bible Research Categories
+        🔎 Bible Research Areas
     </h2>
-
 
     <div class="cards">
 
@@ -632,8 +562,8 @@
             </h3>
 
             <p>
-                Prophets, apostles, kings,
-                disciples and biblical families.
+                Research biblical people,
+                families, prophets, apostles and leaders.
             </p>
 
         </div>
@@ -642,12 +572,12 @@
         <div class="card">
 
             <h3>
-                🗺️ Bible Places
+                🗺️ Bible Geography
             </h3>
 
             <p>
-                Jerusalem, Bethlehem, Nazareth,
-                Canaan, Galilee and other biblical places.
+                Research countries, cities,
+                rivers, mountains and ancient locations.
             </p>
 
         </div>
@@ -656,21 +586,7 @@
         <div class="card">
 
             <h3>
-                🔤 Word Research
-            </h3>
-
-            <p>
-                Hebrew, Aramaic and Greek words,
-                meanings and usage.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                🏛️ History & Culture
+                🏛️ Bible History
             </h3>
 
             <p>
@@ -684,12 +600,12 @@
         <div class="card">
 
             <h3>
-                🏺 Archaeology
+                🗣️ Bible Languages
             </h3>
 
             <p>
-                Archaeological discoveries related
-                to biblical history.
+                Hebrew, Aramaic, Greek and
+                translation studies.
             </p>
 
         </div>
@@ -698,12 +614,26 @@
         <div class="card">
 
             <h3>
-                📑 Bible Topics
+                📜 Prophecy
             </h3>
 
             <p>
-                Search biblical themes, doctrines,
-                subjects and cross references.
+                Research biblical prophecy,
+                prophetic books and fulfillment.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                ✝️ Jesus Christ
+            </h3>
+
+            <p>
+                Research the life, ministry,
+                teachings, death and resurrection of Jesus.
             </p>
 
         </div>
@@ -715,19 +645,18 @@
 
 
 <!-- ==============================
-     FREE RESOURCES
+     AUDIO & AI
 ============================== -->
 
 <section class="services">
 
     <h2>
-        🔗 Free Bible Resources
+        🔊 Bible Audio & AI Reading
     </h2>
 
     <p>
-        We will connect this section with
-        appropriate official, free or open-license
-        Bible resources.
+        Listen to selected Bible passages where
+        reliable audio resources are available.
     </p>
 
 
@@ -737,13 +666,20 @@
         <div class="card">
 
             <h3>
-                📖 Bible Reading Resources
+                🔊 Bible Audio
             </h3>
 
             <p>
-                Free online Bible reading resources
-                in multiple languages.
+                Listen to Bible passages using
+                available audio resources.
             </p>
+
+            <button
+                type="button"
+                id="audioBibleButton"
+            >
+                🔊 Play Audio
+            </button>
 
         </div>
 
@@ -751,30 +687,49 @@
         <div class="card">
 
             <h3>
-                🎧 Audio Bible
+                🤖 AI Audio Reading
             </h3>
 
             <p>
-                Available audio Bible resources
-                and listening platforms.
+                Future AI voice reading system
+                for selected Bible passages.
             </p>
+
+            <button
+                type="button"
+                id="aiAudioBibleButton"
+            >
+                🤖 AI Read Aloud
+            </button>
 
         </div>
 
 
-        <div class="card">
+    </div>
 
-            <h3>
-                📚 Bible Study Resources
-            </h3>
+</section>
 
-            <p>
-                Dictionaries, commentaries,
-                lexicons and study resources.
-            </p>
 
-        </div>
+<!-- ==============================
+     RESEARCH RESULT
+============================== -->
 
+<section class="services">
+
+    <h2>
+        🔎 Research Result
+    </h2>
+
+
+    <div
+        id="researchResult"
+        class="card"
+    >
+
+        <p>
+            Select a Bible reference above and
+            press Research.
+        </p>
 
     </div>
 
@@ -804,7 +759,7 @@
 
 
 <!-- ==============================
-     SCRIPTS
+     JAVASCRIPT FILES
 ============================== -->
 
 <script src="script.js"></script>
@@ -813,62 +768,11 @@
 
 <script src="language.js"></script>
 
-
-<script>
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        const searchButton =
-            document.getElementById(
-                "bibleResearchButton"
-            );
-
-        const queryInput =
-            document.getElementById(
-                "bibleResearchQuery"
-            );
-
-
-        if (searchButton && queryInput) {
-
-            searchButton.addEventListener(
-                "click",
-                function () {
-
-                    const query =
-                        queryInput.value.trim();
-
-                    if (!query) {
-
-                        alert(
-                            "Please enter a Bible passage, word, person, place or topic."
-                        );
-
-                        queryInput.focus();
-
-                        return;
-
-                    }
-
-                    alert(
-                        "Bible Research system is ready for this search: "
-                        + query
-                    );
-
-                }
-            );
-
-        }
-
-    }
-
-);
-
-</script>
+<script src="bible-research.js"></script>
 
 
 </body>
 
 </html>
+
+

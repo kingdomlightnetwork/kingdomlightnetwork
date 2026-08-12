@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("Kingdom Light Network is running");
 
+
     /* ==============================
        MOBILE MENU
     ============================== */
@@ -79,6 +80,69 @@ document.addEventListener("DOMContentLoaded", function () {
                     behavior: "smooth",
                     block: "start"
                 });
+
+            }
+        );
+
+    }
+
+
+    /* ==============================
+       RESEARCH SEARCH
+    ============================== */
+
+    const researchQuery =
+        document.getElementById("researchQuery");
+
+    const researchSearchButton =
+        document.getElementById("researchSearchButton");
+
+
+    if (researchQuery && researchSearchButton) {
+
+        researchSearchButton.addEventListener(
+            "click",
+            function () {
+
+                const query =
+                    researchQuery.value.trim();
+
+
+                if (query === "") {
+
+                    alert(
+                        "Please enter a topic you want to research."
+                    );
+
+                    researchQuery.focus();
+
+                    return;
+                }
+
+
+                const searchURL =
+                    "https://www.google.com/search?q=" +
+                    encodeURIComponent(query);
+
+
+                window.open(
+                    searchURL,
+                    "_blank"
+                );
+
+            }
+        );
+
+
+        researchQuery.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Enter") {
+
+                    researchSearchButton.click();
+
+                }
 
             }
         );

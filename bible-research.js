@@ -5,12 +5,18 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("Bible Research System Loaded");
+    console.log("Bible Research System is running");
 
 
     // =================================================
     // ELEMENTS
     // =================================================
+
+    const sourceLanguage =
+        document.getElementById("sourceLanguage");
+
+    const translationLanguage =
+        document.getElementById("translationLanguage");
 
     const testamentSelect =
         document.getElementById("testamentSelect");
@@ -24,15 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const verseSelect =
         document.getElementById("verseSelect");
 
-    const sourceLanguage =
-        document.getElementById("sourceLanguage");
-
-    const translationLanguage =
-        document.getElementById("translationLanguage");
-
-    const selectedReference =
-        document.getElementById("selectedReference");
-
     const readBibleButton =
         document.getElementById("readBibleButton");
 
@@ -44,104 +41,364 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =================================================
-    // BIBLE BOOKS
+    // BIBLE BOOK DATA
     // =================================================
 
-    const oldTestament = [
+    const bibleBooks = {
 
-        ["Genesis", 50],
-        ["Exodus", 40],
-        ["Leviticus", 27],
-        ["Numbers", 36],
-        ["Deuteronomy", 34],
-        ["Joshua", 24],
-        ["Judges", 21],
-        ["Ruth", 4],
-        ["1 Samuel", 31],
-        ["2 Samuel", 24],
-        ["1 Kings", 22],
-        ["2 Kings", 25],
-        ["1 Chronicles", 29],
-        ["2 Chronicles", 36],
-        ["Ezra", 10],
-        ["Nehemiah", 13],
-        ["Esther", 10],
-        ["Job", 42],
-        ["Psalms", 150],
-        ["Proverbs", 31],
-        ["Ecclesiastes", 12],
-        ["Song of Solomon", 8],
-        ["Isaiah", 66],
-        ["Jeremiah", 52],
-        ["Lamentations", 5],
-        ["Ezekiel", 48],
-        ["Daniel", 12],
-        ["Hosea", 14],
-        ["Joel", 3],
-        ["Amos", 9],
-        ["Obadiah", 1],
-        ["Jonah", 4],
-        ["Micah", 7],
-        ["Nahum", 3],
-        ["Habakkuk", 3],
-        ["Zephaniah", 3],
-        ["Haggai", 2],
-        ["Zechariah", 14],
-        ["Malachi", 4]
+        old: [
 
-    ];
+            {
+                name: "Genesis",
+                chapters: 50
+            },
+
+            {
+                name: "Exodus",
+                chapters: 40
+            },
+
+            {
+                name: "Leviticus",
+                chapters: 27
+            },
+
+            {
+                name: "Numbers",
+                chapters: 36
+            },
+
+            {
+                name: "Deuteronomy",
+                chapters: 34
+            },
+
+            {
+                name: "Joshua",
+                chapters: 24
+            },
+
+            {
+                name: "Judges",
+                chapters: 21
+            },
+
+            {
+                name: "Ruth",
+                chapters: 4
+            },
+
+            {
+                name: "1 Samuel",
+                chapters: 31
+            },
+
+            {
+                name: "2 Samuel",
+                chapters: 24
+            },
+
+            {
+                name: "1 Kings",
+                chapters: 22
+            },
+
+            {
+                name: "2 Kings",
+                chapters: 25
+            },
+
+            {
+                name: "1 Chronicles",
+                chapters: 29
+            },
+
+            {
+                name: "2 Chronicles",
+                chapters: 36
+            },
+
+            {
+                name: "Ezra",
+                chapters: 10
+            },
+
+            {
+                name: "Nehemiah",
+                chapters: 13
+            },
+
+            {
+                name: "Esther",
+                chapters: 10
+            },
+
+            {
+                name: "Job",
+                chapters: 42
+            },
+
+            {
+                name: "Psalms",
+                chapters: 150
+            },
+
+            {
+                name: "Proverbs",
+                chapters: 31
+            },
+
+            {
+                name: "Ecclesiastes",
+                chapters: 12
+            },
+
+            {
+                name: "Song of Solomon",
+                chapters: 8
+            },
+
+            {
+                name: "Isaiah",
+                chapters: 66
+            },
+
+            {
+                name: "Jeremiah",
+                chapters: 52
+            },
+
+            {
+                name: "Lamentations",
+                chapters: 5
+            },
+
+            {
+                name: "Ezekiel",
+                chapters: 48
+            },
+
+            {
+                name: "Daniel",
+                chapters: 12
+            },
+
+            {
+                name: "Hosea",
+                chapters: 14
+            },
+
+            {
+                name: "Joel",
+                chapters: 3
+            },
+
+            {
+                name: "Amos",
+                chapters: 9
+            },
+
+            {
+                name: "Obadiah",
+                chapters: 1
+            },
+
+            {
+                name: "Jonah",
+                chapters: 4
+            },
+
+            {
+                name: "Micah",
+                chapters: 7
+            },
+
+            {
+                name: "Nahum",
+                chapters: 3
+            },
+
+            {
+                name: "Habakkuk",
+                chapters: 3
+            },
+
+            {
+                name: "Zephaniah",
+                chapters: 3
+            },
+
+            {
+                name: "Haggai",
+                chapters: 2
+            },
+
+            {
+                name: "Zechariah",
+                chapters: 14
+            },
+
+            {
+                name: "Malachi",
+                chapters: 4
+            }
+
+        ],
 
 
-    const newTestament = [
+        new: [
 
-        ["Matthew", 28],
-        ["Mark", 16],
-        ["Luke", 24],
-        ["John", 21],
-        ["Acts", 28],
-        ["Romans", 16],
-        ["1 Corinthians", 16],
-        ["2 Corinthians", 13],
-        ["Galatians", 6],
-        ["Ephesians", 6],
-        ["Philippians", 4],
-        ["Colossians", 4],
-        ["1 Thessalonians", 5],
-        ["2 Thessalonians", 3],
-        ["1 Timothy", 6],
-        ["2 Timothy", 4],
-        ["Titus", 3],
-        ["Philemon", 1],
-        ["Hebrews", 13],
-        ["James", 5],
-        ["1 Peter", 5],
-        ["2 Peter", 3],
-        ["1 John", 5],
-        ["2 John", 1],
-        ["3 John", 1],
-        ["Jude", 1],
-        ["Revelation", 22]
+            {
+                name: "Matthew",
+                chapters: 28
+            },
 
-    ];
+            {
+                name: "Mark",
+                chapters: 16
+            },
+
+            {
+                name: "Luke",
+                chapters: 24
+            },
+
+            {
+                name: "John",
+                chapters: 21
+            },
+
+            {
+                name: "Acts",
+                chapters: 28
+            },
+
+            {
+                name: "Romans",
+                chapters: 16
+            },
+
+            {
+                name: "1 Corinthians",
+                chapters: 16
+            },
+
+            {
+                name: "2 Corinthians",
+                chapters: 13
+            },
+
+            {
+                name: "Galatians",
+                chapters: 6
+            },
+
+            {
+                name: "Ephesians",
+                chapters: 6
+            },
+
+            {
+                name: "Philippians",
+                chapters: 4
+            },
+
+            {
+                name: "Colossians",
+                chapters: 4
+            },
+
+            {
+                name: "1 Thessalonians",
+                chapters: 5
+            },
+
+            {
+                name: "2 Thessalonians",
+                chapters: 3
+            },
+
+            {
+                name: "1 Timothy",
+                chapters: 6
+            },
+
+            {
+                name: "2 Timothy",
+                chapters: 4
+            },
+
+            {
+                name: "Titus",
+                chapters: 3
+            },
+
+            {
+                name: "Philemon",
+                chapters: 1
+            },
+
+            {
+                name: "Hebrews",
+                chapters: 13
+            },
+
+            {
+                name: "James",
+                chapters: 5
+            },
+
+            {
+                name: "1 Peter",
+                chapters: 5
+            },
+
+            {
+                name: "2 Peter",
+                chapters: 3
+            },
+
+            {
+                name: "1 John",
+                chapters: 5
+            },
+
+            {
+                name: "2 John",
+                chapters: 1
+            },
+
+            {
+                name: "3 John",
+                chapters: 1
+            },
+
+            {
+                name: "Jude",
+                chapters: 1
+            },
+
+            {
+                name: "Revelation",
+                chapters: 22
+            }
+
+        ]
+
+    };
 
 
     // =================================================
-    // TEMPORARY VERSE COUNTS
+    // RESET SELECT
     // =================================================
 
-    // This allows the complete selector system to work.
-    // Exact verse counts will be added in the next stage.
+    function resetSelect(selectElement, text) {
 
-    const defaultVerseCount = 176;
+        if (!selectElement) {
+            return;
+        }
 
-
-    // =================================================
-    // RESET FUNCTION
-    // =================================================
-
-    function resetSelect(select, text) {
-
-        select.innerHTML = "";
+        selectElement.innerHTML = "";
 
         const option =
             document.createElement("option");
@@ -149,439 +406,387 @@ document.addEventListener("DOMContentLoaded", function () {
         option.value = "";
         option.textContent = text;
 
-        select.appendChild(option);
+        selectElement.appendChild(option);
+    }
+
+
+    // =================================================
+    // LOAD BIBLE BOOKS
+    // =================================================
+
+    function loadBibleBooks(testament) {
+
+        resetSelect(
+            bookSelect,
+            "Select Bible Book"
+        );
+
+        resetSelect(
+            chapterSelect,
+            "Select Chapter"
+        );
+
+        resetSelect(
+            verseSelect,
+            "Select Verse"
+        );
+
+
+        if (!testament) {
+            return;
+        }
+
+
+        const books =
+            bibleBooks[testament];
+
+
+        books.forEach(function (book, index) {
+
+            const option =
+                document.createElement("option");
+
+            option.value = index;
+
+            option.textContent =
+                "📖 " + book.name;
+
+            bookSelect.appendChild(option);
+
+        });
 
     }
 
 
     // =================================================
-    // INITIAL SETUP
+    // LOAD CHAPTERS
     // =================================================
 
-    resetSelect(
-        bookSelect,
-        "Select Bible Book"
-    );
+    function loadChapters(testament, bookIndex) {
 
-    resetSelect(
-        chapterSelect,
-        "Select Chapter"
-    );
+        resetSelect(
+            chapterSelect,
+            "Select Chapter"
+        );
 
-    resetSelect(
-        verseSelect,
-        "Select Verse"
-    );
+        resetSelect(
+            verseSelect,
+            "Select Verse"
+        );
 
-
-    // =================================================
-    // TESTAMENT → BOOKS
-    // =================================================
-
-    testamentSelect.addEventListener(
-        "change",
-        function () {
-
-            resetSelect(
-                bookSelect,
-                "Select Bible Book"
-            );
-
-            resetSelect(
-                chapterSelect,
-                "Select Chapter"
-            );
-
-            resetSelect(
-                verseSelect,
-                "Select Verse"
-            );
-
-
-            chapterSelect.disabled = true;
-            verseSelect.disabled = true;
-
-
-            let books = [];
-
-
-            if (
-                testamentSelect.value === "old"
-            ) {
-
-                books = oldTestament;
-
-            }
-
-
-            if (
-                testamentSelect.value === "new"
-            ) {
-
-                books = newTestament;
-
-            }
-
-
-            books.forEach(
-                function (book, index) {
-
-                    const option =
-                        document.createElement("option");
-
-                    option.value = index;
-
-                    option.textContent =
-                        book[0];
-
-                    bookSelect.appendChild(
-                        option
-                    );
-
-                }
-            );
-
-
-            bookSelect.disabled =
-                books.length === 0;
-
-        }
-    );
-
-
-    // =================================================
-    // BOOK → CHAPTERS
-    // =================================================
-
-    bookSelect.addEventListener(
-        "change",
-        function () {
-
-            resetSelect(
-                chapterSelect,
-                "Select Chapter"
-            );
-
-            resetSelect(
-                verseSelect,
-                "Select Verse"
-            );
-
-
-            verseSelect.disabled = true;
-
-
-            let books = [];
-
-
-            if (
-                testamentSelect.value === "old"
-            ) {
-
-                books = oldTestament;
-
-            }
-
-
-            if (
-                testamentSelect.value === "new"
-            ) {
-
-                books = newTestament;
-
-            }
-
-
-            const selectedBook =
-                books[
-                    Number(bookSelect.value)
-                ];
-
-
-            if (!selectedBook) {
-
-                chapterSelect.disabled =
-                    true;
-
-                return;
-
-            }
-
-
-            const chapterCount =
-                selectedBook[1];
-
-
-            for (
-                let i = 1;
-                i <= chapterCount;
-                i++
-            ) {
-
-                const option =
-                    document.createElement("option");
-
-                option.value = i;
-
-                option.textContent =
-                    "Chapter " + i;
-
-                chapterSelect.appendChild(
-                    option
-                );
-
-            }
-
-
-            chapterSelect.disabled = false;
-
-        }
-    );
-
-
-    // =================================================
-    // CHAPTER → VERSES
-    // =================================================
-
-    chapterSelect.addEventListener(
-        "change",
-        function () {
-
-            resetSelect(
-                verseSelect,
-                "Select Verse"
-            );
-
-
-            if (
-                chapterSelect.value === ""
-            ) {
-
-                verseSelect.disabled = true;
-
-                return;
-
-            }
-
-
-            for (
-                let i = 1;
-                i <= defaultVerseCount;
-                i++
-            ) {
-
-                const option =
-                    document.createElement("option");
-
-                option.value = i;
-
-                option.textContent =
-                    "Verse " + i;
-
-                verseSelect.appendChild(
-                    option
-                );
-
-            }
-
-
-            verseSelect.disabled = false;
-
-        }
-    );
-
-
-    // =================================================
-    // UPDATE REFERENCE
-    // =================================================
-
-    function updateReference() {
 
         if (
-            testamentSelect.value === "" ||
-            bookSelect.value === "" ||
-            chapterSelect.value === "" ||
-            verseSelect.value === ""
+            !testament ||
+            bookIndex === ""
         ) {
-
-            selectedReference.textContent =
-                "Select a testament, book, chapter and verse.";
-
             return;
-
         }
 
 
-        const bookName =
-            bookSelect.options[
-                bookSelect.selectedIndex
-            ].textContent;
+        const book =
+            bibleBooks[testament][bookIndex];
 
 
-        const chapter =
-            chapterSelect.value;
+        for (
+            let chapter = 1;
+            chapter <= book.chapters;
+            chapter++
+        ) {
 
+            const option =
+                document.createElement("option");
 
-        const verse =
-            verseSelect.value;
+            option.value = chapter;
 
+            option.textContent =
+                "📑 Chapter " + chapter;
 
-        const language =
-            translationLanguage.value;
+            chapterSelect.appendChild(option);
 
-
-        selectedReference.textContent =
-            bookName +
-            " " +
-            chapter +
-            ":" +
-            verse +
-            " — " +
-            language;
+        }
 
     }
 
 
-    bookSelect.addEventListener(
-        "change",
-        updateReference
-    );
+    // =================================================
+    // LOAD VERSES
+    // =================================================
 
-    chapterSelect.addEventListener(
-        "change",
-        updateReference
-    );
+    function loadVerses(testament, bookIndex, chapter) {
 
-    verseSelect.addEventListener(
-        "change",
-        updateReference
-    );
+        resetSelect(
+            verseSelect,
+            "Select Verse"
+        );
 
-    translationLanguage.addEventListener(
-        "change",
-        updateReference
-    );
+
+        if (
+            !testament ||
+            bookIndex === "" ||
+            chapter === ""
+        ) {
+            return;
+        }
+
+
+        /*
+         * TEMPORARY VERSE LIST
+         *
+         * This creates verse numbers so the
+         * dropdown system works immediately.
+         *
+         * Exact verse counts for all 66 books
+         * will be added in the next stage.
+         */
+
+        const defaultVerseCount = 176;
+
+
+        for (
+            let verse = 1;
+            verse <= defaultVerseCount;
+            verse++
+        ) {
+
+            const option =
+                document.createElement("option");
+
+            option.value = verse;
+
+            option.textContent =
+                "🔢 Verse " + verse;
+
+            verseSelect.appendChild(option);
+
+        }
+
+    }
+
+
+    // =================================================
+    // TESTAMENT CHANGE
+    // =================================================
+
+    if (testamentSelect) {
+
+        testamentSelect.addEventListener(
+            "change",
+            function () {
+
+                loadBibleBooks(
+                    testamentSelect.value
+                );
+
+            }
+        );
+
+    }
+
+
+    // =================================================
+    // BOOK CHANGE
+    // =================================================
+
+    if (bookSelect) {
+
+        bookSelect.addEventListener(
+            "change",
+            function () {
+
+                loadChapters(
+                    testamentSelect.value,
+                    bookSelect.value
+                );
+
+            }
+        );
+
+    }
+
+
+    // =================================================
+    // CHAPTER CHANGE
+    // =================================================
+
+    if (chapterSelect) {
+
+        chapterSelect.addEventListener(
+            "change",
+            function () {
+
+                loadVerses(
+                    testamentSelect.value,
+                    bookSelect.value,
+                    chapterSelect.value
+                );
+
+            }
+        );
+
+    }
 
 
     // =================================================
     // READ BIBLE
     // =================================================
 
-    readBibleButton.addEventListener(
-        "click",
-        function () {
+    if (readBibleButton) {
 
-            updateReference();
+        readBibleButton.addEventListener(
+            "click",
+            function () {
 
-            if (
-                verseSelect.value === ""
-            ) {
+                if (
+                    testamentSelect.value === "" ||
+                    bookSelect.value === "" ||
+                    chapterSelect.value === "" ||
+                    verseSelect.value === ""
+                ) {
+
+                    alert(
+                        "Please select Testament, Book, Chapter and Verse."
+                    );
+
+                    return;
+                }
+
+
+                const book =
+                    bibleBooks[
+                        testamentSelect.value
+                    ][bookSelect.value];
+
+
+                const reference =
+                    book.name +
+                    " " +
+                    chapterSelect.value +
+                    ":" +
+                    verseSelect.value;
+
 
                 alert(
-                    "Please select Testament, Book, Chapter and Verse."
+                    "Bible reference selected:\n\n" +
+                    reference
                 );
 
-                return;
-
             }
+        );
 
-
-            alert(
-                "Bible reading system is ready. Bible text will be connected in the next stage."
-            );
-
-        }
-    );
+    }
 
 
     // =================================================
     // LISTEN
     // =================================================
 
-    listenBibleButton.addEventListener(
-        "click",
-        function () {
+    if (listenBibleButton) {
 
-            if (
-                verseSelect.value === ""
-            ) {
+        listenBibleButton.addEventListener(
+            "click",
+            function () {
 
-                alert(
-                    "Please select a Bible verse first."
-                );
+                if (
+                    verseSelect.value === ""
+                ) {
 
-                return;
+                    alert(
+                        "Please select a verse first."
+                    );
+
+                    return;
+                }
+
+
+                const text =
+                    "Bible verse " +
+                    verseSelect.value;
+
+
+                if (
+                    "speechSynthesis" in window
+                ) {
+
+                    const speech =
+                        new SpeechSynthesisUtterance(
+                            text
+                        );
+
+                    speech.lang = "en-US";
+
+                    window.speechSynthesis.speak(
+                        speech
+                    );
+
+                } else {
+
+                    alert(
+                        "Audio speech is not supported in this browser."
+                    );
+
+                }
 
             }
+        );
 
-
-            alert(
-                "Audio Bible system will be connected in the next stage."
-            );
-
-        }
-    );
+    }
 
 
     // =================================================
     // RESEARCH
     // =================================================
 
-    researchBibleButton.addEventListener(
-        "click",
-        function () {
+    if (researchBibleButton) {
 
-            if (
-                verseSelect.value === ""
-            ) {
+        researchBibleButton.addEventListener(
+            "click",
+            function () {
 
-                alert(
-                    "Please select a Bible verse first."
+                if (
+                    testamentSelect.value === "" ||
+                    bookSelect.value === "" ||
+                    chapterSelect.value === "" ||
+                    verseSelect.value === ""
+                ) {
+
+                    alert(
+                        "Please select Testament, Book, Chapter and Verse."
+                    );
+
+                    return;
+                }
+
+
+                const book =
+                    bibleBooks[
+                        testamentSelect.value
+                    ][bookSelect.value];
+
+
+                const reference =
+                    book.name +
+                    " " +
+                    chapterSelect.value +
+                    ":" +
+                    verseSelect.value;
+
+
+                const url =
+                    "https://www.google.com/search?q=" +
+                    encodeURIComponent(
+                        reference + " Bible"
+                    );
+
+
+                window.open(
+                    url,
+                    "_blank"
                 );
-
-                return;
 
             }
+        );
 
+    }
 
-            const book =
-                bookSelect.options[
-                    bookSelect.selectedIndex
-                ].textContent;
-
-
-            const chapter =
-                chapterSelect.value;
-
-
-            const verse =
-                verseSelect.value;
-
-
-            const researchQuery =
-                encodeURIComponent(
-                    book +
-                    " " +
-                    chapter +
-                    ":" +
-                    verse
-                );
-
-
-            window.location.href =
-                "research.html?query=" +
-                researchQuery;
-
-        }
-    );
-
-
-    // =================================================
-    // FINISHED
-    // =================================================
-
-    console.log(
-        "Bible Book → Chapter → Verse system ready"
-    );
 
 });

@@ -1,3 +1,4 @@
+console.log("BIBLE RESEARCH JS LOADED");
 // ======================================================
 // KINGDOM LIGHT NETWORK
 // BIBLE RESEARCH SYSTEM
@@ -322,6 +323,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     console.log(
+
+        console.log("BIBLE RESEARCH JS FINISHED");
         "Bible Research Selector Loaded Successfully"
     );
 

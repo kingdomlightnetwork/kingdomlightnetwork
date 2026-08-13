@@ -765,3 +765,183 @@ nav.show a {
     background-color: #0b3d91 !important;
     color: #ffffff !important;
 }
+
+/* =====================================================
+   BIBLE RESEARCH SELECTOR - PROFESSIONAL DESIGN
+===================================================== */
+
+.research-search-box {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+/* LABELS */
+
+.research-search-box label {
+    display: block;
+    max-width: 760px;
+    margin: 18px auto 8px auto;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    color: #333333;
+}
+
+
+/* SELECT BOXES */
+
+.research-search-box select {
+    display: block;
+
+    width: 100%;
+    max-width: 760px;
+
+    height: 48px;
+
+    margin: 0 auto 18px auto;
+    padding: 0 14px;
+
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    font-size: 16px;
+    color: #222222;
+
+    cursor: pointer;
+
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+
+/* SELECT HOVER */
+
+.research-search-box select:hover {
+    border-color: #777777;
+}
+
+
+/* SELECT FOCUS */
+
+.research-search-box select:focus {
+    border-color: #444444;
+
+    box-shadow:
+        0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ACTION BUTTON AREA */
+
+.research-actions {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 28px;
+}
+
+
+/* ACTION BUTTONS */
+
+.research-actions button {
+    min-width: 150px;
+
+    padding: 12px 20px;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* BUTTON HOVER */
+
+.research-actions button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+/* REFERENCE RESULT */
+
+#bibleResult {
+    max-width: 760px;
+
+    margin: 30px auto 0 auto;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    background: #f7f7f7;
+
+    text-align: center;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .research-search-box {
+        width: calc(100% - 30px);
+
+        margin: 20px auto;
+
+        padding: 20px;
+    }
+
+
+    .research-search-box select {
+        width: 100%;
+
+        height: 50px;
+
+        font-size: 16px;
+    }
+
+
+    .research-search-box label {
+        font-size: 15px;
+    }
+
+
+    .research-actions {
+        flex-direction: column;
+    }
+
+
+    .research-actions button {
+        width: 100%;
+
+        max-width: 350px;
+    }
+
+}

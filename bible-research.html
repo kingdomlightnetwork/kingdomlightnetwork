@@ -2,84 +2,39 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>Bible Research | Kingdom Light Network</title>
 
-    <title>
-        Bible Research Center | Kingdom Light Network
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-
-<!-- ==============================
-     HEADER
-============================== -->
-
 <header>
-
     <div class="logo-area">
 
         <div class="logo-placeholder">
-
             <img
                 src="images/paster%201.png"
                 alt="Kingdom Light Network Logo"
             >
-
         </div>
-
 
         <div>
-
-            <h1>
-                Kingdom Light Network
-            </h1>
-
-            <p>
-                Powered by Christ Church
-            </p>
-
+            <h1>Kingdom Light Network</h1>
+            <p>Powered by Christ Church</p>
         </div>
 
-
         <div class="header-icons">
-
-            <span>
-                🔍 Search
-            </span>
-
-            <span>
-                🌐 Language
-            </span>
-
-            <span>
-                👤 Account
-            </span>
-
+            <span>🔍 Search</span>
+            <span>🌐 Language</span>
+            <span>👤 Account</span>
         </div>
 
     </div>
-
 </header>
-
-
-<!-- ==============================
-     MOBILE MENU
-============================== -->
 
 <button
     class="menu-toggle"
@@ -91,60 +46,24 @@
     ☰
 </button>
 
-
-<!-- ==============================
-     NAVIGATION
-============================== -->
-
 <nav>
 
-    <a href="index.html">
-        Home
-    </a>
-
-    <a href="live.html">
-        Live
-    </a>
-
-    <a href="sermons.html">
-        Sermons
-    </a>
-
-    <a href="bible.html">
-        Bible
-    </a>
-
-    <a href="sundayschool.html">
-        📚 Sunday School
-    </a>
-
-    <a href="ai.html">
-        AI
-    </a>
-
-    <a href="welfare.html">
-        ❤️ Welfare
-    </a>
-
-    <a href="prayer.html">
-        Prayer
-    </a>
-
-    <a href="media.html">
-        Media
-    </a>
+    <a href="index.html">Home</a>
+    <a href="live.html">Live</a>
+    <a href="sermons.html">Sermons</a>
+    <a href="bible.html">Bible</a>
+    <a href="sundayschool.html">📚 Sunday School</a>
+    <a href="ai.html">AI</a>
+    <a href="welfare.html">❤️ Welfare</a>
+    <a href="prayer.html">Prayer</a>
+    <a href="media.html">Media</a>
 
     <a href="research.html">
         🔎 Research
     </a>
 
-    <a href="contact.html">
-        Contact
-    </a>
-
-    <a href="register.html">
-        📝 Register
-    </a>
+    <a href="contact.html">Contact</a>
+    <a href="register.html">📝 Register</a>
 
     <a
         href="create-account.html"
@@ -156,48 +75,16 @@
 </nav>
 
 
-<!-- ==============================
-     HERO
-============================== -->
-
 <section class="hero">
 
     <div class="hero-content">
 
-        <h2>
-            📖 Bible Research Center
-        </h2>
+        <h2>📖 Bible Reading & Research</h2>
 
         <h3>
-            Read • Compare • Study • Research
-        </h3>
-
-        <p>
-            Explore the Bible by language, testament,
-            book, chapter and verse.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- ==============================
-     BIBLE SELECTOR
-============================== -->
-
-<section class="services">
-
-    <div class="research-intro">
-
-        <h2>
-            📚 Bible Reading & Research
-        </h2>
-
-        <p>
-            Select the Bible language, translation,
+            Select a Bible language, translation,
             testament, book, chapter and verse.
-        </p>
+        </h3>
 
         <p>
             You do not need to type the Bible reference manually.
@@ -205,6 +92,12 @@
 
     </div>
 
+</section>
+
+
+<section class="services">
+
+    <h2>📖 Bible Selector</h2>
 
     <div class="research-search-box">
 
@@ -232,7 +125,7 @@
         </select>
 
 
-        <!-- TRANSLATION LANGUAGE -->
+        <!-- READING LANGUAGE -->
 
         <label for="translationLanguage">
             🌐 Translation / Reading Language
@@ -288,10 +181,7 @@
             📖 Bible Book
         </label>
 
-        <select
-            id="bookSelect"
-            disabled
-        >
+        <select id="bookSelect">
 
             <option value="">
                 Select Bible Book
@@ -306,10 +196,7 @@
             📑 Chapter
         </label>
 
-        <select
-            id="chapterSelect"
-            disabled
-        >
+        <select id="chapterSelect">
 
             <option value="">
                 Select Chapter
@@ -324,10 +211,7 @@
             🔢 Verse
         </label>
 
-        <select
-            id="verseSelect"
-            disabled
-        >
+        <select id="verseSelect">
 
             <option value="">
                 Select Verse
@@ -336,9 +220,9 @@
         </select>
 
 
-        <!-- ACTION BUTTONS -->
+        <!-- ACTIONS -->
 
-        <div class="research-action-buttons">
+        <div class="research-actions">
 
             <button
                 type="button"
@@ -347,14 +231,12 @@
                 📖 Read Bible
             </button>
 
-
             <button
                 type="button"
                 id="listenBibleButton"
             >
                 🔊 Listen
             </button>
-
 
             <button
                 type="button"
@@ -366,41 +248,38 @@
         </div>
 
 
-        <!-- SELECTION RESULT -->
+        <!-- RESULT -->
 
         <div
-            id="bibleSelectionResult"
-            class="research-result"
+            id="bibleResult"
+            class="card"
         >
 
-            Select a testament, book, chapter and verse.
+            <h3>
+                📖 Bible Reference
+            </h3>
+
+            <p id="selectedReference">
+                Select a testament, book, chapter and verse.
+            </p>
 
         </div>
-
 
     </div>
 
 </section>
 
 
-<!-- ==============================
-     BIBLE BOOKS
-============================== -->
-
 <section class="services">
 
-    <h2>
-        📚 Bible Books
-    </h2>
+    <h2>📚 Bible Books</h2>
 
     <p>
         The complete Bible contains 66 books.
         Select a testament above to browse the books.
     </p>
 
-
     <div class="cards">
-
 
         <div class="card">
 
@@ -435,310 +314,10 @@
 
         </div>
 
-
     </div>
 
 </section>
 
-
-<!-- ==============================
-     BIBLE LANGUAGES
-============================== -->
-
-<section class="services">
-
-    <h2>
-        🌍 Bible Languages
-    </h2>
-
-    <p>
-        Bible reading and research languages.
-    </p>
-
-
-    <div class="cards">
-
-
-        <div class="card language-card">
-
-            <h3>
-                🇵🇰 اردو
-            </h3>
-
-            <p>
-                Urdu Bible Reading & Research
-            </p>
-
-        </div>
-
-
-        <div class="card language-card">
-
-            <h3>
-                🇵🇰 پنجابی
-            </h3>
-
-            <p>
-                Punjabi Bible Reading & Research
-            </p>
-
-        </div>
-
-
-        <div class="card language-card">
-
-            <h3>
-                🇬🇧 English
-            </h3>
-
-            <p>
-                English Bible Reading & Research
-            </p>
-
-        </div>
-
-
-        <div class="card language-card">
-
-            <h3>
-                🇮🇱 Hebrew
-            </h3>
-
-            <p>
-                Hebrew Old Testament Research
-            </p>
-
-        </div>
-
-
-        <div class="card language-card">
-
-            <h3>
-                🇬🇷 Greek
-            </h3>
-
-            <p>
-                Koine Greek New Testament Research
-            </p>
-
-        </div>
-
-
-        <div class="card language-card">
-
-            <h3>
-                🇸🇦 العربية
-            </h3>
-
-            <p>
-                Arabic Bible Reading & Research
-            </p>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-<!-- ==============================
-     RESEARCH AREAS
-============================== -->
-
-<section class="services">
-
-    <h2>
-        🔎 Bible Research Areas
-    </h2>
-
-    <div class="cards">
-
-
-        <div class="card">
-
-            <h3>
-                👤 Bible People
-            </h3>
-
-            <p>
-                Research biblical people,
-                families, prophets, apostles and leaders.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                🗺️ Bible Geography
-            </h3>
-
-            <p>
-                Research countries, cities,
-                rivers, mountains and ancient locations.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                🏛️ Bible History
-            </h3>
-
-            <p>
-                Historical and cultural background
-                of biblical events.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                🗣️ Bible Languages
-            </h3>
-
-            <p>
-                Hebrew, Aramaic, Greek and
-                translation studies.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                📜 Prophecy
-            </h3>
-
-            <p>
-                Research biblical prophecy,
-                prophetic books and fulfillment.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                ✝️ Jesus Christ
-            </h3>
-
-            <p>
-                Research the life, ministry,
-                teachings, death and resurrection of Jesus.
-            </p>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-<!-- ==============================
-     AUDIO & AI
-============================== -->
-
-<section class="services">
-
-    <h2>
-        🔊 Bible Audio & AI Reading
-    </h2>
-
-    <p>
-        Listen to selected Bible passages where
-        reliable audio resources are available.
-    </p>
-
-
-    <div class="cards">
-
-
-        <div class="card">
-
-            <h3>
-                🔊 Bible Audio
-            </h3>
-
-            <p>
-                Listen to Bible passages using
-                available audio resources.
-            </p>
-
-            <button
-                type="button"
-                id="audioBibleButton"
-            >
-                🔊 Play Audio
-            </button>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                🤖 AI Audio Reading
-            </h3>
-
-            <p>
-                Future AI voice reading system
-                for selected Bible passages.
-            </p>
-
-            <button
-                type="button"
-                id="aiAudioBibleButton"
-            >
-                🤖 AI Read Aloud
-            </button>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-<!-- ==============================
-     RESEARCH RESULT
-============================== -->
-
-<section class="services">
-
-    <h2>
-        🔎 Research Result
-    </h2>
-
-
-    <div
-        id="researchResult"
-        class="card"
-    >
-
-        <p>
-            Select a Bible reference above and
-            press Research.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- ==============================
-     FOOTER
-============================== -->
 
 <footer>
 
@@ -758,10 +337,6 @@
 </footer>
 
 
-<!-- ==============================
-     JAVASCRIPT FILES
-============================== -->
-
 <script src="script.js"></script>
 
 <script src="translations.js"></script>
@@ -770,9 +345,6 @@
 
 <script src="bible-research.js"></script>
 
-
 </body>
 
 </html>
-
-

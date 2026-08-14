@@ -249,48 +249,72 @@ document.addEventListener("DOMContentLoaded", function () {
     // LOAD VERSES
     // =================================================
 
-    function loadVerses(testament, bookIndex, chapter) {
+  function loadVerses(testament, bookIndex, chapter) {
 
-        resetSelect(
-            verseSelect,
-            "Select Verse"
-        );
+    resetSelect(
+        verseSelect,
+        "Select Verse"
+    );
 
+    if (
+        !testament ||
+        bookIndex === "" ||
+        chapter === ""
+    ) {
+        return;
+    }
 
-        if (
-            !testament ||
-            bookIndex === "" ||
-            chapter === ""
-        ) {
-            return;
+    const book =
+        bibleBooks[testament][bookIndex];
+
+    const verseCounts = {
+
+        "Mark": {
+            1: 45,
+            2: 28,
+            3: 35,
+            4: 41,
+            5: 43,
+            6: 56,
+            7: 37,
+            8: 38,
+            9: 50,
+            10: 52,
+            11: 33,
+            12: 44,
+            13: 37,
+            14: 72,
+            15: 47,
+            16: 20
         }
 
+    };
 
-        // Temporary verse list
-        // Exact verse database will be connected later.
+    const count =
+        verseCounts[book.name] &&
+        verseCounts[book.name][chapter]
+            ? verseCounts[book.name][chapter]
+            : 176;
 
-        const verseCount = 176;
+    for (
+        let verse = 1;
+        verse <= count;
+        verse++
+    ) {
 
+        const option =
+            document.createElement("option");
 
-        for (
-            let verse = 1;
-            verse <= verseCount;
-            verse++
-        ) {
+        option.value = verse;
 
-            const option =
-                document.createElement("option");
+        option.textContent =
+            "🔢 Verse " + verse;
 
-            option.value = verse;
-
-            option.textContent =
-                "🔢 Verse " + verse;
-
-            verseSelect.appendChild(option);
-
-        }
+        verseSelect.appendChild(option);
 
     }
+
+}
 
 
     // =================================================

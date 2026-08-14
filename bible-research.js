@@ -625,77 +625,95 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+// =================================================
+// INTERNAL RESEARCH
+// =================================================
 
-    // =================================================
-    // INTERNAL RESEARCH
-    // =================================================
+if (researchBibleButton) {
 
-    if (researchBibleButton) {
+    researchBibleButton.addEventListener(
+        "click",
+        function () {
 
-        researchBibleButton.addEventListener(
-            "click",
-            function () {
+            const data =
+                getBibleReference();
 
-                const data =
-                    getBibleReference();
+            if (!data) {
 
+                alert(
+                    "Please select Testament, Book, Chapter and Verse."
+                );
 
-                if (!data) {
+                return;
+            }
 
-                    alert(
-                        "Please select Testament, Book, Chapter and Verse."
-                    );
+            const result =
+                getBibleResult();
 
-                    return;
+            let verseText =
+                "Bible verse will appear here.";
 
-                }
+            // TEST: Mark 3:16
+            if (
+                data.reference === "Mark 3:16"
+            ) {
 
+                verseText =
+                    "Mark 3:16 — Local Bible text will be connected here.";
 
-                const result =
-                    getBibleResult();
+            }
 
+            result.innerHTML = `
 
-                result.innerHTML = `
+                <div class="bible-reading-content">
 
-                    <div class="bible-reading-content">
+                    <h2>
+                        📖 Bible Reading
+                    </h2>
 
-                        <h2>
-                            🔎 Bible Research
-                        </h2>
+                    <h3>
+                        ${data.reference}
+                    </h3>
 
-                        <h3>
-                            ${data.reference}
-                        </h3>
+                    <div class="bible-verse-text">
 
                         <p>
-                            Bible research for
-                            <strong>
-                                ${data.reference}
-                            </strong>
-                            will appear here.
-                        </p>
-
-                        <p>
-                            No external website is opened.
+                            ${verseText}
                         </p>
 
                     </div>
 
-                `;
+                    <div class="research-tools">
 
+                        <button
+                            type="button"
+                            id="localListenButton"
+                        >
+                            🔊 Listen
+                        </button>
 
-                result.scrollIntoView({
+                        <button
+                            type="button"
+                            id="localResearchButton"
+                        >
+                            🔎 Research
+                        </button>
 
-                    behavior: "smooth",
+                    </div>
 
-                    block: "start"
+                </div>
 
-                });
+            `;
 
-            }
-        );
+            result.scrollIntoView({
 
-    }
+                behavior: "smooth",
 
+                block: "start"
 
-});
+            });
+
+        }
+    );
+
+}

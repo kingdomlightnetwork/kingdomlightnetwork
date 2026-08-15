@@ -798,63 +798,68 @@ const localBibleText = {
 
     }
 
+// =================================================
+// GET LOCAL BIBLE VERSE
+// =================================================
 
-    // =================================================
-    // GET LOCAL BIBLE VERSE
-    // =================================================
+function getLocalBibleVerse(data) {
 
-    function getLocalBibleVerse(data) {
-
-        if (!data) {
-            return null;
-        }
-
-
-        if (
-            localBibleText[
-                data.testament
-            ] &&
-            localBibleText[
-                data.testament
-            ][
-                data.book
-            ] &&
-            localBibleText[
-                data.testament
-            ][
-                data.book
-            ][
-                data.chapter
-            ] &&
-            localBibleText[
-                data.testament
-            ][
-                data.book
-            ][
-                data.chapter
-            ][
-                data.verse
-            ]
-        ) {
-
-            return localBibleText[
-                data.testament
-            ][
-                data.book
-            ][
-                data.chapter
-            ][
-                data.verse
-            ];
-
-        }
-
-
+    if (!data) {
         return null;
-
     }
 
+    const testamentData =
+        localBibleText[data.testament];
 
+    if (!testamentData) {
+        return null;
+    }
+
+    let bookData =
+        testamentData[data.book];
+
+    if (!bookData) {
+
+        const bookKey =
+            Object.keys(testamentData).find(
+                function (key) {
+                    return (
+                        key.trim().toLowerCase() ===
+                        String(data.book).trim().toLowerCase()
+                    );
+                }
+            );
+
+        if (bookKey) {
+            bookData =
+                testamentData[bookKey];
+        }
+    }
+
+    if (!bookData) {
+        return null;
+    }
+
+    const chapterData =
+        bookData[String(data.chapter)];
+
+    if (!chapterData) {
+        return null;
+    }
+
+    const verseText =
+        chapterData[String(data.verse)];
+
+    if (
+        typeof verseText === "string" &&
+        verseText.trim() !== ""
+    ) {
+        return verseText;
+    }
+
+    return null;
+}
+  
     // =================================================
     // RESULT PANEL
     // =================================================

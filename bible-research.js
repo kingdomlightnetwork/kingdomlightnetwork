@@ -620,7 +620,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =================================================
+  
+
+   // =================================================
     // READ BIBLE
     // =================================================
 
@@ -728,109 +730,268 @@ document.addEventListener("DOMContentLoaded", function () {
                         new SpeechSynthesisUtterance(
                             data.reference
                         );
+// =================================================
+// LOCAL BIBLE TEXT
+// =================================================
 
+const bibleText = {
 
-                    speech.lang =
-                        "en-US";
+    new: {
 
+        Mark: {
 
-                    window.speechSynthesis.cancel();
+            3: {
 
-
-                    window.speechSynthesis.speak(
-                        speech
-                    );
-
-                } else {
-
-                    alert(
-                        "Audio speech is not supported in this browser."
-                    );
-
-                }
+                16:
+                "And Simon he surnamed Peter."
 
             }
+
+        }
+
+    }
+
+};
+
+
+// =================================================
+// GET LOCAL VERSE
+// =================================================
+
+function getLocalBibleVerse(data) {
+
+    if (!data) {
+        return null;
+    }
+
+    if (
+        bibleText[data.testament] &&
+        bibleText[data.testament][data.book] &&
+        bibleText[data.testament][data.book][data.chapter]
+    ) {
+
+        return (
+            bibleText[data.testament]
+                [data.book]
+                [data.chapter]
+                [data.verse] || null
         );
 
     }
 
+    return null;
 
-    // =================================================
-    // INTERNAL RESEARCH
-    // =================================================
-
-    if (researchBibleButton) {
-
-        researchBibleButton.addEventListener(
-            "click",
-            function () {
-
-                const data =
-                    getBibleReference();
+}
 
 
-                if (!data) {
+// =================================================
+// READ BIBLE — LOCAL
+// =================================================
 
-                    alert(
-                        "Please select Testament, Book, Chapter and Verse."
-                    );
+if (readBibleButton) {
 
-                    return;
-                }
+    readBibleButton.addEventListener(
+        "click",
+        function () {
 
+            const data =
+                getBibleReference();
 
-                const result =
-                    getBibleResult();
+            if (!data) {
 
+                alert(
+                    "Please select Testament, Book, Chapter and Verse."
+                );
 
-                result.innerHTML = `
+                return;
+            }
 
-                    <div class="bible-reading-content">
+            const result =
+                getBibleResult();
 
-                        <h2>
-                            🔎 Bible Research
-                        </h2>
+            const verseText =
+                getLocalBibleVerse(data);
 
-                        <h3>
-                            ${data.reference}
-                        </h3>
+            result.innerHTML = `
 
-                        <p>
-                            Research for
-                            <strong>
-                                ${data.reference}
-                            </strong>
-                            will appear here inside
-                            Kingdom Light Network.
-                        </p>
+                <div class="bible-reading-content">
+
+                    <h2>
+                        📖 Bible Reading
+                    </h2>
+
+                    <h3>
+                        ${data.reference}
+                    </h3>
+
+                    <div class="bible-verse-text">
 
                         <p>
-                            No external website is opened.
+                            ${
+                                verseText
+                                ||
+                                "اس آیت کا اصل متن ابھی local Bible database میں شامل نہیں ہے۔"
+                            }
                         </p>
 
                     </div>
 
-                `;
+                </div>
+
+            `;
+
+            result.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "start"
+
+            });
+
+        }
+    );
+
+}
 
 
-                result.scrollIntoView({
+// =================================================
+// LISTEN — LOCAL
+// =================================================
 
-                    behavior: "smooth",
+if (listenBibleButton) {
 
-                    block: "start"
+    listenBibleButton.addEventListener(
+        "click",
+        function () {
 
-                });
+            const data =
+                getBibleReference();
+
+            if (!data) {
+
+                alert(
+                    "Please select Testament, Book, Chapter and Verse."
+                );
+
+                return;
+            }
+
+            const verseText =
+                getLocalBibleVerse(data);
+
+            if (!verseText) {
+
+                alert(
+                    "This verse is not yet available in the local Bible database."
+                );
+
+                return;
+            }
+
+            if (
+                "speechSynthesis" in window
+            ) {
+
+                const speech =
+                    new SpeechSynthesisUtterance(
+                        verseText
+                    );
+
+                speech.lang =
+                    "en-US";
+
+                window.speechSynthesis.cancel();
+
+                window.speechSynthesis.speak(
+                    speech
+                );
+
+            } else {
+
+                alert(
+                    "Audio speech is not supported in this browser."
+                );
 
             }
-        );
 
-    }
+        }
+    );
+
+}
 
 
-    // =================================================
-    // INITIAL STATE
-    // =================================================
+// =================================================
+// INTERNAL RESEARCH — LOCAL
+// =================================================
 
+if (researchBibleButton) {
+
+    researchBibleButton.addEventListener(
+        "click",
+        function () {
+
+            const data =
+                getBibleReference();
+
+            if (!data) {
+
+                alert(
+                    "Please select Testament, Book, Chapter and Verse."
+                );
+
+                return;
+            }
+
+            const result =
+                getBibleResult();
+
+            const verseText =
+                getLocalBibleVerse(data);
+
+            result.innerHTML = `
+
+                <div class="bible-reading-content">
+
+                    <h2>
+                        🔎 Bible Research
+                    </h2>
+
+                    <h3>
+                        ${data.reference}
+                    </h3>
+
+                    <div class="bible-verse-text">
+
+                        <p>
+                            ${
+                                verseText
+                                ||
+                                "اس آیت کا اصل متن ابھی local Bible database میں شامل نہیں ہے۔"
+                            }
+                        </p>
+
+                    </div>
+
+                    <p>
+                        🔎 Research اسی ویب سائٹ کے اندر ہوگا۔
+                    </p>
+
+                </div>
+
+            `;
+
+            result.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "start"
+
+            });
+
+        }
+    );
+
+}
     resetSelect(
         bookSelect,
         "Select Bible Book"

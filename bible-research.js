@@ -705,30 +705,31 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =================================================
-    // LOCAL BIBLE TEXT
-    // =================================================
+  // =================================================
+// LOCAL BIBLE TEXT
+// =================================================
 
-    const localBibleText = {
+const localBibleText = {
 
-        new: {
+    new: {
 
-            Mark: {
+        Mark: {
 
-                3: {
+            3: {
 
-                    16:
-                        "And Simon he surnamed Peter."
+                6:
+                    "And the Pharisees went forth, and straightway took counsel with the Herodians against him, how they might destroy him.",
 
-                }
+                16:
+                    "And Simon he surnamed Peter."
 
             }
 
         }
 
-    };
+    }
 
-
+};
     // =================================================
     // GET BIBLE REFERENCE
     // =================================================

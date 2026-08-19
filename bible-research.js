@@ -61,6 +61,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =================================================
+    // CHECK BIBLE DATABASE
+    // =================================================
+
+    if (
+        typeof KJV_BIBLE === "undefined"
+    ) {
+
+        console.error(
+            "KJV_BIBLE is not loaded. Make sure bible-data.js is loaded before bible-research.js."
+        );
+
+    } else {
+
+        console.log(
+            "KJV Bible database loaded successfully."
+        );
+
+    }
+
+
+    // =================================================
     // BOOK CREATOR
     // =================================================
 
@@ -653,7 +674,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // LOCAL BIBLE DATA CONNECTION
     // =================================================
     // IMPORTANT:
-    // This function reads from bible-data.js
+    // Bible verse text comes ONLY from bible-data.js
     // =================================================
 
     function getLocalBibleVerse(data) {
@@ -662,7 +683,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return null;
         }
 
-        // Check KJV database
         if (
             typeof KJV_BIBLE === "undefined"
         ) {
@@ -675,7 +695,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-        // Testament
+
+        // ---------------------------------------------
+        // TESTAMENT
+        // ---------------------------------------------
+
         const testamentData =
             KJV_BIBLE[
                 data.testament
@@ -685,7 +709,11 @@ document.addEventListener("DOMContentLoaded", function () {
             return null;
         }
 
-        // Book
+
+        // ---------------------------------------------
+        // BOOK
+        // ---------------------------------------------
+
         const bookData =
             testamentData[
                 data.book
@@ -695,7 +723,11 @@ document.addEventListener("DOMContentLoaded", function () {
             return null;
         }
 
-        // Chapter
+
+        // ---------------------------------------------
+        // CHAPTER
+        // ---------------------------------------------
+
         const chapterData =
             bookData[
                 String(data.chapter)
@@ -705,7 +737,11 @@ document.addEventListener("DOMContentLoaded", function () {
             return null;
         }
 
-        // Verse
+
+        // ---------------------------------------------
+        // VERSE
+        // ---------------------------------------------
+
         const verseText =
             chapterData[
                 String(data.verse)
@@ -807,7 +843,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <p>
                         ${
                             text ||
-                            "📖 اس آیت کا اصل متن ابھی local Bible database میں شامل نہیں ہے۔"
+                            "📖 اس آیت کا اصل متن ابھی bible-data.js میں شامل نہیں ہے۔"
                         }
                     </p>
 

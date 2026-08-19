@@ -79,9 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         parts[0].trim(),
 
                     chapters:
-                        Number(
-                            parts[1]
-                        )
+                        Number(parts[1])
 
                 };
 
@@ -388,9 +386,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // LOAD BOOKS
     // =================================================
 
-    function loadBooks(
-        testament
-    ) {
+    function loadBooks(testament) {
 
         resetSelect(
             bookSelect,
@@ -407,9 +403,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "Select Verse"
         );
 
-        if (
-            !bibleBooks[testament]
-        ) {
+        if (!bibleBooks[testament]) {
             return;
         }
 
@@ -504,27 +498,21 @@ document.addEventListener("DOMContentLoaded", function () {
     ) {
 
         const testamentData =
-            localVerseCounts[
-                testament
-            ];
+            localVerseCounts[testament];
 
         if (!testamentData) {
             return 176;
         }
 
         const bookData =
-            testamentData[
-                bookName
-            ];
+            testamentData[bookName];
 
         if (!bookData) {
             return 176;
         }
 
         const count =
-            bookData[
-                Number(chapter)
-            ];
+            bookData[Number(chapter)];
 
         if (
             typeof count === "number" &&
@@ -662,43 +650,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =================================================
-    // LOCAL BIBLE TEXT
+    // LOCAL BIBLE DATA CONNECTION
+    // =================================================
+    // IMPORTANT:
+    // This function reads from bible-data.js
     // =================================================
 
-    const localBibleText = {
-
-        new: {
-
-            Mark: {
-
-                3: {
-
-                    6:
-                        "And the Pharisees went forth, and straightway took counsel with the Herodians against him, how they might destroy him."
-
-                }
-
-            }
-
-        }
-
-    };
-
-
-    // =================================================
-    // GET LOCAL BIBLE VERSE
-    // =================================================
-
-    function getLocalBibleVerse(
-        data
-    ) {
+    function getLocalBibleVerse(data) {
 
         if (!data) {
             return null;
         }
 
+        // Check KJV database
+        if (
+            typeof KJV_BIBLE === "undefined"
+        ) {
+
+            console.error(
+                "KJV_BIBLE is not loaded. Check bible-data.js."
+            );
+
+            return null;
+
+        }
+
+        // Testament
         const testamentData =
-            localBibleText[
+            KJV_BIBLE[
                 data.testament
             ];
 
@@ -706,6 +685,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return null;
         }
 
+        // Book
         const bookData =
             testamentData[
                 data.book
@@ -715,6 +695,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return null;
         }
 
+        // Chapter
         const chapterData =
             bookData[
                 String(data.chapter)
@@ -724,6 +705,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return null;
         }
 
+        // Verse
         const verseText =
             chapterData[
                 String(data.verse)

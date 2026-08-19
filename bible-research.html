@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Bible Research | Kingdom Light Network</title>
+    <title>Kingdom Light Network</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -13,28 +13,51 @@
 <body>
 
 <header>
+
     <div class="logo-area">
 
         <div class="logo-placeholder">
+
             <img
                 src="images/paster%201.png"
                 alt="Kingdom Light Network Logo"
             >
+
         </div>
 
         <div>
-            <h1>Kingdom Light Network</h1>
-            <p>Powered by Christ Church</p>
+
+            <h1>
+                Kingdom Light Network
+            </h1>
+
+            <p data-translate="poweredBy">
+                Powered by Christ Church
+            </p>
+
         </div>
 
+
         <div class="header-icons">
-            <span>🔍 Search</span>
-            <span>🌐 Language</span>
-            <span>👤 Account</span>
+
+            <span>
+                🔍 Search
+            </span>
+
+            <span>
+                🌐 Language
+            </span>
+
+            <span>
+                👤 Account
+            </span>
+
         </div>
 
     </div>
+
 </header>
+
 
 <button
     class="menu-toggle"
@@ -46,28 +69,73 @@
     ☰
 </button>
 
+
 <nav>
 
-    <a href="index.html">Home</a>
-    <a href="live.html">Live</a>
-    <a href="sermons.html">Sermons</a>
-    <a href="bible.html">Bible</a>
-    <a href="sundayschool.html">📚 Sunday School</a>
-    <a href="ai.html">AI</a>
-    <a href="welfare.html">❤️ Welfare</a>
-    <a href="prayer.html">Prayer</a>
-    <a href="media.html">Media</a>
+    <a href="index.html"
+       data-translate="home">
+        Home
+    </a>
 
-    <a href="research.html">
+    <a href="live.html"
+       data-translate="live">
+        Live
+    </a>
+
+    <a href="sermons.html"
+       data-translate="sermons">
+        Sermons
+    </a>
+
+    <a href="bible.html"
+       data-translate="bible">
+        Bible
+    </a>
+
+    <a href="sundayschool.html"
+       data-translate="sundaySchool">
+        📚 Sunday School
+    </a>
+
+    <a href="ai.html"
+       data-translate="ai">
+        AI
+    </a>
+
+    <a href="welfare.html"
+       data-translate="welfare">
+        ❤️ Welfare
+    </a>
+
+    <a href="prayer.html"
+       data-translate="prayer">
+        Prayer
+    </a>
+
+    <a href="media.html"
+       data-translate="media">
+        Media
+    </a>
+
+    <a href="research.html"
+       data-translate="research">
         🔎 Research
     </a>
 
-    <a href="contact.html">Contact</a>
-    <a href="register.html">📝 Register</a>
+    <a href="contact.html"
+       data-translate="contact">
+        Contact
+    </a>
+
+    <a href="register.html"
+       data-translate="register">
+        📝 Register
+    </a>
 
     <a
         href="create-account.html"
         class="create-nav-button"
+        data-translate="createAccount"
     >
         ➕ Create Account
     </a>
@@ -75,19 +143,77 @@
 </nav>
 
 
+<!-- =====================================================
+     LANGUAGE SELECTOR
+===================================================== -->
+
+<section class="services">
+
+    <div class="research-search-box">
+
+        <label for="languageSelect"
+               data-translate="language">
+
+            Language
+
+        </label>
+
+
+        <select
+            id="languageSelect"
+            class="language-select"
+        >
+
+            <option value="en">
+                English
+            </option>
+
+            <option value="ur">
+                اردو
+            </option>
+
+            <option value="pa">
+                پنجابی
+            </option>
+
+            <option value="ar">
+                العربية
+            </option>
+
+        </select>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
 <section class="hero">
 
     <div class="hero-content">
 
-        <h2>📖 Bible Reading & Research</h2>
+        <h2 data-translate="bibleReadingResearch">
 
-        <h3>
+            📖 Bible Reading & Research
+
+        </h2>
+
+
+        <h3 data-translate="selectBibleLanguage">
+
             Select a Bible language, translation,
             testament, book, chapter and verse.
+
         </h3>
 
-        <p>
+
+        <p data-translate="noManualReference">
+
             You do not need to type the Bible reference manually.
+
         </p>
 
     </div>
@@ -95,57 +221,104 @@
 </section>
 
 
+<!-- =====================================================
+     BIBLE SELECTOR
+===================================================== -->
+
 <section class="services">
 
-    <h2>📖 Bible Selector</h2>
+    <h2 data-translate="bibleSelector">
+
+        📖 Bible Selector
+
+    </h2>
+
 
     <div class="research-search-box">
 
 
         <!-- ORIGINAL LANGUAGE -->
 
-        <label for="sourceLanguage">
+        <label
+            for="sourceLanguage"
+            data-translate="originalBibleLanguage"
+        >
+
             🌍 Original Bible Language
+
         </label>
+
 
         <select id="sourceLanguage">
 
-            <option value="hebrew">
+            <option
+                value="hebrew"
+                data-translate="hebrew"
+            >
                 🇮🇱 Hebrew
             </option>
 
-            <option value="aramaic">
+
+            <option
+                value="aramaic"
+                data-translate="aramaic"
+            >
                 Aramaic
             </option>
 
-            <option value="greek">
+
+            <option
+                value="greek"
+                data-translate="koineGreek"
+            >
                 🇬🇷 Koine Greek
             </option>
 
         </select>
 
 
-        <!-- READING LANGUAGE -->
+        <!-- TRANSLATION LANGUAGE -->
 
-        <label for="translationLanguage">
+        <label
+            for="translationLanguage"
+            data-translate="translationReadingLanguage"
+        >
+
             🌐 Translation / Reading Language
+
         </label>
+
 
         <select id="translationLanguage">
 
-            <option value="urdu">
+            <option
+                value="ur"
+                data-translate="urdu"
+            >
                 🇵🇰 اردو
             </option>
 
-            <option value="punjabi">
+
+            <option
+                value="pa"
+                data-translate="punjabi"
+            >
                 🇵🇰 پنجابی
             </option>
 
-            <option value="english">
+
+            <option
+                value="en"
+                data-translate="english"
+            >
                 🇬🇧 English
             </option>
 
-            <option value="arabic">
+
+            <option
+                value="ar"
+                data-translate="arabic"
+            >
                 🇸🇦 العربية
             </option>
 
@@ -154,21 +327,38 @@
 
         <!-- TESTAMENT -->
 
-        <label for="testamentSelect">
+        <label
+            for="testamentSelect"
+            data-translate="testament"
+        >
+
             📜 Testament
+
         </label>
+
 
         <select id="testamentSelect">
 
-            <option value="">
+            <option
+                value=""
+                data-translate="testament"
+            >
                 Select Testament
             </option>
 
-            <option value="old">
+
+            <option
+                value="old"
+                data-translate="oldTestament"
+            >
                 📜 Old Testament
             </option>
 
-            <option value="new">
+
+            <option
+                value="new"
+                data-translate="newTestament"
+            >
                 ✝️ New Testament
             </option>
 
@@ -177,13 +367,22 @@
 
         <!-- BOOK -->
 
-        <label for="bookSelect">
+        <label
+            for="bookSelect"
+            data-translate="bibleBook"
+        >
+
             📖 Bible Book
+
         </label>
+
 
         <select id="bookSelect">
 
-            <option value="">
+            <option
+                value=""
+                data-translate="selectBook"
+            >
                 Select Bible Book
             </option>
 
@@ -192,13 +391,22 @@
 
         <!-- CHAPTER -->
 
-        <label for="chapterSelect">
+        <label
+            for="chapterSelect"
+            data-translate="chapter"
+        >
+
             📑 Chapter
+
         </label>
+
 
         <select id="chapterSelect">
 
-            <option value="">
+            <option
+                value=""
+                data-translate="selectChapter"
+            >
                 Select Chapter
             </option>
 
@@ -207,43 +415,65 @@
 
         <!-- VERSE -->
 
-        <label for="verseSelect">
+        <label
+            for="verseSelect"
+            data-translate="verse"
+        >
+
             🔢 Verse
+
         </label>
+
 
         <select id="verseSelect">
 
-            <option value="">
+            <option
+                value=""
+                data-translate="selectVerse"
+            >
                 Select Verse
             </option>
 
         </select>
 
 
-        <!-- ACTIONS -->
+        <!-- ACTION BUTTONS -->
 
         <div class="research-actions">
+
 
             <button
                 type="button"
                 id="readBibleButton"
+                data-translate="readBible"
             >
+
                 📖 Read Bible
+
             </button>
+
 
             <button
                 type="button"
                 id="listenBibleButton"
+                data-translate="listen"
             >
+
                 🔊 Listen
+
             </button>
+
 
             <button
                 type="button"
                 id="researchBibleButton"
+                data-translate="researchButton"
             >
+
                 🔎 Research
+
             </button>
+
 
         </div>
 
@@ -255,12 +485,20 @@
             class="card"
         >
 
-            <h3>
+            <h3 data-translate="bibleReference">
+
                 📖 Bible Reference
+
             </h3>
 
-            <p id="selectedReference">
+
+            <p
+                id="selectedReference"
+                data-translate="selectReference"
+            >
+
                 Select a testament, book, chapter and verse.
+
             </p>
 
         </div>
@@ -269,30 +507,50 @@
 
 </section>
 
+
+<!-- =====================================================
+     BIBLE BOOKS
+===================================================== -->
 
 <section class="services">
 
-    <h2>📚 Bible Books</h2>
+    <h2 data-translate="bibleBooks">
 
-    <p>
+        📚 Bible Books
+
+    </h2>
+
+
+    <p data-translate="completeBible">
+
         The complete Bible contains 66 books.
-        Select a testament above to browse the books.
+
     </p>
+
 
     <div class="cards">
 
+
         <div class="card">
 
-            <h3>
+            <h3 data-translate="oldTestament">
+
                 📜 Old Testament
+
             </h3>
 
-            <p>
+
+            <p data-translate="oldTestamentBooks">
+
                 39 Books
+
             </p>
 
-            <p>
+
+            <p data-translate="lawHistoryPoetryProphets">
+
                 Law • History • Poetry • Prophets
+
             </p>
 
         </div>
@@ -300,16 +558,24 @@
 
         <div class="card">
 
-            <h3>
+            <h3 data-translate="newTestament">
+
                 ✝️ New Testament
+
             </h3>
 
-            <p>
+
+            <p data-translate="newTestamentBooks">
+
                 27 Books
+
             </p>
 
-            <p>
+
+            <p data-translate="gospelsActsLettersRevelation">
+
                 Gospels • Acts • Letters • Revelation
+
             </p>
 
         </div>
@@ -318,6 +584,10 @@
 
 </section>
 
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
@@ -325,17 +595,30 @@
         Kingdom Light Network
     </h3>
 
-    <p>
+
+    <p data-translate="poweredBy">
+
         Powered by Christ Church
+
     </p>
 
+
     <p>
+
         © 2026 Kingdom Light Network.
-        All Rights Reserved.
+
+        <span data-translate="allRightsReserved">
+            All Rights Reserved.
+        </span>
+
     </p>
 
 </footer>
 
+
+<!-- =====================================================
+     JAVASCRIPT FILES
+===================================================== -->
 
 <script src="script.js"></script>
 
@@ -346,6 +629,7 @@
 <script src="bible-data.js?v=2"></script>
 
 <script src="bible-research.js"></script>
+
 
 </body>
 

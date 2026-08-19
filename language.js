@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       LANGUAGE SELECTOR
+       LANGUAGE SELECTORS
     ================================================= */
 
     const languageSelectors =
@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (
         !savedLanguage ||
+        typeof translations === "undefined" ||
         !translations[savedLanguage]
     ) {
 
@@ -51,6 +52,19 @@ document.addEventListener("DOMContentLoaded", function () {
     function changeLanguage(lang) {
 
         if (
+            typeof translations === "undefined"
+        ) {
+
+            console.error(
+                "translations.js is not loaded."
+            );
+
+            return;
+
+        }
+
+
+        if (
             !translations[lang]
         ) {
 
@@ -64,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* Save language */
+        /* Save selected language */
 
         localStorage.setItem(
             "language",
@@ -72,21 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* Set translation language */
-
-        if (
-            typeof setTranslationLanguage ===
-            "function"
-        ) {
-
-            setTranslationLanguage(
-                lang
-            );
-
-        }
-
-
-        /* Update page */
+        /* Apply translations */
 
         applyTranslations(
             lang
@@ -108,6 +108,19 @@ document.addEventListener("DOMContentLoaded", function () {
     function applyTranslations(lang) {
 
         if (
+            typeof translations === "undefined"
+        ) {
+
+            console.error(
+                "translations.js is not loaded."
+            );
+
+            return;
+
+        }
+
+
+        if (
             !translations[lang]
         ) {
 
@@ -117,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /* ---------------------------------------------
-           Elements using data-translate
+           TEXT TRANSLATIONS
         --------------------------------------------- */
 
         const elements =
@@ -136,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 if (
-                    translations[lang][key]
+                    translations[lang][key] !== undefined
                 ) {
 
                     element.textContent =
@@ -149,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /* ---------------------------------------------
-           Elements using data-translate-placeholder
+           PLACEHOLDER TRANSLATIONS
         --------------------------------------------- */
 
         const placeholders =
@@ -168,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 if (
-                    translations[lang][key]
+                    translations[lang][key] !== undefined
                 ) {
 
                     element.placeholder =
@@ -181,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /* ---------------------------------------------
-           Elements using data-translate-title
+           TITLE TRANSLATIONS
         --------------------------------------------- */
 
         const titles =
@@ -200,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 if (
-                    translations[lang][key]
+                    translations[lang][key] !== undefined
                 ) {
 
                     element.title =
@@ -213,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /* ---------------------------------------------
-           HTML document language
+           HTML LANGUAGE
         --------------------------------------------- */
 
         document.documentElement.lang =
@@ -242,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /* ---------------------------------------------
-           Update language selectors
+           UPDATE LANGUAGE SELECTORS
         --------------------------------------------- */
 
         languageSelectors.forEach(
@@ -252,6 +265,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     lang;
 
             }
+        );
+
+
+        /* ---------------------------------------------
+           SAVE CURRENT LANGUAGE
+        --------------------------------------------- */
+
+        localStorage.setItem(
+            "language",
+            lang
         );
 
     }
@@ -280,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       GLOBAL LANGUAGE FUNCTION
+       GLOBAL FUNCTION
     ================================================= */
 
     window.changeLanguage =
@@ -290,18 +313,6 @@ document.addEventListener("DOMContentLoaded", function () {
     /* =================================================
        INITIAL LANGUAGE
     ================================================= */
-
-    if (
-        typeof setTranslationLanguage ===
-        "function"
-    ) {
-
-        setTranslationLanguage(
-            savedLanguage
-        );
-
-    }
-
 
     applyTranslations(
         savedLanguage

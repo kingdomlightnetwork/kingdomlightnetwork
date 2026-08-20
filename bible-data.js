@@ -2,12 +2,11 @@
    KINGDOM LIGHT NETWORK
    LOCAL BIBLE DATA
    MULTILINGUAL BIBLE DATABASE
-   English • اردو • پاکستانی پنجابی • العربية
 ===================================================== */
 
 
 /* =====================================================
-   ENGLISH — INTERNATIONAL ENGLISH / KJV
+   1. ENGLISH — INTERNATIONAL ENGLISH / KJV
 ===================================================== */
 
 const KJV_BIBLE = {
@@ -54,7 +53,7 @@ const KJV_BIBLE = {
 
 
 /* =====================================================
-   URDU BIBLE DATA
+   2. URDU BIBLE
 ===================================================== */
 
 const URDU_BIBLE = {
@@ -101,7 +100,7 @@ const URDU_BIBLE = {
 
 
 /* =====================================================
-   PAKISTANI PUNJABI BIBLE DATA
+   3. PAKISTANI PUNJABI BIBLE
 ===================================================== */
 
 const PUNJABI_BIBLE = {
@@ -148,7 +147,7 @@ const PUNJABI_BIBLE = {
 
 
 /* =====================================================
-   ARABIC BIBLE DATA
+   4. ARABIC BIBLE
 ===================================================== */
 
 const ARABIC_BIBLE = {
@@ -195,6 +194,162 @@ const ARABIC_BIBLE = {
 
 
 /* =====================================================
+   5. HEBREW — ORIGINAL OLD TESTAMENT
+===================================================== */
+
+const HEBREW_BIBLE = {
+
+    old: {
+
+        /* Hebrew Old Testament will be added here */
+
+    },
+
+    new: {
+
+        /* New Testament is not originally Hebrew */
+
+    }
+
+};
+
+
+/* =====================================================
+   6. ARAMAIC — ORIGINAL ARAMAIC PORTIONS
+===================================================== */
+
+const ARAMAIC_BIBLE = {
+
+    old: {
+
+        /* Aramaic portions of the Old Testament */
+
+    },
+
+    new: {
+
+        /* Original Aramaic data will be added where applicable */
+
+    }
+
+};
+
+
+/* =====================================================
+   7. KOINE GREEK — ORIGINAL NEW TESTAMENT
+===================================================== */
+
+const GREEK_BIBLE = {
+
+    old: {
+
+        /* Old Testament source structure */
+
+    },
+
+    new: {
+
+        /* Koine Greek New Testament will be added here */
+
+    }
+
+};
+
+
+/* =====================================================
+   LANGUAGE INFORMATION
+===================================================== */
+
+const BIBLE_LANGUAGES = {
+
+    en: {
+
+        name: "International English",
+
+        nativeName: "English",
+
+        type: "translation",
+
+        direction: "ltr"
+
+    },
+
+    ur: {
+
+        name: "Urdu",
+
+        nativeName: "اردو",
+
+        type: "translation",
+
+        direction: "rtl"
+
+    },
+
+    pa: {
+
+        name: "Pakistani Punjabi",
+
+        nativeName: "پنجابی",
+
+        type: "translation",
+
+        direction: "rtl"
+
+    },
+
+    ar: {
+
+        name: "Arabic",
+
+        nativeName: "العربية",
+
+        type: "translation",
+
+        direction: "rtl"
+
+    },
+
+    he: {
+
+        name: "Biblical Hebrew",
+
+        nativeName: "עברית",
+
+        type: "original",
+
+        direction: "rtl"
+
+    },
+
+    arc: {
+
+        name: "Biblical Aramaic",
+
+        nativeName: "ארמית",
+
+        type: "original",
+
+        direction: "rtl"
+
+    },
+
+    grc: {
+
+        name: "Koine Greek",
+
+        nativeName: "Ἑλληνική",
+
+        type: "original",
+
+        direction: "ltr"
+
+    }
+
+};
+
+
+/* =====================================================
    MULTILINGUAL BIBLE DATABASE
 ===================================================== */
 
@@ -206,7 +361,13 @@ const BIBLE_DATABASE = {
 
     pa: PUNJABI_BIBLE,
 
-    ar: ARABIC_BIBLE
+    ar: ARABIC_BIBLE,
+
+    he: HEBREW_BIBLE,
+
+    arc: ARAMAIC_BIBLE,
+
+    grc: GREEK_BIBLE
 
 };
 
@@ -280,9 +441,35 @@ function getBibleVerse(
 
 
 /* =====================================================
+   GET LANGUAGE INFORMATION
+===================================================== */
+
+function getBibleLanguageInfo(language) {
+
+    if (
+        BIBLE_LANGUAGES[language]
+    ) {
+
+        return BIBLE_LANGUAGES[language];
+
+    }
+
+    return BIBLE_LANGUAGES[
+        DEFAULT_BIBLE_LANGUAGE
+    ];
+
+}
+
+
+/* =====================================================
    BIBLE DATA SYSTEM READY
 ===================================================== */
 
 console.log(
     "Kingdom Light Network Multilingual Bible Database loaded successfully."
+);
+
+console.log(
+    "Available Bible languages:",
+    Object.keys(BIBLE_LANGUAGES)
 );

@@ -8,6 +8,50 @@
 
     "use strict";
 
+
+    /* =================================================
+       DEFAULT LANGUAGE
+    ================================================= */
+
+    const DEFAULT_LANGUAGE = "en";
+
+
+    /* =================================================
+       RTL LANGUAGES
+    ================================================= */
+
+    const RTL_LANGUAGES = [
+        "ur",
+        "pa",
+        "ar",
+        "fa"
+    ];
+
+
+    /* =================================================
+       GET LANGUAGE FROM STORAGE
+    ================================================= */
+
+    function getSavedLanguage() {
+
+        const savedLanguage =
+            localStorage.getItem("language");
+
+        if (
+            savedLanguage &&
+            typeof translations !== "undefined" &&
+            translations[savedLanguage]
+        ) {
+
+            return savedLanguage;
+
+        }
+
+        return DEFAULT_LANGUAGE;
+
+    }
+
+
     /* =================================================
        APPLY WEBSITE LANGUAGE
     ================================================= */
@@ -19,7 +63,7 @@
         --------------------------------------------- */
 
         if (
-            typeof window.translations === "undefined"
+            typeof translations === "undefined"
         ) {
 
             console.error(
@@ -36,7 +80,7 @@
         --------------------------------------------- */
 
         if (
-            !window.translations[language]
+            !translations[language]
         ) {
 
             console.error(
@@ -44,7 +88,7 @@
                 language
             );
 
-            return;
+            language = DEFAULT_LANGUAGE;
 
         }
 
@@ -68,7 +112,7 @@
 
 
         /* ---------------------------------------------
-           UPDATE HTML LANGUAGE
+           HTML LANGUAGE
         --------------------------------------------- */
 
         document.documentElement.lang =
@@ -79,16 +123,8 @@
            RTL / LTR
         --------------------------------------------- */
 
-        const rtlLanguages = [
-            "ur",
-            "pa",
-            "ar",
-            "fa"
-        ];
-
-
         if (
-            rtlLanguages.includes(language)
+            RTL_LANGUAGES.includes(language)
         ) {
 
             document.documentElement.dir =
@@ -103,7 +139,7 @@
 
 
         /* ---------------------------------------------
-           TRANSLATE ALL PAGE ELEMENTS
+           FIND ALL TRANSLATABLE ELEMENTS
         --------------------------------------------- */
 
         const elements =
@@ -111,6 +147,16 @@
                 "[data-translate]"
             );
 
+
+        console.log(
+            "Translatable elements found:",
+            elements.length
+        );
+
+
+        /* ---------------------------------------------
+           TRANSLATE ELEMENTS
+        --------------------------------------------- */
 
         elements.forEach(function (element) {
 
@@ -126,7 +172,7 @@
 
 
             const languageData =
-                window.translations[language];
+                translations[language];
 
 
             if (
@@ -137,15 +183,32 @@
                 )
             ) {
 
-                element.textContent =
+                const translatedText =
                     languageData[key];
+
+
+                /* -------------------------------------
+                   CHANGE TEXT
+                ------------------------------------- */
+
+                element.textContent =
+                    translatedText;
+
+
+                console.log(
+                    "Translated:",
+                    key,
+                    "→",
+                    translatedText
+                );
 
             } else {
 
                 console.warn(
                     "Translation key not found:",
-                    language,
-                    key
+                    key,
+                    "for language:",
+                    language
                 );
 
             }
@@ -172,16 +235,106 @@
 
 
         /* ---------------------------------------------
-           SUCCESS MESSAGE
+           UPDATE PAGE TITLE
+        --------------------------------------------- */
+
+        if (
+            translations[language].siteTitle
+        ) {
+
+            document.title =
+                translations[language].siteTitle;
+
+        }
+
+
+        /* ---------------------------------------------
+           CONSOLE CONFIRMATION
         --------------------------------------------- */
 
         console.log(
-            "Language applied successfully:",
+            "=========================================="
+        );
+
+        console.log(
+            "Kingdom Light Network Language Applied"
+        );
+
+        console.log(
+            "Language:",
             language
+        );
+
+        console.log(
+            "Direction:",
+            document.documentElement.dir
+        );
+
+        console.log(
+            "=========================================="
         );
 
     }
 
+
+    /* =================================================
+       WAIT FOR TRANSLATIONS.JS
+    ================================================= */
+
+    function waitForTranslations(
+        callback,
+        attempts = 0
+    ) {
+
+        const MAX_ATTEMPTS = 50;
+
+
+        if (
+            typeof translations !== "undefined"
+        ) {
+
+            console.log(
+                "translations.js loaded successfully."
+            );
+
+            callback();
+
+            return;
+
+        }
+
+
+        if (
+            attempts >= MAX_ATTEMPTS
+        ) {
+
+            console.error(
+                "ERROR: translations.js could not be found."
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "Waiting for translations.js..."
+        );
+
+
+        setTimeout(
+            function () {
+
+                waitForTranslations(
+                    callback,
+                    attempts + 1
+                );
+
+            },
+            100
+        );
+
+    }
 
 
     /* =================================================
@@ -191,7 +344,7 @@
     function initializeLanguageSystem() {
 
         console.log(
-            "======================================"
+            "=========================================="
         );
 
         console.log(
@@ -202,30 +355,9 @@
             "Initializing..."
         );
 
-        console.log(
-            "======================================"
-        );
-
 
         /* ---------------------------------------------
-           CHECK TRANSLATIONS
-        --------------------------------------------- */
-
-        if (
-            typeof window.translations === "undefined"
-        ) {
-
-            console.error(
-                "ERROR: translations.js is not available."
-            );
-
-            return;
-
-        }
-
-
-        /* ---------------------------------------------
-           FIND LANGUAGE SELECTOR
+           LANGUAGE SELECTOR
         --------------------------------------------- */
 
         const languageSelect =
@@ -234,40 +366,18 @@
             );
 
 
-        if (!languageSelect) {
-
-            console.error(
-                "ERROR: globalLanguageSelect not found."
-            );
-
-            return;
-
-        }
-
-
         /* ---------------------------------------------
            GET SAVED LANGUAGE
         --------------------------------------------- */
 
-        let savedLanguage =
-            localStorage.getItem(
-                "language"
-            );
+        const savedLanguage =
+            getSavedLanguage();
 
 
-        /* ---------------------------------------------
-           CHECK SAVED LANGUAGE
-        --------------------------------------------- */
-
-        if (
-            !savedLanguage ||
-            !window.translations[savedLanguage]
-        ) {
-
-            savedLanguage =
-                "en";
-
-        }
+        console.log(
+            "Saved language:",
+            savedLanguage
+        );
 
 
         /* ---------------------------------------------
@@ -283,38 +393,68 @@
            LANGUAGE CHANGE EVENT
         --------------------------------------------- */
 
-        languageSelect.addEventListener(
-            "change",
-            function () {
+        if (languageSelect) {
 
-                const selectedLanguage =
-                    this.value;
+            languageSelect.addEventListener(
+                "change",
+                function () {
 
-
-                console.log(
-                    "User selected language:",
-                    selectedLanguage
-                );
+                    const selectedLanguage =
+                        this.value;
 
 
-                applyWebsiteLanguage(
-                    selectedLanguage
-                );
+                    console.log(
+                        "=========================================="
+                    );
 
-            }
-        );
+                    console.log(
+                        "Language selected:",
+                        selectedLanguage
+                    );
 
 
-        console.log(
-            "Language selector connected successfully."
+                    applyWebsiteLanguage(
+                        selectedLanguage
+                    );
+
+
+                    console.log(
+                        "Language change completed."
+                    );
+
+                    console.log(
+                        "=========================================="
+                    );
+
+                }
+            );
+
+        } else {
+
+            console.error(
+                "ERROR: #globalLanguageSelect was not found."
+            );
+
+        }
+
+    }
+
+
+    /* =================================================
+       START SYSTEM AFTER PAGE LOAD
+    ================================================= */
+
+    function startLanguageSystem() {
+
+        waitForTranslations(
+            initializeLanguageSystem
         );
 
     }
 
 
-
     /* =================================================
-       WAIT FOR DOM
+       DOM READY
     ================================================= */
 
     if (
@@ -323,12 +463,12 @@
 
         document.addEventListener(
             "DOMContentLoaded",
-            initializeLanguageSystem
+            startLanguageSystem
         );
 
     } else {
 
-        initializeLanguageSystem();
+        startLanguageSystem();
 
     }
 

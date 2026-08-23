@@ -1,128 +1,33 @@
 /* =====================================================
    KINGDOM LIGHT NETWORK
-   GLOBAL LANGUAGE CONTROLLER
+   GLOBAL WEBSITE LANGUAGE CONTROLLER
 ===================================================== */
 
 
 /* =====================================================
-   APPLY TRANSLATIONS
+   INITIALIZE LANGUAGE SYSTEM
 ===================================================== */
 
-function applyTranslations() {
-
-    const elements =
-        document.querySelectorAll("[data-translate]");
-
-
-    elements.forEach(function (element) {
-
-        const key =
-            element.getAttribute("data-translate");
-
-
-        const translatedText =
-            getTranslation(key);
-
-
-        if (translatedText) {
-
-            element.textContent =
-                translatedText;
-
-        }
-
-    });
-
-
-    /* -------------------------------------------------
-       UPDATE LANGUAGE SELECTOR
-    ------------------------------------------------- */
-
-    const languageSelectors =
-        document.querySelectorAll("[data-language-select]");
-
-
-    languageSelectors.forEach(function (selector) {
-
-        selector.value =
-            currentLanguage;
-
-    });
-
+document.addEventListener("DOMContentLoaded", function () {
 
     console.log(
-        "Translations applied:",
-        currentLanguage
+        "Kingdom Light Network Language Controller started."
     );
 
-}
 
+    /* =================================================
+       FIND LANGUAGE SELECTOR
+    ================================================= */
 
-/* =====================================================
-   CHANGE WEBSITE LANGUAGE
-===================================================== */
-
-function changeWebsiteLanguage(language) {
-
-    if (!translations[language]) {
-
-        console.warn(
-            "Unsupported language:",
-            language
-        );
-
-        return;
-
-    }
-
-
-    setTranslationLanguage(language);
-
-
-    applyTranslations();
-
-}
-
-
-/* =====================================================
-   LANGUAGE SELECTOR
-===================================================== */
-
-function initializeLanguageSelector() {
-
-    const languageSelectors =
-        document.querySelectorAll(
-            "[data-language-select]"
+    const languageSelect =
+        document.getElementById(
+            "globalLanguageSelect"
         );
 
 
-    languageSelectors.forEach(function (selector) {
-
-        selector.addEventListener(
-            "change",
-            function () {
-
-                const selectedLanguage =
-                    this.value;
-
-
-                changeWebsiteLanguage(
-                    selectedLanguage
-                );
-
-            }
-        );
-
-    });
-
-}
-
-
-/* =====================================================
-   LOAD SAVED LANGUAGE
-===================================================== */
-
-function loadSavedLanguage() {
+    /* =================================================
+       LOAD SAVED LANGUAGE
+    ================================================= */
 
     const savedLanguage =
         localStorage.getItem("language");
@@ -145,27 +50,151 @@ function loadSavedLanguage() {
 
     }
 
-}
+
+    /* =================================================
+       SET SELECTOR VALUE
+    ================================================= */
+
+    if (languageSelect) {
+
+        languageSelect.value =
+            currentLanguage;
+
+    }
 
 
-/* =====================================================
-   INITIALIZE GLOBAL LANGUAGE SYSTEM
-===================================================== */
+    /* =================================================
+       LANGUAGE CHANGE
+    ================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+    if (languageSelect) {
 
-        loadSavedLanguage();
+        languageSelect.addEventListener(
+            "change",
+            function () {
 
-        initializeLanguageSelector();
+                const selectedLanguage =
+                    this.value;
 
-        applyTranslations();
+
+                setTranslationLanguage(
+                    selectedLanguage
+                );
 
 
-        console.log(
-            "Kingdom Light Network Language System initialized successfully."
+                applyTranslations();
+
+
+            }
         );
 
     }
-);
+
+
+    /* =================================================
+       APPLY TRANSLATIONS
+    ================================================= */
+
+    applyTranslations();
+
+
+});
+
+
+/* =====================================================
+   APPLY TRANSLATIONS TO WEBSITE
+===================================================== */
+
+function applyTranslations() {
+
+    const elements =
+        document.querySelectorAll(
+            "[data-translate]"
+        );
+
+
+    elements.forEach(
+        function (element) {
+
+            const key =
+                element.getAttribute(
+                    "data-translate"
+                );
+
+
+            if (!key) {
+
+                return;
+
+            }
+
+
+            const translatedText =
+                getTranslation(
+                    key
+                );
+
+
+            if (
+                translatedText !== undefined
+            ) {
+
+                element.textContent =
+                    translatedText;
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       UPDATE LANGUAGE SELECTOR
+    ================================================= */
+
+    const languageSelect =
+        document.getElementById(
+            "globalLanguageSelect"
+        );
+
+
+    if (languageSelect) {
+
+        languageSelect.value =
+            currentLanguage;
+
+    }
+
+
+    /* =================================================
+       UPDATE PAGE DIRECTION
+    ================================================= */
+
+    document.documentElement.lang =
+        currentLanguage;
+
+
+    if (
+        currentLanguage === "ur" ||
+        currentLanguage === "pa" ||
+        currentLanguage === "ar" ||
+        currentLanguage === "fa"
+    ) {
+
+        document.documentElement.dir =
+            "rtl";
+
+    } else {
+
+        document.documentElement.dir =
+            "ltr";
+
+    }
+
+
+    console.log(
+        "Translations applied:",
+        currentLanguage
+    );
+
+}

@@ -3,317 +3,347 @@
    GLOBAL WEBSITE LANGUAGE CONTROLLER
 ===================================================== */
 
-document.addEventListener("DOMContentLoaded", function () {
+(function () {
 
-    console.log("====================================");
-    console.log("KINGDOM LIGHT NETWORK");
-    console.log("GLOBAL LANGUAGE SYSTEM STARTED");
-    console.log("====================================");
+    "use strict";
 
 
     /* =================================================
-       LANGUAGE SELECTOR
+       DEFAULT LANGUAGE
     ================================================= */
 
-    const languageSelect =
-        document.getElementById("globalLanguageSelect");
+    let currentLanguage =
+        localStorage.getItem("language") || "en";
 
 
     /* =================================================
-       CHECK TRANSLATION SYSTEM
+       CHECK TRANSLATIONS
     ================================================= */
 
-    if (typeof translations === "undefined") {
+    function languageExists(language) {
 
-        console.error(
-            "ERROR: translations.js is not loaded."
-        );
-
-        return;
-    }
-
-
-    if (typeof setTranslationLanguage !== "function") {
-
-        console.error(
-            "ERROR: setTranslationLanguage() is missing."
-        );
-
-        return;
-    }
-
-
-    if (typeof getTranslation !== "function") {
-
-        console.error(
-            "ERROR: getTranslation() is missing."
-        );
-
-        return;
-    }
-
-
-    /* =================================================
-       LOAD SAVED LANGUAGE
-    ================================================= */
-
-    let savedLanguage =
-        localStorage.getItem("language");
-
-
-    if (
-        !savedLanguage ||
-        !translations[savedLanguage]
-    ) {
-
-        savedLanguage = "en";
-
-    }
-
-
-    /* =================================================
-       SET INITIAL LANGUAGE
-    ================================================= */
-
-    setTranslationLanguage(
-        savedLanguage
-    );
-
-
-    /* =================================================
-       APPLY INITIAL TRANSLATIONS
-    ================================================= */
-
-    applyTranslations();
-
-
-    /* =================================================
-       SET SELECTOR
-    ================================================= */
-
-    if (languageSelect) {
-
-        languageSelect.value =
-            currentLanguage;
-
-    }
-
-
-    /* =================================================
-       LANGUAGE CHANGE
-    ================================================= */
-
-    if (languageSelect) {
-
-        languageSelect.addEventListener(
-            "change",
-            function () {
-
-                const selectedLanguage =
-                    this.value;
-
-
-                console.log(
-                    "Language selected:",
-                    selectedLanguage
-                );
-
-
-                /* -----------------------------------------
-                   CHECK LANGUAGE
-                ----------------------------------------- */
-
-                if (
-                    !translations[selectedLanguage]
-                ) {
-
-                    console.error(
-                        "Translation not found:",
-                        selectedLanguage
-                    );
-
-                    return;
-                }
-
-
-                /* -----------------------------------------
-                   SAVE LANGUAGE
-                ----------------------------------------- */
-
-                localStorage.setItem(
-                    "language",
-                    selectedLanguage
-                );
-
-
-                /* -----------------------------------------
-                   CHANGE LANGUAGE
-                ----------------------------------------- */
-
-                setTranslationLanguage(
-                    selectedLanguage
-                );
-
-
-                /* -----------------------------------------
-                   APPLY TRANSLATIONS
-                ----------------------------------------- */
-
-                applyTranslations();
-
-            }
+        return (
+            typeof translations !== "undefined" &&
+            translations &&
+            translations[language]
         );
 
     }
 
-});
-
-
-/* =====================================================
-   APPLY TRANSLATIONS
-===================================================== */
-
-function applyTranslations() {
-
-    console.log(
-        "Applying language:",
-        currentLanguage
-    );
-
 
     /* =================================================
-       FIND ALL TRANSLATABLE ELEMENTS
+       SET LANGUAGE
     ================================================= */
 
-    const elements =
-        document.querySelectorAll(
-            "[data-translate]"
-        );
+    function setTranslationLanguage(language) {
 
+        if (!languageExists(language)) {
 
-    console.log(
-        "Translatable elements found:",
-        elements.length
-    );
-
-
-    /* =================================================
-       TRANSLATE EACH ELEMENT
-    ================================================= */
-
-    elements.forEach(function (element) {
-
-        const key =
-            element.getAttribute(
-                "data-translate"
+            console.warn(
+                "Translation language not found:",
+                language
             );
 
-
-        if (!key) {
-
-            return;
+            language = "en";
 
         }
 
 
-        let translatedText;
+        currentLanguage = language;
+
+        localStorage.setItem(
+            "language",
+            language
+        );
 
 
-        try {
+        applyTranslations();
 
-            translatedText =
-                getTranslation(key);
+    }
 
-        } catch (error) {
 
-            console.error(
-                "Translation error:",
-                key,
-                error
+    /* =================================================
+       GET TRANSLATION
+    ================================================= */
+
+    function getTranslation(key) {
+
+        if (!languageExists(currentLanguage)) {
+
+            return undefined;
+
+        }
+
+
+        const languageData =
+            translations[currentLanguage];
+
+
+        if (
+            languageData &&
+            Object.prototype.hasOwnProperty.call(
+                languageData,
+                key
+            )
+        ) {
+
+            return languageData[key];
+
+        }
+
+
+        /* ---------------------------------------------
+           FALLBACK TO ENGLISH
+        --------------------------------------------- */
+
+        if (
+            translations.en &&
+            Object.prototype.hasOwnProperty.call(
+                translations.en,
+                key
+            )
+        ) {
+
+            return translations.en[key];
+
+        }
+
+
+        return undefined;
+
+    }
+
+
+    /* =================================================
+       APPLY ALL TRANSLATIONS
+    ================================================= */
+
+    function applyTranslations() {
+
+        const elements =
+            document.querySelectorAll(
+                "[data-translate]"
             );
 
-            return;
+
+        elements.forEach(function (element) {
+
+            const key =
+                element.getAttribute(
+                    "data-translate"
+                );
+
+
+            if (!key) {
+
+                return;
+
+            }
+
+
+            const translatedText =
+                getTranslation(key);
+
+
+            if (
+                translatedText !== undefined
+            ) {
+
+                element.textContent =
+                    translatedText;
+
+            }
+
+        });
+
+
+        /* =================================================
+           UPDATE LANGUAGE SELECTOR
+        ================================================= */
+
+        const languageSelect =
+            document.getElementById(
+                "globalLanguageSelect"
+            );
+
+
+        if (languageSelect) {
+
+            languageSelect.value =
+                currentLanguage;
 
         }
 
 
         /* =================================================
-           APPLY TRANSLATION
+           UPDATE HTML LANGUAGE
+        ================================================= */
+
+        document.documentElement.lang =
+            currentLanguage;
+
+
+        /* =================================================
+           UPDATE TEXT DIRECTION
         ================================================= */
 
         if (
-            translatedText !== undefined &&
-            translatedText !== null &&
-            translatedText !== ""
+            currentLanguage === "ur" ||
+            currentLanguage === "pa" ||
+            currentLanguage === "ar" ||
+            currentLanguage === "fa"
         ) {
 
-            element.textContent =
-                translatedText;
+            document.documentElement.dir =
+                "rtl";
 
         } else {
 
-            console.warn(
-                "Translation missing:",
-                key,
-                currentLanguage
-            );
+            document.documentElement.dir =
+                "ltr";
 
         }
 
-    });
 
-
-    /* =================================================
-       UPDATE LANGUAGE SELECTOR
-    ================================================= */
-
-    const languageSelect =
-        document.getElementById(
-            "globalLanguageSelect"
+        console.log(
+            "Language applied:",
+            currentLanguage
         );
-
-
-    if (languageSelect) {
-
-        languageSelect.value =
-            currentLanguage;
 
     }
 
 
     /* =================================================
-       UPDATE HTML LANGUAGE
+       INITIALIZE
     ================================================= */
 
-    document.documentElement.lang =
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            console.log(
+                "Kingdom Light Network Language Controller started."
+            );
+
+
+            /* -----------------------------------------
+               CHECK TRANSLATION FILE
+            ----------------------------------------- */
+
+            if (
+                typeof translations ===
+                "undefined"
+            ) {
+
+                console.error(
+                    "ERROR: translations.js was not loaded."
+                );
+
+                return;
+
+            }
+
+
+            console.log(
+                "Available languages:",
+                Object.keys(translations)
+            );
+
+
+            /* -----------------------------------------
+               LANGUAGE SELECTOR
+            ----------------------------------------- */
+
+            const languageSelect =
+                document.getElementById(
+                    "globalLanguageSelect"
+                );
+
+
+            /* -----------------------------------------
+               LOAD SAVED LANGUAGE
+            ----------------------------------------- */
+
+            if (
+                !languageExists(
+                    currentLanguage
+                )
+            ) {
+
+                currentLanguage =
+                    "en";
+
+            }
+
+
+            /* -----------------------------------------
+               INITIAL APPLY
+            ----------------------------------------- */
+
+            applyTranslations();
+
+
+            /* -----------------------------------------
+               SELECTOR EVENT
+            ----------------------------------------- */
+
+            if (languageSelect) {
+
+                languageSelect.value =
+                    currentLanguage;
+
+
+                languageSelect.addEventListener(
+                    "change",
+                    function () {
+
+                        const selectedLanguage =
+                            this.value;
+
+
+                        console.log(
+                            "Language selected:",
+                            selectedLanguage
+                        );
+
+
+                        setTranslationLanguage(
+                            selectedLanguage
+                        );
+
+                    }
+                );
+
+            } else {
+
+                console.warn(
+                    "Language selector not found."
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       MAKE FUNCTIONS GLOBAL
+    ================================================= */
+
+    window.currentLanguage =
         currentLanguage;
 
 
-    /* =================================================
-       UPDATE PAGE DIRECTION
-    ================================================= */
-
-    if (
-        currentLanguage === "ur" ||
-        currentLanguage === "pa" ||
-        currentLanguage === "ar" ||
-        currentLanguage === "fa"
-    ) {
-
-        document.documentElement.dir =
-            "rtl";
-
-    } else {
-
-        document.documentElement.dir =
-            "ltr";
-
-    }
+    window.setTranslationLanguage =
+        setTranslationLanguage;
 
 
-    console.log(
-        "Translations successfully applied:",
-        currentLanguage
-    );
+    window.getTranslation =
+        getTranslation;
 
-}
+
+    window.applyTranslations =
+        applyTranslations;
+
+
+})();

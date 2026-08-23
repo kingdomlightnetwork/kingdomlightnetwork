@@ -1,36 +1,74 @@
 /* =====================================================
    KINGDOM LIGHT NETWORK
-   GLOBAL WEBSITE LANGUAGE SYSTEM
-   Central Language Selector
+   GLOBAL LANGUAGE CONTROLLER
 ===================================================== */
 
-document.addEventListener("DOMContentLoaded", function () {
 
-    console.log(
-        "Kingdom Light Network Global Language System is running"
-    );
+/* =====================================================
+   APPLY TRANSLATIONS
+===================================================== */
+
+function applyTranslations() {
+
+    const elements =
+        document.querySelectorAll("[data-translate]");
 
 
-    /* =================================================
-       LANGUAGE SELECTORS
-    ================================================= */
+    elements.forEach(function (element) {
+
+        const key =
+            element.getAttribute("data-translate");
+
+
+        const translatedText =
+            getTranslation(key);
+
+
+        if (translatedText) {
+
+            element.textContent =
+                translatedText;
+
+        }
+
+    });
+
+
+    /* -------------------------------------------------
+       UPDATE LANGUAGE SELECTOR
+    ------------------------------------------------- */
 
     const languageSelectors =
-        document.querySelectorAll(
-            "#globalLanguageSelect, #languageSelect, .language-select, [data-language-select]"
-        );
+        document.querySelectorAll("[data-language-select]");
 
 
-    /* =================================================
-       CHECK TRANSLATION SYSTEM
-    ================================================= */
+    languageSelectors.forEach(function (selector) {
 
-    if (
-        typeof translations === "undefined"
-    ) {
+        selector.value =
+            currentLanguage;
 
-        console.error(
-            "translations.js is not loaded."
+    });
+
+
+    console.log(
+        "Translations applied:",
+        currentLanguage
+    );
+
+}
+
+
+/* =====================================================
+   CHANGE WEBSITE LANGUAGE
+===================================================== */
+
+function changeWebsiteLanguage(language) {
+
+    if (!translations[language]) {
+
+        console.warn(
+            "Unsupported language:",
+            language
         );
 
         return;
@@ -38,287 +76,96 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
-       GET SAVED LANGUAGE
-    ================================================= */
+    setTranslationLanguage(language);
 
-    let savedLanguage =
+
+    applyTranslations();
+
+}
+
+
+/* =====================================================
+   LANGUAGE SELECTOR
+===================================================== */
+
+function initializeLanguageSelector() {
+
+    const languageSelectors =
+        document.querySelectorAll(
+            "[data-language-select]"
+        );
+
+
+    languageSelectors.forEach(function (selector) {
+
+        selector.addEventListener(
+            "change",
+            function () {
+
+                const selectedLanguage =
+                    this.value;
+
+
+                changeWebsiteLanguage(
+                    selectedLanguage
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   LOAD SAVED LANGUAGE
+===================================================== */
+
+function loadSavedLanguage() {
+
+    const savedLanguage =
         localStorage.getItem("language");
 
 
     if (
-        !savedLanguage ||
-        !translations[savedLanguage]
+        savedLanguage &&
+        translations[savedLanguage]
     ) {
 
-        savedLanguage = "en";
-
-        localStorage.setItem(
-            "language",
+        setTranslationLanguage(
             savedLanguage
         );
 
+    } else {
+
+        setTranslationLanguage(
+            "en"
+        );
+
     }
 
-
-    /* =================================================
-       CHANGE WEBSITE LANGUAGE
-    ================================================= */
-
-    function changeLanguage(lang) {
-
-        if (
-            !translations[lang]
-        ) {
-
-            console.warn(
-                "Language not available:",
-                lang
-            );
-
-            return;
-
-        }
+}
 
 
-        /* ---------------------------------------------
-           SAVE LANGUAGE
-        --------------------------------------------- */
+/* =====================================================
+   INITIALIZE GLOBAL LANGUAGE SYSTEM
+===================================================== */
 
-        localStorage.setItem(
-            "language",
-            lang
-        );
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
+        loadSavedLanguage();
 
-        /* ---------------------------------------------
-           APPLY TRANSLATIONS
-        --------------------------------------------- */
+        initializeLanguageSelector();
 
-        applyTranslations(
-            lang
-        );
+        applyTranslations();
 
 
         console.log(
-            "Global website language changed to:",
-            lang
+            "Kingdom Light Network Language System initialized successfully."
         );
 
     }
-
-
-    /* =================================================
-       APPLY TRANSLATIONS
-    ================================================= */
-
-    function applyTranslations(lang) {
-
-        if (
-            !translations[lang]
-        ) {
-
-            return;
-
-        }
-
-
-        /* ---------------------------------------------
-           TEXT
-        --------------------------------------------- */
-
-        const elements =
-            document.querySelectorAll(
-                "[data-translate]"
-            );
-
-
-        elements.forEach(
-            function (element) {
-
-                const key =
-                    element.getAttribute(
-                        "data-translate"
-                    );
-
-
-                if (
-                    translations[lang][key] !== undefined
-                ) {
-
-                    element.textContent =
-                        translations[lang][key];
-
-                }
-
-            }
-        );
-
-
-        /* ---------------------------------------------
-           PLACEHOLDERS
-        --------------------------------------------- */
-
-        const placeholders =
-            document.querySelectorAll(
-                "[data-translate-placeholder]"
-            );
-
-
-        placeholders.forEach(
-            function (element) {
-
-                const key =
-                    element.getAttribute(
-                        "data-translate-placeholder"
-                    );
-
-
-                if (
-                    translations[lang][key] !== undefined
-                ) {
-
-                    element.placeholder =
-                        translations[lang][key];
-
-                }
-
-            }
-        );
-
-
-        /* ---------------------------------------------
-           TITLES
-        --------------------------------------------- */
-
-        const titles =
-            document.querySelectorAll(
-                "[data-translate-title]"
-            );
-
-
-        titles.forEach(
-            function (element) {
-
-                const key =
-                    element.getAttribute(
-                        "data-translate-title"
-                    );
-
-
-                if (
-                    translations[lang][key] !== undefined
-                ) {
-
-                    element.title =
-                        translations[lang][key];
-
-                }
-
-            }
-        );
-
-
-        /* ---------------------------------------------
-           HTML LANGUAGE
-        --------------------------------------------- */
-
-        document.documentElement.lang =
-            lang;
-
-
-        /* ---------------------------------------------
-           RTL / LTR
-        --------------------------------------------- */
-
-        if (
-            lang === "ur" ||
-            lang === "pa" ||
-            lang === "ar"
-        ) {
-
-            document.documentElement.dir =
-                "rtl";
-
-        } else {
-
-            document.documentElement.dir =
-                "ltr";
-
-        }
-
-
-        /* ---------------------------------------------
-           UPDATE ALL LANGUAGE SELECTORS
-        --------------------------------------------- */
-
-        languageSelectors.forEach(
-            function (selector) {
-
-                selector.value =
-                    lang;
-
-            }
-        );
-
-
-        /* ---------------------------------------------
-           SAVE CURRENT LANGUAGE
-        --------------------------------------------- */
-
-        localStorage.setItem(
-            "language",
-            lang
-        );
-
-    }
-
-
-    /* =================================================
-       LANGUAGE SELECTOR EVENTS
-    ================================================= */
-
-    languageSelectors.forEach(
-        function (selector) {
-
-            selector.addEventListener(
-                "change",
-                function () {
-
-                    changeLanguage(
-                        selector.value
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =================================================
-       GLOBAL FUNCTION
-    ================================================= */
-
-    window.changeLanguage =
-        changeLanguage;
-
-
-    /* =================================================
-       APPLY SAVED LANGUAGE
-    ================================================= */
-
-    applyTranslations(
-        savedLanguage
-    );
-
-
-    /* =================================================
-       SYSTEM READY
-    ================================================= */
-
-    console.log(
-        "Kingdom Light Network Global Language System initialized successfully."
-    );
-
-});
+);

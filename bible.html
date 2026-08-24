@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,29 +19,31 @@
 
 <header>
 
-<div class="logo-area">
+    <div class="logo-area">
 
-<div class="logo-placeholder">
+        <div class="logo-placeholder">
 
-<img src="images/paster%201.png" alt="Kingdom Light Network Logo">
+            <img
+                src="images/paster%201.png"
+                alt="Kingdom Light Network Logo"
+            >
 
-</div>
-
-
-<div>
-
-<h1>
-Kingdom Light Network
-</h1>
-
-<p>
-Powered by Christ Church
-</p>
-
-</div>
+        </div>
 
 
-</div>
+        <div>
+
+            <h1>
+                Kingdom Light Network
+            </h1>
+
+            <p>
+                Powered by Christ Church
+            </p>
+
+        </div>
+
+    </div>
 
 </header>
 
@@ -50,152 +51,403 @@ Powered by Christ Church
 
 <nav>
 
-<a href="index.html">
-Home
-</a>
+    <a href="index.html">
+        Home
+    </a>
 
-<a href="bible.html">
-📖 Bible
-</a>
+    <a href="bible.html">
+        📖 Bible
+    </a>
 
-<a href="ai.html">
-🤖 AI
-</a>
+    <a href="ai.html">
+        🤖 AI
+    </a>
 
-<a href="welfare.html">
-❤️ Welfare
-</a>
+    <a href="welfare.html">
+        ❤️ Welfare
+    </a>
 
-<a href="prayer.html">
-🙏 Prayer
-</a>
+    <a href="prayer.html">
+        🙏 Prayer
+    </a>
 
-<a href="media.html">
-🎬 Media
-</a>
+    <a href="media.html">
+        🎬 Media
+    </a>
 
-<a href="contact.html">
-📞 Contact
-</a>
+    <a href="contact.html">
+        📞 Contact
+    </a>
 
 </nav>
 
 
 
+<!-- =====================================================
+     BIBLE HERO
+===================================================== -->
+
 <section class="hero">
 
-<div class="hero-content">
+    <div class="hero-content">
 
-<h2>
-📖 Bible Study Center
-</h2>
+        <h2>
+            📖 Bible Study Center
+        </h2>
 
+        <h3>
+            Learning The Word Of God
+        </h3>
 
-<h3>
-Learning The Word Of God
-</h3>
+        <p>
+            Explore Scripture, biblical teachings, history,
+            and spiritual resources through Kingdom Light Network.
+        </p>
 
-
-<p>
-Explore Scripture, biblical teachings, history, and spiritual resources through Kingdom Light Network.
-</p>
-
-
-</div>
+    </div>
 
 </section>
 
 
+
+<!-- =====================================================
+     BIBLE SELECTOR
+===================================================== -->
 
 <section class="services">
 
+    <div class="research-search-box">
 
-<h2>
-Our Bible Ministry
-</h2>
-
-
-<div class="cards">
+        <h2>
+            📖 Bible Selector
+        </h2>
 
 
-<div class="card">
+        <!-- =================================================
+             ORIGINAL BIBLE LANGUAGE
+        ================================================== -->
 
-<h3>
-📚 Bible Lessons
-</h3>
+        <div class="bible-selector-group">
 
-<p>
-Spiritual lessons and teachings from God's Word.
-</p>
+            <label for="sourceLanguage">
+                🌍 Original Bible Language
+            </label>
 
-</div>
+            <select id="sourceLanguage">
 
+                <option value="">
+                    Select Original Language
+                </option>
 
+                <option value="he">
+                    🇮🇱 Hebrew
+                </option>
 
-<div class="card">
+                <option value="arc">
+                    Aramaic
+                </option>
 
-<h3>
-🌍 Bible History
-</h3>
+                <option value="grc">
+                    🇬🇷 Koine Greek
+                </option>
 
-<p>
-Exploring biblical places, cultures and backgrounds.
-</p>
+            </select>
 
-</div>
-
-
-
-<div class="card">
-
-<h3>
-🔎 Bible Research
-</h3>
-
-<p>
-Study resources for deeper understanding of Scripture.
-</p>
-
-</div>
+        </div>
 
 
 
-<div class="card">
+        <!-- =================================================
+             TRANSLATION / READING LANGUAGE
+        ================================================== -->
 
-<h3>
-👨‍🏫 Training Center
-</h3>
+        <div class="bible-selector-group">
 
-<p>
-Helping teachers and servants grow in knowledge.
-</p>
+            <label for="translationLanguage">
+                🌐 Translation / Reading Language
+            </label>
 
-</div>
+            <select id="translationLanguage">
+
+                <option value="">
+                    Select Reading Language
+                </option>
+
+                <option value="ur">
+                    🇵🇰 اردو
+                </option>
+
+                <option value="pa">
+                    🇵🇰 پنجابی
+                </option>
+
+                <option value="en">
+                    🇬🇧 English
+                </option>
+
+                <option value="ar">
+                    🇸🇦 العربية
+                </option>
+
+            </select>
+
+        </div>
 
 
-</div>
+
+        <!-- =================================================
+             TESTAMENT
+        ================================================== -->
+
+        <div class="bible-selector-group">
+
+            <label for="testamentSelect">
+                📜 Testament
+            </label>
+
+            <select id="testamentSelect">
+
+                <option value="">
+                    Select Testament
+                </option>
+
+                <option value="old">
+                    📜 Old Testament
+                </option>
+
+                <option value="new">
+                    ✝️ New Testament
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================================
+             BOOK
+        ================================================== -->
+
+        <div class="bible-selector-group">
+
+            <label for="bookSelect">
+                📖 Bible Book
+            </label>
+
+            <select id="bookSelect">
+
+                <option value="">
+                    Select Book
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CHAPTER
+        ================================================== -->
+
+        <div class="bible-selector-group">
+
+            <label for="chapterSelect">
+                📑 Chapter
+            </label>
+
+            <select id="chapterSelect">
+
+                <option value="">
+                    Select Chapter
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================================
+             VERSE
+        ================================================== -->
+
+        <div class="bible-selector-group">
+
+            <label for="verseSelect">
+                🔢 Verse
+            </label>
+
+            <select id="verseSelect">
+
+                <option value="">
+                    Select Verse
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ACTION BUTTONS
+        ================================================== -->
+
+        <div class="bible-action-buttons">
+
+            <button
+                type="button"
+                id="readBibleButton"
+            >
+                📖 Read Bible
+            </button>
+
+
+            <button
+                type="button"
+                id="listenBibleButton"
+            >
+                🔊 Listen
+            </button>
+
+
+            <button
+                type="button"
+                id="researchBibleButton"
+            >
+                🔎 Research
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         BIBLE RESULT WILL APPEAR HERE
+    ====================================================== -->
+
+    <section
+        id="bibleResult"
+        class="bible-reading-panel"
+    >
+
+    </section>
 
 
 </section>
 
 
 
+<!-- =====================================================
+     BIBLE MINISTRY
+===================================================== -->
+
+<section class="services">
+
+    <h2>
+        Our Bible Ministry
+    </h2>
+
+
+    <div class="cards">
+
+
+        <div class="card">
+
+            <h3>
+                📚 Bible Lessons
+            </h3>
+
+            <p>
+                Spiritual lessons and teachings from God's Word.
+            </p>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <h3>
+                🌍 Bible History
+            </h3>
+
+            <p>
+                Exploring biblical places, cultures and backgrounds.
+            </p>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <h3>
+                🔎 Bible Research
+            </h3>
+
+            <p>
+                Study resources for deeper understanding of Scripture.
+            </p>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <h3>
+                👨‍🏫 Training Center
+            </h3>
+
+            <p>
+                Helping teachers and servants grow in knowledge.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
 <footer>
 
-<h3>
-Kingdom Light Network
-</h3>
+    <h3>
+        Kingdom Light Network
+    </h3>
 
-<p>
-Powered by Christ Church
-</p>
+    <p>
+        Powered by Christ Church
+    </p>
 
 </footer>
 
 
-</body>
 
-  <script src="translations.js"></script>
+<!-- =====================================================
+     JAVASCRIPT
+     IMPORTANT ORDER
+===================================================== -->
+
+<script src="translations.js"></script>
+
 <script src="language.js"></script>
+
+<script src="bible-data.js"></script>
+
+<script src="bible-research.js"></script>
+
+
+</body>
 
 </html>

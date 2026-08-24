@@ -564,7 +564,126 @@ Object.keys(additionalTranslations).forEach(function (language) {
 
 });
 
-
 console.log(
     "Additional Home Page translations loaded successfully."
+);
+
+/* =====================================================
+   GLOBAL REQUIRED TRANSLATION KEYS
+   KEEP EXISTING TRANSLATIONS INTACT
+===================================================== */
+
+const requiredGlobalTranslations = {
+
+    en: {
+        poweredBy: "Powered by Christ Church",
+        language: "Language",
+        home: "Home",
+        live: "Live",
+        sermons: "Sermons",
+        bible: "Bible",
+        sundaySchool: "Sunday School",
+        ai: "AI",
+        welfare: "Welfare",
+        prayer: "Prayer",
+        media: "Media",
+        research: "Research",
+        contact: "Contact",
+        register: "Register",
+        createAccount: "Create Account",
+        allRightsReserved: "All Rights Reserved"
+    },
+
+    ur: {
+        poweredBy: "Powered by Christ Church",
+        language: "زبان",
+        home: "ہوم",
+        live: "لائیو",
+        sermons: "واعظ",
+        bible: "بائبل",
+        sundaySchool: "سنڈے اسکول",
+        ai: "اے آئی",
+        welfare: "فلاحی خدمت",
+        prayer: "دعا",
+        media: "میڈیا",
+        research: "تحقیق",
+        contact: "رابطہ",
+        register: "رجسٹر",
+        createAccount: "اکاؤنٹ بنائیں",
+        allRightsReserved: "جملہ حقوق محفوظ ہیں"
+    },
+
+    pa: {
+        poweredBy: "Powered by Christ Church",
+        language: "زبان",
+        home: "گھر",
+        live: "لائیو",
+        sermons: "پیغام",
+        bible: "بائبل",
+        sundaySchool: "سنڈے اسکول",
+        ai: "اے آئی",
+        welfare: "فلاحی خدمت",
+        prayer: "دعا",
+        media: "میڈیا",
+        research: "تحقیق",
+        contact: "رابطہ",
+        register: "رجسٹر",
+        createAccount: "اکاؤنٹ بناؤ",
+        allRightsReserved: "سارے حقوق محفوظ نیں"
+    },
+
+    ar: {
+        poweredBy: "Powered by Christ Church",
+        language: "اللغة",
+        home: "الرئيسية",
+        live: "مباشر",
+        sermons: "العظات",
+        bible: "الكتاب المقدس",
+        sundaySchool: "مدرسة الأحد",
+        ai: "الذكاء الاصطناعي",
+        welfare: "الخدمة الاجتماعية",
+        prayer: "الصلاة",
+        media: "الإعلام",
+        research: "البحث",
+        contact: "اتصل بنا",
+        register: "تسجيل",
+        createAccount: "إنشاء حساب",
+        allRightsReserved: "جميع الحقوق محفوظة"
+    }
+
+};
+
+
+/* =====================================================
+   MERGE REQUIRED GLOBAL TRANSLATIONS
+   ONLY ADD MISSING KEYS
+===================================================== */
+
+Object.keys(requiredGlobalTranslations).forEach(function (language) {
+
+    if (!translations[language]) {
+        translations[language] = {};
+    }
+
+    Object.keys(requiredGlobalTranslations[language]).forEach(function (key) {
+
+        if (
+            !Object.prototype.hasOwnProperty.call(
+                translations[language],
+                key
+            )
+        ) {
+
+            translations[language][key] =
+                requiredGlobalTranslations[language][key];
+
+        }
+
+    });
+
+});
+
+
+console.log(
+    "Required global translation keys checked successfully."
 );

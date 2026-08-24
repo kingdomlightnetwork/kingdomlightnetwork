@@ -1,4 +1,13 @@
 /* =====================================================
+   GLOBAL TRANSLATIONS OBJECT
+===================================================== */
+
+window.translations = window.translations || {};
+
+const translations = window.translations;
+
+
+/* =====================================================
    ADDITIONAL HOME PAGE TRANSLATIONS
 ===================================================== */
 

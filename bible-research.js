@@ -1,12 +1,12 @@
 // =====================================================
 // KINGDOM LIGHT NETWORK
 // BIBLE RESEARCH SYSTEM
-// MULTILINGUAL LOCAL BIBLE DATABASE
+// COMPACT BIBLE SELECTOR + READING + AUDIO
 // =====================================================
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("Bible Research System is running");
+    console.log("Kingdom Light Network Bible Research System is running");
 
 
     // =================================================
@@ -34,9 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const readBibleButton =
         document.getElementById("readBibleButton");
 
-    const listenBibleButton =
-        document.getElementById("listenBibleButton");
-
     const researchBibleButton =
         document.getElementById("researchBibleButton");
 
@@ -63,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =================================================
-    // CHECK BIBLE DATABASE
+    // CHECK DATABASE
     // =================================================
 
     if (
@@ -356,6 +353,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =================================================
+    // AUDIO STATE
+    // =================================================
+
+    let speechActive = false;
+
+
+    // =================================================
     // RESET SELECT
     // =================================================
 
@@ -374,7 +378,6 @@ document.addEventListener("DOMContentLoaded", function () {
         option.textContent = text;
 
         selectElement.appendChild(option);
-
     }
 
 
@@ -415,13 +418,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 option.textContent =
                     book.name;
 
-                bookSelect.appendChild(
-                    option
-                );
-
+                bookSelect.appendChild(option);
             }
         );
-
     }
 
 
@@ -475,12 +474,8 @@ document.addEventListener("DOMContentLoaded", function () {
             option.textContent =
                 "Chapter " + i;
 
-            chapterSelect.appendChild(
-                option
-            );
-
+            chapterSelect.appendChild(option);
         }
-
     }
 
 
@@ -511,17 +506,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const count =
             bookData[Number(chapter)];
 
-        if (
-            typeof count === "number" &&
-            count > 0
-        ) {
-
-            return count;
-
-        }
-
-        return 0;
-
+        return (
+            typeof count === "number"
+            ? count
+            : 0
+        );
     }
 
 
@@ -583,17 +572,13 @@ document.addEventListener("DOMContentLoaded", function () {
             option.textContent =
                 "Verse " + i;
 
-            verseSelect.appendChild(
-                option
-            );
-
+            verseSelect.appendChild(option);
         }
-
     }
 
 
     // =================================================
-    // GET REFERENCE
+    // GET BIBLE REFERENCE
     // =================================================
 
     function getBibleReference() {
@@ -606,7 +591,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ) {
 
             return null;
-
         }
 
         const book =
@@ -629,14 +613,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 book.name,
 
             chapter:
-                Number(
-                    chapterSelect.value
-                ),
+                Number(chapterSelect.value),
 
             verse:
-                Number(
-                    verseSelect.value
-                ),
+                Number(verseSelect.value),
 
             reference:
                 book.name +
@@ -644,14 +624,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 chapterSelect.value +
                 ":" +
                 verseSelect.value
-
         };
-
     }
 
 
     // =================================================
-    // GET DATABASE BY LANGUAGE
+    // GET DATABASE
     // =================================================
 
     function getSelectedDatabase() {
@@ -662,21 +640,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (
             typeof BIBLE_DATABASE === "undefined"
         ) {
-
             return null;
-
         }
 
-        if (
-            BIBLE_DATABASE[language]
-        ) {
-
-            return BIBLE_DATABASE[language];
-
-        }
-
-        return BIBLE_DATABASE.en || null;
-
+        return (
+            BIBLE_DATABASE[language] ||
+            BIBLE_DATABASE.en ||
+            null
+        );
     }
 
 
@@ -684,9 +655,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // GET LOCAL VERSE
     // =================================================
 
-    function getLocalBibleVerse(
-        data
-    ) {
+    function getLocalBibleVerse(data) {
 
         if (!data) {
             return null;
@@ -727,18 +696,15 @@ document.addEventListener("DOMContentLoaded", function () {
             typeof verseText === "string" &&
             verseText.trim() !== ""
         ) {
-
             return verseText;
-
         }
 
         return null;
-
     }
 
 
     // =================================================
-    // GET LANGUAGE DIRECTION
+    // LANGUAGE DIRECTION
     // =================================================
 
     function getLanguageDirection() {
@@ -754,11 +720,9 @@ document.addEventListener("DOMContentLoaded", function () {
             return BIBLE_LANGUAGES[
                 language
             ].direction;
-
         }
 
         return "rtl";
-
     }
 
 
@@ -779,19 +743,17 @@ document.addEventListener("DOMContentLoaded", function () {
             return BIBLE_LANGUAGES[
                 language
             ].nativeName;
-
         }
 
         return language;
-
     }
 
 
     // =================================================
-    // RESULT PANEL
+    // CREATE READING AREA
     // =================================================
 
-    function getBibleResult() {
+    function getBibleReadingArea() {
 
         let result =
             document.getElementById(
@@ -811,14 +773,14 @@ document.addEventListener("DOMContentLoaded", function () {
             result.className =
                 "bible-reading-panel";
 
-            const searchBox =
+            const selector =
                 document.querySelector(
-                    ".research-search-box"
+                    ".bible-selector-section"
                 );
 
-            if (searchBox) {
+            if (selector) {
 
-                searchBox.insertAdjacentElement(
+                selector.insertAdjacentElement(
                     "afterend",
                     result
                 );
@@ -828,18 +790,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.body.appendChild(
                     result
                 );
-
             }
-
         }
 
         return result;
-
     }
 
 
     // =================================================
-    // DISPLAY RESULT
+    // RENDER BIBLE RESULT
     // =================================================
 
     function renderBibleResult(
@@ -850,7 +809,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ) {
 
         const result =
-            getBibleResult();
+            getBibleReadingArea();
 
         const direction =
             getLanguageDirection();
@@ -865,7 +824,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             displayText =
                 "📖 اس آیت کا متن ابھی منتخب زبان کے local Bible database میں شامل نہیں ہے۔";
-
         }
 
         result.innerHTML = `
@@ -889,6 +847,32 @@ document.addEventListener("DOMContentLoaded", function () {
                     </strong>
                 </p>
 
+                <!-- =====================================
+                     AUDIO CONTROL
+                ====================================== -->
+
+                <div class="bible-audio-control">
+
+                    <button
+                        type="button"
+                        id="biblePlayButton"
+                        class="bible-play-button"
+                        aria-label="Play Bible Audio"
+                    >
+                        ▶
+                    </button>
+
+                    <span id="audioStatus">
+                        Play
+                    </span>
+
+                </div>
+
+
+                <!-- =====================================
+                     VERSE TEXT
+                ====================================== -->
+
                 <div class="bible-verse-text">
 
                     <p>
@@ -896,6 +880,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </p>
 
                 </div>
+
 
                 ${
                     researchMode
@@ -908,14 +893,181 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
             </div>
-
         `;
+
+
+        // =============================================
+        // AUDIO BUTTON
+        // =============================================
+
+        const playButton =
+            document.getElementById(
+                "biblePlayButton"
+            );
+
+        const audioStatus =
+            document.getElementById(
+                "audioStatus"
+            );
+
+
+        if (playButton) {
+
+            playButton.addEventListener(
+                "click",
+                function () {
+
+                    if (!displayText) {
+                        return;
+                    }
+
+
+                    // PAUSE
+                    if (speechActive) {
+
+                        window.speechSynthesis.pause();
+
+                        speechActive = false;
+
+                        playButton.textContent =
+                            "▶";
+
+                        if (audioStatus) {
+                            audioStatus.textContent =
+                                "Play";
+                        }
+
+                        return;
+                    }
+
+
+                    // RESUME
+                    if (
+                        window.speechSynthesis.paused
+                    ) {
+
+                        window.speechSynthesis.resume();
+
+                        speechActive = true;
+
+                        playButton.textContent =
+                            "⏸";
+
+                        if (audioStatus) {
+                            audioStatus.textContent =
+                                "Pause";
+                        }
+
+                        return;
+                    }
+
+
+                    // START
+                    if (
+                        "speechSynthesis" in window
+                    ) {
+
+                        const speech =
+                            new SpeechSynthesisUtterance(
+                                displayText
+                            );
+
+                        const language =
+                            translationLanguage.value;
+
+
+                        if (language === "ur") {
+
+                            speech.lang =
+                                "ur-PK";
+
+                        }
+
+                        else if (language === "pa") {
+
+                            speech.lang =
+                                "pa-PK";
+
+                        }
+
+                        else if (language === "ar") {
+
+                            speech.lang =
+                                "ar-SA";
+
+                        }
+
+                        else {
+
+                            speech.lang =
+                                "en-US";
+                        }
+
+
+                        speech.onstart =
+                            function () {
+
+                                speechActive =
+                                    true;
+
+                                playButton.textContent =
+                                    "⏸";
+
+                                if (audioStatus) {
+                                    audioStatus.textContent =
+                                        "Pause";
+                                }
+                            };
+
+
+                        speech.onend =
+                            function () {
+
+                                speechActive =
+                                    false;
+
+                                playButton.textContent =
+                                    "▶";
+
+                                if (audioStatus) {
+                                    audioStatus.textContent =
+                                        "Play";
+                                }
+                            };
+
+
+                        speech.onerror =
+                            function () {
+
+                                speechActive =
+                                    false;
+
+                                playButton.textContent =
+                                    "▶";
+
+                                if (audioStatus) {
+                                    audioStatus.textContent =
+                                        "Play";
+                                }
+                            };
+
+
+                        window.speechSynthesis.cancel();
+
+                        window.speechSynthesis.speak(
+                            speech
+                        );
+                    }
+
+                }
+            );
+        }
+
 
         result.scrollIntoView({
             behavior: "smooth",
             block: "start"
         });
-
     }
 
 
@@ -927,10 +1079,13 @@ document.addEventListener("DOMContentLoaded", function () {
         "change",
         function () {
 
+            window.speechSynthesis.cancel();
+
+            speechActive = false;
+
             loadBooks(
                 testamentSelect.value
             );
-
         }
     );
 
@@ -947,7 +1102,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 testamentSelect.value,
                 bookSelect.value
             );
-
         }
     );
 
@@ -965,7 +1119,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 bookSelect.value,
                 chapterSelect.value
             );
-
         }
     );
 
@@ -978,10 +1131,9 @@ document.addEventListener("DOMContentLoaded", function () {
         "change",
         function () {
 
-            console.log(
-                "Translation language changed:",
-                translationLanguage.value
-            );
+            window.speechSynthesis.cancel();
+
+            speechActive = false;
 
             const data =
                 getBibleReference();
@@ -997,15 +1149,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     text,
                     false
                 );
-
             }
-
         }
     );
 
 
     // =================================================
-    // SOURCE LANGUAGE CHANGE
+    // ORIGINAL LANGUAGE CHANGE
     // =================================================
 
     sourceLanguage.addEventListener(
@@ -1041,7 +1191,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
 
                     return;
-
                 }
 
                 const text =
@@ -1056,96 +1205,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }
         );
-
     }
 
 
     // =================================================
-    // LISTEN
-    // =================================================
-
-    if (listenBibleButton) {
-
-        listenBibleButton.addEventListener(
-            "click",
-            function () {
-
-                const data =
-                    getBibleReference();
-
-                if (!data) {
-
-                    alert(
-                        "Please select Testament, Book, Chapter and Verse."
-                    );
-
-                    return;
-
-                }
-
-                const text =
-                    getLocalBibleVerse(data);
-
-                if (!text) {
-
-                    alert(
-                        "This verse is not yet available in the selected language database."
-                    );
-
-                    return;
-
-                }
-
-                if (
-                    "speechSynthesis" in window
-                ) {
-
-                    const speech =
-                        new SpeechSynthesisUtterance(
-                            text
-                        );
-
-                    const language =
-                        translationLanguage.value;
-
-                    if (language === "ur") {
-                        speech.lang = "ur-PK";
-                    }
-
-                    else if (language === "pa") {
-                        speech.lang = "pa-PK";
-                    }
-
-                    else if (language === "ar") {
-                        speech.lang = "ar-SA";
-                    }
-
-                    else {
-                        speech.lang = "en-US";
-                    }
-
-                    window.speechSynthesis.cancel();
-
-                    window.speechSynthesis.speak(
-                        speech
-                    );
-
-                } else {
-
-                    alert(
-                        "Audio speech is not supported in this browser."
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    // =================================================
-    // INTERNAL RESEARCH
+    // RESEARCH
     // =================================================
 
     if (researchBibleButton) {
@@ -1164,7 +1228,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
 
                     return;
-
                 }
 
                 const text =
@@ -1179,7 +1242,224 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }
         );
+    }
 
+
+    // =================================================
+    // COMPACT MENU BUTTONS
+    // =================================================
+
+    const oldTestamentMenu =
+        document.getElementById(
+            "oldTestamentMenu"
+        );
+
+    const newTestamentMenu =
+        document.getElementById(
+            "newTestamentMenu"
+        );
+
+    const chapterMenu =
+        document.getElementById(
+            "chapterMenu"
+        );
+
+    const verseMenu =
+        document.getElementById(
+            "verseMenu"
+        );
+
+    const booksMenu =
+        document.getElementById(
+            "booksMenu"
+        );
+
+    const originalMenu =
+        document.getElementById(
+            "originalMenu"
+        );
+
+    const translationMenu =
+        document.getElementById(
+            "translationMenu"
+        );
+
+    const researchMenu =
+        document.getElementById(
+            "researchMenu"
+        );
+
+
+    // =================================================
+    // MENU HELPERS
+    // =================================================
+
+    function focusElement(element) {
+
+        if (!element) {
+            return;
+        }
+
+        element.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        element.focus();
+    }
+
+
+    // =================================================
+    // OLD TESTAMENT MENU
+    // =================================================
+
+    if (oldTestamentMenu) {
+
+        oldTestamentMenu.addEventListener(
+            "click",
+            function () {
+
+                testamentSelect.value =
+                    "old";
+
+                loadBooks("old");
+
+                focusElement(
+                    testamentSelect
+                );
+            }
+        );
+    }
+
+
+    // =================================================
+    // NEW TESTAMENT MENU
+    // =================================================
+
+    if (newTestamentMenu) {
+
+        newTestamentMenu.addEventListener(
+            "click",
+            function () {
+
+                testamentSelect.value =
+                    "new";
+
+                loadBooks("new");
+
+                focusElement(
+                    testamentSelect
+                );
+            }
+        );
+    }
+
+
+    // =================================================
+    // CHAPTER MENU
+    // =================================================
+
+    if (chapterMenu) {
+
+        chapterMenu.addEventListener(
+            "click",
+            function () {
+
+                focusElement(
+                    chapterSelect
+                );
+            }
+        );
+    }
+
+
+    // =================================================
+    // VERSE MENU
+    // =================================================
+
+    if (verseMenu) {
+
+        verseMenu.addEventListener(
+            "click",
+            function () {
+
+                focusElement(
+                    verseSelect
+                );
+            }
+        );
+    }
+
+
+    // =================================================
+    // BOOKS MENU
+    // =================================================
+
+    if (booksMenu) {
+
+        booksMenu.addEventListener(
+            "click",
+            function () {
+
+                focusElement(
+                    bookSelect
+                );
+            }
+        );
+    }
+
+
+    // =================================================
+    // ORIGINAL MENU
+    // =================================================
+
+    if (originalMenu) {
+
+        originalMenu.addEventListener(
+            "click",
+            function () {
+
+                focusElement(
+                    sourceLanguage
+                );
+            }
+        );
+    }
+
+
+    // =================================================
+    // TRANSLATION MENU
+    // =================================================
+
+    if (translationMenu) {
+
+        translationMenu.addEventListener(
+            "click",
+            function () {
+
+                focusElement(
+                    translationLanguage
+                );
+            }
+        );
+    }
+
+
+    // =================================================
+    // RESEARCH MENU
+    // =================================================
+
+    if (researchMenu) {
+
+        researchMenu.addEventListener(
+            "click",
+            function () {
+
+                focusElement(
+                    researchBibleButton
+                );
+            }
+        );
     }
 
 
@@ -1208,7 +1488,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         testamentSelect.value =
             "new";
-
     }
 
 

@@ -6,7 +6,9 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("Kingdom Light Network Bible Research System is running");
+    console.log(
+        "Kingdom Light Network Bible Research System is running"
+    );
 
 
     // =================================================
@@ -1079,7 +1081,11 @@ document.addEventListener("DOMContentLoaded", function () {
         "change",
         function () {
 
-            window.speechSynthesis.cancel();
+            if (
+                "speechSynthesis" in window
+            ) {
+                window.speechSynthesis.cancel();
+            }
 
             speechActive = false;
 
@@ -1131,7 +1137,11 @@ document.addEventListener("DOMContentLoaded", function () {
         "change",
         function () {
 
-            window.speechSynthesis.cancel();
+            if (
+                "speechSynthesis" in window
+            ) {
+                window.speechSynthesis.cancel();
+            }
 
             speechActive = false;
 
@@ -1291,7 +1301,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =================================================
-    // MENU HELPERS
+    // MENU HELPER
     // =================================================
 
     function focusElement(element) {
@@ -1483,7 +1493,10 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    // Default Testament
+    // =================================================
+    // DEFAULT TESTAMENT
+    // =================================================
+
     if (!testamentSelect.value) {
 
         testamentSelect.value =
@@ -1491,11 +1504,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // Load default books
+    // =================================================
+    // LOAD DEFAULT BOOKS
+    // =================================================
+
     loadBooks(
         testamentSelect.value
     );
 
+
+    // =================================================
+    // FINAL MESSAGE
+    // =================================================
 
     console.log(
         "Kingdom Light Network Bible Research initialized successfully."

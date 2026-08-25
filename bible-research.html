@@ -217,24 +217,101 @@
 </section>
 
 
-
 <!-- =====================================================
-     BIBLE SELECTOR
+     BIBLE SELECTOR — COMPACT FINAL SYSTEM
 ===================================================== -->
 
-<section class="services">
+<section class="services bible-selector-section">
 
     <h2 data-translate="bibleSelector">
         📖 Bible Selector
     </h2>
 
+    <!-- =================================================
+         COMPACT BIBLE MENU
+    ================================================== -->
+
+    <div class="bible-compact-menu">
+
+        <button type="button" class="bible-menu-button active">
+            📖 Bible
+        </button>
+
+        <button
+            type="button"
+            class="bible-menu-button"
+            id="oldTestamentMenu"
+        >
+            📜 Old Testament
+        </button>
+
+        <button
+            type="button"
+            class="bible-menu-button"
+            id="newTestamentMenu"
+        >
+            ✝️ New Testament
+        </button>
+
+        <button
+            type="button"
+            class="bible-menu-button"
+            id="chapterMenu"
+        >
+            📑 Chapter
+        </button>
+
+        <button
+            type="button"
+            class="bible-menu-button"
+            id="verseMenu"
+        >
+            🔢 Verse
+        </button>
+
+        <button
+            type="button"
+            class="bible-menu-button"
+            id="booksMenu"
+        >
+            📚 Books
+        </button>
+
+        <button
+            type="button"
+            class="bible-menu-button"
+            id="originalMenu"
+        >
+            🌍 Original
+        </button>
+
+        <button
+            type="button"
+            class="bible-menu-button"
+            id="translationMenu"
+        >
+            🌐 Translation
+        </button>
+
+        <button
+            type="button"
+            class="bible-menu-button"
+            id="researchMenu"
+        >
+            🔎 Research
+        </button>
+
+    </div>
+
+
+    <!-- =================================================
+         BIBLE SELECTORS
+    ================================================== -->
 
     <div class="research-search-box">
 
 
-        <!-- =================================================
-             ORIGINAL BIBLE LANGUAGE
-        ================================================== -->
+        <!-- ORIGINAL BIBLE LANGUAGE -->
 
         <label
             for="sourceLanguage"
@@ -242,7 +319,6 @@
         >
             🌍 Original Bible Language
         </label>
-
 
         <select id="sourceLanguage">
 
@@ -253,14 +329,12 @@
                 🇮🇱 Hebrew
             </option>
 
-
             <option
                 value="arc"
                 data-translate="aramaic"
             >
                 Aramaic
             </option>
-
 
             <option
                 value="grc"
@@ -272,10 +346,7 @@
         </select>
 
 
-
-        <!-- =================================================
-             TRANSLATION / READING LANGUAGE
-        ================================================== -->
+        <!-- TRANSLATION / READING LANGUAGE -->
 
         <label
             for="translationLanguage"
@@ -283,7 +354,6 @@
         >
             🌐 Translation / Reading Language
         </label>
-
 
         <select id="translationLanguage">
 
@@ -294,7 +364,6 @@
                 🇵🇰 اردو
             </option>
 
-
             <option
                 value="pa"
                 data-translate="punjabi"
@@ -302,14 +371,12 @@
                 🇵🇰 پنجابی
             </option>
 
-
             <option
                 value="en"
                 data-translate="english"
             >
                 🇬🇧 English
             </option>
-
 
             <option
                 value="ar"
@@ -321,10 +388,7 @@
         </select>
 
 
-
-        <!-- =================================================
-             TESTAMENT
-        ================================================== -->
+        <!-- TESTAMENT -->
 
         <label
             for="testamentSelect"
@@ -332,7 +396,6 @@
         >
             📜 Testament
         </label>
-
 
         <select id="testamentSelect">
 
@@ -343,14 +406,12 @@
                 Select Testament
             </option>
 
-
             <option
                 value="old"
                 data-translate="oldTestament"
             >
                 📜 Old Testament
             </option>
-
 
             <option
                 value="new"
@@ -362,18 +423,14 @@
         </select>
 
 
-
-        <!-- =================================================
-             BOOK
-        ================================================== -->
+        <!-- BIBLE BOOK -->
 
         <label
             for="bookSelect"
             data-translate="bibleBook"
         >
-            📖 Bible Book
+            📚 Bible Book
         </label>
-
 
         <select id="bookSelect">
 
@@ -381,16 +438,13 @@
                 value=""
                 data-translate="selectBook"
             >
-                Select Bible Book
+                Select Book
             </option>
 
         </select>
 
 
-
-        <!-- =================================================
-             CHAPTER
-        ================================================== -->
+        <!-- CHAPTER -->
 
         <label
             for="chapterSelect"
@@ -398,7 +452,6 @@
         >
             📑 Chapter
         </label>
-
 
         <select id="chapterSelect">
 
@@ -412,10 +465,7 @@
         </select>
 
 
-
-        <!-- =================================================
-             VERSE
-        ================================================== -->
+        <!-- VERSE -->
 
         <label
             for="verseSelect"
@@ -423,7 +473,6 @@
         >
             🔢 Verse
         </label>
-
 
         <select id="verseSelect">
 
@@ -437,13 +486,11 @@
         </select>
 
 
-
         <!-- =================================================
              ACTION BUTTONS
         ================================================== -->
 
         <div class="research-actions">
-
 
             <button
                 type="button"
@@ -452,16 +499,6 @@
             >
                 📖 Read Bible
             </button>
-
-
-            <button
-                type="button"
-                id="listenBibleButton"
-                data-translate="listen"
-            >
-                🔊 Listen
-            </button>
-
 
             <button
                 type="button"
@@ -474,9 +511,8 @@
         </div>
 
 
-
         <!-- =================================================
-             RESULT
+             BIBLE RESULT
         ================================================== -->
 
         <div
@@ -487,7 +523,6 @@
             <h3 data-translate="bibleReference">
                 📖 Bible Reference
             </h3>
-
 
             <p
                 id="selectedReference"
@@ -501,7 +536,6 @@
     </div>
 
 </section>
-
 
 
 <!-- =====================================================

@@ -1,583 +1,38 @@
 /* =====================================================
-   GLOBAL TRANSLATIONS OBJECT
+   KINGDOM LIGHT NETWORK
+   GLOBAL TRANSLATIONS
+   CLEAN & SAFE VERSION
 ===================================================== */
 
-window.translations = window.translations || {};
+(function () {
 
-const translations = window.translations;
-
-
-/* =====================================================
-   ADDITIONAL HOME PAGE TRANSLATIONS
-===================================================== */
-
-const additionalTranslations = {
-
-    en: {
-        search: "🔍 Search",
-        account: "👤 Account",
-        proclaimingChrist: "Proclaiming Christ Through Digital Media",
-        sharingWord: "Sharing the Word of God, Worship, Prayer and Hope Around The World.",
-        watchLive: "🟢 Watch Live",
-        joinChurchNetwork: "🔵 Join Church Network",
-        prayerRequest: "🟡 Prayer Request",
-        ourMinistryCenter: "Our Ministry Center",
-        liveChurch: "📺 Live Church",
-        worldwideLiveStreaming: "Worldwide Church Live Streaming",
-        sermonMessages: "📖 Sermons",
-        biblicalMessages: "Biblical Messages and Teachings",
-        bibleStudy: "📚 Bible Study",
-        onlineBibleLearning: "Online Bible Learning Center",
-        childrenBibleLearning: "📚 Sunday School",
-        childrenBibleGrowth: "Children's Bible Learning and Spiritual Growth",
-        prayerCenter: "🙏 Prayer Center",
-        prayerRequestsTestimonies: "Prayer Requests and Testimonies",
-        aiCenter: "🤖 AI Center",
-        christianAITools: "Christian AI Ministry Tools",
-        mediaStudio: "🎬 Media Studio",
-        christianVideosAudio: "Christian Videos and Audio",
-        welfareMinistry: "❤️ Welfare Ministry",
-        servingNeedy: "Serving the Needy with the Love of Christ",
-        socialMediaCenter: "Social Media Center"
-    },
-
-    ur: {
-        search: "🔍 تلاش",
-        account: "👤 اکاؤنٹ",
-        proclaimingChrist: "ڈیجیٹل میڈیا کے ذریعے مسیح کی منادی",
-        sharingWord: "خدا کے کلام، عبادت، دعا اور امید کو پوری دنیا تک پہنچانا۔",
-        watchLive: "🟢 لائیو دیکھیں",
-        joinChurchNetwork: "🔵 چرچ نیٹ ورک میں شامل ہوں",
-        prayerRequest: "🟡 دعائیہ درخواست",
-        ourMinistryCenter: "ہماری خدمتی مرکز",
-        liveChurch: "📺 لائیو چرچ",
-        worldwideLiveStreaming: "دنیا بھر میں چرچ کی لائیو نشریات",
-        sermonMessages: "📖 پیغامات",
-        biblicalMessages: "بائبلی پیغامات اور تعلیمات",
-        bibleStudy: "📚 بائبل مطالعہ",
-        onlineBibleLearning: "آن لائن بائبل تعلیمی مرکز",
-        childrenBibleLearning: "📚 سنڈے اسکول",
-        childrenBibleGrowth: "بچوں کا بائبل مطالعہ اور روحانی نشوونما",
-        prayerCenter: "🙏 دعائیہ مرکز",
-        prayerRequestsTestimonies: "دعائیہ درخواستیں اور گواہیاں",
-        aiCenter: "🤖 اے آئی مرکز",
-        christianAITools: "مسیحی اے آئی خدمتی آلات",
-        mediaStudio: "🎬 میڈیا اسٹوڈیو",
-        christianVideosAudio: "مسیحی ویڈیوز اور آڈیو",
-        welfareMinistry: "❤️ فلاحی خدمت",
-        servingNeedy: "مسیح کی محبت سے ضرورت مندوں کی خدمت",
-        socialMediaCenter: "سوشل میڈیا مرکز"
-    },
-
-    pa: {
-        search: "🔍 تلاش",
-        account: "👤 اکاؤنٹ",
-        proclaimingChrist: "ڈیجیٹل میڈیا دے ذریعے مسیح دی منادی",
-        sharingWord: "خدا دے کلام، عبادت، دعا تے امید نوں پوری دنیا تک پہنچانا۔",
-        watchLive: "🟢 لائیو ویکھو",
-        joinChurchNetwork: "🔵 چرچ نیٹ ورک وچ شامل ہوؤ",
-        prayerRequest: "🟡 دعا دی درخواست",
-        ourMinistryCenter: "ساڈا خدمتی مرکز",
-        liveChurch: "📺 لائیو چرچ",
-        worldwideLiveStreaming: "دنیا بھر وچ چرچ دی لائیو نشریات",
-        sermonMessages: "📖 پیغام",
-        biblicalMessages: "بائبلی پیغام تے تعلیمات",
-        bibleStudy: "📚 بائبل مطالعہ",
-        onlineBibleLearning: "آن لائن بائبل تعلیمی مرکز",
-        childrenBibleLearning: "📚 سنڈے اسکول",
-        childrenBibleGrowth: "بچیاں دا بائبل مطالعہ تے روحانی نشوونما",
-        prayerCenter: "🙏 دعا دا مرکز",
-        prayerRequestsTestimonies: "دعائیہ درخواستاں تے گواہیاں",
-        aiCenter: "🤖 اے آئی مرکز",
-        christianAITools: "مسیحی اے آئی خدمتی آلات",
-        mediaStudio: "🎬 میڈیا اسٹوڈیو",
-        christianVideosAudio: "مسیحی ویڈیوز تے آڈیو",
-        welfareMinistry: "❤️ فلاحی خدمت",
-        servingNeedy: "مسیح دی محبت نال ضرورت مند لوکاں دی خدمت",
-        socialMediaCenter: "سوشل میڈیا مرکز"
-    },
-
-    ar: {
-        search: "🔍 بحث",
-        account: "👤 الحساب",
-        proclaimingChrist: "إعلان المسيح من خلال الإعلام الرقمي",
-        sharingWord: "مشاركة كلمة الله والعبادة والصلاة والرجاء حول العالم.",
-        watchLive: "🟢 شاهد البث المباشر",
-        joinChurchNetwork: "🔵 انضم إلى شبكة الكنائس",
-        prayerRequest: "🟡 طلب صلاة",
-        ourMinistryCenter: "مركز خدمتنا",
-        liveChurch: "📺 الكنيسة المباشرة",
-        worldwideLiveStreaming: "بث مباشر للكنائس حول العالم",
-        sermonMessages: "📖 العظات",
-        biblicalMessages: "رسائل وتعاليم الكتاب المقدس",
-        bibleStudy: "📚 دراسة الكتاب المقدس",
-        onlineBibleLearning: "مركز تعلم الكتاب المقدس عبر الإنترنت",
-        childrenBibleLearning: "📚 مدرسة الأحد",
-        childrenBibleGrowth: "تعليم الأطفال للكتاب المقدس والنمو الروحي",
-        prayerCenter: "🙏 مركز الصلاة",
-        prayerRequestsTestimonies: "طلبات الصلاة والشهادات",
-        aiCenter: "🤖 مركز الذكاء الاصطناعي",
-        christianAITools: "أدوات الذكاء الاصطناعي للخدمة المسيحية",
-        mediaStudio: "🎬 استوديو الإعلام",
-        christianVideosAudio: "فيديوهات وصوتيات مسيحية",
-        welfareMinistry: "❤️ الخدمة الاجتماعية",
-        servingNeedy: "خدمة المحتاجين بمحبة المسيح",
-        socialMediaCenter: "مركز وسائل التواصل الاجتماعي"
-    },
-
-    es: {
-        search: "🔍 Buscar",
-        account: "👤 Cuenta",
-        proclaimingChrist: "Proclamando a Cristo a través de los medios digitales",
-        sharingWord: "Compartiendo la Palabra de Dios, adoración, oración y esperanza en todo el mundo.",
-        watchLive: "🟢 Ver en Vivo",
-        joinChurchNetwork: "🔵 Unirse a la Red de Iglesias",
-        prayerRequest: "🟡 Petición de Oración",
-        ourMinistryCenter: "Nuestro Centro Ministerial",
-        liveChurch: "📺 Iglesia en Vivo",
-        worldwideLiveStreaming: "Transmisión mundial de iglesias en vivo",
-        sermonMessages: "📖 Sermones",
-        biblicalMessages: "Mensajes y enseñanzas bíblicas",
-        bibleStudy: "📚 Estudio Bíblico",
-        onlineBibleLearning: "Centro de aprendizaje bíblico en línea",
-        childrenBibleLearning: "📚 Escuela Dominical",
-        childrenBibleGrowth: "Aprendizaje bíblico y crecimiento espiritual de los niños",
-        prayerCenter: "🙏 Centro de Oración",
-        prayerRequestsTestimonies: "Peticiones de oración y testimonios",
-        aiCenter: "🤖 Centro de IA",
-        christianAITools: "Herramientas de IA para el ministerio cristiano",
-        mediaStudio: "🎬 Estudio de Medios",
-        christianVideosAudio: "Videos y audio cristianos",
-        welfareMinistry: "❤️ Ministerio de Bienestar",
-        servingNeedy: "Sirviendo a los necesitados con el amor de Cristo",
-        socialMediaCenter: "Centro de Redes Sociales"
-    },
-
-    fr: {
-        search: "🔍 Rechercher",
-        account: "👤 Compte",
-        proclaimingChrist: "Proclamer Christ par les médias numériques",
-        sharingWord: "Partager la Parole de Dieu, l'adoration, la prière et l'espérance dans le monde entier.",
-        watchLive: "🟢 Regarder en Direct",
-        joinChurchNetwork: "🔵 Rejoindre le Réseau des Églises",
-        prayerRequest: "🟡 Demande de Prière",
-        ourMinistryCenter: "Notre Centre de Ministère",
-        liveChurch: "📺 Église en Direct",
-        worldwideLiveStreaming: "Diffusion mondiale des églises en direct",
-        sermonMessages: "📖 Sermons",
-        biblicalMessages: "Messages et enseignements bibliques",
-        bibleStudy: "📚 Étude Biblique",
-        onlineBibleLearning: "Centre d'apprentissage biblique en ligne",
-        childrenBibleLearning: "📚 École du Dimanche",
-        childrenBibleGrowth: "Apprentissage biblique et croissance spirituelle des enfants",
-        prayerCenter: "🙏 Centre de Prière",
-        prayerRequestsTestimonies: "Demandes de prière et témoignages",
-        aiCenter: "🤖 Centre IA",
-        christianAITools: "Outils IA pour le ministère chrétien",
-        mediaStudio: "🎬 Studio Média",
-        christianVideosAudio: "Vidéos et audio chrétiens",
-        welfareMinistry: "❤️ Ministère Social",
-        servingNeedy: "Servir les nécessiteux avec l'amour du Christ",
-        socialMediaCenter: "Centre des Réseaux Sociaux"
-    },
-
-    de: {
-        search: "🔍 Suche",
-        account: "👤 Konto",
-        proclaimingChrist: "Christus durch digitale Medien verkünden",
-        sharingWord: "Das Wort Gottes, Anbetung, Gebet und Hoffnung in der ganzen Welt teilen.",
-        watchLive: "🟢 Live ansehen",
-        joinChurchNetwork: "🔵 Kirchennetzwerk beitreten",
-        prayerRequest: "🟡 Gebetsanfrage",
-        ourMinistryCenter: "Unser Dienstzentrum",
-        liveChurch: "📺 Live-Kirche",
-        worldwideLiveStreaming: "Weltweite Live-Übertragung von Gottesdiensten",
-        sermonMessages: "📖 Predigten",
-        biblicalMessages: "Biblische Botschaften und Lehren",
-        bibleStudy: "📚 Bibelstudium",
-        onlineBibleLearning: "Online-Bibel-Lernzentrum",
-        childrenBibleLearning: "📚 Sonntagsschule",
-        childrenBibleGrowth: "Bibelunterricht und geistliches Wachstum für Kinder",
-        prayerCenter: "🙏 Gebetszentrum",
-        prayerRequestsTestimonies: "Gebetsanliegen und Zeugnisse",
-        aiCenter: "🤖 KI-Zentrum",
-        christianAITools: "Christliche KI-Dienstwerkzeuge",
-        mediaStudio: "🎬 Medien-Studio",
-        christianVideosAudio: "Christliche Videos und Audio",
-        welfareMinistry: "❤️ Sozialdienst",
-        servingNeedy: "Bedürftigen mit der Liebe Christi dienen",
-        socialMediaCenter: "Social-Media-Zentrum"
-    },
-
-    pt: {
-        search: "🔍 Pesquisar",
-        account: "👤 Conta",
-        proclaimingChrist: "Proclamando Cristo através da mídia digital",
-        sharingWord: "Compartilhando a Palavra de Deus, adoração, oração e esperança em todo o mundo.",
-        watchLive: "🟢 Assistir ao Vivo",
-        joinChurchNetwork: "🔵 Entrar na Rede de Igrejas",
-        prayerRequest: "🟡 Pedido de Oração",
-        ourMinistryCenter: "Nosso Centro Ministerial",
-        liveChurch: "📺 Igreja ao Vivo",
-        worldwideLiveStreaming: "Transmissão mundial de igrejas ao vivo",
-        sermonMessages: "📖 Sermões",
-        biblicalMessages: "Mensagens e ensinamentos bíblicos",
-        bibleStudy: "📚 Estudo Bíblico",
-        onlineBibleLearning: "Centro de aprendizado bíblico online",
-        childrenBibleLearning: "📚 Escola Dominical",
-        childrenBibleGrowth: "Aprendizado bíblico e crescimento espiritual das crianças",
-        prayerCenter: "🙏 Centro de Oração",
-        prayerRequestsTestimonies: "Pedidos de oração e testemunhos",
-        aiCenter: "🤖 Centro de IA",
-        christianAITools: "Ferramentas de IA para ministério cristão",
-        mediaStudio: "🎬 Estúdio de Mídia",
-        christianVideosAudio: "Vídeos e áudio cristãos",
-        welfareMinistry: "❤️ Ministério Social",
-        servingNeedy: "Servindo os necessitados com o amor de Cristo",
-        socialMediaCenter: "Centro de Mídias Sociais"
-    },
-
-    it: {
-        search: "🔍 Cerca",
-        account: "👤 Account",
-        proclaimingChrist: "Proclamare Cristo attraverso i media digitali",
-        sharingWord: "Condividere la Parola di Dio, l'adorazione, la preghiera e la speranza in tutto il mondo.",
-        watchLive: "🟢 Guarda in Diretta",
-        joinChurchNetwork: "🔵 Unisciti alla Rete delle Chiese",
-        prayerRequest: "🟡 Richiesta di Preghiera",
-        ourMinistryCenter: "Il Nostro Centro Ministeriale",
-        liveChurch: "📺 Chiesa in Diretta",
-        worldwideLiveStreaming: "Trasmissione mondiale delle chiese in diretta",
-        sermonMessages: "📖 Predicazioni",
-        biblicalMessages: "Messaggi e insegnamenti biblici",
-        bibleStudy: "📚 Studio Biblico",
-        onlineBibleLearning: "Centro di apprendimento biblico online",
-        childrenBibleLearning: "📚 Scuola Domenicale",
-        childrenBibleGrowth: "Apprendimento biblico e crescita spirituale dei bambini",
-        prayerCenter: "🙏 Centro di Preghiera",
-        prayerRequestsTestimonies: "Richieste di preghiera e testimonianze",
-        aiCenter: "🤖 Centro IA",
-        christianAITools: "Strumenti IA per il ministero cristiano",
-        mediaStudio: "🎬 Studio Media",
-        christianVideosAudio: "Video e audio cristiani",
-        welfareMinistry: "❤️ Ministero Sociale",
-        servingNeedy: "Servire i bisognosi con l'amore di Cristo",
-        socialMediaCenter: "Centro Social Media"
-    },
-
-    ru: {
-        search: "🔍 Поиск",
-        account: "👤 Аккаунт",
-        proclaimingChrist: "Провозглашая Христа через цифровые медиа",
-        sharingWord: "Распространяя Слово Божье, поклонение, молитву и надежду по всему миру.",
-        watchLive: "🟢 Смотреть в прямом эфире",
-        joinChurchNetwork: "🔵 Присоединиться к церковной сети",
-        prayerRequest: "🟡 Молитвенная просьба",
-        ourMinistryCenter: "Наш служебный центр",
-        liveChurch: "📺 Церковь в прямом эфире",
-        worldwideLiveStreaming: "Прямая трансляция церквей по всему миру",
-        sermonMessages: "📖 Проповеди",
-        biblicalMessages: "Библейские послания и учения",
-        bibleStudy: "📚 Изучение Библии",
-        onlineBibleLearning: "Онлайн-центр изучения Библии",
-        childrenBibleLearning: "📚 Воскресная школа",
-        childrenBibleGrowth: "Изучение Библии и духовный рост детей",
-        prayerCenter: "🙏 Молитвенный центр",
-        prayerRequestsTestimonies: "Молитвенные просьбы и свидетельства",
-        aiCenter: "🤖 Центр ИИ",
-        christianAITools: "Христианские инструменты ИИ для служения",
-        mediaStudio: "🎬 Медиа-студия",
-        christianVideosAudio: "Христианские видео и аудио",
-        welfareMinistry: "❤️ Социальное служение",
-        servingNeedy: "Служение нуждающимся любовью Христа",
-        socialMediaCenter: "Центр социальных сетей"
-    },
-
-    zh: {
-        search: "🔍 搜索",
-        account: "👤 账户",
-        proclaimingChrist: "通过数字媒体传扬基督",
-        sharingWord: "将上帝的话语、敬拜、祷告和盼望分享给全世界。",
-        watchLive: "🟢 观看直播",
-        joinChurchNetwork: "🔵 加入教会网络",
-        prayerRequest: "🟡 祷告请求",
-        ourMinistryCenter: "我们的事工中心",
-        liveChurch: "📺 教会直播",
-        worldwideLiveStreaming: "全球教会现场直播",
-        sermonMessages: "📖 讲道",
-        biblicalMessages: "圣经信息与教导",
-        bibleStudy: "📚 圣经学习",
-        onlineBibleLearning: "在线圣经学习中心",
-        childrenBibleLearning: "📚 主日学",
-        childrenBibleGrowth: "儿童圣经学习与属灵成长",
-        prayerCenter: "🙏 祷告中心",
-        prayerRequestsTestimonies: "祷告请求与见证",
-        aiCenter: "🤖 人工智能中心",
-        christianAITools: "基督教事工人工智能工具",
-        mediaStudio: "🎬 媒体工作室",
-        christianVideosAudio: "基督教视频和音频",
-        welfareMinistry: "❤️ 社会服务事工",
-        servingNeedy: "以基督的爱服事有需要的人",
-        socialMediaCenter: "社交媒体中心"
-    },
-
-    ja: {
-        search: "🔍 検索",
-        account: "👤 アカウント",
-        proclaimingChrist: "デジタルメディアを通してキリストを宣べ伝える",
-        sharingWord: "神の御言葉、礼拝、祈り、希望を世界中に届けます。",
-        watchLive: "🟢 ライブを見る",
-        joinChurchNetwork: "🔵 教会ネットワークに参加",
-        prayerRequest: "🟡 祈りのリクエスト",
-        ourMinistryCenter: "私たちのミニストリーセンター",
-        liveChurch: "📺 ライブ教会",
-        worldwideLiveStreaming: "世界中の教会ライブ配信",
-        sermonMessages: "📖 説教",
-        biblicalMessages: "聖書のメッセージと教え",
-        bibleStudy: "📚 聖書研究",
-        onlineBibleLearning: "オンライン聖書学習センター",
-        childrenBibleLearning: "📚 日曜学校",
-        childrenBibleGrowth: "子どもの聖書学習と霊的成長",
-        prayerCenter: "🙏 祈りのセンター",
-        prayerRequestsTestimonies: "祈りのリクエストと証し",
-        aiCenter: "🤖 AIセンター",
-        christianAITools: "キリスト教ミニストリーAIツール",
-        mediaStudio: "🎬 メディアスタジオ",
-        christianVideosAudio: "キリスト教の動画と音声",
-        welfareMinistry: "❤️ 社会福祉ミニストリー",
-        servingNeedy: "キリストの愛をもって困っている人々に仕える",
-        socialMediaCenter: "ソーシャルメディアセンター"
-    },
-
-    ko: {
-        search: "🔍 검색",
-        account: "👤 계정",
-        proclaimingChrist: "디지털 미디어를 통해 그리스도를 선포합니다",
-        sharingWord: "하나님의 말씀과 예배, 기도와 소망을 온 세상에 전합니다.",
-        watchLive: "🟢 라이브 보기",
-        joinChurchNetwork: "🔵 교회 네트워크 참여",
-        prayerRequest: "🟡 기도 요청",
-        ourMinistryCenter: "우리의 사역 센터",
-        liveChurch: "📺 라이브 교회",
-        worldwideLiveStreaming: "전 세계 교회 라이브 스트리밍",
-        sermonMessages: "📖 설교",
-        biblicalMessages: "성경 메시지와 가르침",
-        bibleStudy: "📚 성경 공부",
-        onlineBibleLearning: "온라인 성경 학습 센터",
-        childrenBibleLearning: "📚 주일학교",
-        childrenBibleGrowth: "어린이 성경 학습과 영적 성장",
-        prayerCenter: "🙏 기도 센터",
-        prayerRequestsTestimonies: "기도 요청과 간증",
-        aiCenter: "🤖 AI 센터",
-        christianAITools: "기독교 사역 AI 도구",
-        mediaStudio: "🎬 미디어 스튜디오",
-        christianVideosAudio: "기독교 영상 및 오디오",
-        welfareMinistry: "❤️ 사회봉사 사역",
-        servingNeedy: "그리스도의 사랑으로 도움이 필요한 사람들을 섬깁니다",
-        socialMediaCenter: "소셜 미디어 센터"
-    },
-
-    tr: {
-        search: "🔍 Ara",
-        account: "👤 Hesap",
-        proclaimingChrist: "Dijital medya aracılığıyla Mesih'i duyurmak",
-        sharingWord: "Tanrı'nın Sözünü, tapınmayı, duayı ve umudu tüm dünyayla paylaşmak.",
-        watchLive: "🟢 Canlı İzle",
-        joinChurchNetwork: "🔵 Kilise Ağına Katıl",
-        prayerRequest: "🟡 Dua Talebi",
-        ourMinistryCenter: "Hizmet Merkezimiz",
-        liveChurch: "📺 Canlı Kilise",
-        worldwideLiveStreaming: "Dünya çapında canlı kilise yayını",
-        sermonMessages: "📖 Vaazlar",
-        biblicalMessages: "Kutsal Kitap mesajları ve öğretileri",
-        bibleStudy: "📚 Kutsal Kitap Çalışması",
-        onlineBibleLearning: "Çevrimiçi Kutsal Kitap Öğrenme Merkezi",
-        childrenBibleLearning: "📚 Pazar Okulu",
-        childrenBibleGrowth: "Çocukların Kutsal Kitap öğrenimi ve ruhsal gelişimi",
-        prayerCenter: "🙏 Dua Merkezi",
-        prayerRequestsTestimonies: "Dua talepleri ve tanıklıklar",
-        aiCenter: "🤖 Yapay Zekâ Merkezi",
-        christianAITools: "Hristiyan hizmeti için yapay zekâ araçları",
-        mediaStudio: "🎬 Medya Stüdyosu",
-        christianVideosAudio: "Hristiyan videoları ve ses içerikleri",
-        welfareMinistry: "❤️ Sosyal Hizmet Bakanlığı",
-        servingNeedy: "İhtiyaç sahiplerine Mesih'in sevgisiyle hizmet etmek",
-        socialMediaCenter: "Sosyal Medya Merkezi"
-    },
-
-    id: {
-        search: "🔍 Cari",
-        account: "👤 Akun",
-        proclaimingChrist: "Memberitakan Kristus melalui media digital",
-        sharingWord: "Membagikan Firman Tuhan, penyembahan, doa dan pengharapan ke seluruh dunia.",
-        watchLive: "🟢 Tonton Langsung",
-        joinChurchNetwork: "🔵 Bergabung dengan Jaringan Gereja",
-        prayerRequest: "🟡 Permohonan Doa",
-        ourMinistryCenter: "Pusat Pelayanan Kami",
-        liveChurch: "📺 Gereja Langsung",
-        worldwideLiveStreaming: "Siaran langsung gereja di seluruh dunia",
-        sermonMessages: "📖 Khotbah",
-        biblicalMessages: "Pesan dan pengajaran Alkitab",
-        bibleStudy: "📚 Studi Alkitab",
-        onlineBibleLearning: "Pusat Pembelajaran Alkitab Online",
-        childrenBibleLearning: "📚 Sekolah Minggu",
-        childrenBibleGrowth: "Pembelajaran Alkitab dan pertumbuhan rohani anak-anak",
-        prayerCenter: "🙏 Pusat Doa",
-        prayerRequestsTestimonies: "Permohonan doa dan kesaksian",
-        aiCenter: "🤖 Pusat AI",
-        christianAITools: "Alat AI untuk pelayanan Kristen",
-        mediaStudio: "🎬 Studio Media",
-        christianVideosAudio: "Video dan audio Kristen",
-        welfareMinistry: "❤️ Pelayanan Sosial",
-        servingNeedy: "Melayani yang membutuhkan dengan kasih Kristus",
-        socialMediaCenter: "Pusat Media Sosial"
-    },
-
-    bn: {
-        search: "🔍 অনুসন্ধান",
-        account: "👤 অ্যাকাউন্ট",
-        proclaimingChrist: "ডিজিটাল মিডিয়ার মাধ্যমে খ্রিস্টকে প্রচার করা",
-        sharingWord: "ঈশ্বরের বাক্য, উপাসনা, প্রার্থনা ও আশা সারা বিশ্বের মানুষের কাছে পৌঁছে দেওয়া।",
-        watchLive: "🟢 লাইভ দেখুন",
-        joinChurchNetwork: "🔵 চার্চ নেটওয়ার্কে যোগ দিন",
-        prayerRequest: "🟡 প্রার্থনার অনুরোধ",
-        ourMinistryCenter: "আমাদের পরিচর্যা কেন্দ্র",
-        liveChurch: "📺 লাইভ চার্চ",
-        worldwideLiveStreaming: "বিশ্বব্যাপী চার্চ লাইভ স্ট্রিমিং",
-        sermonMessages: "📖 উপদেশ",
-        biblicalMessages: "বাইবেলের বার্তা ও শিক্ষা",
-        bibleStudy: "📚 বাইবেল অধ্যয়ন",
-        onlineBibleLearning: "অনলাইন বাইবেল শিক্ষা কেন্দ্র",
-        childrenBibleLearning: "📚 সানডে স্কুল",
-        childrenBibleGrowth: "শিশুদের বাইবেল শিক্ষা ও আত্মিক বৃদ্ধি",
-        prayerCenter: "🙏 প্রার্থনা কেন্দ্র",
-        prayerRequestsTestimonies: "প্রার্থনার অনুরোধ ও সাক্ষ্য",
-        aiCenter: "🤖 এআই কেন্দ্র",
-        christianAITools: "খ্রিস্টীয় পরিচর্যার এআই সরঞ্জাম",
-        mediaStudio: "🎬 মিডিয়া স্টুডিও",
-        christianVideosAudio: "খ্রিস্টীয় ভিডিও ও অডিও",
-        welfareMinistry: "❤️ সামাজিক সেবা পরিচর্যা",
-        servingNeedy: "খ্রিস্টের প্রেমে অভাবীদের সেবা করা",
-        socialMediaCenter: "সামাজিক মিডিয়া কেন্দ্র"
-    },
-
-    fa: {
-        search: "🔍 جستجو",
-        account: "👤 حساب کاربری",
-        proclaimingChrist: "اعلام مسیح از طریق رسانه‌های دیجیتال",
-        sharingWord: "اشتراک کلام خدا، عبادت، دعا و امید با سراسر جهان.",
-        watchLive: "🟢 پخش زنده",
-        joinChurchNetwork: "🔵 پیوستن به شبکه کلیساها",
-        prayerRequest: "🟡 درخواست دعا",
-        ourMinistryCenter: "مرکز خدمت ما",
-        liveChurch: "📺 کلیسای زنده",
-        worldwideLiveStreaming: "پخش زنده کلیساها در سراسر جهان",
-        sermonMessages: "📖 موعظه‌ها",
-        biblicalMessages: "پیام‌ها و آموزش‌های کتاب مقدس",
-        bibleStudy: "📚 مطالعه کتاب مقدس",
-        onlineBibleLearning: "مرکز آموزش آنلاین کتاب مقدس",
-        childrenBibleLearning: "📚 مدرسه یکشنبه",
-        childrenBibleGrowth: "آموزش کتاب مقدس و رشد روحانی کودکان",
-        prayerCenter: "🙏 مرکز دعا",
-        prayerRequestsTestimonies: "درخواست‌های دعا و شهادت‌ها",
-        aiCenter: "🤖 مرکز هوش مصنوعی",
-        christianAITools: "ابزارهای هوش مصنوعی برای خدمت مسیحی",
-        mediaStudio: "🎬 استودیوی رسانه",
-        christianVideosAudio: "ویدیوها و صوت‌های مسیحی",
-        welfareMinistry: "❤️ خدمت اجتماعی",
-        servingNeedy: "خدمت به نیازمندان با محبت مسیح",
-        socialMediaCenter: "مرکز رسانه‌های اجتماعی"
-    },
-
-    nl: {
-        search: "🔍 Zoeken",
-        account: "👤 Account",
-        proclaimingChrist: "Christus verkondigen via digitale media",
-        sharingWord: "Het Woord van God, aanbidding, gebed en hoop delen over de hele wereld.",
-        watchLive: "🟢 Live Bekijken",
-        joinChurchNetwork: "🔵 Word lid van het Kerkennetwerk",
-        prayerRequest: "🟡 Gebedsverzoek",
-        ourMinistryCenter: "Ons Bedieningscentrum",
-        liveChurch: "📺 Live Kerk",
-        worldwideLiveStreaming: "Wereldwijde live kerkdiensten",
-        sermonMessages: "📖 Preken",
-        biblicalMessages: "Bijbelse boodschappen en onderwijs",
-        bibleStudy: "📚 Bijbelstudie",
-        onlineBibleLearning: "Online Bijbelleercentrum",
-        childrenBibleLearning: "📚 Zondagsschool",
-        childrenBibleGrowth: "Bijbellezen en geestelijke groei voor kinderen",
-        prayerCenter: "🙏 Gebedscentrum",
-        prayerRequestsTestimonies: "Gebedsverzoeken en getuigenissen",
-        aiCenter: "🤖 AI-centrum",
-        christianAITools: "Christelijke AI-hulpmiddelen voor bediening",
-        mediaStudio: "🎬 Media Studio",
-        christianVideosAudio: "Christelijke video's en audio",
-        welfareMinistry: "❤️ Sociale Dienst",
-        servingNeedy: "Noodlijdenden dienen met de liefde van Christus",
-        socialMediaCenter: "Sociale Media Centrum"
-    },
-
-    pl: {
-        search: "🔍 Szukaj",
-        account: "👤 Konto",
-        proclaimingChrist: "Głoszenie Chrystusa poprzez media cyfrowe",
-        sharingWord: "Dzielenie się Słowem Bożym, uwielbieniem, modlitwą i nadzieją na całym świecie.",
-        watchLive: "🟢 Oglądaj na żywo",
-        joinChurchNetwork: "🔵 Dołącz do Sieci Kościołów",
-        prayerRequest: "🟡 Prośba o modlitwę",
-        ourMinistryCenter: "Nasze Centrum Służby",
-        liveChurch: "📺 Kościół na żywo",
-        worldwideLiveStreaming: "Transmisje kościołów na żywo na całym świecie",
-        sermonMessages: "📖 Kazania",
-        biblicalMessages: "Biblijne przesłania i nauczanie",
-        bibleStudy: "📚 Studium Biblii",
-        onlineBibleLearning: "Internetowe Centrum Nauki Biblii",
-        childrenBibleLearning: "📚 Szkoła Niedzielna",
-        childrenBibleGrowth: "Nauka Biblii i rozwój duchowy dzieci",
-        prayerCenter: "🙏 Centrum Modlitwy",
-        prayerRequestsTestimonies: "Prośby modlitewne i świadectwa",
-        aiCenter: "🤖 Centrum AI",
-        christianAITools: "Chrześcijańskie narzędzia AI dla służby",
-        mediaStudio: "🎬 Studio Mediów",
-        christianVideosAudio: "Chrześcijańskie filmy i audio",
-        welfareMinistry: "❤️ Służba Społeczna",
-        servingNeedy: "Służenie potrzebującym z miłością Chrystusa",
-        socialMediaCenter: "Centrum Mediów Społecznościowych"
-    }
-};
+    "use strict";
 
 
-/* =====================================================
-   MERGE ADDITIONAL TRANSLATIONS
-===================================================== */
+    /* =================================================
+       GLOBAL TRANSLATIONS OBJECT
+    ================================================= */
 
-Object.keys(additionalTranslations).forEach(function (language) {
+    window.translations =
+        window.translations || {};
 
-    if (!translations[language]) {
-        translations[language] = {};
-    }
+    const translations =
+        window.translations;
 
-    Object.assign(
-        translations[language],
-        additionalTranslations[language]
-    );
 
-});
+    /* =================================================
+       ENGLISH
+    ================================================= */
 
-console.log(
-    "Additional Home Page translations loaded successfully."
-);
+    translations.en = {
 
-/* =====================================================
-   GLOBAL REQUIRED TRANSLATION KEYS
-   KEEP EXISTING TRANSLATIONS INTACT
-===================================================== */
+        /* GLOBAL */
 
-const requiredGlobalTranslations = {
+        siteTitle: "Kingdom Light Network",
 
-    en: {
         poweredBy: "Powered by Christ Church",
         language: "Language",
+
         home: "Home",
         live: "Live",
         sermons: "Sermons",
@@ -591,99 +46,1248 @@ const requiredGlobalTranslations = {
         contact: "Contact",
         register: "Register",
         createAccount: "Create Account",
-        allRightsReserved: "All Rights Reserved"
-    },
 
-    ur: {
-        poweredBy: "Powered by Christ Church",
-        language: "زبان",
-        home: "ہوم",
-        live: "لائیو",
-        sermons: "واعظ",
-        bible: "بائبل",
-        sundaySchool: "سنڈے اسکول",
-        ai: "اے آئی",
-        welfare: "فلاحی خدمت",
-        prayer: "دعا",
-        media: "میڈیا",
-        research: "تحقیق",
-        contact: "رابطہ",
-        register: "رجسٹر",
-        createAccount: "اکاؤنٹ بنائیں",
-        allRightsReserved: "جملہ حقوق محفوظ ہیں"
-    },
-
-    pa: {
-        poweredBy: "Powered by Christ Church",
-        language: "زبان",
-        home: "گھر",
-        live: "لائیو",
-        sermons: "پیغام",
-        bible: "بائبل",
-        sundaySchool: "سنڈے اسکول",
-        ai: "اے آئی",
-        welfare: "فلاحی خدمت",
-        prayer: "دعا",
-        media: "میڈیا",
-        research: "تحقیق",
-        contact: "رابطہ",
-        register: "رجسٹر",
-        createAccount: "اکاؤنٹ بناؤ",
-        allRightsReserved: "سارے حقوق محفوظ نیں"
-    },
-
-    ar: {
-        poweredBy: "Powered by Christ Church",
-        language: "اللغة",
-        home: "الرئيسية",
-        live: "مباشر",
-        sermons: "العظات",
-        bible: "الكتاب المقدس",
-        sundaySchool: "مدرسة الأحد",
-        ai: "الذكاء الاصطناعي",
-        welfare: "الخدمة الاجتماعية",
-        prayer: "الصلاة",
-        media: "الإعلام",
-        research: "البحث",
-        contact: "اتصل بنا",
-        register: "تسجيل",
-        createAccount: "إنشاء حساب",
-        allRightsReserved: "جميع الحقوق محفوظة"
-    }
-
-};
+        allRightsReserved:
+            "All Rights Reserved.",
 
 
-/* =====================================================
-   MERGE REQUIRED GLOBAL TRANSLATIONS
-   ONLY ADD MISSING KEYS
-===================================================== */
+        /* HOME */
 
-Object.keys(requiredGlobalTranslations).forEach(function (language) {
+        search: "🔍 Search",
+        account: "👤 Account",
 
-    if (!translations[language]) {
-        translations[language] = {};
-    }
+        proclaimingChrist:
+            "Proclaiming Christ Through Digital Media",
 
-    Object.keys(requiredGlobalTranslations[language]).forEach(function (key) {
+        sharingWord:
+            "Sharing the Word of God, Worship, Prayer and Hope Around The World.",
 
-        if (
-            !Object.prototype.hasOwnProperty.call(
-                translations[language],
-                key
-            )
-        ) {
+        watchLive: "🟢 Watch Live",
 
-            translations[language][key] =
-                requiredGlobalTranslations[language][key];
+        joinChurchNetwork:
+            "🔵 Join Church Network",
 
+        prayerRequest:
+            "🟡 Prayer Request",
+
+        ourMinistryCenter:
+            "Our Ministry Center",
+
+        liveChurch:
+            "📺 Live Church",
+
+        worldwideLiveStreaming:
+            "Worldwide Church Live Streaming",
+
+        sermonMessages:
+            "📖 Sermons",
+
+        biblicalMessages:
+            "Biblical Messages and Teachings",
+
+        bibleStudy:
+            "📚 Bible Study",
+
+        onlineBibleLearning:
+            "Online Bible Learning Center",
+
+        childrenBibleLearning:
+            "📚 Sunday School",
+
+        childrenBibleGrowth:
+            "Children's Bible Learning and Spiritual Growth",
+
+        prayerCenter:
+            "🙏 Prayer Center",
+
+        prayerRequestsTestimonies:
+            "Prayer Requests and Testimonies",
+
+        aiCenter:
+            "🤖 AI Center",
+
+        christianAITools:
+            "Christian AI Ministry Tools",
+
+        mediaStudio:
+            "🎬 Media Studio",
+
+        christianVideosAudio:
+            "Christian Videos and Audio",
+
+        welfareMinistry:
+            "❤️ Welfare Ministry",
+
+        servingNeedy:
+            "Serving the Needy with the Love of Christ",
+
+        socialMediaCenter:
+            "Social Media Center",
+
+
+        /* BIBLE */
+
+        originalBibleLanguage:
+            "🌍 Original Bible Language",
+
+        hebrew:
+            "🇮🇱 Hebrew",
+
+        aramaic:
+            "Aramaic",
+
+        koineGreek:
+            "🇬🇷 Koine Greek",
+
+        translationReadingLanguage:
+            "🌐 Translation / Reading Language",
+
+        urdu:
+            "🇵🇰 اردو",
+
+        punjabi:
+            "🇵🇰 پنجابی",
+
+        english:
+            "🇬🇧 English",
+
+        arabic:
+            "🇸🇦 العربية",
+
+        testament:
+            "📜 Testament",
+
+        oldTestament:
+            "📜 Old Testament",
+
+        newTestament:
+            "✝️ New Testament",
+
+        bibleBook:
+            "📚 Bible Book",
+
+        selectBook:
+            "Select Book",
+
+        chapter:
+            "📑 Chapter",
+
+        selectChapter:
+            "Select Chapter",
+
+        verse:
+            "🔢 Verse",
+
+        selectVerse:
+            "Select Verse",
+
+        readBible:
+            "📖 Read Bible",
+
+        researchButton:
+            "🔎 Research",
+
+        bibleReference:
+            "📖 Bible Reference",
+
+        selectReference:
+            "Select a testament, book, chapter and verse.",
+
+        bibleBooks:
+            "📚 Bible Books",
+
+        completeBible:
+            "The complete Bible contains 66 books.",
+
+        oldTestamentBooks:
+            "39 Books",
+
+        newTestamentBooks:
+            "27 Books",
+
+        lawHistoryPoetryProphets:
+            "Law • History • Poetry • Prophets",
+
+        gospelsActsLettersRevelation:
+            "Gospels • Acts • Letters • Revelation"
+
+    };
+
+
+    /* =================================================
+       URDU
+    ================================================= */
+
+    translations.ur = {
+
+        siteTitle:
+            "کنگڈم لائٹ نیٹ ورک",
+
+        poweredBy:
+            "Powered by Christ Church",
+
+        language:
+            "زبان",
+
+        home:
+            "ہوم",
+
+        live:
+            "لائیو",
+
+        sermons:
+            "واعظ",
+
+        bible:
+            "بائبل",
+
+        sundaySchool:
+            "سنڈے اسکول",
+
+        ai:
+            "اے آئی",
+
+        welfare:
+            "فلاحی خدمت",
+
+        prayer:
+            "دعا",
+
+        media:
+            "میڈیا",
+
+        research:
+            "تحقیق",
+
+        contact:
+            "رابطہ",
+
+        register:
+            "رجسٹر",
+
+        createAccount:
+            "اکاؤنٹ بنائیں",
+
+        allRightsReserved:
+            "جملہ حقوق محفوظ ہیں",
+
+
+        search:
+            "🔍 تلاش",
+
+        account:
+            "👤 اکاؤنٹ",
+
+        proclaimingChrist:
+            "ڈیجیٹل میڈیا کے ذریعے مسیح کی منادی",
+
+        sharingWord:
+            "خدا کے کلام، عبادت، دعا اور امید کو پوری دنیا تک پہنچانا۔",
+
+        watchLive:
+            "🟢 لائیو دیکھیں",
+
+        joinChurchNetwork:
+            "🔵 چرچ نیٹ ورک میں شامل ہوں",
+
+        prayerRequest:
+            "🟡 دعائیہ درخواست",
+
+        ourMinistryCenter:
+            "ہمارا خدمتی مرکز",
+
+        liveChurch:
+            "📺 لائیو چرچ",
+
+        worldwideLiveStreaming:
+            "دنیا بھر میں چرچ کی لائیو نشریات",
+
+        sermonMessages:
+            "📖 پیغامات",
+
+        biblicalMessages:
+            "بائبلی پیغامات اور تعلیمات",
+
+        bibleStudy:
+            "📚 بائبل مطالعہ",
+
+        onlineBibleLearning:
+            "آن لائن بائبل تعلیمی مرکز",
+
+        childrenBibleLearning:
+            "📚 سنڈے اسکول",
+
+        childrenBibleGrowth:
+            "بچوں کا بائبل مطالعہ اور روحانی نشوونما",
+
+        prayerCenter:
+            "🙏 دعائیہ مرکز",
+
+        prayerRequestsTestimonies:
+            "دعائیہ درخواستیں اور گواہیاں",
+
+        aiCenter:
+            "🤖 اے آئی مرکز",
+
+        christianAITools:
+            "مسیحی اے آئی خدمتی آلات",
+
+        mediaStudio:
+            "🎬 میڈیا اسٹوڈیو",
+
+        christianVideosAudio:
+            "مسیحی ویڈیوز اور آڈیو",
+
+        welfareMinistry:
+            "❤️ فلاحی خدمت",
+
+        servingNeedy:
+            "مسیح کی محبت سے ضرورت مندوں کی خدمت",
+
+        socialMediaCenter:
+            "سوشل میڈیا مرکز",
+
+
+        /* BIBLE */
+
+        originalBibleLanguage:
+            "🌍 بائبل کی اصل زبان",
+
+        hebrew:
+            "🇮🇱 عبرانی",
+
+        aramaic:
+            "آرامی",
+
+        koineGreek:
+            "🇬🇷 کوئنے یونانی",
+
+        translationReadingLanguage:
+            "🌐 ترجمہ / مطالعہ کی زبان",
+
+        urdu:
+            "🇵🇰 اردو",
+
+        punjabi:
+            "🇵🇰 پنجابی",
+
+        english:
+            "🇬🇧 انگریزی",
+
+        arabic:
+            "🇸🇦 عربی",
+
+        testament:
+            "📜 عہد",
+
+        oldTestament:
+            "📜 عہدِ عتیق",
+
+        newTestament:
+            "✝️ عہدِ جدید",
+
+        bibleBook:
+            "📚 بائبل کی کتاب",
+
+        selectBook:
+            "کتاب منتخب کریں",
+
+        chapter:
+            "📑 باب",
+
+        selectChapter:
+            "باب منتخب کریں",
+
+        verse:
+            "🔢 آیت",
+
+        selectVerse:
+            "آیت منتخب کریں",
+
+        readBible:
+            "📖 بائبل پڑھیں",
+
+        researchButton:
+            "🔎 تحقیق",
+
+        bibleReference:
+            "📖 بائبل حوالہ",
+
+        selectReference:
+            "عہد، کتاب، باب اور آیت منتخب کریں۔",
+
+        bibleBooks:
+            "📚 بائبل کی کتابیں",
+
+        completeBible:
+            "مکمل بائبل 66 کتابوں پر مشتمل ہے۔",
+
+        oldTestamentBooks:
+            "39 کتابیں",
+
+        newTestamentBooks:
+            "27 کتابیں",
+
+        lawHistoryPoetryProphets:
+            "شریعت • تاریخ • شاعری • انبیاء",
+
+        gospelsActsLettersRevelation:
+            "اناجیل • اعمال • خطوط • مکاشفہ"
+
+    };
+
+
+    /* =================================================
+       PAKISTANI PUNJABI
+    ================================================= */
+
+    translations.pa = {
+
+        siteTitle:
+            "کنگڈم لائٹ نیٹ ورک",
+
+        poweredBy:
+            "Powered by Christ Church",
+
+        language:
+            "زبان",
+
+        home:
+            "گھر",
+
+        live:
+            "لائیو",
+
+        sermons:
+            "پیغام",
+
+        bible:
+            "بائبل",
+
+        sundaySchool:
+            "سنڈے اسکول",
+
+        ai:
+            "اے آئی",
+
+        welfare:
+            "فلاحی خدمت",
+
+        prayer:
+            "دعا",
+
+        media:
+            "میڈیا",
+
+        research:
+            "تحقیق",
+
+        contact:
+            "رابطہ",
+
+        register:
+            "رجسٹر",
+
+        createAccount:
+            "اکاؤنٹ بناؤ",
+
+        allRightsReserved:
+            "سارے حقوق محفوظ نیں",
+
+
+        search:
+            "🔍 تلاش",
+
+        account:
+            "👤 اکاؤنٹ",
+
+        proclaimingChrist:
+            "ڈیجیٹل میڈیا دے ذریعے مسیح دی منادی",
+
+        sharingWord:
+            "خدا دے کلام، عبادت، دعا تے امید نوں پوری دنیا تک پہنچانا۔",
+
+        watchLive:
+            "🟢 لائیو ویکھو",
+
+        joinChurchNetwork:
+            "🔵 چرچ نیٹ ورک وچ شامل ہوؤ",
+
+        prayerRequest:
+            "🟡 دعا دی درخواست",
+
+        ourMinistryCenter:
+            "ساڈا خدمتی مرکز",
+
+        liveChurch:
+            "📺 لائیو چرچ",
+
+        worldwideLiveStreaming:
+            "دنیا بھر وچ چرچ دی لائیو نشریات",
+
+        sermonMessages:
+            "📖 پیغام",
+
+        biblicalMessages:
+            "بائبلی پیغام تے تعلیمات",
+
+        bibleStudy:
+            "📚 بائبل مطالعہ",
+
+        onlineBibleLearning:
+            "آن لائن بائبل تعلیمی مرکز",
+
+        childrenBibleLearning:
+            "📚 سنڈے اسکول",
+
+        childrenBibleGrowth:
+            "بچیاں دا بائبل مطالعہ تے روحانی نشوونما",
+
+        prayerCenter:
+            "🙏 دعا دا مرکز",
+
+        prayerRequestsTestimonies:
+            "دعائیہ درخواستاں تے گواہیاں",
+
+        aiCenter:
+            "🤖 اے آئی مرکز",
+
+        christianAITools:
+            "مسیحی اے آئی خدمتی آلات",
+
+        mediaStudio:
+            "🎬 میڈیا اسٹوڈیو",
+
+        christianVideosAudio:
+            "مسیحی ویڈیوز تے آڈیو",
+
+        welfareMinistry:
+            "❤️ فلاحی خدمت",
+
+        servingNeedy:
+            "مسیح دی محبت نال ضرورت مند لوکاں دی خدمت",
+
+        socialMediaCenter:
+            "سوشل میڈیا مرکز",
+
+
+        /* BIBLE */
+
+        originalBibleLanguage:
+            "🌍 بائبل دی اصل زبان",
+
+        hebrew:
+            "🇮🇱 عبرانی",
+
+        aramaic:
+            "آرامی",
+
+        koineGreek:
+            "🇬🇷 کوئنے یونانی",
+
+        translationReadingLanguage:
+            "🌐 ترجمہ / مطالعے دی زبان",
+
+        urdu:
+            "🇵🇰 اردو",
+
+        punjabi:
+            "🇵🇰 پنجابی",
+
+        english:
+            "🇬🇧 انگریزی",
+
+        arabic:
+            "🇸🇦 عربی",
+
+        testament:
+            "📜 عہد",
+
+        oldTestament:
+            "📜 پرانا عہد",
+
+        newTestament:
+            "✝️ نواں عہد",
+
+        bibleBook:
+            "📚 بائبل دی کتاب",
+
+        selectBook:
+            "کتاب چنو",
+
+        chapter:
+            "📑 باب",
+
+        selectChapter:
+            "باب چنو",
+
+        verse:
+            "🔢 آیت",
+
+        selectVerse:
+            "آیت چنو",
+
+        readBible:
+            "📖 بائبل پڑھو",
+
+        researchButton:
+            "🔎 تحقیق",
+
+        bibleReference:
+            "📖 بائبل حوالہ",
+
+        selectReference:
+            "عہد، کتاب، باب تے آیت منتخب کرو۔",
+
+        bibleBooks:
+            "📚 بائبل دیاں کتاباں",
+
+        completeBible:
+            "مکمل بائبل 66 کتاباں تے مشتمل اے۔",
+
+        oldTestamentBooks:
+            "39 کتاباں",
+
+        newTestamentBooks:
+            "27 کتاباں",
+
+        lawHistoryPoetryProphets:
+            "شریعت • تاریخ • شاعری • نبی",
+
+        gospelsActsLettersRevelation:
+            "اناجیل • اعمال • خطوط • مکاشفہ"
+
+    };
+
+
+    /* =================================================
+       ARABIC
+    ================================================= */
+
+    translations.ar = {
+
+        siteTitle:
+            "شبكة نور الملكوت",
+
+        poweredBy:
+            "Powered by Christ Church",
+
+        language:
+            "اللغة",
+
+        home:
+            "الرئيسية",
+
+        live:
+            "مباشر",
+
+        sermons:
+            "العظات",
+
+        bible:
+            "الكتاب المقدس",
+
+        sundaySchool:
+            "مدرسة الأحد",
+
+        ai:
+            "الذكاء الاصطناعي",
+
+        welfare:
+            "الخدمة الاجتماعية",
+
+        prayer:
+            "الصلاة",
+
+        media:
+            "الإعلام",
+
+        research:
+            "البحث",
+
+        contact:
+            "اتصل بنا",
+
+        register:
+            "تسجيل",
+
+        createAccount:
+            "إنشاء حساب",
+
+        allRightsReserved:
+            "جميع الحقوق محفوظة",
+
+
+        search:
+            "🔍 بحث",
+
+        account:
+            "👤 الحساب",
+
+        proclaimingChrist:
+            "إعلان المسيح من خلال الإعلام الرقمي",
+
+        sharingWord:
+            "مشاركة كلمة الله والعبادة والصلاة والرجاء حول العالم.",
+
+        watchLive:
+            "🟢 شاهد البث المباشر",
+
+        joinChurchNetwork:
+            "🔵 انضم إلى شبكة الكنائس",
+
+        prayerRequest:
+            "🟡 طلب صلاة",
+
+        ourMinistryCenter:
+            "مركز خدمتنا",
+
+        liveChurch:
+            "📺 الكنيسة المباشرة",
+
+        worldwideLiveStreaming:
+            "بث مباشر للكنائس حول العالم",
+
+        sermonMessages:
+            "📖 العظات",
+
+        biblicalMessages:
+            "رسائل وتعاليم الكتاب المقدس",
+
+        bibleStudy:
+            "📚 دراسة الكتاب المقدس",
+
+        onlineBibleLearning:
+            "مركز تعلم الكتاب المقدس عبر الإنترنت",
+
+        childrenBibleLearning:
+            "📚 مدرسة الأحد",
+
+        childrenBibleGrowth:
+            "تعليم الأطفال للكتاب المقدس والنمو الروحي",
+
+        prayerCenter:
+            "🙏 مركز الصلاة",
+
+        prayerRequestsTestimonies:
+            "طلبات الصلاة والشهادات",
+
+        aiCenter:
+            "🤖 مركز الذكاء الاصطناعي",
+
+        christianAITools:
+            "أدوات الذكاء الاصطناعي للخدمة المسيحية",
+
+        mediaStudio:
+            "🎬 استوديو الإعلام",
+
+        christianVideosAudio:
+            "فيديوهات وصوتيات مسيحية",
+
+        welfareMinistry:
+            "❤️ الخدمة الاجتماعية",
+
+        servingNeedy:
+            "خدمة المحتاجين بمحبة المسيح",
+
+        socialMediaCenter:
+            "مركز وسائل التواصل الاجتماعي",
+
+
+        /* BIBLE */
+
+        originalBibleLanguage:
+            "🌍 لغة الكتاب المقدس الأصلية",
+
+        hebrew:
+            "🇮🇱 العبرية",
+
+        aramaic:
+            "الآرامية",
+
+        koineGreek:
+            "🇬🇷 اليونانية الكوينية",
+
+        translationReadingLanguage:
+            "🌐 لغة الترجمة / القراءة",
+
+        urdu:
+            "🇵🇰 الأردية",
+
+        punjabi:
+            "🇵🇰 البنجابية",
+
+        english:
+            "🇬🇧 الإنجليزية",
+
+        arabic:
+            "🇸🇦 العربية",
+
+        testament:
+            "📜 العهد",
+
+        oldTestament:
+            "📜 العهد القديم",
+
+        newTestament:
+            "✝️ العهد الجديد",
+
+        bibleBook:
+            "📚 سفر الكتاب المقدس",
+
+        selectBook:
+            "اختر السفر",
+
+        chapter:
+            "📑 الإصحاح",
+
+        selectChapter:
+            "اختر الإصحاح",
+
+        verse:
+            "🔢 الآية",
+
+        selectVerse:
+            "اختر الآية",
+
+        readBible:
+            "📖 اقرأ الكتاب المقدس",
+
+        researchButton:
+            "🔎 بحث",
+
+        bibleReference:
+            "📖 مرجع الكتاب المقدس",
+
+        selectReference:
+            "اختر العهد والسفر والإصحاح والآية.",
+
+        bibleBooks:
+            "📚 أسفار الكتاب المقدس",
+
+        completeBible:
+            "يحتوي الكتاب المقدس الكامل على 66 سفرًا.",
+
+        oldTestamentBooks:
+            "39 سفرًا",
+
+        newTestamentBooks:
+            "27 سفرًا",
+
+        lawHistoryPoetryProphets:
+            "الشريعة • التاريخ • الشعر • الأنبياء",
+
+        gospelsActsLettersRevelation:
+            "الأناجيل • الأعمال • الرسائل • الرؤيا"
+
+    };
+
+
+    /* =================================================
+       FALLBACK / ADDITIONAL LANGUAGES
+       Keep existing language support.
+    ================================================= */
+
+    const additionalLanguages = {
+
+        es: {
+            siteTitle: "Kingdom Light Network",
+            language: "Idioma",
+            home: "Inicio",
+            live: "En Vivo",
+            sermons: "Sermones",
+            bible: "Biblia",
+            sundaySchool: "Escuela Dominical",
+            ai: "IA",
+            welfare: "Bienestar",
+            prayer: "Oración",
+            media: "Medios",
+            research: "Investigación",
+            contact: "Contacto",
+            register: "Registrarse",
+            createAccount: "Crear Cuenta",
+            allRightsReserved: "Todos los derechos reservados"
+        },
+
+        fr: {
+            siteTitle: "Kingdom Light Network",
+            language: "Langue",
+            home: "Accueil",
+            live: "En Direct",
+            sermons: "Sermons",
+            bible: "Bible",
+            sundaySchool: "École du Dimanche",
+            ai: "IA",
+            welfare: "Service Social",
+            prayer: "Prière",
+            media: "Médias",
+            research: "Recherche",
+            contact: "Contact",
+            register: "S'inscrire",
+            createAccount: "Créer un Compte",
+            allRightsReserved: "Tous droits réservés"
+        },
+
+        de: {
+            siteTitle: "Kingdom Light Network",
+            language: "Sprache",
+            home: "Startseite",
+            live: "Live",
+            sermons: "Predigten",
+            bible: "Bibel",
+            sundaySchool: "Sonntagsschule",
+            ai: "KI",
+            welfare: "Sozialdienst",
+            prayer: "Gebet",
+            media: "Medien",
+            research: "Forschung",
+            contact: "Kontakt",
+            register: "Registrieren",
+            createAccount: "Konto erstellen",
+            allRightsReserved: "Alle Rechte vorbehalten"
+        },
+
+        pt: {
+            siteTitle: "Kingdom Light Network",
+            language: "Idioma",
+            home: "Início",
+            live: "Ao Vivo",
+            sermons: "Sermões",
+            bible: "Bíblia",
+            sundaySchool: "Escola Dominical",
+            ai: "IA",
+            welfare: "Serviço Social",
+            prayer: "Oração",
+            media: "Mídia",
+            research: "Pesquisa",
+            contact: "Contato",
+            register: "Registrar",
+            createAccount: "Criar Conta",
+            allRightsReserved: "Todos os direitos reservados"
+        },
+
+        it: {
+            siteTitle: "Kingdom Light Network",
+            language: "Lingua",
+            home: "Home",
+            live: "Live",
+            sermons: "Predicazioni",
+            bible: "Bibbia",
+            sundaySchool: "Scuola Domenicale",
+            ai: "IA",
+            welfare: "Servizio Sociale",
+            prayer: "Preghiera",
+            media: "Media",
+            research: "Ricerca",
+            contact: "Contatti",
+            register: "Registrati",
+            createAccount: "Crea Account",
+            allRightsReserved: "Tutti i diritti riservati"
+        },
+
+        ru: {
+            siteTitle: "Kingdom Light Network",
+            language: "Язык",
+            home: "Главная",
+            live: "Прямой эфир",
+            sermons: "Проповеди",
+            bible: "Библия",
+            sundaySchool: "Воскресная школа",
+            ai: "ИИ",
+            welfare: "Социальное служение",
+            prayer: "Молитва",
+            media: "Медиа",
+            research: "Исследование",
+            contact: "Контакты",
+            register: "Регистрация",
+            createAccount: "Создать аккаунт",
+            allRightsReserved: "Все права защищены"
+        },
+
+        zh: {
+            siteTitle: "Kingdom Light Network",
+            language: "语言",
+            home: "首页",
+            live: "直播",
+            sermons: "讲道",
+            bible: "圣经",
+            sundaySchool: "主日学",
+            ai: "人工智能",
+            welfare: "社会服务",
+            prayer: "祷告",
+            media: "媒体",
+            research: "研究",
+            contact: "联系我们",
+            register: "注册",
+            createAccount: "创建账户",
+            allRightsReserved: "版权所有"
+        },
+
+        ja: {
+            siteTitle: "Kingdom Light Network",
+            language: "言語",
+            home: "ホーム",
+            live: "ライブ",
+            sermons: "説教",
+            bible: "聖書",
+            sundaySchool: "日曜学校",
+            ai: "AI",
+            welfare: "社会奉仕",
+            prayer: "祈り",
+            media: "メディア",
+            research: "研究",
+            contact: "お問い合わせ",
+            register: "登録",
+            createAccount: "アカウント作成",
+            allRightsReserved: "全著作権所有"
+        },
+
+        ko: {
+            siteTitle: "Kingdom Light Network",
+            language: "언어",
+            home: "홈",
+            live: "라이브",
+            sermons: "설교",
+            bible: "성경",
+            sundaySchool: "주일학교",
+            ai: "AI",
+            welfare: "복지",
+            prayer: "기도",
+            media: "미디어",
+            research: "연구",
+            contact: "연락처",
+            register: "등록",
+            createAccount: "계정 만들기",
+            allRightsReserved: "모든 권리 보유"
+        },
+
+        tr: {
+            siteTitle: "Kingdom Light Network",
+            language: "Dil",
+            home: "Ana Sayfa",
+            live: "Canlı",
+            sermons: "Vaazlar",
+            bible: "Kutsal Kitap",
+            sundaySchool: "Pazar Okulu",
+            ai: "Yapay Zekâ",
+            welfare: "Sosyal Hizmet",
+            prayer: "Dua",
+            media: "Medya",
+            research: "Araştırma",
+            contact: "İletişim",
+            register: "Kayıt",
+            createAccount: "Hesap Oluştur",
+            allRightsReserved: "Tüm hakları saklıdır"
+        },
+
+        id: {
+            siteTitle: "Kingdom Light Network",
+            language: "Bahasa",
+            home: "Beranda",
+            live: "Langsung",
+            sermons: "Khotbah",
+            bible: "Alkitab",
+            sundaySchool: "Sekolah Minggu",
+            ai: "AI",
+            welfare: "Pelayanan Sosial",
+            prayer: "Doa",
+            media: "Media",
+            research: "Penelitian",
+            contact: "Kontak",
+            register: "Daftar",
+            createAccount: "Buat Akun",
+            allRightsReserved: "Hak cipta dilindungi"
+        },
+
+        bn: {
+            siteTitle: "Kingdom Light Network",
+            language: "ভাষা",
+            home: "হোম",
+            live: "লাইভ",
+            sermons: "উপদেশ",
+            bible: "বাইবেল",
+            sundaySchool: "সানডে স্কুল",
+            ai: "এআই",
+            welfare: "সামাজিক সেবা",
+            prayer: "প্রার্থনা",
+            media: "মিডিয়া",
+            research: "গবেষণা",
+            contact: "যোগাযোগ",
+            register: "নিবন্ধন",
+            createAccount: "অ্যাকাউন্ট তৈরি করুন",
+            allRightsReserved: "সর্বস্বত্ব সংরক্ষিত"
+        },
+
+        fa: {
+            siteTitle: "Kingdom Light Network",
+            language: "زبان",
+            home: "خانه",
+            live: "زنده",
+            sermons: "موعظه‌ها",
+            bible: "کتاب مقدس",
+            sundaySchool: "مدرسه یکشنبه",
+            ai: "هوش مصنوعی",
+            welfare: "خدمت اجتماعی",
+            prayer: "دعا",
+            media: "رسانه",
+            research: "پژوهش",
+            contact: "تماس",
+            register: "ثبت نام",
+            createAccount: "ایجاد حساب",
+            allRightsReserved: "تمام حقوق محفوظ است"
+        },
+
+        nl: {
+            siteTitle: "Kingdom Light Network",
+            language: "Taal",
+            home: "Home",
+            live: "Live",
+            sermons: "Preken",
+            bible: "Bijbel",
+            sundaySchool: "Zondagsschool",
+            ai: "AI",
+            welfare: "Sociale Dienst",
+            prayer: "Gebed",
+            media: "Media",
+            research: "Onderzoek",
+            contact: "Contact",
+            register: "Registreren",
+            createAccount: "Account aanmaken",
+            allRightsReserved: "Alle rechten voorbehouden"
+        },
+
+        pl: {
+            siteTitle: "Kingdom Light Network",
+            language: "Język",
+            home: "Strona główna",
+            live: "Na żywo",
+            sermons: "Kazania",
+            bible: "Biblia",
+            sundaySchool: "Szkoła Niedzielna",
+            ai: "AI",
+            welfare: "Służba Społeczna",
+            prayer: "Modlitwa",
+            media: "Media",
+            research: "Badania",
+            contact: "Kontakt",
+            register: "Rejestracja",
+            createAccount: "Utwórz konto",
+            allRightsReserved: "Wszelkie prawa zastrzeżone"
         }
 
-    });
-
-});
+    };
 
 
-console.log(
-    "Required global translation keys checked successfully."
-);
+    /* =================================================
+       MERGE ADDITIONAL LANGUAGES
+    ================================================= */
+
+    Object.keys(additionalLanguages).forEach(
+        function (language) {
+
+            if (
+                !translations[language]
+            ) {
+
+                translations[language] = {};
+
+            }
+
+
+            Object.assign(
+                translations[language],
+                additionalLanguages[language]
+            );
+
+        }
+    );
+
+
+    /* =================================================
+       MAKE SURE EVERY LANGUAGE HAS BIBLE KEYS
+       FALL BACK TO ENGLISH WHEN NEEDED
+    ================================================= */
+
+    const bibleKeys = [
+
+        "originalBibleLanguage",
+        "hebrew",
+        "aramaic",
+        "koineGreek",
+
+        "translationReadingLanguage",
+        "urdu",
+        "punjabi",
+        "english",
+        "arabic",
+
+        "testament",
+        "oldTestament",
+        "newTestament",
+
+        "bibleBook",
+        "selectBook",
+
+        "chapter",
+        "selectChapter",
+
+        "verse",
+        "selectVerse",
+
+        "readBible",
+        "researchButton",
+
+        "bibleReference",
+        "selectReference",
+
+        "bibleBooks",
+        "completeBible",
+
+        "oldTestamentBooks",
+        "newTestamentBooks",
+
+        "lawHistoryPoetryProphets",
+        "gospelsActsLettersRevelation"
+
+    ];
+
+
+    Object.keys(translations).forEach(
+        function (language) {
+
+            bibleKeys.forEach(
+                function (key) {
+
+                    if (
+                        !Object.prototype.hasOwnProperty.call(
+                            translations[language],
+                            key
+                        )
+                    ) {
+
+                        translations[language][key] =
+                            translations.en[key];
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =================================================
+       READY
+    ================================================= */
+
+    console.log(
+        "Kingdom Light Network translations loaded successfully."
+    );
+
+    console.log(
+        "Available languages:",
+        Object.keys(translations)
+    );
+
+})();

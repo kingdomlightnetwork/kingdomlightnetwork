@@ -1075,3 +1075,126 @@ nav.show a {
     }
 
 }
+
+/* =====================================================
+   BIBLE SELECTOR - COMPACT HORIZONTAL LAYOUT
+   ===================================================== */
+
+.bible-selector-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 140px;
+    min-width: 120px;
+    margin: 0;
+}
+
+.bible-selector-group label {
+    display: block;
+    margin: 0 0 7px 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    white-space: nowrap;
+}
+
+.bible-selector-group select {
+    width: 100%;
+    height: 44px;
+    margin: 0;
+    padding: 0 8px;
+    border: 1px solid #cccccc;
+    border-radius: 7px;
+    background: #ffffff;
+    font-size: 14px;
+    color: #222;
+    box-sizing: border-box;
+}
+
+/* SELECTOR ROW */
+
+.research-search-box {
+    max-width: 1200px;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+/* چھ Selectors ایک compact لائن میں */
+
+.research-search-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-end;
+}
+
+/* Bible Selector heading پوری چوڑائی لے */
+
+.research-search-box h2 {
+    width: 100%;
+    margin: 0 0 8px 0;
+}
+
+/* Action Buttons نیچے اپنی پوری لائن میں */
+
+.bible-action-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.bible-action-buttons button {
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 8px;
+}
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media screen and (max-width: 900px) {
+
+    .bible-selector-group {
+        flex: 1 1 calc(50% - 14px);
+        min-width: 180px;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+
+    .research-search-box {
+        width: calc(100% - 20px);
+        padding: 18px 12px;
+        gap: 10px;
+    }
+
+    .bible-selector-group {
+        flex: 1 1 100%;
+        min-width: 100%;
+    }
+
+    .bible-selector-group label {
+        font-size: 14px;
+    }
+
+    .bible-selector-group select {
+        height: 46px;
+        font-size: 15px;
+    }
+
+    .bible-action-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .bible-action-buttons button {
+        width: 90%;
+        max-width: 320px;
+    }
+
+}

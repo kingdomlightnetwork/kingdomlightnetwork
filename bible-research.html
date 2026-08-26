@@ -17,6 +17,10 @@
 <body>
 
 
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header>
 
     <div class="logo-area">
@@ -66,6 +70,10 @@
 
 
 
+<!-- =====================================================
+     MOBILE MENU BUTTON
+===================================================== -->
+
 <button
     class="menu-toggle"
     id="menuToggle"
@@ -77,6 +85,10 @@
 </button>
 
 
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
 
 <nav>
 
@@ -116,7 +128,11 @@
         Media
     </a>
 
-    <a href="research.html" data-translate="research">
+    <a
+        href="research.html"
+        class="active"
+        data-translate="research"
+    >
         🔎 Research
     </a>
 
@@ -141,199 +157,255 @@
 
 
 <!-- =====================================================
-     BIBLE SELECTOR
+     BIBLE SELECTOR SECTION
 ===================================================== -->
 
 <section class="services bible-selector-section">
 
 
-    <!-- =================================================
-         BIBLE SELECTORS
-    ================================================== -->
-
     <div class="research-search-box">
 
 
-        <!-- ORIGINAL BIBLE LANGUAGE -->
+        <!-- =================================================
+             TITLE
+        ================================================== -->
 
-        <label
-            for="sourceLanguage"
-            data-translate="originalBibleLanguage"
-        >
-            🌍 Original Bible Language
-        </label>
+        <h2 data-translate="bibleResearch">
+            📖 Bible Research
+        </h2>
 
-        <select id="sourceLanguage">
 
-            <option
-                value="he"
-                data-translate="hebrew"
+
+        <!-- =================================================
+             ORIGINAL BIBLE LANGUAGE
+        ================================================== -->
+
+        <div class="bible-selector-group">
+
+            <label
+                for="sourceLanguage"
+                data-translate="originalBibleLanguage"
             >
-                🇮🇱 Hebrew
-            </option>
+                🌍 Original Bible Language
+            </label>
 
-            <option
-                value="arc"
-                data-translate="aramaic"
+
+            <select id="sourceLanguage">
+
+                <option
+                    value="he"
+                    data-translate="hebrew"
+                >
+                    🇮🇱 Hebrew
+                </option>
+
+                <option
+                    value="arc"
+                    data-translate="aramaic"
+                >
+                    Aramaic
+                </option>
+
+                <option
+                    value="grc"
+                    data-translate="koineGreek"
+                >
+                    🇬🇷 Koine Greek
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================================
+             TRANSLATION / READING LANGUAGE
+        ================================================== -->
+
+        <div class="bible-selector-group">
+
+            <label
+                for="translationLanguage"
+                data-translate="translationReadingLanguage"
             >
-                Aramaic
-            </option>
-
-            <option
-                value="grc"
-                data-translate="koineGreek"
-            >
-                🇬🇷 Koine Greek
-            </option>
-
-        </select>
+                🌐 Translation / Reading Language
+            </label>
 
 
-        <!-- TRANSLATION / READING LANGUAGE -->
+            <select id="translationLanguage">
 
-        <label
-            for="translationLanguage"
-            data-translate="translationReadingLanguage"
-        >
-            🌐 Translation / Reading Language
-        </label>
+                <option
+                    value="ur"
+                    data-translate="urdu"
+                >
+                    🇵🇰 اردو
+                </option>
 
-        <select id="translationLanguage">
+                <option
+                    value="pa"
+                    data-translate="punjabi"
+                >
+                    🇵🇰 پنجابی
+                </option>
 
-            <option
-                value="ur"
-                data-translate="urdu"
-            >
-                🇵🇰 اردو
-            </option>
+                <option
+                    value="en"
+                    data-translate="english"
+                >
+                    🇬🇧 English
+                </option>
 
-            <option
-                value="pa"
-                data-translate="punjabi"
-            >
-                🇵🇰 پنجابی
-            </option>
+                <option
+                    value="ar"
+                    data-translate="arabic"
+                >
+                    🇸🇦 العربية
+                </option>
 
-            <option
-                value="en"
-                data-translate="english"
-            >
-                🇬🇧 English
-            </option>
+            </select>
 
-            <option
-                value="ar"
-                data-translate="arabic"
-            >
-                🇸🇦 العربية
-            </option>
-
-        </select>
+        </div>
 
 
-        <!-- TESTAMENT -->
 
-        <label
-            for="testamentSelect"
-            data-translate="testament"
-        >
-            📜 Testament
-        </label>
+        <!-- =================================================
+             TESTAMENT
+        ================================================== -->
 
-        <select id="testamentSelect">
+        <div class="bible-selector-group">
 
-            <option
-                value=""
+            <label
+                for="testamentSelect"
                 data-translate="testament"
             >
-                Select Testament
-            </option>
+                📜 Testament
+            </label>
 
-            <option
-                value="old"
-                data-translate="oldTestament"
+
+            <select id="testamentSelect">
+
+                <option
+                    value=""
+                    data-translate="testament"
+                >
+                    Select Testament
+                </option>
+
+                <option
+                    value="old"
+                    data-translate="oldTestament"
+                >
+                    📜 Old Testament
+                </option>
+
+                <option
+                    value="new"
+                    data-translate="newTestament"
+                >
+                    ✝️ New Testament
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================================
+             BIBLE BOOK
+        ================================================== -->
+
+        <div class="bible-selector-group">
+
+            <label
+                for="bookSelect"
+                data-translate="bibleBook"
             >
-                📜 Old Testament
-            </option>
+                📚 Bible Book
+            </label>
 
-            <option
-                value="new"
-                data-translate="newTestament"
+
+            <select id="bookSelect">
+
+                <option
+                    value=""
+                    data-translate="selectBook"
+                >
+                    Select Book
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CHAPTER
+        ================================================== -->
+
+        <div class="bible-selector-group">
+
+            <label
+                for="chapterSelect"
+                data-translate="chapter"
             >
-                ✝️ New Testament
-            </option>
-
-        </select>
+                📑 Chapter
+            </label>
 
 
-        <!-- BIBLE BOOK -->
+            <select id="chapterSelect">
 
-        <label
-            for="bookSelect"
-            data-translate="bibleBook"
-        >
-            📚 Bible Book
-        </label>
+                <option
+                    value=""
+                    data-translate="selectChapter"
+                >
+                    Select Chapter
+                </option>
 
-        <select id="bookSelect">
+            </select>
 
-            <option
-                value=""
-                data-translate="selectBook"
+        </div>
+
+
+
+        <!-- =================================================
+             VERSE
+        ================================================== -->
+
+        <div class="bible-selector-group">
+
+            <label
+                for="verseSelect"
+                data-translate="verse"
             >
-                Select Book
-            </option>
-
-        </select>
+                🔢 Verse
+            </label>
 
 
-        <!-- CHAPTER -->
+            <select id="verseSelect">
 
-        <label
-            for="chapterSelect"
-            data-translate="chapter"
-        >
-            📑 Chapter
-        </label>
+                <option
+                    value=""
+                    data-translate="selectVerse"
+                >
+                    Select Verse
+                </option>
 
-        <select id="chapterSelect">
+            </select>
 
-            <option
-                value=""
-                data-translate="selectChapter"
-            >
-                Select Chapter
-            </option>
+        </div>
 
-        </select>
-
-
-        <!-- VERSE -->
-
-        <label
-            for="verseSelect"
-            data-translate="verse"
-        >
-            🔢 Verse
-        </label>
-
-        <select id="verseSelect">
-
-            <option
-                value=""
-                data-translate="selectVerse"
-            >
-                Select Verse
-            </option>
-
-        </select>
 
 
         <!-- =================================================
              ACTION BUTTONS
         ================================================== -->
 
-        <div class="research-actions">
+        <div
+            class="bible-action-buttons research-actions"
+        >
 
             <button
                 type="button"
@@ -342,6 +414,7 @@
             >
                 📖 Read Bible
             </button>
+
 
             <button
                 type="button"
@@ -352,6 +425,7 @@
             </button>
 
         </div>
+
 
 
         <!-- =================================================
@@ -367,6 +441,7 @@
                 📖 Bible Reference
             </h3>
 
+
             <p
                 id="selectedReference"
                 data-translate="selectReference"
@@ -376,16 +451,19 @@
 
         </div>
 
+
     </div>
 
 </section>
 
 
+
 <!-- =====================================================
-     BIBLE BOOKS
+     BIBLE BOOKS INFORMATION
 ===================================================== -->
 
 <section class="services">
+
 
     <h2 data-translate="bibleBooks">
         📚 Bible Books
@@ -397,8 +475,11 @@
     </p>
 
 
+
     <div class="cards">
 
+
+        <!-- OLD TESTAMENT -->
 
         <div class="card">
 
@@ -420,6 +501,8 @@
 
 
 
+        <!-- NEW TESTAMENT -->
+
         <div class="card">
 
             <h3 data-translate="newTestament">
@@ -437,6 +520,7 @@
             </p>
 
         </div>
+
 
     </div>
 

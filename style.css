@@ -2409,3 +2409,60 @@ nav a.active {
     }
 
 }
+
+/* =====================================================
+   BIBLE ZOOM CONTROLS - FINAL VISIBILITY FIX
+   ===================================================== */
+
+.bible-zoom-controls {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 5px !important;
+
+    width: auto !important;
+    height: auto !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.bible-zoom-controls span {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+    font-size: 13px !important;
+    margin-right: 3px !important;
+}
+
+.bible-zoom-controls button {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 36px !important;
+    min-width: 36px !important;
+
+    height: 36px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: none !important;
+    border-radius: 7px !important;
+
+    font-size: 14px !important;
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+
+    box-sizing: border-box !important;
+}

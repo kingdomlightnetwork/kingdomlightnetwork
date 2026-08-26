@@ -132,186 +132,207 @@
 
 
         <!-- =================================================
-             ORIGINAL BIBLE LANGUAGE
+             LINE 1 — ORIGINAL + READING LANGUAGE
         ================================================== -->
 
-        <div class="bible-selector-group">
+        <div
+            class="bible-selector-row"
+            style="
+                display:flex;
+                flex-wrap:wrap;
+                gap:12px;
+                align-items:end;
+            "
+        >
 
-            <label for="sourceLanguage">
-                🌍 Original Bible Language
-            </label>
+            <div class="bible-selector-group">
 
-            <select id="sourceLanguage">
+                <label for="sourceLanguage">
+                    🌍 Original Bible Language
+                </label>
 
-                <option value="">
-                    Select Original Language
-                </option>
+                <select id="sourceLanguage">
 
-                <option value="he">
-                    🇮🇱 Hebrew
-                </option>
+                    <option value="">
+                        Select Original Language
+                    </option>
 
-                <option value="arc">
-                    Aramaic
-                </option>
+                    <option value="he">
+                        🇮🇱 Hebrew
+                    </option>
 
-                <option value="grc">
-                    🇬🇷 Koine Greek
-                </option>
+                    <option value="arc">
+                        Aramaic
+                    </option>
 
-            </select>
+                    <option value="grc">
+                        🇬🇷 Koine Greek
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="bible-selector-group">
+
+                <label for="translationLanguage">
+                    🌐 Translation / Reading Language
+                </label>
+
+                <select id="translationLanguage">
+
+                    <option value="">
+                        Select Reading Language
+                    </option>
+
+                    <option value="ur">
+                        🇵🇰 اردو
+                    </option>
+
+                    <option value="pa">
+                        🇵🇰 پنجابی
+                    </option>
+
+                    <option value="en">
+                        🇬🇧 English
+                    </option>
+
+                    <option value="ar">
+                        🇸🇦 العربية
+                    </option>
+
+                </select>
+
+            </div>
 
         </div>
 
 
 
         <!-- =================================================
-             TRANSLATION / READING LANGUAGE
+             LINE 2 — TESTAMENT + BOOK
         ================================================== -->
 
-        <div class="bible-selector-group">
+        <div
+            class="bible-selector-row"
+            style="
+                display:flex;
+                flex-wrap:wrap;
+                gap:12px;
+                align-items:end;
+            "
+        >
 
-            <label for="translationLanguage">
-                🌐 Translation / Reading Language
-            </label>
+            <div class="bible-selector-group">
 
-            <select id="translationLanguage">
+                <label for="testamentSelect">
+                    📜 Testament
+                </label>
 
-                <option value="">
-                    Select Reading Language
-                </option>
+                <select id="testamentSelect">
 
-                <option value="ur">
-                    🇵🇰 اردو
-                </option>
+                    <option value="">
+                        Select Testament
+                    </option>
 
-                <option value="pa">
-                    🇵🇰 پنجابی
-                </option>
+                    <option value="old">
+                        📜 Old Testament
+                    </option>
 
-                <option value="en">
-                    🇬🇧 English
-                </option>
+                    <option value="new">
+                        ✝️ New Testament
+                    </option>
 
-                <option value="ar">
-                    🇸🇦 العربية
-                </option>
+                </select>
 
-            </select>
+            </div>
+
+
+            <div class="bible-selector-group">
+
+                <label for="bookSelect">
+                    📖 Bible Book
+                </label>
+
+                <select id="bookSelect">
+
+                    <option value="">
+                        Select Book
+                    </option>
+
+                </select>
+
+            </div>
 
         </div>
 
 
 
         <!-- =================================================
-             TESTAMENT
+             LINE 3 — CHAPTER + VERSE
         ================================================== -->
 
-        <div class="bible-selector-group">
+        <div
+            class="bible-selector-row"
+            style="
+                display:flex;
+                flex-wrap:wrap;
+                gap:12px;
+                align-items:end;
+            "
+        >
 
-            <label for="testamentSelect">
-                📜 Testament
-            </label>
+            <div class="bible-selector-group">
 
-            <select id="testamentSelect">
+                <label for="chapterSelect">
+                    📑 Chapter
+                </label>
 
-                <option value="">
-                    Select Testament
-                </option>
+                <select id="chapterSelect">
 
-                <option value="old">
-                    📜 Old Testament
-                </option>
+                    <option value="">
+                        Select Chapter
+                    </option>
 
-                <option value="new">
-                    ✝️ New Testament
-                </option>
+                </select>
 
-            </select>
+            </div>
+
+
+            <div class="bible-selector-group">
+
+                <label for="verseSelect">
+                    🔢 Verse
+                </label>
+
+                <select id="verseSelect">
+
+                    <option value="">
+                        Select Verse
+                    </option>
+
+                </select>
+
+            </div>
 
         </div>
 
 
 
         <!-- =================================================
-             BOOK
+             LINE 4 — MAIN ACTIONS
         ================================================== -->
-
-        <div class="bible-selector-group">
-
-            <label for="bookSelect">
-                📖 Bible Book
-            </label>
-
-            <select id="bookSelect">
-
-                <option value="">
-                    Select Book
-                </option>
-
-            </select>
-
-        </div>
-
-
-
-        <!-- =================================================
-             CHAPTER
-        ================================================== -->
-
-        <div class="bible-selector-group">
-
-            <label for="chapterSelect">
-                📑 Chapter
-            </label>
-
-            <select id="chapterSelect">
-
-                <option value="">
-                    Select Chapter
-                </option>
-
-            </select>
-
-        </div>
-
-
-
-        <!-- =================================================
-             VERSE
-        ================================================== -->
-
-        <div class="bible-selector-group">
-
-            <label for="verseSelect">
-                🔢 Verse
-            </label>
-
-            <select id="verseSelect">
-
-                <option value="">
-                    Select Verse
-                </option>
-
-            </select>
-
-        </div>
-
-
-
-        <!-- =================================================
-             MAIN ACTION BUTTONS
-        ================================================= -->
 
         <div
             class="bible-action-buttons"
             style="
                 display:flex;
                 flex-wrap:wrap;
-                align-items:center;
                 justify-content:center;
+                align-items:center;
                 gap:10px;
-                margin-top:15px;
+                margin-top:18px;
             "
         >
 
@@ -325,121 +346,9 @@
 
             <button
                 type="button"
-                id="listenBibleButton"
-            >
-                🔊 Listen
-            </button>
-
-
-            <button
-                type="button"
                 id="researchBibleButton"
             >
                 🔎 Research
-            </button>
-
-        </div>
-
-
-
-        <!-- =================================================
-             CHAPTER / AUDIO / ZOOM CONTROLS
-             ONE ORGANIZED ROW
-        ================================================== -->
-
-        <div
-            id="bibleReadingControls"
-            class="bible-reading-controls"
-            style="
-                display:flex;
-                flex-wrap:wrap;
-                align-items:center;
-                justify-content:center;
-                gap:10px;
-                margin-top:15px;
-                padding:10px;
-            "
-        >
-
-            <!-- FULL CHAPTER -->
-
-            <button
-                type="button"
-                id="readChapterButton"
-            >
-                📖 Read Full Chapter
-            </button>
-
-
-            <!-- CHAPTER AUDIO -->
-
-            <button
-                type="button"
-                id="chapterAudioButton"
-            >
-                🔊 Listen Chapter
-            </button>
-
-
-            <!-- STOP AUDIO -->
-
-            <button
-                type="button"
-                id="chapterAudioStopButton"
-                disabled
-            >
-                ⏹ Stop
-            </button>
-
-
-            <!-- =================================================
-                 TEXT SIZE
-            ================================================== -->
-
-            <span
-                style="
-                    font-weight:bold;
-                    margin-left:5px;
-                    margin-right:2px;
-                "
-            >
-                Text Size:
-            </span>
-
-
-            <button
-                type="button"
-                id="zoomOutButton"
-                aria-label="Decrease Bible text size"
-            >
-                A−
-            </button>
-
-
-            <button
-                type="button"
-                id="zoomResetButton"
-                aria-label="Reset Bible text size"
-            >
-                A
-            </button>
-
-
-            <button
-                type="button"
-                id="zoomInButton"
-                aria-label="Increase Bible text size"
-            >
-                A+
-            </button>
-
-
-            <button
-                type="button"
-                id="zoomLargeButton"
-                aria-label="Large Bible text size"
-            >
-                A++
             </button>
 
         </div>
@@ -450,6 +359,7 @@
 
     <!-- =====================================================
          BIBLE RESULT
+         AUDIO + ZOOM WILL APPEAR HERE
     ====================================================== -->
 
     <section
@@ -491,7 +401,6 @@
         </div>
 
 
-
         <div class="card">
 
             <h3>
@@ -505,7 +414,6 @@
         </div>
 
 
-
         <div class="card">
 
             <h3>
@@ -517,7 +425,6 @@
             </p>
 
         </div>
-
 
 
         <div class="card">

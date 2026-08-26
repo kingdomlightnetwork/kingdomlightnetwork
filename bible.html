@@ -293,7 +293,7 @@
 
         <!-- =================================================
              ACTION BUTTONS
-        ================================================== -->
+===================================================== -->
 
         <div class="bible-action-buttons">
 
@@ -322,11 +322,97 @@
 
         </div>
 
+
+
+        <!-- =================================================
+             FULL CHAPTER / AUDIO / ZOOM CONTROLS
+        ================================================== -->
+
+        <div
+            id="bibleReadingControls"
+            class="bible-reading-controls"
+        >
+
+            <button
+                type="button"
+                id="readChapterButton"
+            >
+                📖 Read Full Chapter
+            </button>
+
+
+            <button
+                type="button"
+                id="chapterAudioButton"
+            >
+                🔊 Listen Chapter
+            </button>
+
+
+            <button
+                type="button"
+                id="chapterAudioStopButton"
+            >
+                ⏹ Stop
+            </button>
+
+
+            <!-- =============================================
+                 ZOOM CONTROLS
+            ============================================== -->
+
+            <div class="bible-zoom-controls">
+
+                <span>
+                    Text Size:
+                </span>
+
+
+                <button
+                    type="button"
+                    id="zoomOutButton"
+                    aria-label="Decrease Bible text size"
+                >
+                    A−
+                </button>
+
+
+                <button
+                    type="button"
+                    id="zoomResetButton"
+                    aria-label="Reset Bible text size"
+                >
+                    A
+                </button>
+
+
+                <button
+                    type="button"
+                    id="zoomInButton"
+                    aria-label="Increase Bible text size"
+                >
+                    A+
+                </button>
+
+
+                <button
+                    type="button"
+                    id="zoomLargeButton"
+                    aria-label="Large Bible text size"
+                >
+                    A++
+                </button>
+
+            </div>
+
+        </div>
+
     </div>
 
 
+
     <!-- =====================================================
-         BIBLE RESULT WILL APPEAR HERE
+         BIBLE RESULT
     ====================================================== -->
 
     <section

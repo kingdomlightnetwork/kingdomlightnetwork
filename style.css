@@ -1907,3 +1907,505 @@ nav.show a {
     }
 
 }
+
+/* =========================================================
+   KINGDOM LIGHT NETWORK
+   FINAL COMPACT BUTTON & BIBLE SELECTOR FIX
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. TOP NAVIGATION BUTTONS / LINKS
+   --------------------------------------------------------- */
+
+nav {
+    gap: 6px !important;
+    padding: 10px 12px !important;
+}
+
+nav a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: auto !important;
+    min-width: 0 !important;
+
+    height: 38px !important;
+
+    margin: 0 2px !important;
+    padding: 6px 12px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 8px !important;
+
+    font-size: 15px !important;
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+}
+
+/* Create Account بھی باقی navigation کے ساتھ متوازن */
+
+nav a.create-nav-button {
+    height: 38px !important;
+
+    min-width: 0 !important;
+
+    padding: 6px 13px !important;
+
+    margin: 0 2px !important;
+
+    border-radius: 8px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* Active button */
+
+nav a.active {
+    padding-bottom: 6px !important;
+    border-bottom: 2px solid #d4af37 !important;
+}
+
+
+/* ---------------------------------------------------------
+   2. BIBLE SELECTOR MAIN BOX
+   --------------------------------------------------------- */
+
+.bible-selector-section .research-search-box {
+    max-width: 1050px !important;
+
+    width: auto !important;
+
+    margin: 25px auto !important;
+
+    padding: 18px 20px !important;
+
+    display: flex !important;
+
+    flex-wrap: wrap !important;
+
+    justify-content: center !important;
+
+    align-items: flex-end !important;
+
+    gap: 8px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* ---------------------------------------------------------
+   3. BIBLE SELECTOR GROUPS
+   --------------------------------------------------------- */
+
+.bible-selector-group {
+    flex: 0 0 auto !important;
+
+    width: auto !important;
+
+    min-width: 0 !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+}
+
+
+/* Labels */
+
+.bible-selector-group label {
+    display: block !important;
+
+    width: auto !important;
+
+    margin: 0 0 4px 2px !important;
+
+    padding: 0 !important;
+
+    font-size: 13px !important;
+
+    line-height: 1.2 !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* Select boxes */
+
+.bible-selector-group select {
+    width: auto !important;
+
+    min-width: 115px !important;
+
+    height: 38px !important;
+
+    margin: 0 !important;
+
+    padding: 0 28px 0 9px !important;
+
+    border: 1px solid #cccccc !important;
+
+    border-radius: 7px !important;
+
+    background: #ffffff !important;
+
+    font-size: 14px !important;
+
+    line-height: 38px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* Individual selector sizes */
+
+.bible-selector-section #sourceLanguage,
+.bible-selector-section #translationLanguage {
+    min-width: 125px !important;
+}
+
+.bible-selector-section #testamentSelect {
+    min-width: 125px !important;
+}
+
+.bible-selector-section #bookSelect {
+    min-width: 145px !important;
+}
+
+.bible-selector-section #chapterSelect,
+.bible-selector-section #verseSelect {
+    min-width: 115px !important;
+}
+
+
+/* ---------------------------------------------------------
+   4. BIBLE ACTION BUTTONS
+   --------------------------------------------------------- */
+
+.bible-action-buttons,
+.research-actions {
+    width: 100% !important;
+
+    display: flex !important;
+
+    justify-content: center !important;
+
+    align-items: center !important;
+
+    flex-wrap: wrap !important;
+
+    gap: 7px !important;
+
+    margin: 12px 0 0 !important;
+}
+
+
+/* Read / Listen / Research buttons */
+
+.bible-action-buttons button,
+.research-actions button {
+
+    width: auto !important;
+
+    min-width: 0 !important;
+
+    height: 38px !important;
+
+    margin: 0 !important;
+
+    padding: 6px 13px !important;
+
+    border-radius: 7px !important;
+
+    font-size: 14px !important;
+
+    line-height: 1 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* ---------------------------------------------------------
+   5. GENERATED BIBLE AUDIO / ZOOM CONTROLS
+   --------------------------------------------------------- */
+
+.bible-control-bar {
+
+    display: flex !important;
+
+    justify-content: center !important;
+
+    align-items: center !important;
+
+    flex-wrap: wrap !important;
+
+    gap: 7px !important;
+
+    margin: 15px auto !important;
+
+    width: 100% !important;
+}
+
+
+/* Listen Chapter / Listen buttons */
+
+.bible-control-bar > button {
+
+    width: auto !important;
+
+    min-width: 0 !important;
+
+    height: 38px !important;
+
+    margin: 0 !important;
+
+    padding: 6px 13px !important;
+
+    border-radius: 7px !important;
+
+    font-size: 14px !important;
+
+    line-height: 1 !important;
+}
+
+
+/* ---------------------------------------------------------
+   6. ZOOM BUTTONS
+   --------------------------------------------------------- */
+
+.bible-zoom-controls {
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 5px !important;
+
+    margin: 0 !important;
+}
+
+.bible-zoom-controls span {
+
+    font-size: 13px !important;
+
+    margin: 0 3px 0 0 !important;
+
+    white-space: nowrap !important;
+}
+
+
+.bible-zoom-controls button {
+
+    width: 36px !important;
+
+    min-width: 36px !important;
+
+    height: 36px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    border-radius: 7px !important;
+
+    font-size: 14px !important;
+
+    line-height: 36px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* ---------------------------------------------------------
+   7. VERSE AUDIO BUTTON
+   --------------------------------------------------------- */
+
+#verseAudioButton {
+
+    width: auto !important;
+
+    min-width: 0 !important;
+
+    height: 38px !important;
+
+    margin: 0 !important;
+
+    padding: 6px 14px !important;
+
+    border-radius: 7px !important;
+
+    font-size: 14px !important;
+
+    line-height: 1 !important;
+}
+
+
+/* ---------------------------------------------------------
+   8. DO NOT CHANGE THE CIRCULAR AUDIO BUTTON
+      IF IT EXISTS ELSEWHERE
+   --------------------------------------------------------- */
+
+.bible-play-button {
+
+    width: 62px !important;
+
+    min-width: 62px !important;
+
+    height: 62px !important;
+
+    padding: 0 !important;
+
+    margin: 0 !important;
+
+    border-radius: 50% !important;
+
+    font-size: 25px !important;
+}
+
+
+/* ---------------------------------------------------------
+   9. MOBILE
+   --------------------------------------------------------- */
+
+@media screen and (max-width: 700px) {
+
+    nav {
+        gap: 5px !important;
+
+        padding: 8px !important;
+    }
+
+    nav a {
+        height: 36px !important;
+
+        padding: 5px 10px !important;
+
+        font-size: 14px !important;
+    }
+
+
+    .bible-selector-section .research-search-box {
+
+        width: calc(100% - 20px) !important;
+
+        padding: 15px 12px !important;
+
+        gap: 7px !important;
+    }
+
+
+    .bible-selector-group {
+
+        flex: 1 1 calc(50% - 7px) !important;
+
+        width: calc(50% - 7px) !important;
+
+        min-width: 0 !important;
+    }
+
+
+    .bible-selector-group select {
+
+        width: 100% !important;
+
+        min-width: 0 !important;
+
+        height: 38px !important;
+
+        font-size: 14px !important;
+    }
+
+
+    .bible-action-buttons,
+    .research-actions {
+
+        gap: 6px !important;
+    }
+
+
+    .bible-action-buttons button,
+    .research-actions button {
+
+        height: 37px !important;
+
+        padding: 6px 11px !important;
+
+        font-size: 13px !important;
+    }
+
+
+    .bible-control-bar {
+
+        gap: 6px !important;
+    }
+
+
+    .bible-control-bar > button {
+
+        height: 37px !important;
+
+        padding: 6px 11px !important;
+
+        font-size: 13px !important;
+    }
+
+
+    .bible-zoom-controls button {
+
+        width: 34px !important;
+
+        min-width: 34px !important;
+
+        height: 34px !important;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   10. VERY SMALL MOBILE
+   --------------------------------------------------------- */
+
+@media screen and (max-width: 450px) {
+
+    nav a {
+
+        height: 34px !important;
+
+        padding: 5px 8px !important;
+
+        font-size: 13px !important;
+    }
+
+
+    .bible-selector-group {
+
+        flex: 1 1 100% !important;
+
+        width: 100% !important;
+    }
+
+
+    .bible-selector-group select {
+
+        width: 100% !important;
+    }
+
+
+    .bible-action-buttons button {
+
+        width: auto !important;
+
+        max-width: none !important;
+    }
+
+}

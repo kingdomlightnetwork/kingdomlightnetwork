@@ -1,19 +1,18 @@
 // =====================================================
 // KINGDOM LIGHT NETWORK
 // BIBLE RESEARCH SYSTEM
-// VERSE SELECTOR + READING + AUDIO + RESEARCH + ZOOM
+// VERSION 3
+// TESTAMENT → BOOK → CHAPTER → VERSE
+// READING + LISTEN + RESEARCH + CHAPTER AUDIO + ZOOM
 // =====================================================
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log(
-        "Kingdom Light Network Bible Research System is running"
-    );
+    console.log("Kingdom Light Network Bible Research System started.");
 
-
-    // =================================================
+    // =====================================================
     // ELEMENTS
-    // =================================================
+    // =====================================================
 
     const sourceLanguage =
         document.getElementById("sourceLanguage");
@@ -42,31 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const researchBibleButton =
         document.getElementById("researchBibleButton");
 
-    const readChapterButton =
-        document.getElementById("readChapterButton");
-
-    const chapterAudioButton =
-        document.getElementById("chapterAudioButton");
-
-    const chapterAudioStopButton =
-        document.getElementById("chapterAudioStopButton");
-
-    const zoomOutButton =
-        document.getElementById("zoomOutButton");
-
-    const zoomResetButton =
-        document.getElementById("zoomResetButton");
-
-    const zoomInButton =
-        document.getElementById("zoomInButton");
-
-    const zoomLargeButton =
-        document.getElementById("zoomLargeButton");
+    let bibleResult =
+        document.getElementById("bibleResult");
 
 
-    // =================================================
+    // =====================================================
     // REQUIRED ELEMENT CHECK
-    // =================================================
+    // =====================================================
 
     if (
         !sourceLanguage ||
@@ -78,37 +59,37 @@ document.addEventListener("DOMContentLoaded", function () {
     ) {
 
         console.error(
-            "Bible Research selectors are missing."
+            "Bible selectors are missing from bible.html."
         );
 
         return;
     }
 
 
-    // =================================================
-    // DATABASE CHECK
-    // =================================================
+    // =====================================================
+    // BIBLE RESULT
+    // =====================================================
 
-    if (
-        typeof BIBLE_DATABASE === "undefined"
-    ) {
+    if (!bibleResult) {
 
-        console.error(
-            "BIBLE_DATABASE is not loaded. Check bible-data.js."
+        bibleResult =
+            document.createElement("section");
+
+        bibleResult.id =
+            "bibleResult";
+
+        bibleResult.className =
+            "bible-reading-panel";
+
+        document.body.appendChild(
+            bibleResult
         );
-
-    } else {
-
-        console.log(
-            "Multilingual Bible Database loaded successfully."
-        );
-
     }
 
 
-    // =================================================
+    // =====================================================
     // BIBLE BOOKS
-    // =================================================
+    // =====================================================
 
     const bibleBooks = {
 
@@ -191,11 +172,11 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
 
-    // =================================================
-    // VERSE COUNTS
-    // =================================================
+    // =====================================================
+    // COMPLETE VERSE COUNTS
+    // =====================================================
 
-    const localVerseCounts = {
+    const verseCounts = {
 
         new: {
 
@@ -239,6 +220,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 1:32,2:29,3:31,4:25,5:21,6:23,7:25,
                 8:39,9:33,10:21,11:36,12:21,13:14,
                 14:23,15:33,16:27
+            },
+
+            "1 Corinthians": {
+                1:31,2:16,3:23,4:21,5:13,6:20,7:40,
+                8:13,9:27,10:33,11:34,12:31,13:13,
+                14:40,15:58,16:24
+            },
+
+            "2 Corinthians": {
+                1:24,2:17,3:18,4:18,5:21,6:18,7:16,
+                8:24,9:15,10:18,11:33,12:21,13:14
             },
 
             Galatians: {
@@ -378,37 +370,110 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
 
-    // =================================================
-    // AUDIO STATE
-    // =================================================
+    // =====================================================
+    // AUDIO
+    // =====================================================
 
-    let speechActive = false;
-
+    let audioPlaying = false;
     let chapterAudioActive = false;
-
     let chapterAudioIndex = 0;
-
     let chapterAudioVerses = [];
 
-    let currentUtterance = null;
+
+    function stopAudio() {
+
+        chapterAudioActive = false;
+        chapterAudioIndex = 0;
+        chapterAudioVerses = [];
+        audioPlaying = false;
+
+        if ("speechSynthesis" in window) {
+            window.speechSynthesis.cancel();
+        }
+
+    }
 
 
-    // =================================================
-    // ZOOM STATE
-    // =================================================
+    function getSpeechLanguage() {
 
-    let bibleTextSize = 24;
+        const language =
+            translationLanguage.value;
+
+        if (language === "ur") {
+            return "ur-PK";
+        }
+
+        if (language === "pa") {
+            return "pa-PK";
+        }
+
+        if (language === "ar") {
+            return "ar-SA";
+        }
+
+        return "en-US";
+    }
 
 
-    // =================================================
-    // RESET SELECT
-    // =================================================
+    function speakText(text, callback) {
 
-    function resetSelect(selectElement, text) {
+        if (!("speechSynthesis" in window)) {
 
-        if (!selectElement) {
+            alert(
+                "آپ کے براؤزر میں Audio Speech کی سہولت موجود نہیں ہے۔"
+            );
+
             return;
         }
+
+        window.speechSynthesis.cancel();
+
+        const utterance =
+            new SpeechSynthesisUtterance(text);
+
+        utterance.lang =
+            getSpeechLanguage();
+
+        utterance.rate = 0.9;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+
+        utterance.onstart = function () {
+            audioPlaying = true;
+        };
+
+        utterance.onend = function () {
+
+            audioPlaying = false;
+
+            if (callback) {
+                callback();
+            }
+        };
+
+        utterance.onerror = function () {
+
+            audioPlaying = false;
+
+            if (callback) {
+                callback();
+            }
+        };
+
+        window.speechSynthesis.speak(
+            utterance
+        );
+    }
+
+
+    // =====================================================
+    // RESET SELECT
+    // =====================================================
+
+    function resetSelect(
+        selectElement,
+        text
+    ) {
 
         selectElement.innerHTML = "";
 
@@ -416,16 +481,15 @@ document.addEventListener("DOMContentLoaded", function () {
             document.createElement("option");
 
         option.value = "";
-
         option.textContent = text;
 
         selectElement.appendChild(option);
     }
 
 
-    // =================================================
+    // =====================================================
     // LOAD BOOKS
-    // =================================================
+    // =====================================================
 
     function loadBooks(testament) {
 
@@ -460,16 +524,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 option.textContent =
                     book.name;
 
-                bookSelect.appendChild(option);
+                bookSelect.appendChild(
+                    option
+                );
 
             }
+        );
+
+        console.log(
+            "Books loaded:",
+            testament
         );
     }
 
 
-    // =================================================
+    // =====================================================
     // LOAD CHAPTERS
-    // =================================================
+    // =====================================================
 
     function loadChapters(
         testament,
@@ -517,50 +588,21 @@ document.addEventListener("DOMContentLoaded", function () {
             option.textContent =
                 "Chapter " + i;
 
-            chapterSelect.appendChild(option);
-
-        }
-    }
-
-
-    // =================================================
-    // GET VERSE COUNT
-    // =================================================
-
-    function getVerseCount(
-        testament,
-        bookName,
-        chapter
-    ) {
-
-        const testamentData =
-            localVerseCounts[testament];
-
-        if (!testamentData) {
-            return 0;
+            chapterSelect.appendChild(
+                option
+            );
         }
 
-        const bookData =
-            testamentData[bookName];
-
-        if (!bookData) {
-            return 0;
-        }
-
-        const count =
-            bookData[Number(chapter)];
-
-        return (
-            typeof count === "number"
-            ? count
-            : 0
+        console.log(
+            "Chapters loaded:",
+            book.name
         );
     }
 
 
-    // =================================================
-    // ⭐ FIX: LOAD VERSES
-    // =================================================
+    // =====================================================
+    // LOAD VERSES
+    // =====================================================
 
     function loadVerses(
         testament,
@@ -581,10 +623,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        if (!bibleBooks[testament]) {
-            return;
-        }
-
         const book =
             bibleBooks[testament][
                 Number(bookIndex)
@@ -594,17 +632,17 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        const verseCount =
-            getVerseCount(
-                testament,
-                book.name,
+        const count =
+            verseCounts[testament] &&
+            verseCounts[testament][book.name] &&
+            verseCounts[testament][book.name][
                 Number(chapter)
-            );
+            ];
 
-        if (verseCount <= 0) {
+        if (!count) {
 
             console.warn(
-                "Verse count not available for:",
+                "Verse count not found:",
                 book.name,
                 chapter
             );
@@ -614,7 +652,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         for (
             let i = 1;
-            i <= verseCount;
+            i <= count;
             i++
         ) {
 
@@ -627,26 +665,27 @@ document.addEventListener("DOMContentLoaded", function () {
             option.textContent =
                 "Verse " + i;
 
-            verseSelect.appendChild(option);
-
+            verseSelect.appendChild(
+                option
+            );
         }
 
         console.log(
-            "Loaded verses:",
+            "Verses loaded:",
             book.name,
             "Chapter",
             chapter,
             "Count:",
-            verseCount
+            count
         );
     }
 
 
-    // =================================================
-    // GET BIBLE REFERENCE
-    // =================================================
+    // =====================================================
+    // GET SELECTED DATA
+    // =====================================================
 
-    function getBibleReference(
+    function getSelectedData(
         requireVerse = true
     ) {
 
@@ -655,6 +694,7 @@ document.addEventListener("DOMContentLoaded", function () {
             bookSelect.value === "" ||
             chapterSelect.value === ""
         ) {
+
             return null;
         }
 
@@ -662,6 +702,7 @@ document.addEventListener("DOMContentLoaded", function () {
             requireVerse &&
             verseSelect.value === ""
         ) {
+
             return null;
         }
 
@@ -698,27 +739,34 @@ document.addEventListener("DOMContentLoaded", function () {
                 chapterSelect.value +
                 (
                     requireVerse
-                    ? ":" + verseSelect.value
+                    ? ":" +
+                      verseSelect.value
                     : ""
                 )
+
         };
     }
 
 
-    // =================================================
-    // GET SELECTED DATABASE
-    // =================================================
+    // =====================================================
+    // GET DATABASE
+    // =====================================================
 
     function getSelectedDatabase() {
-
-        const language =
-            translationLanguage.value || "ur";
 
         if (
             typeof BIBLE_DATABASE === "undefined"
         ) {
+
+            console.error(
+                "BIBLE_DATABASE is not loaded."
+            );
+
             return null;
         }
+
+        const language =
+            translationLanguage.value || "ur";
 
         return (
             BIBLE_DATABASE[language] ||
@@ -728,11 +776,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =================================================
-    // GET LOCAL VERSE
-    // =================================================
+    // =====================================================
+    // GET VERSE TEXT
+    // =====================================================
 
-    function getLocalBibleVerse(data) {
+    function getVerseText(data) {
 
         if (!data) {
             return null;
@@ -766,26 +814,26 @@ document.addEventListener("DOMContentLoaded", function () {
             return null;
         }
 
-        const verseText =
+        const text =
             chapterData[data.verse];
 
         if (
-            typeof verseText === "string" &&
-            verseText.trim() !== ""
+            typeof text === "string" &&
+            text.trim() !== ""
         ) {
 
-            return verseText;
+            return text;
         }
 
         return null;
     }
 
 
-    // =================================================
-    // GET CHAPTER VERSES
-    // =================================================
+    // =====================================================
+    // GET CHAPTER TEXT
+    // =====================================================
 
-    function getChapterVerses(data) {
+    function getChapterTexts(data) {
 
         if (!data) {
             return [];
@@ -819,46 +867,50 @@ document.addEventListener("DOMContentLoaded", function () {
             return [];
         }
 
-        const count =
-            getVerseCount(
-                data.testament,
-                data.book,
-                data.chapter
-            );
-
         const verses = [];
 
-        for (
-            let i = 1;
-            i <= count;
-            i++
-        ) {
+        Object.keys(chapterData)
+            .forEach(
+                function (number) {
 
-            const text =
-                chapterData[i];
+                    const text =
+                        chapterData[number];
 
-            if (
-                typeof text === "string" &&
-                text.trim() !== ""
-            ) {
+                    if (
+                        typeof text === "string" &&
+                        text.trim() !== ""
+                    ) {
 
-                verses.push({
-                    verse: i,
-                    text: text
-                });
+                        verses.push({
 
+                            verse:
+                                Number(number),
+
+                            text:
+                                text
+
+                        });
+
+                    }
+
+                }
+            );
+
+        verses.sort(
+            function (a, b) {
+                return a.verse - b.verse;
             }
-        }
+        );
 
         return verses;
     }
 
 
-    // =================================================
+    // =====================================================
     // LANGUAGE DIRECTION
-    // =================================================
+    // =====================================================
 
-    function getLanguageDirection() {
+    function getDirection() {
 
         const language =
             translationLanguage.value || "ur";
@@ -871,16 +923,15 @@ document.addEventListener("DOMContentLoaded", function () {
             return BIBLE_LANGUAGES[
                 language
             ].direction;
-
         }
 
         return "rtl";
     }
 
 
-    // =================================================
+    // =====================================================
     // LANGUAGE NAME
-    // =================================================
+    // =====================================================
 
     function getLanguageName() {
 
@@ -895,228 +946,61 @@ document.addEventListener("DOMContentLoaded", function () {
             return BIBLE_LANGUAGES[
                 language
             ].nativeName;
-
         }
 
         return language;
     }
 
 
-    // =================================================
-    // CREATE / GET READING AREA
-    // =================================================
+    // =====================================================
+    // ZOOM
+    // =====================================================
 
-    function getBibleReadingArea() {
-
-        let result =
-            document.getElementById(
-                "bibleResult"
-            );
-
-        if (!result) {
-
-            result =
-                document.createElement(
-                    "section"
-                );
-
-            result.id =
-                "bibleResult";
-
-            result.className =
-                "bible-reading-panel";
-
-            document.body.appendChild(
-                result
-            );
-        }
-
-        return result;
-    }
+    let textSize = 24;
 
 
-    // =================================================
-    // STOP ALL AUDIO
-    // =================================================
+    function applyZoom() {
 
-    function stopAllAudio() {
+        document
+            .querySelectorAll(
+                ".bible-reading-text"
+            )
+            .forEach(
+                function (element) {
 
-        chapterAudioActive = false;
+                    element.style.fontSize =
+                        textSize + "px";
 
-        chapterAudioIndex = 0;
-
-        chapterAudioVerses = [];
-
-        currentUtterance = null;
-
-        speechActive = false;
-
-        if (
-            "speechSynthesis" in window
-        ) {
-
-            window.speechSynthesis.cancel();
-
-        }
-
-        updateChapterAudioButtons();
-    }
-
-
-    // =================================================
-    // UPDATE CHAPTER AUDIO BUTTONS
-    // =================================================
-
-    function updateChapterAudioButtons() {
-
-        if (chapterAudioButton) {
-
-            chapterAudioButton.textContent =
-                chapterAudioActive
-                ? "⏸ Chapter Audio"
-                : "🔊 Listen Chapter";
-
-        }
-
-        if (chapterAudioStopButton) {
-
-            chapterAudioStopButton.disabled =
-                !chapterAudioActive;
-
-        }
-    }
-
-
-    // =================================================
-    // SPEECH LANGUAGE
-    // =================================================
-
-    function getSpeechLanguage() {
-
-        const language =
-            translationLanguage.value;
-
-        if (language === "ur") {
-            return "ur-PK";
-        }
-
-        if (language === "pa") {
-            return "pa-PK";
-        }
-
-        if (language === "ar") {
-            return "ar-SA";
-        }
-
-        return "en-US";
-    }
-
-
-    // =================================================
-    // SPEAK SINGLE TEXT
-    // =================================================
-
-    function speakText(
-        text,
-        onEnd
-    ) {
-
-        if (
-            !("speechSynthesis" in window)
-        ) {
-
-            alert(
-                "Your browser does not support Bible audio."
-            );
-
-            return;
-        }
-
-        const speech =
-            new SpeechSynthesisUtterance(
-                text
-            );
-
-        speech.lang =
-            getSpeechLanguage();
-
-        speech.rate = 0.9;
-
-        speech.pitch = 1;
-
-        speech.volume = 1;
-
-        currentUtterance =
-            speech;
-
-        speech.onstart =
-            function () {
-
-                speechActive =
-                    true;
-            };
-
-        speech.onend =
-            function () {
-
-                speechActive =
-                    false;
-
-                currentUtterance =
-                    null;
-
-                if (onEnd) {
-                    onEnd();
                 }
-            };
+            );
 
-        speech.onerror =
-            function () {
-
-                speechActive =
-                    false;
-
-                currentUtterance =
-                    null;
-
-                if (onEnd) {
-                    onEnd();
-                }
-            };
-
-        window.speechSynthesis.cancel();
-
-        window.speechSynthesis.speak(
-            speech
-        );
     }
 
 
-    // =================================================
-    // RENDER SINGLE VERSE
-    // =================================================
+    // =====================================================
+    // RENDER VERSE
+    // =====================================================
 
-    function renderSingleVerse(
-        title,
+    function renderVerse(
         data,
-        text,
-        researchMode
+        mode
     ) {
 
-        const result =
-            getBibleReadingArea();
+        const text =
+            getVerseText(data);
 
         const direction =
-            getLanguageDirection();
+            getDirection();
 
         const languageName =
             getLanguageName();
 
         const displayText =
             text ||
-            "📖 اس آیت کا متن ابھی منتخب زبان کے local Bible database میں شامل نہیں ہے۔";
+            "اس آیت کا متن ابھی local Bible database میں شامل نہیں ہے۔";
 
-        result.innerHTML = `
+
+        bibleResult.innerHTML = `
 
             <div
                 class="bible-reading-content"
@@ -1124,11 +1008,11 @@ document.addEventListener("DOMContentLoaded", function () {
             >
 
                 <h2>
-                    ${title}
+                    ${mode}
                 </h2>
 
                 <h3>
-                    ${data.reference}
+                    📖 ${data.reference}
                 </h3>
 
                 <p>
@@ -1137,182 +1021,224 @@ document.addEventListener("DOMContentLoaded", function () {
                     </strong>
                 </p>
 
-                <div class="bible-audio-control">
+
+                <div
+                    class="bible-reading-text"
+                    style="font-size:${textSize}px;"
+                >
+
+                    <span
+                        class="bible-verse-number"
+                    >
+                        ${data.verse}
+                    </span>
+
+                    ${displayText}
+
+                </div>
+
+
+                <div class="bible-control-panel">
 
                     <button
                         type="button"
-                        id="biblePlayButton"
-                        class="bible-play-button"
+                        id="versePlayButton"
                     >
-                        ▶
+                        🔊 Listen
                     </button>
 
-                    <span id="audioStatus">
-                        Play
-                    </span>
-
-                </div>
-
-                <div
-                    class="bible-verse-text"
-                    style="font-size:${bibleTextSize}px;"
-                >
-
-                    <p
-                        style="font-size:${bibleTextSize}px;"
+                    <button
+                        type="button"
+                        id="verseStopButton"
                     >
-                        ${displayText}
-                    </p>
+                        ⏹ Stop
+                    </button>
+
+                    <button
+                        type="button"
+                        id="verseZoomOut"
+                    >
+                        A−
+                    </button>
+
+                    <button
+                        type="button"
+                        id="verseZoomReset"
+                    >
+                        A
+                    </button>
+
+                    <button
+                        type="button"
+                        id="verseZoomIn"
+                    >
+                        A+
+                    </button>
 
                 </div>
-
-                ${
-                    researchMode
-                    ? `
-                        <div class="bible-research-note">
-                            🔎 Research اسی ویب سائٹ کے اندر رہے گا۔
-                        </div>
-                    `
-                    : ""
-                }
 
             </div>
         `;
 
 
-        const playButton =
+        // =================================================
+        // LISTEN
+        // =================================================
+
+        const play =
             document.getElementById(
-                "biblePlayButton"
+                "versePlayButton"
             );
 
-        const audioStatus =
+        const stop =
             document.getElementById(
-                "audioStatus"
+                "verseStopButton"
+            );
+
+        const zoomOut =
+            document.getElementById(
+                "verseZoomOut"
+            );
+
+        const zoomReset =
+            document.getElementById(
+                "verseZoomReset"
+            );
+
+        const zoomIn =
+            document.getElementById(
+                "verseZoomIn"
             );
 
 
-        if (playButton) {
+        if (play) {
 
-            playButton.addEventListener(
+            play.addEventListener(
                 "click",
                 function () {
 
                     if (!text) {
 
                         alert(
-                            "اس آیت کا متن ابھی Bible Database میں موجود نہیں ہے۔"
+                            "اس آیت کا متن ابھی database میں موجود نہیں ہے۔"
                         );
 
                         return;
                     }
 
-
-                    if (
-                        window.speechSynthesis.speaking &&
-                        !window.speechSynthesis.paused
-                    ) {
-
-                        window.speechSynthesis.pause();
-
-                        speechActive =
-                            false;
-
-                        playButton.textContent =
-                            "▶";
-
-                        if (audioStatus) {
-
-                            audioStatus.textContent =
-                                "Play";
-
-                        }
-
-                        return;
-                    }
-
-
-                    if (
-                        window.speechSynthesis.paused
-                    ) {
-
-                        window.speechSynthesis.resume();
-
-                        speechActive =
-                            true;
-
-                        playButton.textContent =
-                            "⏸";
-
-                        if (audioStatus) {
-
-                            audioStatus.textContent =
-                                "Pause";
-
-                        }
-
-                        return;
-                    }
-
+                    stopAudio();
 
                     speakText(
                         text,
                         function () {
 
-                            playButton.textContent =
-                                "▶";
+                            play.textContent =
+                                "🔊 Listen";
 
-                            if (audioStatus) {
-
-                                audioStatus.textContent =
-                                    "Play";
-
-                            }
                         }
                     );
 
-                    playButton.textContent =
-                        "⏸";
-
-                    if (audioStatus) {
-
-                        audioStatus.textContent =
-                            "Pause";
-
-                    }
+                    play.textContent =
+                        "⏸ Playing";
 
                 }
             );
         }
 
 
-        result.scrollIntoView({
+        if (stop) {
+
+            stop.addEventListener(
+                "click",
+                function () {
+
+                    stopAudio();
+
+                }
+            );
+        }
+
+
+        if (zoomOut) {
+
+            zoomOut.addEventListener(
+                "click",
+                function () {
+
+                    textSize =
+                        Math.max(
+                            16,
+                            textSize - 2
+                        );
+
+                    applyZoom();
+
+                }
+            );
+        }
+
+
+        if (zoomReset) {
+
+            zoomReset.addEventListener(
+                "click",
+                function () {
+
+                    textSize = 24;
+
+                    applyZoom();
+
+                }
+            );
+        }
+
+
+        if (zoomIn) {
+
+            zoomIn.addEventListener(
+                "click",
+                function () {
+
+                    textSize =
+                        Math.min(
+                            48,
+                            textSize + 2
+                        );
+
+                    applyZoom();
+
+                }
+            );
+        }
+
+
+        bibleResult.scrollIntoView({
             behavior: "smooth",
             block: "start"
         });
+
     }
 
 
-    // =================================================
+    // =====================================================
     // RENDER FULL CHAPTER
-    // =================================================
+    // =====================================================
 
     function renderFullChapter(data) {
 
-        const result =
-            getBibleReadingArea();
+        const verses =
+            getChapterTexts(data);
 
         const direction =
-            getLanguageDirection();
+            getDirection();
 
         const languageName =
             getLanguageName();
 
-        const verses =
-            getChapterVerses(data);
 
         if (!verses.length) {
 
-            result.innerHTML = `
+            bibleResult.innerHTML = `
 
                 <div
                     class="bible-reading-content"
@@ -1324,8 +1250,27 @@ document.addEventListener("DOMContentLoaded", function () {
                     </h2>
 
                     <p>
-                        اس باب کا متن منتخب زبان کے local Bible database میں ابھی موجود نہیں ہے۔
+                        اس باب کا متن منتخب زبان کے
+                        local Bible database میں ابھی موجود نہیں ہے۔
                     </p>
+
+                    <div class="bible-control-panel">
+
+                        <button
+                            type="button"
+                            id="chapterListenButton"
+                        >
+                            🔊 Listen Chapter
+                        </button>
+
+                        <button
+                            type="button"
+                            id="chapterStopButton"
+                        >
+                            ⏹ Stop
+                        </button>
+
+                    </div>
 
                 </div>
             `;
@@ -1334,16 +1279,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        let versesHTML = "";
+        let html = "";
+
 
         verses.forEach(
             function (item) {
 
-                versesHTML += `
+                html += `
 
                     <div
                         class="bible-chapter-verse"
-                        id="chapter-verse-${item.verse}"
+                        id="chapterVerse${item.verse}"
                     >
 
                         <span
@@ -1353,8 +1299,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         </span>
 
                         <span
-                            class="bible-chapter-text"
-                            style="font-size:${bibleTextSize}px;"
+                            class="bible-reading-text"
+                            style="font-size:${textSize}px;"
                         >
                             ${item.text}
                         </span>
@@ -1362,11 +1308,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
 
                 `;
+
             }
         );
 
 
-        result.innerHTML = `
+        bibleResult.innerHTML = `
 
             <div
                 class="bible-reading-content bible-full-chapter"
@@ -1383,117 +1330,224 @@ document.addEventListener("DOMContentLoaded", function () {
                     </strong>
                 </p>
 
-                <div
-                    class="bible-chapter-body"
-                    style="font-size:${bibleTextSize}px;"
-                >
-                    ${versesHTML}
+
+                <div class="bible-chapter-body">
+
+                    ${html}
+
+                </div>
+
+
+                <div class="bible-control-panel">
+
+                    <button
+                        type="button"
+                        id="chapterListenButton"
+                    >
+                        🔊 Listen Chapter
+                    </button>
+
+                    <button
+                        type="button"
+                        id="chapterStopButton"
+                    >
+                        ⏹ Stop
+                    </button>
+
+                    <button
+                        type="button"
+                        id="chapterZoomOut"
+                    >
+                        A−
+                    </button>
+
+                    <button
+                        type="button"
+                        id="chapterZoomReset"
+                    >
+                        A
+                    </button>
+
+                    <button
+                        type="button"
+                        id="chapterZoomIn"
+                    >
+                        A+
+                    </button>
+
                 </div>
 
             </div>
         `;
 
 
-        result.scrollIntoView({
+        // =================================================
+        // CHAPTER AUDIO
+        // =================================================
+
+        const chapterListen =
+            document.getElementById(
+                "chapterListenButton"
+            );
+
+        const chapterStop =
+            document.getElementById(
+                "chapterStopButton"
+            );
+
+
+        if (chapterListen) {
+
+            chapterListen.addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        chapterAudioActive &&
+                        window.speechSynthesis.paused
+                    ) {
+
+                        window.speechSynthesis.resume();
+
+                        return;
+                    }
+
+                    stopAudio();
+
+                    chapterAudioVerses =
+                        verses;
+
+                    chapterAudioIndex =
+                        0;
+
+                    chapterAudioActive =
+                        true;
+
+                    speakNextVerse();
+
+                }
+            );
+
+        }
+
+
+        if (chapterStop) {
+
+            chapterStop.addEventListener(
+                "click",
+                function () {
+
+                    stopAudio();
+
+                    document
+                        .querySelectorAll(
+                            ".active-bible-verse"
+                        )
+                        .forEach(
+                            function (element) {
+
+                                element.classList.remove(
+                                    "active-bible-verse"
+                                );
+
+                            }
+                        );
+
+                }
+            );
+
+        }
+
+
+        // =================================================
+        // CHAPTER ZOOM
+        // =================================================
+
+        const zoomOut =
+            document.getElementById(
+                "chapterZoomOut"
+            );
+
+        const zoomReset =
+            document.getElementById(
+                "chapterZoomReset"
+            );
+
+        const zoomIn =
+            document.getElementById(
+                "chapterZoomIn"
+            );
+
+
+        if (zoomOut) {
+
+            zoomOut.addEventListener(
+                "click",
+                function () {
+
+                    textSize =
+                        Math.max(
+                            16,
+                            textSize - 2
+                        );
+
+                    applyZoom();
+
+                }
+            );
+
+        }
+
+
+        if (zoomReset) {
+
+            zoomReset.addEventListener(
+                "click",
+                function () {
+
+                    textSize = 24;
+
+                    applyZoom();
+
+                }
+            );
+
+        }
+
+
+        if (zoomIn) {
+
+            zoomIn.addEventListener(
+                "click",
+                function () {
+
+                    textSize =
+                        Math.min(
+                            48,
+                            textSize + 2
+                        );
+
+                    applyZoom();
+
+                }
+            );
+
+        }
+
+
+        bibleResult.scrollIntoView({
             behavior: "smooth",
             block: "start"
         });
+
     }
 
 
-    // =================================================
-    // START CHAPTER AUDIO
-    // =================================================
-
-    function startChapterAudio() {
-
-        const data =
-            getBibleReference(false);
-
-        if (!data) {
-
-            alert(
-                "Please select Testament, Book and Chapter."
-            );
-
-            return;
-        }
-
-
-        const verses =
-            getChapterVerses(data);
-
-        if (!verses.length) {
-
-            alert(
-                "The selected chapter is not available in the local Bible database."
-            );
-
-            return;
-        }
-
-
-        if (
-            chapterAudioActive
-        ) {
-
-            if (
-                window.speechSynthesis.speaking &&
-                !window.speechSynthesis.paused
-            ) {
-
-                window.speechSynthesis.pause();
-
-                if (chapterAudioButton) {
-
-                    chapterAudioButton.textContent =
-                        "▶ Resume Chapter";
-
-                }
-
-            }
-
-            else if (
-                window.speechSynthesis.paused
-            ) {
-
-                window.speechSynthesis.resume();
-
-                if (chapterAudioButton) {
-
-                    chapterAudioButton.textContent =
-                        "⏸ Chapter Audio";
-
-                }
-
-            }
-
-            return;
-        }
-
-
-        chapterAudioVerses =
-            verses;
-
-        chapterAudioIndex =
-            0;
-
-        chapterAudioActive =
-            true;
-
-        updateChapterAudioButtons();
-
-        renderFullChapter(data);
-
-        speakNextChapterVerse();
-    }
-
-
-    // =================================================
+    // =====================================================
     // SPEAK NEXT CHAPTER VERSE
-    // =================================================
+    // =====================================================
 
-    function speakNextChapterVerse() {
+    function speakNextVerse() {
 
         if (!chapterAudioActive) {
             return;
@@ -1510,13 +1564,11 @@ document.addEventListener("DOMContentLoaded", function () {
             chapterAudioIndex =
                 0;
 
-            updateChapterAudioButtons();
-
             return;
         }
 
 
-        const currentVerse =
+        const current =
             chapterAudioVerses[
                 chapterAudioIndex
             ];
@@ -1524,7 +1576,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document
             .querySelectorAll(
-                ".bible-chapter-verse"
+                ".active-bible-verse"
             )
             .forEach(
                 function (element) {
@@ -1539,8 +1591,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const currentElement =
             document.getElementById(
-                "chapter-verse-" +
-                currentVerse.verse
+                "chapterVerse" +
+                current.verse
             );
 
 
@@ -1554,11 +1606,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 behavior: "smooth",
                 block: "center"
             });
+
         }
 
 
         speakText(
-            currentVerse.text,
+            current.text,
             function () {
 
                 if (!chapterAudioActive) {
@@ -1570,222 +1623,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 setTimeout(
                     function () {
 
-                        speakNextChapterVerse();
+                        speakNextVerse();
 
                     },
                     250
                 );
-            }
-        );
-    }
-
-
-    // =================================================
-    // STOP CHAPTER AUDIO
-    // =================================================
-
-    if (chapterAudioStopButton) {
-
-        chapterAudioStopButton.addEventListener(
-            "click",
-            function () {
-
-                stopAllAudio();
-
-                document
-                    .querySelectorAll(
-                        ".active-bible-verse"
-                    )
-                    .forEach(
-                        function (element) {
-
-                            element.classList.remove(
-                                "active-bible-verse"
-                            );
-
-                        }
-                    );
-            }
-        );
-    }
-
-
-    // =================================================
-    // CHAPTER AUDIO BUTTON
-    // =================================================
-
-    if (chapterAudioButton) {
-
-        chapterAudioButton.addEventListener(
-            "click",
-            function () {
-
-                startChapterAudio();
 
             }
         );
+
     }
 
 
-    // =================================================
-    // READ FULL CHAPTER BUTTON
-    // =================================================
-
-    if (readChapterButton) {
-
-        readChapterButton.addEventListener(
-            "click",
-            function () {
-
-                stopAllAudio();
-
-                const data =
-                    getBibleReference(false);
-
-                if (!data) {
-
-                    alert(
-                        "Please select Testament, Book and Chapter."
-                    );
-
-                    return;
-                }
-
-                renderFullChapter(data);
-
-            }
-        );
-    }
-
-
-    // =================================================
-    // ZOOM
-    // =================================================
-
-    function applyZoom() {
-
-        document
-            .querySelectorAll(
-                ".bible-chapter-text"
-            )
-            .forEach(
-                function (element) {
-
-                    element.style.fontSize =
-                        bibleTextSize + "px";
-
-                }
-            );
-
-
-        document
-            .querySelectorAll(
-                ".bible-chapter-body"
-            )
-            .forEach(
-                function (element) {
-
-                    element.style.fontSize =
-                        bibleTextSize + "px";
-
-                }
-            );
-
-
-        document
-            .querySelectorAll(
-                ".bible-verse-text p"
-            )
-            .forEach(
-                function (element) {
-
-                    element.style.fontSize =
-                        bibleTextSize + "px";
-
-                }
-            );
-    }
-
-
-    if (zoomOutButton) {
-
-        zoomOutButton.addEventListener(
-            "click",
-            function () {
-
-                bibleTextSize =
-                    Math.max(
-                        16,
-                        bibleTextSize - 2
-                    );
-
-                applyZoom();
-
-            }
-        );
-    }
-
-
-    if (zoomResetButton) {
-
-        zoomResetButton.addEventListener(
-            "click",
-            function () {
-
-                bibleTextSize =
-                    24;
-
-                applyZoom();
-
-            }
-        );
-    }
-
-
-    if (zoomInButton) {
-
-        zoomInButton.addEventListener(
-            "click",
-            function () {
-
-                bibleTextSize =
-                    Math.min(
-                        42,
-                        bibleTextSize + 2
-                    );
-
-                applyZoom();
-
-            }
-        );
-    }
-
-
-    if (zoomLargeButton) {
-
-        zoomLargeButton.addEventListener(
-            "click",
-            function () {
-
-                bibleTextSize =
-                    48;
-
-                applyZoom();
-
-            }
-        );
-    }
-
-
-    // =================================================
+    // =====================================================
     // TESTAMENT CHANGE
-    // =================================================
+    // =====================================================
 
     testamentSelect.addEventListener(
         "change",
         function () {
 
-            stopAllAudio();
+            stopAudio();
 
             loadBooks(
                 testamentSelect.value
@@ -1795,15 +1653,15 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    // =================================================
+    // =====================================================
     // BOOK CHANGE
-    // =================================================
+    // =====================================================
 
     bookSelect.addEventListener(
         "change",
         function () {
 
-            stopAllAudio();
+            stopAudio();
 
             loadChapters(
                 testamentSelect.value,
@@ -1814,15 +1672,15 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    // =================================================
+    // =====================================================
     // CHAPTER CHANGE
-    // =================================================
+    // =====================================================
 
     chapterSelect.addEventListener(
         "change",
         function () {
 
-            stopAllAudio();
+            stopAudio();
 
             loadVerses(
                 testamentSelect.value,
@@ -1834,70 +1692,23 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    // =================================================
+    // =====================================================
     // VERSE CHANGE
-    // =================================================
+    // =====================================================
 
     verseSelect.addEventListener(
         "change",
         function () {
 
-            stopAllAudio();
+            stopAudio();
 
         }
     );
 
 
-    // =================================================
-    // TRANSLATION LANGUAGE CHANGE
-    // =================================================
-
-    translationLanguage.addEventListener(
-        "change",
-        function () {
-
-            stopAllAudio();
-
-            const data =
-                getBibleReference();
-
-            if (data) {
-
-                const text =
-                    getLocalBibleVerse(data);
-
-                renderSingleVerse(
-                    "📖 Bible Reading",
-                    data,
-                    text,
-                    false
-                );
-            }
-
-        }
-    );
-
-
-    // =================================================
-    // ORIGINAL LANGUAGE CHANGE
-    // =================================================
-
-    sourceLanguage.addEventListener(
-        "change",
-        function () {
-
-            console.log(
-                "Original Bible language:",
-                sourceLanguage.value
-            );
-
-        }
-    );
-
-
-    // =================================================
+    // =====================================================
     // READ BIBLE
-    // =================================================
+    // =====================================================
 
     if (readBibleButton) {
 
@@ -1905,10 +1716,10 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             function () {
 
-                stopAllAudio();
+                stopAudio();
 
                 const data =
-                    getBibleReference();
+                    getSelectedData(true);
 
                 if (!data) {
 
@@ -1919,24 +1730,20 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
-                const text =
-                    getLocalBibleVerse(data);
-
-                renderSingleVerse(
-                    "📖 Bible Reading",
+                renderVerse(
                     data,
-                    text,
-                    false
+                    "📖 Bible Reading"
                 );
 
             }
         );
+
     }
 
 
-    // =================================================
-    // LISTEN SINGLE VERSE
-    // =================================================
+    // =====================================================
+    // LISTEN
+    // =====================================================
 
     if (listenBibleButton) {
 
@@ -1944,8 +1751,10 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             function () {
 
+                stopAudio();
+
                 const data =
-                    getBibleReference();
+                    getSelectedData(true);
 
                 if (!data) {
 
@@ -1957,24 +1766,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 const text =
-                    getLocalBibleVerse(data);
+                    getVerseText(data);
 
                 if (!text) {
 
                     alert(
-                        "The selected verse is not available in the local Bible database."
+                        "اس آیت کا متن ابھی local Bible database میں موجود نہیں ہے۔"
                     );
 
                     return;
                 }
 
-                stopAllAudio();
-
-                renderSingleVerse(
-                    "🔊 Bible Audio",
+                renderVerse(
                     data,
-                    text,
-                    false
+                    "🔊 Bible Audio"
                 );
 
                 setTimeout(
@@ -1986,17 +1791,18 @@ document.addEventListener("DOMContentLoaded", function () {
                         );
 
                     },
-                    100
+                    150
                 );
 
             }
         );
+
     }
 
 
-    // =================================================
+    // =====================================================
     // RESEARCH
-    // =================================================
+    // =====================================================
 
     if (researchBibleButton) {
 
@@ -2004,10 +1810,10 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             function () {
 
-                stopAllAudio();
+                stopAudio();
 
                 const data =
-                    getBibleReference();
+                    getSelectedData(true);
 
                 if (!data) {
 
@@ -2018,24 +1824,20 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
-                const text =
-                    getLocalBibleVerse(data);
-
-                renderSingleVerse(
-                    "🔎 Bible Research",
+                renderVerse(
                     data,
-                    text,
-                    true
+                    "🔎 Bible Research"
                 );
 
             }
         );
+
     }
 
 
-    // =================================================
-    // INITIAL RESET
-    // =================================================
+    // =====================================================
+    // INITIAL STATE
+    // =====================================================
 
     resetSelect(
         bookSelect,
@@ -2053,40 +1855,32 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    // =================================================
+    // =====================================================
     // DEFAULT TESTAMENT
-    // =================================================
+    // =====================================================
 
     if (!testamentSelect.value) {
 
         testamentSelect.value =
             "new";
-
     }
 
 
-    // =================================================
-    // LOAD DEFAULT BOOKS
-    // =================================================
+    // =====================================================
+    // LOAD BOOKS
+    // =====================================================
 
     loadBooks(
         testamentSelect.value
     );
 
 
-    // =================================================
-    // INITIAL AUDIO BUTTON STATE
-    // =================================================
-
-    updateChapterAudioButtons();
-
-
-    // =================================================
-    // READY
-    // =================================================
+    // =====================================================
+    // FINAL
+    // =====================================================
 
     console.log(
-        "Kingdom Light Network Bible Research initialized successfully."
+        "Bible Research System initialized successfully."
     );
 
 });

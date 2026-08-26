@@ -1198,3 +1198,109 @@ nav.show a {
     }
 
 }
+
+/* =====================================================
+   BIBLE READING FRAME - LARGER & COMFORTABLE
+   ===================================================== */
+
+.bible-reading-panel {
+    width: 100%;
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.bible-reading-content {
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 35px 45px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
+    box-sizing: border-box;
+}
+
+.bible-reading-content h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.bible-reading-content h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.bible-reading-content p {
+    font-size: 21px;
+    line-height: 2;
+}
+
+/* Bible Verse Text */
+
+.bible-verse-text {
+    width: 100%;
+    margin: 25px auto;
+}
+
+.bible-verse-text p {
+    font-size: 24px;
+    line-height: 2.2;
+    text-align: right;
+}
+
+/* Audio Area */
+
+.bible-audio-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.bible-play-button {
+    width: 55px;
+    height: 55px;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    font-size: 22px;
+}
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media screen and (max-width: 600px) {
+
+    .bible-reading-panel {
+        width: calc(100% - 20px);
+        margin: 25px auto;
+    }
+
+    .bible-reading-content {
+        padding: 25px 18px;
+        border-radius: 14px;
+    }
+
+    .bible-reading-content h2 {
+        font-size: 25px;
+    }
+
+    .bible-reading-content h3 {
+        font-size: 20px;
+    }
+
+    .bible-reading-content p {
+        font-size: 18px;
+        line-height: 1.9;
+    }
+
+    .bible-verse-text p {
+        font-size: 21px;
+        line-height: 2;
+    }
+
+}

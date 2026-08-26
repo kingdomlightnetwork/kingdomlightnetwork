@@ -2,6 +2,7 @@
    KINGDOM LIGHT NETWORK
    LOCAL BIBLE DATA
    MULTILINGUAL BIBLE DATABASE
+   VERSION 5.0
 ===================================================== */
 
 "use strict";
@@ -164,7 +165,7 @@ const ARABIC_BIBLE = {
 
 
 /* =====================================================
-   5. HEBREW — ORIGINAL OLD TESTAMENT
+   5. HEBREW — ORIGINAL BIBLE LANGUAGE
 ===================================================== */
 
 const HEBREW_BIBLE = {
@@ -177,7 +178,7 @@ const HEBREW_BIBLE = {
 
 
 /* =====================================================
-   6. ARAMAIC — ORIGINAL ARAMAIC PORTIONS
+   6. ARAMAIC — ORIGINAL BIBLE LANGUAGE
 ===================================================== */
 
 const ARAMAIC_BIBLE = {
@@ -203,10 +204,313 @@ const GREEK_BIBLE = {
 
 
 /* =====================================================
+   8. SPANISH
+===================================================== */
+
+const SPANISH_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   9. PORTUGUESE
+===================================================== */
+
+const PORTUGUESE_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   10. FRENCH
+===================================================== */
+
+const FRENCH_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   11. GERMAN
+===================================================== */
+
+const GERMAN_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   12. ITALIAN
+===================================================== */
+
+const ITALIAN_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   13. RUSSIAN
+===================================================== */
+
+const RUSSIAN_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   14. DUTCH
+===================================================== */
+
+const DUTCH_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   15. TURKISH
+===================================================== */
+
+const TURKISH_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   16. PERSIAN
+===================================================== */
+
+const PERSIAN_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   17. BENGALI
+===================================================== */
+
+const BENGALI_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   18. TAMIL
+===================================================== */
+
+const TAMIL_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   19. TELUGU
+===================================================== */
+
+const TELUGU_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   20. MARATHI
+===================================================== */
+
+const MARATHI_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   21. CHINESE — SIMPLIFIED
+===================================================== */
+
+const CHINESE_SIMPLIFIED_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   22. CHINESE — TRADITIONAL
+===================================================== */
+
+const CHINESE_TRADITIONAL_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   23. JAPANESE
+===================================================== */
+
+const JAPANESE_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   24. KOREAN
+===================================================== */
+
+const KOREAN_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   25. VIETNAMESE
+===================================================== */
+
+const VIETNAMESE_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   26. THAI
+===================================================== */
+
+const THAI_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   27. INDONESIAN
+===================================================== */
+
+const INDONESIAN_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   28. MALAY
+===================================================== */
+
+const MALAY_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   29. FILIPINO
+===================================================== */
+
+const FILIPINO_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
+   30. SWAHILI
+===================================================== */
+
+const SWAHILI_BIBLE = {
+
+    old: {},
+
+    new: {}
+
+};
+
+
+/* =====================================================
    LANGUAGE INFORMATION
 ===================================================== */
 
 const BIBLE_LANGUAGES = {
+
+    /* -------------------------------------------------
+       EUROPEAN / INTERNATIONAL
+    ------------------------------------------------- */
 
     en: {
         name: "International English",
@@ -214,6 +518,67 @@ const BIBLE_LANGUAGES = {
         type: "translation",
         direction: "ltr"
     },
+
+    es: {
+        name: "Spanish",
+        nativeName: "Español",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    pt: {
+        name: "Portuguese",
+        nativeName: "Português",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    fr: {
+        name: "French",
+        nativeName: "Français",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    de: {
+        name: "German",
+        nativeName: "Deutsch",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    it: {
+        name: "Italian",
+        nativeName: "Italiano",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    ru: {
+        name: "Russian",
+        nativeName: "Русский",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    nl: {
+        name: "Dutch",
+        nativeName: "Nederlands",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    tr: {
+        name: "Turkish",
+        nativeName: "Türkçe",
+        type: "translation",
+        direction: "ltr"
+    },
+
+
+    /* -------------------------------------------------
+       SOUTH ASIA
+    ------------------------------------------------- */
 
     ur: {
         name: "Urdu",
@@ -229,12 +594,57 @@ const BIBLE_LANGUAGES = {
         direction: "rtl"
     },
 
+    fa: {
+        name: "Persian",
+        nativeName: "فارسی",
+        type: "translation",
+        direction: "rtl"
+    },
+
+    bn: {
+        name: "Bengali",
+        nativeName: "বাংলা",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    ta: {
+        name: "Tamil",
+        nativeName: "தமிழ்",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    te: {
+        name: "Telugu",
+        nativeName: "తెలుగు",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    mr: {
+        name: "Marathi",
+        nativeName: "मराठी",
+        type: "translation",
+        direction: "ltr"
+    },
+
+
+    /* -------------------------------------------------
+       MIDDLE EAST
+    ------------------------------------------------- */
+
     ar: {
         name: "Arabic",
         nativeName: "العربية",
         type: "translation",
         direction: "rtl"
     },
+
+
+    /* -------------------------------------------------
+       ORIGINAL BIBLE LANGUAGES
+    ------------------------------------------------- */
 
     he: {
         name: "Biblical Hebrew",
@@ -255,6 +665,91 @@ const BIBLE_LANGUAGES = {
         nativeName: "Ἑλληνική",
         type: "original",
         direction: "ltr"
+    },
+
+
+    /* -------------------------------------------------
+       EAST ASIA
+    ------------------------------------------------- */
+
+    "zh-CN": {
+        name: "Chinese — Simplified",
+        nativeName: "简体中文",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    "zh-TW": {
+        name: "Chinese — Traditional",
+        nativeName: "繁體中文",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    ja: {
+        name: "Japanese",
+        nativeName: "日本語",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    ko: {
+        name: "Korean",
+        nativeName: "한국어",
+        type: "translation",
+        direction: "ltr"
+    },
+
+
+    /* -------------------------------------------------
+       SOUTH EAST ASIA
+    ------------------------------------------------- */
+
+    vi: {
+        name: "Vietnamese",
+        nativeName: "Tiếng Việt",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    th: {
+        name: "Thai",
+        nativeName: "ไทย",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    id: {
+        name: "Indonesian",
+        nativeName: "Bahasa Indonesia",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    ms: {
+        name: "Malay",
+        nativeName: "Bahasa Melayu",
+        type: "translation",
+        direction: "ltr"
+    },
+
+    fil: {
+        name: "Filipino",
+        nativeName: "Filipino",
+        type: "translation",
+        direction: "ltr"
+    },
+
+
+    /* -------------------------------------------------
+       AFRICA
+    ------------------------------------------------- */
+
+    sw: {
+        name: "Swahili",
+        nativeName: "Kiswahili",
+        type: "translation",
+        direction: "ltr"
     }
 
 };
@@ -266,13 +761,56 @@ const BIBLE_LANGUAGES = {
 
 const BIBLE_DATABASE = {
 
+    /* Existing Bible data */
+
     en: KJV_BIBLE,
     ur: URDU_BIBLE,
     pa: PUNJABI_BIBLE,
     ar: ARABIC_BIBLE,
+
+    /* Original Bible languages */
+
     he: HEBREW_BIBLE,
     arc: ARAMAIC_BIBLE,
-    grc: GREEK_BIBLE
+    grc: GREEK_BIBLE,
+
+    /* European languages */
+
+    es: SPANISH_BIBLE,
+    pt: PORTUGUESE_BIBLE,
+    fr: FRENCH_BIBLE,
+    de: GERMAN_BIBLE,
+    it: ITALIAN_BIBLE,
+    ru: RUSSIAN_BIBLE,
+    nl: DUTCH_BIBLE,
+    tr: TURKISH_BIBLE,
+
+    /* South Asian languages */
+
+    fa: PERSIAN_BIBLE,
+    bn: BENGALI_BIBLE,
+    ta: TAMIL_BIBLE,
+    te: TELUGU_BIBLE,
+    mr: MARATHI_BIBLE,
+
+    /* East Asian languages */
+
+    "zh-CN": CHINESE_SIMPLIFIED_BIBLE,
+    "zh-TW": CHINESE_TRADITIONAL_BIBLE,
+    ja: JAPANESE_BIBLE,
+    ko: KOREAN_BIBLE,
+
+    /* South East Asian languages */
+
+    vi: VIETNAMESE_BIBLE,
+    th: THAI_BIBLE,
+    id: INDONESIAN_BIBLE,
+    ms: MALAY_BIBLE,
+    fil: FILIPINO_BIBLE,
+
+    /* African language */
+
+    sw: SWAHILI_BIBLE
 
 };
 
@@ -375,6 +913,33 @@ function getBibleLanguageInfo(language) {
 
 
 /* =====================================================
+   CHECK LANGUAGE AVAILABILITY
+===================================================== */
+
+function isBibleLanguageAvailable(language) {
+
+    return Object.prototype.hasOwnProperty.call(
+        BIBLE_LANGUAGES,
+        language
+    );
+
+}
+
+
+/* =====================================================
+   GET ALL BIBLE LANGUAGES
+===================================================== */
+
+function getAllBibleLanguages() {
+
+    return Object.keys(
+        BIBLE_LANGUAGES
+    );
+
+}
+
+
+/* =====================================================
    BIBLE DATA SYSTEM READY
 ===================================================== */
 
@@ -385,4 +950,9 @@ console.log(
 console.log(
     "Available Bible languages:",
     Object.keys(BIBLE_LANGUAGES)
+);
+
+console.log(
+    "Bible database languages:",
+    Object.keys(BIBLE_DATABASE)
 );

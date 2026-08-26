@@ -1,7 +1,7 @@
 /* =====================================================
    KINGDOM LIGHT NETWORK
    GLOBAL WEBSITE LANGUAGE CONTROLLER
-   VERSION 3.0
+   CLEAN STABLE VERSION
 ===================================================== */
 
 (function () {
@@ -24,12 +24,14 @@
         "ur",
         "pa",
         "ar",
-        "fa"
+        "fa",
+        "he",
+        "arc"
     ];
 
 
     /* =================================================
-       GET GLOBAL TRANSLATIONS
+       GET TRANSLATIONS
     ================================================= */
 
     function getTranslations() {
@@ -55,7 +57,10 @@
         if (
             savedLanguage &&
             translations &&
-            translations[savedLanguage]
+            Object.prototype.hasOwnProperty.call(
+                translations,
+                savedLanguage
+            )
         ) {
 
             return savedLanguage;
@@ -69,7 +74,27 @@
 
 
     /* =================================================
-       APPLY WEBSITE LANGUAGE
+       SET PAGE DIRECTION
+    ================================================= */
+
+    function setPageDirection(language) {
+
+        const isRTL =
+            RTL_LANGUAGES.includes(language);
+
+
+        document.documentElement.lang =
+            language;
+
+
+        document.documentElement.dir =
+            isRTL ? "rtl" : "ltr";
+
+    }
+
+
+    /* =================================================
+       APPLY TRANSLATIONS
     ================================================= */
 
     function applyWebsiteLanguage(language) {
@@ -82,10 +107,13 @@
            CHECK TRANSLATIONS
         --------------------------------------------- */
 
-        if (!translations) {
+        if (
+            !translations ||
+            typeof translations !== "object"
+        ) {
 
             console.error(
-                "ERROR: window.translations is not available."
+                "Kingdom Light Network: translations.js is not ready."
             );
 
             return;
@@ -98,61 +126,21 @@
         --------------------------------------------- */
 
         if (
-            !translations[language]
+            !Object.prototype.hasOwnProperty.call(
+                translations,
+                language
+            )
         ) {
 
-            console.error(
-                "ERROR: Translation not found for:",
-                language
+            console.warn(
+                "Language not found:",
+                language,
+                "Using default language:",
+                DEFAULT_LANGUAGE
             );
 
             language =
                 DEFAULT_LANGUAGE;
-
-        }
-
-
-        /* ---------------------------------------------
-           SAVE LANGUAGE
-        --------------------------------------------- */
-
-        localStorage.setItem(
-            "language",
-            language
-        );
-
-
-        /* ---------------------------------------------
-           GLOBAL CURRENT LANGUAGE
-        --------------------------------------------- */
-
-        window.currentLanguage =
-            language;
-
-
-        /* ---------------------------------------------
-           HTML LANGUAGE
-        --------------------------------------------- */
-
-        document.documentElement.lang =
-            language;
-
-
-        /* ---------------------------------------------
-           RTL / LTR
-        --------------------------------------------- */
-
-        if (
-            RTL_LANGUAGES.includes(language)
-        ) {
-
-            document.documentElement.dir =
-                "rtl";
-
-        } else {
-
-            document.documentElement.dir =
-                "ltr";
 
         }
 
@@ -165,8 +153,61 @@
             translations[language];
 
 
+        if (
+            !languageData ||
+            typeof languageData !== "object"
+        ) {
+
+            console.error(
+                "Invalid translation data for:",
+                language
+            );
+
+            return;
+
+        }
+
+
         /* ---------------------------------------------
-           FIND TRANSLATABLE ELEMENTS
+           SAVE LANGUAGE
+        --------------------------------------------- */
+
+        try {
+
+            localStorage.setItem(
+                "language",
+                language
+            );
+
+        } catch (error) {
+
+            console.warn(
+                "Could not save language preference:",
+                error
+            );
+
+        }
+
+
+        /* ---------------------------------------------
+           GLOBAL CURRENT LANGUAGE
+        --------------------------------------------- */
+
+        window.currentLanguage =
+            language;
+
+
+        /* ---------------------------------------------
+           PAGE LANGUAGE + DIRECTION
+        --------------------------------------------- */
+
+        setPageDirection(
+            language
+        );
+
+
+        /* ---------------------------------------------
+           TRANSLATE PAGE ELEMENTS
         --------------------------------------------- */
 
         const elements =
@@ -174,16 +215,6 @@
                 "[data-translate]"
             );
 
-
-        console.log(
-            "Translatable elements found:",
-            elements.length
-        );
-
-
-        /* ---------------------------------------------
-           TRANSLATE ELEMENTS
-        --------------------------------------------- */
 
         elements.forEach(function (element) {
 
@@ -210,30 +241,13 @@
                 element.textContent =
                     languageData[key];
 
-
-                console.log(
-                    "Translated:",
-                    key,
-                    "→",
-                    languageData[key]
-                );
-
-            } else {
-
-                console.warn(
-                    "Translation key not found:",
-                    key,
-                    "for language:",
-                    language
-                );
-
             }
 
         });
 
 
         /* ---------------------------------------------
-           UPDATE LANGUAGE SELECTOR
+           UPDATE GLOBAL LANGUAGE SELECTOR
         --------------------------------------------- */
 
         const languageSelect =
@@ -265,29 +279,28 @@
 
 
         /* ---------------------------------------------
-           CONSOLE CONFIRMATION
+           LANGUAGE EVENT
+        --------------------------------------------- */
+
+        window.dispatchEvent(
+            new CustomEvent(
+                "languageChanged",
+                {
+                    detail: {
+                        language: language
+                    }
+                }
+            )
+        );
+
+
+        /* ---------------------------------------------
+           CONFIRMATION
         --------------------------------------------- */
 
         console.log(
-            "=========================================="
-        );
-
-        console.log(
-            "KINGDOM LIGHT NETWORK LANGUAGE APPLIED"
-        );
-
-        console.log(
-            "Language:",
+            "Kingdom Light Network language applied:",
             language
-        );
-
-        console.log(
-            "Direction:",
-            document.documentElement.dir
-        );
-
-        console.log(
-            "=========================================="
         );
 
     }
@@ -299,28 +312,21 @@
 
     function waitForTranslations(
         callback,
-        attempts = 0
+        attempts
     ) {
 
-        const MAX_ATTEMPTS = 50;
+        attempts =
+            attempts || 0;
+
+
+        const MAX_ATTEMPTS =
+            50;
 
 
         if (
             window.translations &&
             typeof window.translations === "object"
         ) {
-
-            console.log(
-                "translations.js loaded successfully."
-            );
-
-            console.log(
-                "Available languages:",
-                Object.keys(
-                    window.translations
-                )
-            );
-
 
             callback();
 
@@ -334,17 +340,12 @@
         ) {
 
             console.error(
-                "ERROR: window.translations could not be found."
+                "Kingdom Light Network: translations.js could not be loaded."
             );
 
             return;
 
         }
-
-
-        console.log(
-            "Waiting for translations.js..."
-        );
 
 
         setTimeout(
@@ -368,17 +369,22 @@
 
     function initializeLanguageSystem() {
 
-        console.log(
-            "=========================================="
-        );
+        const translations =
+            getTranslations();
 
-        console.log(
-            "Kingdom Light Network Language System"
-        );
 
-        console.log(
-            "Initializing..."
-        );
+        if (
+            !translations ||
+            typeof translations !== "object"
+        ) {
+
+            console.error(
+                "Language system initialization failed."
+            );
+
+            return;
+
+        }
 
 
         /* ---------------------------------------------
@@ -399,12 +405,6 @@
             getSavedLanguage();
 
 
-        console.log(
-            "Saved language:",
-            savedLanguage
-        );
-
-
         /* ---------------------------------------------
            APPLY SAVED LANGUAGE
         --------------------------------------------- */
@@ -415,7 +415,7 @@
 
 
         /* ---------------------------------------------
-           LANGUAGE CHANGE EVENT
+           LANGUAGE SELECTOR EVENT
         --------------------------------------------- */
 
         if (languageSelect) {
@@ -428,31 +428,65 @@
                         this.value;
 
 
-                    console.log(
-                        "Language selected:",
-                        selectedLanguage
-                    );
+                    if (
+                        !selectedLanguage
+                    ) {
+
+                        return;
+
+                    }
 
 
                     applyWebsiteLanguage(
                         selectedLanguage
                     );
 
-
-                    console.log(
-                        "Language change completed."
-                    );
-
                 }
             );
 
-        } else {
-
-            console.error(
-                "ERROR: #globalLanguageSelect was not found."
-            );
-
         }
+
+
+        /* ---------------------------------------------
+           GLOBAL LANGUAGE FUNCTION
+           Can be used by other pages/scripts
+        --------------------------------------------- */
+
+        window.setWebsiteLanguage =
+            function (language) {
+
+                if (!language) {
+
+                    return;
+
+                }
+
+
+                applyWebsiteLanguage(
+                    language
+                );
+
+            };
+
+
+        /* ---------------------------------------------
+           LANGUAGE SYSTEM READY
+        --------------------------------------------- */
+
+        window.languageSystemReady =
+            true;
+
+
+        window.dispatchEvent(
+            new Event(
+                "languageSystemReady"
+            )
+        );
+
+
+        console.log(
+            "Kingdom Light Network Language System Ready."
+        );
 
     }
 

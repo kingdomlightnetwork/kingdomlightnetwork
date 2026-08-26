@@ -945,3 +945,133 @@ nav.show a {
     }
 
 }
+
+/* =====================================================
+   BIBLE SELECTOR - COMPACT ONE LINE LAYOUT
+   ===================================================== */
+
+.bible-selector-section .research-search-box {
+    max-width: 1200px;
+}
+
+/* Keep each Bible selector label + select together */
+.bible-selector-section .research-search-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Labels become compact */
+.bible-selector-section .research-search-box label {
+    display: inline-flex;
+    align-items: center;
+
+    width: auto;
+    max-width: none;
+
+    margin: 0 2px 0 8px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+/* Select boxes become compact */
+.bible-selector-section .research-search-box select {
+    display: inline-block;
+
+    width: auto;
+    max-width: none;
+
+    min-width: 135px;
+    height: 42px;
+
+    margin: 0 4px 0 0;
+    padding: 0 10px;
+
+    font-size: 14px;
+
+    box-sizing: border-box;
+}
+
+/* Testament and Book need a little more space */
+.bible-selector-section #testamentSelect {
+    min-width: 150px;
+}
+
+.bible-selector-section #bookSelect {
+    min-width: 155px;
+}
+
+/* Chapter and Verse */
+.bible-selector-section #chapterSelect,
+.bible-selector-section #verseSelect {
+    min-width: 120px;
+}
+
+/* Action buttons stay together below the selector line */
+.bible-selector-section .research-actions {
+    flex-basis: 100%;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 18px;
+}
+
+/* Bible result stays below */
+.bible-selector-section #bibleResult {
+    flex-basis: 100%;
+    width: 100%;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    .bible-selector-section .research-search-box {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 6px;
+    }
+
+    .bible-selector-section .research-search-box label {
+        margin: 8px 0 2px 0;
+
+        font-size: 14px;
+
+        white-space: normal;
+    }
+
+    .bible-selector-section .research-search-box select {
+        width: 100%;
+        max-width: 100%;
+
+        height: 44px;
+
+        margin: 0;
+    }
+
+    .bible-selector-section .research-actions {
+        flex-direction: column;
+
+        margin-top: 18px;
+    }
+
+    .bible-selector-section .research-actions button {
+        width: 100%;
+        max-width: 350px;
+    }
+
+}

@@ -3,19 +3,23 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bible Study Center | Kingdom Light Network</title>
+    <title>Bible Study Center | Kingdom Light Network</title>
 
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
 
 <body>
 
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
@@ -29,7 +33,6 @@
             >
 
         </div>
-
 
         <div>
 
@@ -48,6 +51,10 @@
 </header>
 
 
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
 
 <nav>
 
@@ -121,6 +128,7 @@
         <h2>
             📖 Bible Selector
         </h2>
+
 
 
         <!-- =================================================
@@ -292,10 +300,20 @@
 
 
         <!-- =================================================
-             ACTION BUTTONS
-===================================================== -->
+             MAIN ACTION BUTTONS
+        ================================================= -->
 
-        <div class="bible-action-buttons">
+        <div
+            class="bible-action-buttons"
+            style="
+                display:flex;
+                flex-wrap:wrap;
+                align-items:center;
+                justify-content:center;
+                gap:10px;
+                margin-top:15px;
+            "
+        >
 
             <button
                 type="button"
@@ -325,13 +343,25 @@
 
 
         <!-- =================================================
-             FULL CHAPTER / AUDIO / ZOOM CONTROLS
+             CHAPTER / AUDIO / ZOOM CONTROLS
+             ONE ORGANIZED ROW
         ================================================== -->
 
         <div
             id="bibleReadingControls"
             class="bible-reading-controls"
+            style="
+                display:flex;
+                flex-wrap:wrap;
+                align-items:center;
+                justify-content:center;
+                gap:10px;
+                margin-top:15px;
+                padding:10px;
+            "
         >
+
+            <!-- FULL CHAPTER -->
 
             <button
                 type="button"
@@ -341,6 +371,8 @@
             </button>
 
 
+            <!-- CHAPTER AUDIO -->
+
             <button
                 type="button"
                 id="chapterAudioButton"
@@ -349,61 +381,66 @@
             </button>
 
 
+            <!-- STOP AUDIO -->
+
             <button
                 type="button"
                 id="chapterAudioStopButton"
+                disabled
             >
                 ⏹ Stop
             </button>
 
 
-            <!-- =============================================
-                 ZOOM CONTROLS
-            ============================================== -->
+            <!-- =================================================
+                 TEXT SIZE
+            ================================================== -->
 
-            <div class="bible-zoom-controls">
-
-                <span>
-                    Text Size:
-                </span>
-
-
-                <button
-                    type="button"
-                    id="zoomOutButton"
-                    aria-label="Decrease Bible text size"
-                >
-                    A−
-                </button>
+            <span
+                style="
+                    font-weight:bold;
+                    margin-left:5px;
+                    margin-right:2px;
+                "
+            >
+                Text Size:
+            </span>
 
 
-                <button
-                    type="button"
-                    id="zoomResetButton"
-                    aria-label="Reset Bible text size"
-                >
-                    A
-                </button>
+            <button
+                type="button"
+                id="zoomOutButton"
+                aria-label="Decrease Bible text size"
+            >
+                A−
+            </button>
 
 
-                <button
-                    type="button"
-                    id="zoomInButton"
-                    aria-label="Increase Bible text size"
-                >
-                    A+
-                </button>
+            <button
+                type="button"
+                id="zoomResetButton"
+                aria-label="Reset Bible text size"
+            >
+                A
+            </button>
 
 
-                <button
-                    type="button"
-                    id="zoomLargeButton"
-                    aria-label="Large Bible text size"
-                >
-                    A++
-                </button>
+            <button
+                type="button"
+                id="zoomInButton"
+                aria-label="Increase Bible text size"
+            >
+                A+
+            </button>
 
-            </div>
+
+            <button
+                type="button"
+                id="zoomLargeButton"
+                aria-label="Large Bible text size"
+            >
+                A++
+            </button>
 
         </div>
 

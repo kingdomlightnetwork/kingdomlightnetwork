@@ -3,7 +3,8 @@
    KINGDOM LIGHT NETWORK
    BIBLE RESEARCH SYSTEM
    VERSION 5.0
-   MULTILINGUAL / AUDIO / ZOOM / RTL-LTR
+   BOOK / CHAPTER / VERSE FIX
+   MULTILINGUAL / AUDIO / ZOOM / RESEARCH
 ===================================================== */
 
 "use strict";
@@ -150,6 +151,172 @@ const BIBLE_BOOKS = {
 
 
 /* =====================================================
+   STANDARD BIBLE VERSE COUNTS
+   Used when local verse text is not yet stored.
+===================================================== */
+
+const BIBLE_VERSE_COUNTS = {
+
+    Genesis: [
+        31,25,24,26,32,22,24,22,29,32,
+        32,20,18,24,21,16,27,33,38,18,
+        34,24,20,67,34,35,46,22,35,43,
+        55,32,20,31,29,43,36,30,23,23,
+        57,40,15,33,34,28,34,31,22,33
+    ],
+
+    Exodus: [
+        22,25,22,31,23,30,25,32,35,29,
+        10,51,22,31,27,36,16,27,25,26,
+        36,31,33,18,40,37,21,43,46,38,
+        18,35,35,16,35,19,29,38,31,43
+    ],
+
+    Leviticus: [
+        17,16,17,35,19,30,38,36,24,20,
+        47,8,59,57,33,34,16,30,37,27,
+        24,33,44,23,55,46,34
+    ],
+
+    Numbers: [
+        54,34,51,49,31,27,89,26,23,36,
+        35,16,28,55,32,27,16,36,30,49,
+        35,41,35,28,24,65,23,31,40,16,
+        54,42,56,29,34,13
+    ],
+
+    Deuteronomy: [
+        46,37,29,49,33,25,26,20,29,22,
+        32,32,18,29,23,22,20,22,21,20,
+        23,29,26,22,20,19,26,68,29,20,
+        30,52,29,12
+    ],
+
+    Matthew: [
+        25,23,17,25,48,34,29,34,38,42,
+        30,50,58,36,39,28,27,35,30,34,
+        46,46,44,53,46,75,66,20
+    ],
+
+    Mark: [
+        45,28,35,41,43,56,37,38,
+        50,52,33,44,37,72,47,20
+    ],
+
+    Luke: [
+        80,52,38,44,39,49,50,56,62,42,
+        54,59,35,35,32,31,37,43,48,47,
+        38,71,56,53
+    ],
+
+    John: [
+        51,25,36,54,47,71,53,59,41,42,
+        57,50,38,31,27,33,26,40,42,31,25
+    ],
+
+    Acts: [
+        26,47,26,37,42,15,60,40,43,48,
+        30,25,37,27,41,27,37,40,42,27,
+        27,37,44,27,32,44,27,31
+    ],
+
+    Romans: [
+        32,29,31,25,21,23,25,39,33,21,
+        36,21,14,23,33,27
+    ],
+
+    "1 Corinthians": [
+        31,16,23,21,13,20,40,13,
+        27,33,34,31,13,40,58,24
+    ],
+
+    "2 Corinthians": [
+        24,17,18,18,21,18,18,24,15,18,18,21,13
+    ],
+
+    Galatians: [
+        24,21,29,31,26,18
+    ],
+
+    Ephesians: [
+        23,22,21,32,33,24
+    ],
+
+    Philippians: [
+        30,30,21,23
+    ],
+
+    Colossians: [
+        29,23,25,18
+    ],
+
+    "1 Thessalonians": [
+        10,20,13,18,28
+    ],
+
+    "2 Thessalonians": [
+        12,17,18
+    ],
+
+    "1 Timothy": [
+        20,15,16,16,25,21
+    ],
+
+    "2 Timothy": [
+        18,26,17,22
+    ],
+
+    Titus: [
+        16,15,15
+    ],
+
+    Philemon: [
+        25
+    ],
+
+    Hebrews: [
+        14,18,19,16,14,20,28,13,28,39,
+        40,29,25
+    ],
+
+    James: [
+        27,26,18,17,20
+    ],
+
+    "1 Peter": [
+        25,25,22,19,14
+    ],
+
+    "2 Peter": [
+        21,22,18
+    ],
+
+    "1 John": [
+        10,29,24,21,21
+    ],
+
+    "2 John": [
+        13
+    ],
+
+    "3 John": [
+        14
+    ],
+
+    Jude: [
+        25
+    ],
+
+    Revelation: [
+        20,29,22,11,14,17,17,13,21,11,
+        19,17,18,20,8,21,18,24,21,15,
+        27,21
+    ]
+
+};
+
+
+/* =====================================================
    FIND BOOK
 ===================================================== */
 
@@ -197,35 +364,16 @@ function clearSelect(selectElement, text) {
 
 function loadBibleBooks() {
 
-    clearSelect(
-        bookSelect,
-        "Select Book"
-    );
+    clearSelect(bookSelect, "Select Book");
+    clearSelect(chapterSelect, "Select Chapter");
+    clearSelect(verseSelect, "Select Verse");
 
-    clearSelect(
-        chapterSelect,
-        "Select Chapter"
-    );
-
-    clearSelect(
-        verseSelect,
-        "Select Verse"
-    );
-
-
-    if (
-        !testamentSelect ||
-        !testamentSelect.value
-    ) {
+    if (!testamentSelect || !testamentSelect.value) {
         return;
     }
 
-
     const books =
-        BIBLE_BOOKS[
-            testamentSelect.value
-        ] || [];
-
+        BIBLE_BOOKS[testamentSelect.value] || [];
 
     books.forEach(
         function (book) {
@@ -233,15 +381,10 @@ function loadBibleBooks() {
             const option =
                 document.createElement("option");
 
-            option.value =
-                book.name;
+            option.value = book.name;
+            option.textContent = book.name;
 
-            option.textContent =
-                book.name;
-
-            bookSelect.appendChild(
-                option
-            );
+            bookSelect.appendChild(option);
 
         }
     );
@@ -255,16 +398,8 @@ function loadBibleBooks() {
 
 function loadBibleChapters() {
 
-    clearSelect(
-        chapterSelect,
-        "Select Chapter"
-    );
-
-    clearSelect(
-        verseSelect,
-        "Select Verse"
-    );
-
+    clearSelect(chapterSelect, "Select Chapter");
+    clearSelect(verseSelect, "Select Verse");
 
     if (
         !testamentSelect ||
@@ -275,18 +410,15 @@ function loadBibleChapters() {
         return;
     }
 
-
     const book =
         findBook(
             testamentSelect.value,
             bookSelect.value
         );
 
-
     if (!book) {
         return;
     }
-
 
     for (
         let chapter = 1;
@@ -297,15 +429,12 @@ function loadBibleChapters() {
         const option =
             document.createElement("option");
 
-        option.value =
-            chapter;
+        option.value = String(chapter);
 
         option.textContent =
             "Chapter " + chapter;
 
-        chapterSelect.appendChild(
-            option
-        );
+        chapterSelect.appendChild(option);
 
     }
 
@@ -313,68 +442,21 @@ function loadBibleChapters() {
 
 
 /* =====================================================
-   GET DATABASE VERSES
+   GET VERSE COUNT
 ===================================================== */
 
-function getAvailableDatabaseVerses(
-    language,
-    testament,
-    book,
-    chapter
-) {
+function getVerseCount(book, chapter) {
 
-    try {
+    if (
+        BIBLE_VERSE_COUNTS[book] &&
+        BIBLE_VERSE_COUNTS[book][chapter - 1]
+    ) {
 
-        if (
-            typeof getBibleDatabase !== "function"
-        ) {
-            return [];
-        }
-
-
-        const database =
-            getBibleDatabase(language);
-
-
-        if (
-            !database ||
-            !database[testament] ||
-            !database[testament][book] ||
-            !database[testament][book][chapter]
-        ) {
-            return [];
-        }
-
-
-        return Object.keys(
-            database[testament][book][chapter]
-        )
-        .map(
-            function (verse) {
-                return Number(verse);
-            }
-        )
-        .filter(
-            function (verse) {
-                return Number.isFinite(verse);
-            }
-        )
-        .sort(
-            function (a, b) {
-                return a - b;
-            }
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Bible database verse error:",
-            error
-        );
-
-        return [];
+        return BIBLE_VERSE_COUNTS[book][chapter - 1];
 
     }
+
+    return 176;
 
 }
 
@@ -385,11 +467,7 @@ function getAvailableDatabaseVerses(
 
 function loadBibleVerses() {
 
-    clearSelect(
-        verseSelect,
-        "Select Verse"
-    );
-
+    clearSelect(verseSelect, "Select Verse");
 
     if (
         !testamentSelect ||
@@ -402,56 +480,30 @@ function loadBibleVerses() {
         return;
     }
 
+    const chapter =
+        Number(chapterSelect.value);
 
-    const language =
-        getCurrentBibleLanguage();
-
-
-    const verses =
-        getAvailableDatabaseVerses(
-            language,
-            testamentSelect.value,
+    const count =
+        getVerseCount(
             bookSelect.value,
-            Number(chapterSelect.value)
+            chapter
         );
 
-
-    verses.forEach(
-        function (verse) {
-
-            const option =
-                document.createElement("option");
-
-            option.value =
-                verse;
-
-            option.textContent =
-                "Verse " + verse;
-
-            verseSelect.appendChild(
-                option
-            );
-
-        }
-    );
-
-
-    /*
-       اگر مقامی ڈیٹا میں آیات موجود نہ ہوں،
-       تب بھی Verse 1 کا انتخاب دستیاب رہے گا۔
-    */
-
-    if (verses.length === 0) {
+    for (
+        let verse = 1;
+        verse <= count;
+        verse++
+    ) {
 
         const option =
             document.createElement("option");
 
-        option.value = "1";
-        option.textContent = "Verse 1";
+        option.value = String(verse);
 
-        verseSelect.appendChild(
-            option
-        );
+        option.textContent =
+            "Verse " + verse;
+
+        verseSelect.appendChild(option);
 
     }
 
@@ -459,7 +511,7 @@ function loadBibleVerses() {
 
 
 /* =====================================================
-   CURRENT READING LANGUAGE
+   CURRENT BIBLE LANGUAGE
 ===================================================== */
 
 function getCurrentBibleLanguage() {
@@ -477,7 +529,7 @@ function getCurrentBibleLanguage() {
 
 
 /* =====================================================
-   CURRENT ORIGINAL LANGUAGE
+   CURRENT SOURCE LANGUAGE
 ===================================================== */
 
 function getCurrentSourceLanguage() {
@@ -495,89 +547,38 @@ function getCurrentSourceLanguage() {
 
 
 /* =====================================================
-   LANGUAGE INFORMATION
-===================================================== */
-
-function getCurrentLanguageInfo() {
-
-    const language =
-        getCurrentBibleLanguage();
-
-
-    if (
-        typeof getBibleLanguageInfo === "function"
-    ) {
-
-        return getBibleLanguageInfo(
-            language
-        );
-
-    }
-
-
-    return {
-        name: language,
-        nativeName: language,
-        type: "translation",
-        direction: "ltr"
-    };
-
-}
-
-
-/* =====================================================
    TEXT DIRECTION
 ===================================================== */
 
 function getDirection() {
 
-    const info =
-        getCurrentLanguageInfo();
-
-
-    if (
-        info &&
-        info.direction
-    ) {
-        return info.direction;
-    }
-
-
-    return "ltr";
-
-}
-
-
-/* =====================================================
-   LANGUAGE DISPLAY NAME
-===================================================== */
-
-function getLanguageDisplayName(language) {
+    const language =
+        getCurrentBibleLanguage();
 
     if (
         typeof getBibleLanguageInfo === "function"
     ) {
 
         const info =
-            getBibleLanguageInfo(
-                language
-            );
+            getBibleLanguageInfo(language);
 
-
-        if (info) {
-
-            return (
-                info.nativeName ||
-                info.name ||
-                language
-            );
-
+        if (
+            info &&
+            info.direction
+        ) {
+            return info.direction;
         }
 
     }
 
+    if (
+        ["ur", "pa", "ar", "he", "arc"]
+            .includes(language)
+    ) {
+        return "rtl";
+    }
 
-    return language;
+    return "ltr";
 
 }
 
@@ -596,7 +597,6 @@ function stopAudio() {
 
     }
 
-
     speaking = false;
     currentSpeech = null;
 
@@ -604,50 +604,7 @@ function stopAudio() {
 
 
 /* =====================================================
-   SPEECH LANGUAGE
-===================================================== */
-
-function getSpeechLanguage(language) {
-
-    const speechLanguages = {
-
-        en: "en-US",
-
-        ur: "ur-PK",
-
-        pa: "pa-IN",
-
-        ar: "ar-SA",
-
-        he: "he-IL",
-
-        arc: "ar",
-
-        grc: "el-GR",
-
-        zh: "zh-CN",
-
-        ja: "ja-JP",
-
-        ko: "ko-KR",
-
-        fa: "fa-IR",
-
-        bn: "bn-BD"
-
-    };
-
-
-    return (
-        speechLanguages[language] ||
-        "en-US"
-    );
-
-}
-
-
-/* =====================================================
-   SPEAK
+   SPEAK TEXT
 ===================================================== */
 
 function speak(text) {
@@ -659,40 +616,49 @@ function speak(text) {
         return;
     }
 
-
     stopAudio();
 
-
     const utterance =
-        new SpeechSynthesisUtterance(
-            text
-        );
-
+        new SpeechSynthesisUtterance(text);
 
     const language =
         getCurrentBibleLanguage();
 
+    const speechLanguages = {
+
+        en: "en-US",
+        ur: "ur-PK",
+        pa: "pa-IN",
+        ar: "ar-SA",
+        he: "he-IL",
+        arc: "ar",
+        grc: "el-GR",
+
+        zh: "zh-CN",
+        ja: "ja-JP",
+        ko: "ko-KR",
+        es: "es-ES",
+        fr: "fr-FR",
+        de: "de-DE",
+        pt: "pt-PT",
+        ru: "ru-RU",
+        it: "it-IT",
+        tr: "tr-TR",
+        id: "id-ID",
+        ms: "ms-MY"
+
+    };
 
     utterance.lang =
-        getSpeechLanguage(
-            language
-        );
+        speechLanguages[language] || "en-US";
 
-
-    utterance.rate =
-        0.85;
-
-    utterance.pitch =
-        1;
-
+    utterance.rate = 0.85;
+    utterance.pitch = 1;
 
     utterance.onstart =
         function () {
-
             speaking = true;
-
         };
-
 
     utterance.onend =
         function () {
@@ -700,22 +666,16 @@ function speak(text) {
             speaking = false;
             currentSpeech = null;
 
-
             const button =
                 document.getElementById(
                     "verseAudioButton"
                 );
 
-
             if (button) {
-
-                button.textContent =
-                    "🔊 Listen";
-
+                button.textContent = "🔊 Listen";
             }
 
         };
-
 
     utterance.onerror =
         function () {
@@ -725,10 +685,7 @@ function speak(text) {
 
         };
 
-
-    currentSpeech =
-        utterance;
-
+    currentSpeech = utterance;
 
     window.speechSynthesis.speak(
         utterance
@@ -765,40 +722,16 @@ function renderVerse(
 
     stopAudio();
 
+    const direction =
+        getDirection();
+
+    const displayText =
+        text ||
+        "اس آیت کا متن ابھی مقامی Bible Database میں موجود نہیں ہے۔";
 
     if (!result) {
         return;
     }
-
-
-    const direction =
-        getDirection();
-
-
-    const displayText =
-        text ||
-        "اس آیت کا متن ابھی مقامی بائبل ڈیٹا میں موجود نہیں ہے۔";
-
-
-    const language =
-        getCurrentBibleLanguage();
-
-
-    const languageName =
-        getLanguageDisplayName(
-            language
-        );
-
-
-    const source =
-        getCurrentSourceLanguage();
-
-
-    const sourceName =
-        getLanguageDisplayName(
-            source
-        );
-
 
     result.innerHTML = `
 
@@ -808,25 +741,15 @@ function renderVerse(
         >
 
             <h2>
-                📖 ${escapeHTML(title)}
+                ${escapeHTML(title)}
             </h2>
 
-            <div
-                class="bible-research-info"
-            >
-
-                <p>
-                    Reading Language:
-                    ${escapeHTML(languageName)}
-                </p>
-
-                <p>
-                    Original Language:
-                    ${escapeHTML(sourceName)}
-                </p>
-
-            </div>
-
+            <h3>
+                ${escapeHTML(data.book)}
+                ${escapeHTML(data.chapter)}
+                :
+                ${escapeHTML(data.verse)}
+            </h3>
 
             <div
                 class="bible-control-bar"
@@ -838,7 +761,6 @@ function renderVerse(
                 >
                     🔊 Listen
                 </button>
-
 
                 <div
                     class="bible-zoom-controls"
@@ -880,7 +802,6 @@ function renderVerse(
 
             </div>
 
-
             <div
                 class="bible-verse-text"
                 id="verseText"
@@ -897,15 +818,10 @@ function renderVerse(
     `;
 
 
-    /* =================================================
-       AUDIO BUTTON
-    ================================================= */
-
     const verseAudioButton =
         document.getElementById(
             "verseAudioButton"
         );
-
 
     if (verseAudioButton) {
 
@@ -934,10 +850,6 @@ function renderVerse(
 
     }
 
-
-    /* =================================================
-       ZOOM
-    ================================================= */
 
     const verseText =
         document.getElementById(
@@ -1078,7 +990,6 @@ function readSelectedVerse() {
         return;
     }
 
-
     const testament =
         testamentSelect.value;
 
@@ -1086,15 +997,10 @@ function readSelectedVerse() {
         bookSelect.value;
 
     const chapter =
-        Number(
-            chapterSelect.value
-        );
+        Number(chapterSelect.value);
 
     const verse =
-        Number(
-            verseSelect.value
-        );
-
+        Number(verseSelect.value);
 
     if (
         !testament ||
@@ -1114,13 +1020,10 @@ function readSelectedVerse() {
 
     }
 
-
     const language =
         getCurrentBibleLanguage();
 
-
     let text = null;
-
 
     if (
         typeof getBibleVerse === "function"
@@ -1137,7 +1040,6 @@ function readSelectedVerse() {
 
     }
 
-
     const data = {
 
         book: book,
@@ -1146,7 +1048,6 @@ function readSelectedVerse() {
 
     };
 
-
     const title =
         book +
         " " +
@@ -1154,13 +1055,11 @@ function readSelectedVerse() {
         ":" +
         verse;
 
-
     renderVerse(
         data,
         text,
         title
     );
-
 
     if (selectedReference) {
 
@@ -1194,7 +1093,6 @@ function researchSelectedVerse() {
         verseSelect &&
         verseSelect.value;
 
-
     if (
         !testament ||
         !book ||
@@ -1210,13 +1108,10 @@ function researchSelectedVerse() {
 
     }
 
-
     const language =
         getCurrentBibleLanguage();
 
-
     let text = null;
-
 
     if (
         typeof getBibleVerse === "function"
@@ -1233,7 +1128,6 @@ function researchSelectedVerse() {
 
     }
 
-
     const reference =
         book +
         " " +
@@ -1241,27 +1135,9 @@ function researchSelectedVerse() {
         ":" +
         verse;
 
-
     const researchText =
         text ||
         "Bible verse text is not yet available in the local database.";
-
-
-    const source =
-        getCurrentSourceLanguage();
-
-
-    const languageName =
-        getLanguageDisplayName(
-            language
-        );
-
-
-    const sourceName =
-        getLanguageDisplayName(
-            source
-        );
-
 
     if (result) {
 
@@ -1280,24 +1156,6 @@ function researchSelectedVerse() {
                     ${escapeHTML(reference)}
                 </h3>
 
-
-                <div
-                    class="bible-research-info"
-                >
-
-                    <p>
-                        Reading Language:
-                        ${escapeHTML(languageName)}
-                    </p>
-
-                    <p>
-                        Original Language:
-                        ${escapeHTML(sourceName)}
-                    </p>
-
-                </div>
-
-
                 <div
                     class="bible-verse-text"
                 >
@@ -1308,14 +1166,20 @@ function researchSelectedVerse() {
 
                 </div>
 
-
                 <div
                     class="bible-research-info"
                 >
 
                     <p>
-                        Bible Database:
-                        Local
+                        Language:
+                        ${escapeHTML(language)}
+                    </p>
+
+                    <p>
+                        Source:
+                        ${escapeHTML(
+                            getCurrentSourceLanguage()
+                        )}
                     </p>
 
                 </div>
@@ -1324,65 +1188,12 @@ function researchSelectedVerse() {
 
         `;
 
-
         result.scrollIntoView({
             behavior: "smooth",
             block: "start"
         });
 
     }
-
-}
-
-
-/* =====================================================
-   SOURCE LANGUAGE CHANGE
-===================================================== */
-
-if (sourceLanguage) {
-
-    sourceLanguage.addEventListener(
-        "change",
-        function () {
-
-            stopAudio();
-
-            /*
-               اصل زبان تبدیل ہونے پر
-               موجودہ آیت دوبارہ دکھائی جا سکتی ہے۔
-            */
-
-            if (
-                verseSelect &&
-                verseSelect.value
-            ) {
-
-                readSelectedVerse();
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   TRANSLATION LANGUAGE CHANGE
-===================================================== */
-
-if (translationLanguage) {
-
-    translationLanguage.addEventListener(
-        "change",
-        function () {
-
-            stopAudio();
-
-            loadBibleVerses();
-
-        }
-    );
 
 }
 
@@ -1396,8 +1207,6 @@ if (testamentSelect) {
     testamentSelect.addEventListener(
         "change",
         function () {
-
-            stopAudio();
 
             loadBibleBooks();
 
@@ -1417,8 +1226,6 @@ if (bookSelect) {
         "change",
         function () {
 
-            stopAudio();
-
             loadBibleChapters();
 
         }
@@ -1436,8 +1243,6 @@ if (chapterSelect) {
     chapterSelect.addEventListener(
         "change",
         function () {
-
-            stopAudio();
 
             loadBibleVerses();
 
@@ -1502,6 +1307,49 @@ if (researchBibleButton) {
 
 
 /* =====================================================
+   TRANSLATION LANGUAGE CHANGE
+===================================================== */
+
+if (translationLanguage) {
+
+    translationLanguage.addEventListener(
+        "change",
+        function () {
+
+            stopAudio();
+
+            /*
+             * Verse list is rebuilt without changing
+             * the selected Book or Chapter.
+             */
+
+            loadBibleVerses();
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   SOURCE LANGUAGE CHANGE
+===================================================== */
+
+if (sourceLanguage) {
+
+    sourceLanguage.addEventListener(
+        "change",
+        function () {
+
+            stopAudio();
+
+        }
+    );
+
+}
+
+
+/* =====================================================
    INITIALIZATION
 ===================================================== */
 
@@ -1522,7 +1370,6 @@ function initializeBibleResearch() {
         "Select Verse"
     );
 
-
     if (selectedReference) {
 
         selectedReference.textContent =
@@ -1530,9 +1377,8 @@ function initializeBibleResearch() {
 
     }
 
-
     console.log(
-        "Kingdom Light Network Bible Research System v5.0 loaded successfully."
+        "Kingdom Light Network Bible Research System Version 5.0 loaded successfully."
     );
 
 }
@@ -1558,3 +1404,6 @@ if (
 }
 ```
 
+
+
+    

@@ -789,24 +789,36 @@
 
         }
 
+       ```js
+/* =============================================
+   AUDIO — STABLE VOICE SYSTEM
+   Urdu / Punjabi / Arabic / English Support
+============================================= */
 
-        /* =============================================
-           AUDIO
-        ============================================= */
+function setupAudio(text) {
 
-        function setupAudio(text) {
-
-            const button =
-                document.getElementById(
-                    "verseAudioButton"
-                );
+    const button =
+        document.getElementById(
+            "verseAudioButton"
+        );
 
 
-            if (!button) {
+    if (!button) {
+        return;
+    }
 
-                console.error(
-                    "Bible Audio Error: " +
-                    "verseAudioButton not found."
+
+    button.addEventListener(
+        "click",
+        function () {
+
+            if (
+                !("speechSynthesis" in window) ||
+                !("SpeechSynthesisUtterance" in window)
+            ) {
+
+                alert(
+                    "Audio is not supported by this browser."
                 );
 
                 return;
@@ -814,311 +826,386 @@
             }
 
 
+            /* =====================================
+               STOP CURRENT AUDIO
+            ===================================== */
+
+            if (
+                window.speechSynthesis.speaking
+            ) {
+
+                window.speechSynthesis.cancel();
+
+                button.textContent =
+                    "🔊 Listen";
+
+                return;
+
+            }
+
+
+            const language =
+                getLanguage();
+
+
+            /* =====================================
+               LANGUAGE MAP
+            ===================================== */
+
+            const speechMap = {
+
+                en: "en-US",
+
+                ur: "ur-PK",
+
+                pa: "pa-PK",
+
+                ar: "ar-SA",
+
+                fa: "fa-IR",
+
+                he: "he-IL",
+
+                arc: "ar",
+
+                grc: "el-GR",
+
+                es: "es-ES",
+
+                pt: "pt-PT",
+
+                fr: "fr-FR",
+
+                de: "de-DE",
+
+                it: "it-IT",
+
+                ru: "ru-RU",
+
+                nl: "nl-NL",
+
+                tr: "tr-TR",
+
+                bn: "bn-BD",
+
+                ta: "ta-IN",
+
+                te: "te-IN",
+
+                mr: "mr-IN",
+
+                "zh-CN": "zh-CN",
+
+                "zh-TW": "zh-TW",
+
+                ja: "ja-JP",
+
+                ko: "ko-KR",
+
+                vi: "vi-VN",
+
+                th: "th-TH",
+
+                id: "id-ID",
+
+                ms: "ms-MY",
+
+                fil: "fil-PH",
+
+                sw: "sw-KE"
+
+            };
+
+
+            const requestedLanguage =
+                speechMap[language] ||
+                "en-US";
+
+
+            /* =====================================
+               GET AVAILABLE VOICES
+            ===================================== */
+
+            let voices =
+                window.speechSynthesis.getVoices();
+
+
             /*
-               پرانے Event Handler کو ختم کریں۔
+               کچھ براؤزر آوازیں فوراً فراہم نہیں کرتے۔
+               اس لیے دوبارہ حاصل کریں۔
             */
 
-            button.onclick = null;
+            if (!voices || voices.length === 0) {
 
+                window.speechSynthesis.onvoiceschanged =
+                    function () {
 
-            button.onclick =
-                function () {
+                        voices =
+                            window.speechSynthesis.getVoices();
 
-                    if (
-                        !("speechSynthesis" in window)
-                    ) {
-
-                        alert(
-                            "Audio is not supported by this browser."
+                        speakWithVoice(
+                            voices,
+                            requestedLanguage,
+                            language,
+                            text,
+                            button
                         );
-
-                        return;
-
-                    }
-
-
-                    /*
-                       اگر پہلے سے آواز چل رہی ہے
-                       تو اسے روک دیں۔
-                    */
-
-                    if (
-                        window.speechSynthesis.speaking ||
-                        window.speechSynthesis.pending
-                    ) {
-
-                        window.speechSynthesis.cancel();
-
-                        button.textContent =
-                            "🔊 Listen";
-
-                        return;
-
-                    }
-
-
-                    const language =
-                        getLanguage();
-
-
-                    const speechMap = {
-
-                        en: "en-US",
-
-                        ur: "ur-PK",
-
-                        pa: "pa-PK",
-
-                        ar: "ar-SA",
-
-                        fa: "fa-IR",
-
-                        he: "he-IL",
-
-                        arc: "ar",
-
-                        grc: "el-GR",
-
-                        es: "es-ES",
-
-                        pt: "pt-PT",
-
-                        fr: "fr-FR",
-
-                        de: "de-DE",
-
-                        it: "it-IT",
-
-                        ru: "ru-RU",
-
-                        nl: "nl-NL",
-
-                        tr: "tr-TR",
-
-                        bn: "bn-BD",
-
-                        ta: "ta-IN",
-
-                        te: "te-IN",
-
-                        mr: "mr-IN",
-
-                        "zh-CN": "zh-CN",
-
-                        "zh-TW": "zh-TW",
-
-                        ja: "ja-JP",
-
-                        ko: "ko-KR",
-
-                        vi: "vi-VN",
-
-                        th: "th-TH",
-
-                        id: "id-ID",
-
-                        ms: "ms-MY",
-
-                        fil: "fil-PH",
-
-                        sw: "sw-KE"
 
                     };
 
+                return;
 
-                    const requestedLanguage =
-                        speechMap[language] ||
-                        "en-US";
+            }
 
 
-                    let voices =
-                        window.speechSynthesis
-                            .getVoices();
-
-
-                    /*
-                       بعض براؤزرز آوازیں
-                       تھوڑی دیر بعد فراہم کرتے ہیں۔
-                    */
-
-                    function speakWithVoice() {
-
-                        voices =
-                            window.speechSynthesis
-                                .getVoices();
-
-
-                        const baseLanguage =
-                            requestedLanguage
-                                .split("-")[0]
-                                .toLowerCase();
-
-
-                        let selectedVoice =
-                            voices.find(
-                                function (voice) {
-
-                                    return (
-                                        voice.lang &&
-                                        voice.lang
-                                            .toLowerCase() ===
-                                        requestedLanguage
-                                            .toLowerCase()
-                                    );
-
-                                }
-                            );
-
-
-                        /*
-                           مکمل زبان نہ ملے تو
-                           بنیادی زبان تلاش کریں۔
-                        */
-
-                        if (!selectedVoice) {
-
-                            selectedVoice =
-                                voices.find(
-                                    function (voice) {
-
-                                        return (
-                                            voice.lang &&
-                                            voice.lang
-                                                .toLowerCase()
-                                                .split("-")[0] ===
-                                            baseLanguage
-                                        );
-
-                                    }
-                                );
-
-                        }
-
-
-                        const speech =
-                            new SpeechSynthesisUtterance(
-                                text
-                            );
-
-
-                        speech.lang =
-                            requestedLanguage;
-
-
-                        speech.rate =
-                            0.85;
-
-
-                        speech.pitch =
-                            1;
-
-
-                        if (selectedVoice) {
-
-                            speech.voice =
-                                selectedVoice;
-
-
-                            console.log(
-                                "Bible Audio Voice:",
-                                selectedVoice.name,
-                                selectedVoice.lang
-                            );
-
-                        } else {
-
-                            console.warn(
-                                "No matching voice found for:",
-                                requestedLanguage
-                            );
-
-                        }
-
-
-                        speech.onstart =
-                            function () {
-
-                                button.textContent =
-                                    "⏹ Stop";
-
-                            };
-
-
-                        speech.onend =
-                            function () {
-
-                                button.textContent =
-                                    "🔊 Listen";
-
-                            };
-
-
-                        speech.onerror =
-                            function (event) {
-
-                                console.error(
-                                    "Bible Audio Error:",
-                                    event
-                                );
-
-                                button.textContent =
-                                    "🔊 Listen";
-
-                            };
-
-
-                        window.speechSynthesis.speak(
-                            speech
-                        );
-
-                    }
-
-
-                    /*
-                       اگر voices ابھی دستیاب نہ ہوں
-                       تو انتظار کریں۔
-                    */
-
-                    if (
-                        !voices ||
-                        voices.length === 0
-                    ) {
-
-                        window.speechSynthesis
-                            .onvoiceschanged =
-                            function () {
-
-                                speakWithVoice();
-
-                            };
-
-                        /*
-                           کچھ براؤزرز میں
-                           onvoiceschanged نہ آنے کی صورت
-                           میں دوبارہ کوشش۔
-                        */
-
-                        setTimeout(
-                            function () {
-
-                                speakWithVoice();
-
-                            },
-                            500
-                        );
-
-                        return;
-
-                    }
-
-
-                    speakWithVoice();
-
-                };
+            speakWithVoice(
+                voices,
+                requestedLanguage,
+                language,
+                text,
+                button
+            );
 
         }
+    );
+
+}
 
 
+/* =============================================
+   FIND AND PLAY VOICE
+============================================= */
+
+function speakWithVoice(
+    voices,
+    requestedLanguage,
+    language,
+    text,
+    button
+) {
+
+    if (
+        !voices ||
+        voices.length === 0
+    ) {
+
+        alert(
+            "No speech voice is available in this browser."
+        );
+
+        return;
+
+    }
+
+
+    /* =====================================
+       FIND EXACT LANGUAGE
+    ===================================== */
+
+    let voice =
+        voices.find(function (item) {
+
+            return (
+                item.lang &&
+                item.lang.toLowerCase() ===
+                requestedLanguage.toLowerCase()
+            );
+
+        });
+
+
+    /* =====================================
+       FIND LANGUAGE PREFIX
+       Example: ur-PK → ur
+    ===================================== */
+
+    if (!voice) {
+
+        const languageCode =
+            requestedLanguage
+                .split("-")[0]
+                .toLowerCase();
+
+
+        voice =
+            voices.find(function (item) {
+
+                return (
+                    item.lang &&
+                    item.lang
+                        .toLowerCase()
+                        .split("-")[0] ===
+                    languageCode
+                );
+
+            });
+
+    }
+
+
+    /* =====================================
+       SPECIAL URDU SEARCH
+    ===================================== */
+
+    if (
+        !voice &&
+        language === "ur"
+    ) {
+
+        voice =
+            voices.find(function (item) {
+
+                const lang =
+                    (item.lang || "")
+                        .toLowerCase();
+
+                const name =
+                    (item.name || "")
+                        .toLowerCase();
+
+                return (
+                    lang.startsWith("ur") ||
+                    name.includes("urdu")
+                );
+
+            });
+
+    }
+
+
+    /* =====================================
+       SPECIAL PUNJABI SEARCH
+    ===================================== */
+
+    if (
+        !voice &&
+        language === "pa"
+    ) {
+
+        voice =
+            voices.find(function (item) {
+
+                const lang =
+                    (item.lang || "")
+                        .toLowerCase();
+
+                const name =
+                    (item.name || "")
+                        .toLowerCase();
+
+                return (
+                    lang.startsWith("pa") ||
+                    name.includes("punjabi")
+                );
+
+            });
+
+    }
+
+
+    /* =====================================
+       CREATE SPEECH
+    ===================================== */
+
+    const speech =
+        new SpeechSynthesisUtterance(
+            text
+        );
+
+
+    /*
+       اگر مخصوص زبان کی آواز مل گئی
+       تو وہ استعمال ہوگی۔
+    */
+
+    if (voice) {
+
+        speech.voice =
+            voice;
+
+        speech.lang =
+            voice.lang;
+
+        console.log(
+            "Bible Audio voice selected:",
+            voice.name,
+            voice.lang
+        );
+
+    } else {
+
+        /*
+           اگر مخصوص آواز موجود نہ ہو
+           تو requested language برقرار رکھیں۔
+        */
+
+        speech.lang =
+            requestedLanguage;
+
+        console.warn(
+            "No matching voice found for:",
+            requestedLanguage,
+            "Using browser default voice."
+        );
+
+    }
+
+
+    speech.rate = 0.85;
+
+    speech.pitch = 1;
+
+
+    /* =====================================
+       AUDIO EVENTS
+    ===================================== */
+
+    speech.onstart =
+        function () {
+
+            button.textContent =
+                "⏹ Stop";
+
+        };
+
+
+    speech.onend =
+        function () {
+
+            button.textContent =
+                "🔊 Listen";
+
+        };
+
+
+    speech.onerror =
+        function (event) {
+
+            console.error(
+                "Bible Audio Error:",
+                event
+            );
+
+            button.textContent =
+                "🔊 Listen";
+
+        };
+
+
+    /* =====================================
+       PLAY
+    ===================================== */
+
+    window.speechSynthesis.cancel();
+
+    window.speechSynthesis.speak(
+        speech
+    );
+
+}
+```
+
+   
         /* =============================================
            ZOOM
         ============================================= */

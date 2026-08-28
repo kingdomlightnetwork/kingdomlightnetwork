@@ -790,9 +790,10 @@
         }
 
        ```js
+```js
 /* =============================================
-   AUDIO — STABLE VOICE SYSTEM
-   Urdu / Punjabi / Arabic / English Support
+   AUDIO — FINAL MULTI-LANGUAGE VOICE SYSTEM
+   Urdu / Punjabi / Arabic / English / Other Languages
 ============================================= */
 
 function setupAudio(text) {
@@ -804,12 +805,24 @@ function setupAudio(text) {
 
 
     if (!button) {
+
+        console.error(
+            "Bible Audio Error: verseAudioButton not found."
+        );
+
         return;
+
     }
 
 
-    button.addEventListener(
-        "click",
+    /*
+       پرانے handler کو ختم کریں۔
+    */
+
+    button.onclick = null;
+
+
+    button.onclick =
         function () {
 
             if (
@@ -826,12 +839,14 @@ function setupAudio(text) {
             }
 
 
-            /* =====================================
-               STOP CURRENT AUDIO
-            ===================================== */
+            /*
+               اگر آواز پہلے سے چل رہی ہو
+               تو اسے روک دیں۔
+            */
 
             if (
-                window.speechSynthesis.speaking
+                window.speechSynthesis.speaking ||
+                window.speechSynthesis.pending
             ) {
 
                 window.speechSynthesis.cancel();
@@ -922,28 +937,32 @@ function setupAudio(text) {
                 "en-US";
 
 
-            /* =====================================
-               GET AVAILABLE VOICES
-            ===================================== */
+            /*
+               دستیاب آوازیں حاصل کریں۔
+            */
 
             let voices =
                 window.speechSynthesis.getVoices();
 
 
             /*
-               کچھ براؤزر آوازیں فوراً فراہم نہیں کرتے۔
-               اس لیے دوبارہ حاصل کریں۔
+               اگر آوازیں ابھی load نہیں ہوئیں
+               تو دوبارہ حاصل کریں۔
             */
 
-            if (!voices || voices.length === 0) {
+            if (
+                !voices ||
+                voices.length === 0
+            ) {
 
                 window.speechSynthesis.onvoiceschanged =
                     function () {
 
                         voices =
-                            window.speechSynthesis.getVoices();
+                            window.speechSynthesis
+                                .getVoices();
 
-                        speakWithVoice(
+                        playBibleAudio(
                             voices,
                             requestedLanguage,
                             language,
@@ -953,12 +972,46 @@ function setupAudio(text) {
 
                     };
 
+
+                /*
+                   کچھ browsers میں
+                   onvoiceschanged دیر سے آتا ہے۔
+                */
+
+                setTimeout(
+                    function () {
+
+                        voices =
+                            window.speechSynthesis
+                                .getVoices();
+
+
+                        if (
+                            voices &&
+                            voices.length > 0
+                        ) {
+
+                            playBibleAudio(
+                                voices,
+                                requestedLanguage,
+                                language,
+                                text,
+                                button
+                            );
+
+                        }
+
+                    },
+                    700
+                );
+
+
                 return;
 
             }
 
 
-            speakWithVoice(
+            playBibleAudio(
                 voices,
                 requestedLanguage,
                 language,
@@ -966,17 +1019,16 @@ function setupAudio(text) {
                 button
             );
 
-        }
-    );
+        };
 
 }
 
 
 /* =============================================
-   FIND AND PLAY VOICE
+   FIND AND PLAY BIBLE VOICE
 ============================================= */
 
-function speakWithVoice(
+function playBibleAudio(
     voices,
     requestedLanguage,
     language,
@@ -998,107 +1050,172 @@ function speakWithVoice(
     }
 
 
+    const requested =
+        requestedLanguage
+            .toLowerCase();
+
+
+    const baseLanguage =
+        requested
+            .split("-")[0];
+
+
     /* =====================================
-       FIND EXACT LANGUAGE
+       1. EXACT LANGUAGE MATCH
+       Example: ar-SA
     ===================================== */
 
     let voice =
-        voices.find(function (item) {
-
-            return (
-                item.lang &&
-                item.lang.toLowerCase() ===
-                requestedLanguage.toLowerCase()
-            );
-
-        });
-
-
-    /* =====================================
-       FIND LANGUAGE PREFIX
-       Example: ur-PK → ur
-    ===================================== */
-
-    if (!voice) {
-
-        const languageCode =
-            requestedLanguage
-                .split("-")[0]
-                .toLowerCase();
-
-
-        voice =
-            voices.find(function (item) {
+        voices.find(
+            function (item) {
 
                 return (
                     item.lang &&
                     item.lang
-                        .toLowerCase()
-                        .split("-")[0] ===
-                    languageCode
+                        .toLowerCase() ===
+                    requested
                 );
 
-            });
+            }
+        );
+
+
+    /* =====================================
+       2. BASE LANGUAGE MATCH
+       Example: ar-SA → ar
+    ===================================== */
+
+    if (!voice) {
+
+        voice =
+            voices.find(
+                function (item) {
+
+                    return (
+                        item.lang &&
+                        item.lang
+                            .toLowerCase()
+                            .split("-")[0] ===
+                        baseLanguage
+                    );
+
+                }
+            );
 
     }
 
 
     /* =====================================
-       SPECIAL URDU SEARCH
+       3. LANGUAGE NAME MATCH
     ===================================== */
 
-    if (
-        !voice &&
-        language === "ur"
-    ) {
+    if (!voice) {
+
+        const languageNames = {
+
+            ur: [
+                "urdu",
+                "pakistan"
+            ],
+
+            pa: [
+                "punjabi"
+            ],
+
+            ar: [
+                "arabic"
+            ],
+
+            fa: [
+                "persian",
+                "farsi"
+            ],
+
+            he: [
+                "hebrew"
+            ],
+
+            grc: [
+                "greek"
+            ],
+
+            en: [
+                "english"
+            ],
+
+            es: [
+                "spanish"
+            ],
+
+            pt: [
+                "portuguese"
+            ],
+
+            fr: [
+                "french"
+            ],
+
+            de: [
+                "german"
+            ],
+
+            it: [
+                "italian"
+            ],
+
+            ru: [
+                "russian"
+            ],
+
+            nl: [
+                "dutch"
+            ],
+
+            tr: [
+                "turkish"
+            ]
+
+        };
+
+
+        const names =
+            languageNames[language] ||
+            [];
+
 
         voice =
-            voices.find(function (item) {
+            voices.find(
+                function (item) {
 
-                const lang =
-                    (item.lang || "")
-                        .toLowerCase();
-
-                const name =
-                    (item.name || "")
-                        .toLowerCase();
-
-                return (
-                    lang.startsWith("ur") ||
-                    name.includes("urdu")
-                );
-
-            });
-
-    }
+                    const voiceName =
+                        (
+                            item.name ||
+                            ""
+                        ).toLowerCase();
 
 
-    /* =====================================
-       SPECIAL PUNJABI SEARCH
-    ===================================== */
+                    const voiceLang =
+                        (
+                            item.lang ||
+                            ""
+                        ).toLowerCase();
 
-    if (
-        !voice &&
-        language === "pa"
-    ) {
 
-        voice =
-            voices.find(function (item) {
+                    return names.some(
+                        function (name) {
 
-                const lang =
-                    (item.lang || "")
-                        .toLowerCase();
+                            return (
+                                voiceName
+                                    .includes(name) ||
+                                voiceLang
+                                    .includes(name)
+                            );
 
-                const name =
-                    (item.name || "")
-                        .toLowerCase();
+                        }
+                    );
 
-                return (
-                    lang.startsWith("pa") ||
-                    name.includes("punjabi")
-                );
-
-            });
+                }
+            );
 
     }
 
@@ -1113,21 +1230,22 @@ function speakWithVoice(
         );
 
 
-    /*
-       اگر مخصوص زبان کی آواز مل گئی
-       تو وہ استعمال ہوگی۔
-    */
+    /* =====================================
+       APPLY VOICE
+    ===================================== */
 
     if (voice) {
 
         speech.voice =
             voice;
 
+
         speech.lang =
             voice.lang;
 
+
         console.log(
-            "Bible Audio voice selected:",
+            "Bible Audio Voice Selected:",
             voice.name,
             voice.lang
         );
@@ -1135,29 +1253,36 @@ function speakWithVoice(
     } else {
 
         /*
-           اگر مخصوص آواز موجود نہ ہو
-           تو requested language برقرار رکھیں۔
+           کوئی مخصوص voice نہ ملنے پر
+           requested language استعمال کریں۔
         */
 
         speech.lang =
             requestedLanguage;
 
+
         console.warn(
             "No matching voice found for:",
-            requestedLanguage,
-            "Using browser default voice."
+            requestedLanguage
         );
 
     }
 
 
-    speech.rate = 0.85;
+    speech.rate =
+        0.85;
 
-    speech.pitch = 1;
+
+    speech.pitch =
+        1;
+
+
+    speech.volume =
+        1;
 
 
     /* =====================================
-       AUDIO EVENTS
+       AUDIO START
     ===================================== */
 
     speech.onstart =
@@ -1169,6 +1294,10 @@ function speakWithVoice(
         };
 
 
+    /* =====================================
+       AUDIO END
+    ===================================== */
+
     speech.onend =
         function () {
 
@@ -1178,6 +1307,10 @@ function speakWithVoice(
         };
 
 
+    /* =====================================
+       AUDIO ERROR
+    ===================================== */
+
     speech.onerror =
         function (event) {
 
@@ -1185,6 +1318,7 @@ function speakWithVoice(
                 "Bible Audio Error:",
                 event
             );
+
 
             button.textContent =
                 "🔊 Listen";
@@ -1197,6 +1331,7 @@ function speakWithVoice(
     ===================================== */
 
     window.speechSynthesis.cancel();
+
 
     window.speechSynthesis.speak(
         speech

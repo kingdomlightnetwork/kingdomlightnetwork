@@ -758,7 +758,7 @@
         }
 
 
-      /* =============================================
+/* =============================================
    AUDIO — URDU + MULTI-LANGUAGE STABLE SYSTEM
    Browser SpeechSynthesis
 ============================================= */
@@ -768,7 +768,6 @@ function setupAudio(text) {
     const button =
         document.getElementById("verseAudioButton");
 
-
     if (!button) {
 
         console.error(
@@ -776,7 +775,6 @@ function setupAudio(text) {
         );
 
         return;
-
     }
 
 
@@ -799,7 +797,6 @@ function setupAudio(text) {
             );
 
             return;
-
         }
 
 
@@ -818,7 +815,6 @@ function setupAudio(text) {
                 "🔊 Listen";
 
             return;
-
         }
 
 
@@ -831,77 +827,77 @@ function setupAudio(text) {
 
 
         /* =====================================
-           SPEECH LANGUAGE MAP
+           LANGUAGE MAP
         ===================================== */
 
         const speechLanguages = {
 
-            en: "en-US",
+            en: ["en-US", "en-GB", "en"],
 
-            ur: "ur-PK",
+            ur: ["ur-PK", "ur-IN", "ur"],
 
-            pa: "pa-PK",
+            pa: ["pa-PK", "pa-IN", "pa"],
 
-            ar: "ar-SA",
+            ar: ["ar-SA", "ar-AE", "ar", "ar-XA"],
 
-            fa: "fa-IR",
+            fa: ["fa-IR", "fa"],
 
-            he: "he-IL",
+            he: ["he-IL", "he"],
 
-            arc: "ar",
+            arc: ["ar"],
 
-            grc: "el-GR",
+            grc: ["el-GR", "el"],
 
-            es: "es-ES",
+            es: ["es-ES", "es-MX", "es"],
 
-            pt: "pt-PT",
+            pt: ["pt-PT", "pt-BR", "pt"],
 
-            fr: "fr-FR",
+            fr: ["fr-FR", "fr-CA", "fr"],
 
-            de: "de-DE",
+            de: ["de-DE", "de"],
 
-            it: "it-IT",
+            it: ["it-IT", "it"],
 
-            ru: "ru-RU",
+            ru: ["ru-RU", "ru"],
 
-            nl: "nl-NL",
+            nl: ["nl-NL", "nl"],
 
-            tr: "tr-TR",
+            tr: ["tr-TR", "tr"],
 
-            bn: "bn-BD",
+            bn: ["bn-BD", "bn-IN", "bn"],
 
-            ta: "ta-IN",
+            ta: ["ta-IN", "ta"],
 
-            te: "te-IN",
+            te: ["te-IN", "te"],
 
-            mr: "mr-IN",
+            mr: ["mr-IN", "mr"],
 
-            "zh-CN": "zh-CN",
+            "zh-CN": ["zh-CN", "zh"],
 
-            "zh-TW": "zh-TW",
+            "zh-TW": ["zh-TW", "zh"],
 
-            ja: "ja-JP",
+            ja: ["ja-JP", "ja"],
 
-            ko: "ko-KR",
+            ko: ["ko-KR", "ko"],
 
-            vi: "vi-VN",
+            vi: ["vi-VN", "vi"],
 
-            th: "th-TH",
+            th: ["th-TH", "th"],
 
-            id: "id-ID",
+            id: ["id-ID", "id"],
 
-            ms: "ms-MY",
+            ms: ["ms-MY", "ms"],
 
-            fil: "fil-PH",
+            fil: ["fil-PH", "fil"],
 
-            sw: "sw-KE"
+            sw: ["sw-KE", "sw"]
 
         };
 
 
-        const requestedLanguage =
+        const requestedLanguages =
             speechLanguages[language] ||
-            "en-US";
+            ["en-US", "en"];
 
 
         /* =====================================
@@ -912,305 +908,10 @@ function setupAudio(text) {
             window.speechSynthesis.getVoices();
 
 
-        /* =====================================
-           PLAY FUNCTION
-        ===================================== */
-
-        function speakWithVoice(availableVoices) {
-
-            if (
-                !availableVoices ||
-                availableVoices.length === 0
-            ) {
-
-                alert(
-                    "No speech voice is available in this browser."
-                );
-
-                return;
-
-            }
-
-
-            const requested =
-                requestedLanguage.toLowerCase();
-
-
-            const baseLanguage =
-                requested.split("-")[0];
-
-
-            /* =================================
-               1. EXACT LANGUAGE MATCH
-            ================================= */
-
-            let voice =
-                availableVoices.find(
-                    function (item) {
-
-                        return (
-                            item.lang &&
-                            item.lang.toLowerCase() ===
-                            requested
-                        );
-
-                    }
-                );
-
-
-            /* =================================
-               2. BASE LANGUAGE MATCH
-            ================================= */
-
-            if (!voice) {
-
-                voice =
-                    availableVoices.find(
-                        function (item) {
-
-                            return (
-                                item.lang &&
-                                item.lang
-                                    .toLowerCase()
-                                    .split("-")[0] ===
-                                baseLanguage
-                            );
-
-                        }
-                    );
-
-            }
-
-
-            /* =================================
-               3. LANGUAGE NAME MATCH
-            ================================= */
-
-            if (!voice) {
-
-                const languageNames = {
-
-                    ur: [
-                        "urdu",
-                        "pakistan"
-                    ],
-
-                    pa: [
-                        "punjabi"
-                    ],
-
-                    ar: [
-                        "arabic"
-                    ],
-
-                    fa: [
-                        "persian",
-                        "farsi"
-                    ],
-
-                    he: [
-                        "hebrew"
-                    ],
-
-                    grc: [
-                        "greek"
-                    ],
-
-                    en: [
-                        "english"
-                    ],
-
-                    es: [
-                        "spanish"
-                    ],
-
-                    pt: [
-                        "portuguese"
-                    ],
-
-                    fr: [
-                        "french"
-                    ],
-
-                    de: [
-                        "german"
-                    ],
-
-                    it: [
-                        "italian"
-                    ],
-
-                    ru: [
-                        "russian"
-                    ],
-
-                    nl: [
-                        "dutch"
-                    ],
-
-                    tr: [
-                        "turkish"
-                    ]
-
-                };
-
-
-                const names =
-                    languageNames[language] ||
-                    [];
-
-
-                voice =
-                    availableVoices.find(
-                        function (item) {
-
-                            const voiceName =
-                                (
-                                    item.name ||
-                                    ""
-                                ).toLowerCase();
-
-
-                            const voiceLang =
-                                (
-                                    item.lang ||
-                                    ""
-                                ).toLowerCase();
-
-
-                            return names.some(
-                                function (name) {
-
-                                    return (
-                                        voiceName.includes(name) ||
-                                        voiceLang.includes(name)
-                                    );
-
-                                }
-                            );
-
-                        }
-                    );
-
-            }
-
-
-            /* =================================
-               CREATE SPEECH
-            ================================= */
-
-            const speech =
-                new SpeechSynthesisUtterance(
-                    text
-                );
-
-
-            /* =================================
-               APPLY SELECTED VOICE
-            ================================= */
-
-            if (voice) {
-
-                speech.voice =
-                    voice;
-
-                speech.lang =
-                    voice.lang;
-
-                console.log(
-                    "Bible Audio Voice:",
-                    voice.name,
-                    voice.lang
-                );
-
-            } else {
-
-                speech.lang =
-                    requestedLanguage;
-
-                console.warn(
-                    "No matching voice found:",
-                    requestedLanguage
-                );
-
-            }
-
-
-            /* =================================
-               AUDIO SETTINGS
-            ================================= */
-
-            speech.rate =
-                0.85;
-
-            speech.pitch =
-                1;
-
-            speech.volume =
-                1;
-
-
-            /* =================================
-               AUDIO START
-            ================================= */
-
-            speech.onstart =
-                function () {
-
-                    button.textContent =
-                        "⏹ Stop";
-
-                };
-
-
-            /* =================================
-               AUDIO END
-            ================================= */
-
-            speech.onend =
-                function () {
-
-                    button.textContent =
-                        "🔊 Listen";
-
-                };
-
-
-            /* =================================
-               AUDIO ERROR
-            ================================= */
-
-            speech.onerror =
-                function (event) {
-
-                    console.error(
-                        "Bible Audio Error:",
-                        event
-                    );
-
-                    button.textContent =
-                        "🔊 Listen";
-
-                };
-
-
-            /* =================================
-               PLAY
-            ================================= */
-
-            window.speechSynthesis.cancel();
-
-
-            window.speechSynthesis.speak(
-                speech
-            );
-
-        }
-
-
-        /* =====================================
-           VOICES NOT READY
-        ===================================== */
+        /*
+           کچھ browsers میں voices
+           فوراً load نہیں ہوتیں۔
+        */
 
         if (
             !voices ||
@@ -1221,11 +922,14 @@ function setupAudio(text) {
                 function () {
 
                     voices =
-                        window.speechSynthesis
-                            .getVoices();
+                        window.speechSynthesis.getVoices();
 
-                    speakWithVoice(
-                        voices
+                    playBibleAudio(
+                        voices,
+                        requestedLanguages,
+                        language,
+                        text,
+                        button
                     );
 
                 };
@@ -1235,42 +939,438 @@ function setupAudio(text) {
                 function () {
 
                     voices =
-                        window.speechSynthesis
-                            .getVoices();
-
+                        window.speechSynthesis.getVoices();
 
                     if (
                         voices &&
                         voices.length > 0
                     ) {
 
-                        speakWithVoice(
-                            voices
+                        playBibleAudio(
+                            voices,
+                            requestedLanguages,
+                            language,
+                            text,
+                            button
                         );
 
                     }
 
                 },
-                800
+                700
             );
 
 
             return;
-
         }
 
 
-        /* =====================================
-           PLAY AUDIO
-        ===================================== */
+        playBibleAudio(
+            voices,
+            requestedLanguages,
+            language,
+            text,
+            button
+        );
 
-        speakWithVoice(
-            voices
-           );
+    };
+
+}
+
+
+/* =============================================
+   FIND AND PLAY BIBLE VOICE
+============================================= */
+
+function playBibleAudio(
+    voices,
+    requestedLanguages,
+    language,
+    text,
+    button
+) {
+
+    if (
+        !voices ||
+        voices.length === 0
+    ) {
+
+        alert(
+            "No speech voice is available in this browser."
+        );
+
+        return;
+    }
+
+
+    /* =====================================
+       DEBUG — AVAILABLE VOICES
+    ===================================== */
+
+    console.log(
+        "Bible Audio Language:",
+        language
+    );
+
+    console.log(
+        "Requested Speech Languages:",
+        requestedLanguages
+    );
+
+    console.log(
+        "Available Browser Voices:",
+        voices.map(function (voice) {
+
+            return (
+                voice.name +
+                " [" +
+                voice.lang +
+                "]"
+            );
+
+        })
+    );
+
+
+    /* =====================================
+       FIND VOICE
+    ===================================== */
+
+    let voice = null;
+
+
+    /* =====================================
+       1. EXACT LANGUAGE MATCH
+    ===================================== */
+
+    for (
+        let i = 0;
+        i < requestedLanguages.length;
+        i++
+    ) {
+
+        const requested =
+            requestedLanguages[i].toLowerCase();
+
+
+        voice =
+            voices.find(
+                function (item) {
+
+                    return (
+                        item.lang &&
+                        item.lang
+                            .toLowerCase() ===
+                        requested
+                    );
+
+                }
+            );
+
+
+        if (voice) {
+            break;
+        }
+
+    }
+
+
+    /* =====================================
+       2. BASE LANGUAGE MATCH
+    ===================================== */
+
+    if (!voice) {
+
+        const baseLanguages =
+            requestedLanguages.map(
+                function (value) {
+
+                    return value
+                        .toLowerCase()
+                        .split("-")[0];
+
+                }
+            );
+
+
+        voice =
+            voices.find(
+                function (item) {
+
+                    if (!item.lang) {
+                        return false;
+                    }
+
+
+                    const voiceBase =
+                        item.lang
+                            .toLowerCase()
+                            .split("-")[0];
+
+
+                    return baseLanguages.includes(
+                        voiceBase
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* =====================================
+       3. VOICE NAME MATCH
+       خاص طور پر اردو کے لیے
+    ===================================== */
+
+    if (!voice) {
+
+        const languageNames = {
+
+            ur: [
+                "urdu",
+                "pakistan",
+                "india"
+            ],
+
+            pa: [
+                "punjabi"
+            ],
+
+            ar: [
+                "arabic"
+            ],
+
+            fa: [
+                "persian",
+                "farsi"
+            ],
+
+            he: [
+                "hebrew"
+            ],
+
+            grc: [
+                "greek"
+            ],
+
+            en: [
+                "english"
+            ],
+
+            es: [
+                "spanish"
+            ],
+
+            pt: [
+                "portuguese"
+            ],
+
+            fr: [
+                "french"
+            ],
+
+            de: [
+                "german"
+            ],
+
+            it: [
+                "italian"
+            ],
+
+            ru: [
+                "russian"
+            ],
+
+            nl: [
+                "dutch"
+            ],
+
+            tr: [
+                "turkish"
+            ]
 
         };
 
-     }
+
+        const names =
+            languageNames[language] ||
+            [];
+
+
+        voice =
+            voices.find(
+                function (item) {
+
+                    const voiceName =
+                        (
+                            item.name ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const voiceLang =
+                        (
+                            item.lang ||
+                            ""
+                        ).toLowerCase();
+
+
+                    return names.some(
+                        function (name) {
+
+                            return (
+                                voiceName.includes(name) ||
+                                voiceLang.includes(name)
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* =====================================
+       CREATE SPEECH
+    ===================================== */
+
+    const speech =
+        new SpeechSynthesisUtterance(text);
+
+
+    /* =====================================
+       APPLY SELECTED VOICE
+    ===================================== */
+
+    if (voice) {
+
+        speech.voice =
+            voice;
+
+        speech.lang =
+            voice.lang;
+
+
+        console.log(
+            "Bible Audio Voice Selected:",
+            voice.name,
+            voice.lang
+        );
+
+    } else {
+
+        /*
+           اگر اردو Voice موجود نہ ہو
+           تو browser کو requested language دیں۔
+        */
+
+        speech.lang =
+            requestedLanguages[0];
+
+
+        console.warn(
+            "No matching voice found for:",
+            requestedLanguages
+        );
+
+    }
+
+
+    /* =====================================
+       SPEECH SETTINGS
+    ===================================== */
+
+    speech.rate =
+        0.85;
+
+    speech.pitch =
+        1;
+
+    speech.volume =
+        1;
+
+
+    /* =====================================
+       AUDIO START
+    ===================================== */
+
+    speech.onstart =
+        function () {
+
+            button.textContent =
+                "⏹ Stop";
+
+        };
+
+
+    /* =====================================
+       AUDIO END
+    ===================================== */
+
+    speech.onend =
+        function () {
+
+            button.textContent =
+                "🔊 Listen";
+
+        };
+
+
+    /* =====================================
+       AUDIO ERROR
+    ===================================== */
+
+    speech.onerror =
+        function (event) {
+
+            console.error(
+                "Bible Audio Error:",
+                event
+            );
+
+
+            console.error(
+                "Language:",
+                language
+            );
+
+
+            console.error(
+                "Requested:",
+                requestedLanguages
+            );
+
+
+            button.textContent =
+                "🔊 Listen";
+
+        };
+
+
+    /* =====================================
+       PLAY
+    ===================================== */
+
+    window.speechSynthesis.cancel();
+
+
+    setTimeout(
+        function () {
+
+            window.speechSynthesis.speak(
+                speech
+            );
+
+        },
+        100
+    );
+
+}
+
+
        
         /* =============================================
            ZOOM

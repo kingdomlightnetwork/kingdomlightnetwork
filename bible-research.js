@@ -1,8 +1,8 @@
-```js
 /* =====================================================
    KINGDOM LIGHT NETWORK
    BIBLE RESEARCH / SELECTOR ENGINE
    FINAL STABLE VERSION
+
    Testament → Book → Chapter → Verse
    Audio + Zoom + Research
 ===================================================== */
@@ -54,7 +54,7 @@
 
 
         /* =============================================
-           CHECK HTML
+           CHECK REQUIRED HTML
         ============================================= */
 
         if (!testamentSelect) {
@@ -565,9 +565,7 @@
                 );
 
 
-            if (
-                verses.length > 0
-            ) {
+            if (verses.length > 0) {
 
                 verses.forEach(
                     function (verse) {
@@ -700,23 +698,21 @@
            TEXT DIRECTION
         ============================================= */
 
-        function getDirection(
-            language
-        ) {
+        function getDirection(language) {
 
             const rtlLanguages = [
+
                 "ur",
                 "pa",
                 "ar",
                 "fa",
                 "he",
                 "arc"
+
             ];
 
 
-            return rtlLanguages.includes(
-                language
-            )
+            return rtlLanguages.includes(language)
                 ? "rtl"
                 : "ltr";
 
@@ -730,26 +726,11 @@
         function escapeHTML(value) {
 
             return String(value)
-                .replace(
-                    /&/g,
-                    "&amp;"
-                )
-                .replace(
-                    /</g,
-                    "&lt;"
-                )
-                .replace(
-                    />/g,
-                    "&gt;"
-                )
-                .replace(
-                    /"/g,
-                    "&quot;"
-                )
-                .replace(
-                    /'/g,
-                    "&#039;"
-                );
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
 
         }
 
@@ -774,6 +755,7 @@
                     "verseAudioButton"
                 );
 
+
             if (button) {
 
                 button.textContent =
@@ -783,216 +765,174 @@
 
         }
 
-     
-/* =============================================
-   AUDIO — SIMPLE STABLE SYSTEM
-   Browser SpeechSynthesis
-============================================= */
 
-function setupAudio(text) {
+        /* =============================================
+           AUDIO — STABLE MULTI-LANGUAGE
+        ============================================= */
 
-    const button =
-        document.getElementById("verseAudioButton");
+        function setupAudio(text) {
 
-    if (!button) {
-
-        console.error(
-            "Bible Audio Error: verseAudioButton not found."
-        );
-
-        return;
-    }
-
-
-    /* پہلے موجود Audio Handler ختم کریں */
-
-    button.onclick = null;
-
-
-    button.onclick = function () {
-
-        /* Browser Audio Support Check */
-
-        if (
-            !("speechSynthesis" in window) ||
-            !("SpeechSynthesisUtterance" in window)
-        ) {
-
-            alert(
-                "Audio is not supported by this browser."
-            );
-
-            return;
-        }
-
-
-        /* اگر Audio چل رہی ہے تو Stop کریں */
-
-        if (
-            window.speechSynthesis.speaking ||
-            window.speechSynthesis.pending
-        ) {
-
-            window.speechSynthesis.cancel();
-
-            button.textContent = "🔊 Listen";
-
-            return;
-        }
-
-
-        /* موجودہ زبان حاصل کریں */
-
-        const language =
-            getLanguage();
-
-
-        /* زبان کے مطابق Speech Language */
-
-        const speechLanguages = {
-
-            en: "en-US",
-
-            ur: "ur-PK",
-
-            pa: "pa-PK",
-
-            ar: "ar-SA",
-
-            fa: "fa-IR",
-
-            he: "he-IL",
-
-            arc: "ar",
-
-            grc: "el-GR",
-
-            es: "es-ES",
-
-            pt: "pt-PT",
-
-            fr: "fr-FR",
-
-            de: "de-DE",
-
-            it: "it-IT",
-
-            ru: "ru-RU",
-
-            nl: "nl-NL",
-
-            tr: "tr-TR",
-
-            bn: "bn-BD",
-
-            ta: "ta-IN",
-
-            te: "te-IN",
-
-            mr: "mr-IN",
-
-            "zh-CN": "zh-CN",
-
-            "zh-TW": "zh-TW",
-
-            ja: "ja-JP",
-
-            ko: "ko-KR",
-
-            vi: "vi-VN",
-
-            th: "th-TH",
-
-            id: "id-ID",
-
-            ms: "ms-MY",
-
-            fil: "fil-PH",
-
-            sw: "sw-KE"
-
-        };
-
-
-        const speechLanguage =
-            speechLanguages[language] ||
-            "en-US";
-
-
-        /* Speech Object بنائیں */
-
-        const speech =
-            new SpeechSynthesisUtterance(text);
-
-
-        speech.lang =
-            speechLanguage;
-
-
-        speech.rate =
-            0.85;
-
-
-        speech.pitch =
-            1;
-
-
-        speech.volume =
-            1;
-
-
-        /* Audio شروع */
-
-        speech.onstart =
-            function () {
-
-                button.textContent =
-                    "⏹ Stop";
-
-            };
-
-
-        /* Audio ختم */
-
-        speech.onend =
-            function () {
-
-                button.textContent =
-                    "🔊 Listen";
-
-            };
-
-
-        /* Audio Error */
-
-        speech.onerror =
-            function (event) {
-
-                console.error(
-                    "Bible Audio Error:",
-                    event
+            const button =
+                document.getElementById(
+                    "verseAudioButton"
                 );
 
-                button.textContent =
-                    "🔊 Listen";
 
-            };
+            if (!button) {
+
+                console.error(
+                    "Bible Audio Error: verseAudioButton not found."
+                );
+
+                return;
+
+            }
 
 
-        /* پہلے پرانی Speech ختم کریں */
-
-        window.speechSynthesis.cancel();
+            button.onclick = null;
 
 
-        /* نئی Speech چلائیں */
+            button.onclick =
+                function () {
 
-        window.speechSynthesis.speak(
-            speech
-        );
+                    if (
+                        !("speechSynthesis" in window) ||
+                        !("SpeechSynthesisUtterance" in window)
+                    ) {
 
-       };
- 
-    }
+                        alert(
+                            "Audio is not supported by this browser."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        window.speechSynthesis.speaking ||
+                        window.speechSynthesis.pending
+                    ) {
+
+                        window.speechSynthesis.cancel();
+
+                        button.textContent =
+                            "🔊 Listen";
+
+                        return;
+
+                    }
+
+
+                    const language =
+                        getLanguage();
+
+
+                    const speechLanguages = {
+
+                        en: "en-US",
+                        ur: "ur-PK",
+                        pa: "pa-PK",
+                        ar: "ar-SA",
+                        fa: "fa-IR",
+                        he: "he-IL",
+                        arc: "ar",
+                        grc: "el-GR",
+                        es: "es-ES",
+                        pt: "pt-PT",
+                        fr: "fr-FR",
+                        de: "de-DE",
+                        it: "it-IT",
+                        ru: "ru-RU",
+                        nl: "nl-NL",
+                        tr: "tr-TR",
+                        bn: "bn-BD",
+                        ta: "ta-IN",
+                        te: "te-IN",
+                        mr: "mr-IN",
+                        "zh-CN": "zh-CN",
+                        "zh-TW": "zh-TW",
+                        ja: "ja-JP",
+                        ko: "ko-KR",
+                        vi: "vi-VN",
+                        th: "th-TH",
+                        id: "id-ID",
+                        ms: "ms-MY",
+                        fil: "fil-PH",
+                        sw: "sw-KE"
+
+                    };
+
+
+                    const speechLanguage =
+                        speechLanguages[language] ||
+                        "en-US";
+
+
+                    const speech =
+                        new SpeechSynthesisUtterance(
+                            text
+                        );
+
+
+                    speech.lang =
+                        speechLanguage;
+
+
+                    speech.rate =
+                        0.85;
+
+
+                    speech.pitch =
+                        1;
+
+
+                    speech.volume =
+                        1;
+
+
+                    speech.onstart =
+                        function () {
+
+                            button.textContent =
+                                "⏹ Stop";
+
+                        };
+
+
+                    speech.onend =
+                        function () {
+
+                            button.textContent =
+                                "🔊 Listen";
+
+                        };
+
+
+                    speech.onerror =
+                        function (event) {
+
+                            console.error(
+                                "Bible Audio Error:",
+                                event
+                            );
+
+                            button.textContent =
+                                "🔊 Listen";
+
+                        };
+
+
+                    window.speechSynthesis.cancel();
+
+
+                    window.speechSynthesis.speak(
+                        speech
+                    );
+
+                };
+
+        }
 
 
         /* =============================================
@@ -1371,10 +1311,6 @@ function setupAudio(text) {
         );
 
 
-        /*
-           Verse منتخب ہوتے ہی متن خود بخود آئے گا۔
-        */
-
         verseSelect.addEventListener(
             "change",
             readVerse
@@ -1473,5 +1409,3 @@ function setupAudio(text) {
     }
 
 })();
-```
-

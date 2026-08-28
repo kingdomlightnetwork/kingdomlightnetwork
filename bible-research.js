@@ -1,10 +1,11 @@
+
 /* =====================================================
    KINGDOM LIGHT NETWORK
    BIBLE RESEARCH / SELECTOR ENGINE
    FINAL STABLE VERSION
 
    Testament → Book → Chapter → Verse
-   Audio + Zoom + Research
+   Reading + Research + Audio + Zoom
 ===================================================== */
 
 (function () {
@@ -22,7 +23,7 @@
 
 
         /* =============================================
-           DOM
+           DOM ELEMENTS
         ============================================= */
 
         const sourceLanguage =
@@ -85,6 +86,7 @@
             return;
         }
 
+
         console.log(
             "Bible Selector HTML detected."
         );
@@ -110,6 +112,7 @@
 
                 ["1 Samuel", 31],
                 ["2 Samuel", 24],
+
                 ["1 Kings", 22],
                 ["2 Kings", 25],
 
@@ -269,9 +272,7 @@
                 option.textContent =
                     book[0];
 
-                bookSelect.appendChild(
-                    option
-                );
+                bookSelect.appendChild(option);
 
             });
 
@@ -383,9 +384,7 @@
                 option.textContent =
                     "Chapter " + chapter;
 
-                chapterSelect.appendChild(
-                    option
-                );
+                chapterSelect.appendChild(option);
 
             }
 
@@ -400,7 +399,7 @@
 
 
         /* =============================================
-           GET DATABASE
+           GET BIBLE DATABASE
         ============================================= */
 
         function getDatabase(language) {
@@ -433,8 +432,10 @@
                 "undefined"
             ) {
 
-                return BIBLE_DATABASE[language] ||
-                    null;
+                return (
+                    BIBLE_DATABASE[language] ||
+                    null
+                );
 
             }
 
@@ -536,9 +537,7 @@
                 bookSelect.value;
 
             const chapter =
-                Number(
-                    chapterSelect.value
-                );
+                Number(chapterSelect.value);
 
 
             if (
@@ -611,9 +610,7 @@
             option.textContent =
                 "No verse text in local database";
 
-            verseSelect.appendChild(
-                option
-            );
+            verseSelect.appendChild(option);
 
 
             console.log(
@@ -681,15 +678,10 @@
             }
 
 
-            return database[
-                testament
-            ][
-                book
-            ][
-                chapter
-            ][
-                verse
-            ] || null;
+            return (
+                database[testament][book][chapter][verse] ||
+                null
+            );
 
         }
 
@@ -767,7 +759,8 @@
 
 
         /* =============================================
-           AUDIO — STABLE MULTI-LANGUAGE
+           AUDIO — STABLE SYSTEM
+           Browser SpeechSynthesis
         ============================================= */
 
         function setupAudio(text) {
@@ -831,34 +824,63 @@
                     const speechLanguages = {
 
                         en: "en-US",
+
                         ur: "ur-PK",
+
                         pa: "pa-PK",
+
                         ar: "ar-SA",
+
                         fa: "fa-IR",
+
                         he: "he-IL",
+
                         arc: "ar",
+
                         grc: "el-GR",
+
                         es: "es-ES",
+
                         pt: "pt-PT",
+
                         fr: "fr-FR",
+
                         de: "de-DE",
+
                         it: "it-IT",
+
                         ru: "ru-RU",
+
                         nl: "nl-NL",
+
                         tr: "tr-TR",
+
                         bn: "bn-BD",
+
                         ta: "ta-IN",
+
                         te: "te-IN",
+
                         mr: "mr-IN",
+
                         "zh-CN": "zh-CN",
+
                         "zh-TW": "zh-TW",
+
                         ja: "ja-JP",
+
                         ko: "ko-KR",
+
                         vi: "vi-VN",
+
                         th: "th-TH",
+
                         id: "id-ID",
+
                         ms: "ms-MY",
+
                         fil: "fil-PH",
+
                         sw: "sw-KE"
 
                     };
@@ -878,14 +900,11 @@
                     speech.lang =
                         speechLanguage;
 
-
                     speech.rate =
                         0.85;
 
-
                     speech.pitch =
                         1;
-
 
                     speech.volume =
                         1;
@@ -1138,14 +1157,10 @@
                 bookSelect.value;
 
             const chapter =
-                Number(
-                    chapterSelect.value
-                );
+                Number(chapterSelect.value);
 
             const verse =
-                Number(
-                    verseSelect.value
-                );
+                Number(verseSelect.value);
 
             const language =
                 getLanguage();
@@ -1197,14 +1212,10 @@
                 bookSelect.value;
 
             const chapter =
-                Number(
-                    chapterSelect.value
-                );
+                Number(chapterSelect.value);
 
             const verse =
-                Number(
-                    verseSelect.value
-                );
+                Number(verseSelect.value);
 
             const language =
                 getLanguage();
@@ -1409,3 +1420,5 @@
     }
 
 })();
+```
+

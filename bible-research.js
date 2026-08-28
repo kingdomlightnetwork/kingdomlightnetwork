@@ -789,22 +789,21 @@
 
         }
 
-       ```js
+    
+      /* =============================================
+      AUDIO — FINAL MULTI-LANGUAGE VOICE SYSTEM
+      Urdu / Punjabi / Arabic / English / Other Languages
+      ============================================= */
 
-/* =============================================
-   AUDIO — FINAL MULTI-LANGUAGE VOICE SYSTEM
-   Urdu / Punjabi / Arabic / English / Other Languages
-============================================= */
+      function setupAudio(text) {
 
-function setupAudio(text) {
-
-    const button =
+       const button =
         document.getElementById(
             "verseAudioButton"
         );
 
 
-    if (!button) {
+      if (!button) {
 
         console.error(
             "Bible Audio Error: verseAudioButton not found."
@@ -812,18 +811,18 @@ function setupAudio(text) {
 
         return;
 
-    }
+       }
 
 
-    /*
-       پرانے handler کو ختم کریں۔
-    */
+      /*
+        پرانے handler کو ختم کریں۔
+     */
 
-    button.onclick = null;
+      button.onclick = null;
 
 
-    button.onclick =
-        function () {
+       button.onclick =
+          function () {
 
             if (
                 !("speechSynthesis" in window) ||

@@ -1325,21 +1325,20 @@ function playBibleAudio(
         };
 
 
-    /* =====================================
-       PLAY
-    ===================================== */
+        /* =====================================
+           PLAY
+         ===================================== */
 
-    window.speechSynthesis.cancel();
+         window.speechSynthesis.cancel();
 
 
-    window.speechSynthesis.speak(
-        speech
-    );
+         window.speechSynthesis.speak(
+            speech
+        );
 
-}
-```
+     }
 
-   
+
         /* =============================================
            ZOOM
         ============================================= */

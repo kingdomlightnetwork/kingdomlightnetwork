@@ -234,11 +234,14 @@
                 BIBLE_BOOKS[currentTestament];
 
             if (!books) {
+
                 console.error(
                     "Bible Error: Testament not found:",
                     currentTestament
                 );
+
                 return;
+
             }
 
             books.forEach(function (book) {
@@ -289,8 +292,15 @@
 
         function loadChapters() {
 
-            resetSelect(chapterSelect, "Select Chapter");
-            resetSelect(verseSelect, "Select Verse");
+            resetSelect(
+                chapterSelect,
+                "Select Chapter"
+            );
+
+            resetSelect(
+                verseSelect,
+                "Select Verse"
+            );
 
             currentTestament =
                 testamentSelect.value || "";
@@ -304,7 +314,9 @@
                 !currentTestament ||
                 !currentBook
             ) {
+
                 return;
+
             }
 
             const book =
@@ -314,11 +326,14 @@
                 );
 
             if (!book) {
+
                 console.error(
                     "Bible Error: Book not found:",
                     currentBook
                 );
+
                 return;
+
             }
 
             const chapterCount =
@@ -440,7 +455,9 @@
                 !database[testament][book] ||
                 !database[testament][book][chapter]
             ) {
+
                 return [];
+
             }
 
             return Object.keys(
@@ -493,7 +510,9 @@
                 !currentBook ||
                 !chapter
             ) {
+
                 return;
+
             }
 
             const language =
@@ -602,7 +621,9 @@
                 !database[testament][book] ||
                 !database[testament][book][chapter]
             ) {
+
                 return null;
+
             }
 
             return (
@@ -635,7 +656,9 @@
                 !database[testament][book] ||
                 !database[testament][book][chapter]
             ) {
+
                 return [];
+
             }
 
             const chapterData =
@@ -1114,20 +1137,26 @@
             }
 
 
+            const normalizedRequested =
+                requestedLanguages.map(function (value) {
+
+                    return normalizeLanguage(value);
+
+                });
+
+
             /* -----------------------------------------
                EXACT LANGUAGE MATCH
             ----------------------------------------- */
 
             for (
                 let i = 0;
-                i < requestedLanguages.length;
+                i < normalizedRequested.length;
                 i++
             ) {
 
                 const requested =
-                    normalizeLanguage(
-                        requestedLanguages[i]
-                    );
+                    normalizedRequested[i];
 
                 const exact =
                     voices.find(function (voice) {
@@ -1154,10 +1183,9 @@
             ----------------------------------------- */
 
             const baseLanguages =
-                requestedLanguages.map(function (value) {
+                normalizedRequested.map(function (value) {
 
-                    return normalizeLanguage(value)
-                        .split("-")[0];
+                    return value.split("-")[0];
 
                 });
 
@@ -1256,9 +1284,9 @@
                             ).toLowerCase();
 
                         const lang =
-                            String(
-                                voice.lang || ""
-                            ).toLowerCase();
+                            normalizeLanguage(
+                                voice.lang
+                            );
 
                         return (
                             name.includes("urdu") ||
@@ -1294,9 +1322,9 @@
                             ).toLowerCase();
 
                         const lang =
-                            String(
-                                voice.lang || ""
-                            ).toLowerCase();
+                            normalizeLanguage(
+                                voice.lang
+                            );
 
                         return (
                             name.includes("punjabi") ||
@@ -1313,6 +1341,44 @@
                     return punjabiVoice;
 
                 }
+
+            }
+
+
+            /*
+             * -----------------------------------------
+             * GENERIC LANGUAGE FALLBACK
+             *
+             * اگر مخصوص Voice نہ ملے تو browser
+             * کی کسی بھی compatible voice کو تلاش کریں۔
+             * -----------------------------------------
+             */
+
+            const genericVoice =
+                voices.find(function (voice) {
+
+                    const voiceLang =
+                        normalizeLanguage(
+                            voice.lang
+                        );
+
+                    if (!voiceLang) {
+                        return false;
+                    }
+
+                    const voiceBase =
+                        voiceLang.split("-")[0];
+
+                    return baseLanguages.includes(
+                        voiceBase
+                    );
+
+                });
+
+
+            if (genericVoice) {
+
+                return genericVoice;
 
             }
 
@@ -1407,12 +1473,6 @@
                 );
 
 
-            /*
-             * -----------------------------------------
-             * اگر زبان کی مخصوص Voice مل جائے
-             * -----------------------------------------
-             */
-
             if (voice) {
 
                 console.log(
@@ -1424,28 +1484,11 @@
             } else {
 
                 console.warn(
-                    "No matching voice found for:",
-                    requestedLanguages
-                );
-
-                /*
-                 * Voice نہ ملنے پر بھی فوراً نظام بند نہ کریں۔
-                 * Browser کو مطلوبہ زبان خود دی جائے گی۔
-                 */
-
-                console.warn(
-                    "Using browser speech language fallback:",
-                    requestedLanguages[0]
+                    "No exact matching voice found."
                 );
 
             }
 
-
-            /*
-             * -----------------------------------------
-             * موجودہ Speech روکیں
-             * -----------------------------------------
-             */
 
             try {
 
@@ -1461,12 +1504,6 @@
             }
 
 
-            /*
-             * -----------------------------------------
-             * Speech Object
-             * -----------------------------------------
-             */
-
             const speech =
                 new SpeechSynthesisUtterance(
                     String(text)
@@ -1475,7 +1512,7 @@
 
             /*
              * -----------------------------------------
-             * Voice موجود ہو تو Voice استعمال کریں
+             * VOICE SELECTION
              * -----------------------------------------
              */
 
@@ -1488,6 +1525,12 @@
                     voice.lang;
 
             } else {
+
+                /*
+                 * مخصوص Voice نہ ملنے کی صورت میں
+                 * بھی Browser Speech Engine کو زبان
+                 * دی جائے گی۔
+                 */
 
                 speech.lang =
                     requestedLanguages[0] ||
@@ -1507,12 +1550,6 @@
                 1;
 
 
-            /*
-             * -----------------------------------------
-             * START
-             * -----------------------------------------
-             */
-
             speech.onstart =
                 function () {
 
@@ -1530,12 +1567,6 @@
                 };
 
 
-            /*
-             * -----------------------------------------
-             * END
-             * -----------------------------------------
-             */
-
             speech.onend =
                 function () {
 
@@ -1552,12 +1583,6 @@
 
                 };
 
-
-            /*
-             * -----------------------------------------
-             * ERROR
-             * -----------------------------------------
-             */
 
             speech.onerror =
                 function (event) {
@@ -1596,12 +1621,6 @@
 
                 };
 
-
-            /*
-             * -----------------------------------------
-             * SPEAK
-             * -----------------------------------------
-             */
 
             setTimeout(
                 function () {
@@ -1863,8 +1882,7 @@
             } else {
 
                 console.warn(
-                    "No matching chapter voice found for:",
-                    requestedLanguages
+                    "No exact chapter voice found."
                 );
 
             }
@@ -1921,8 +1939,12 @@
             speech.onstart =
                 function () {
 
-                    button.textContent =
-                        "⏹ Stop Chapter";
+                    if (button) {
+
+                        button.textContent =
+                            "⏹ Stop Chapter";
+
+                    }
 
                 };
 
@@ -1930,8 +1952,12 @@
             speech.onend =
                 function () {
 
-                    button.textContent =
-                        "🔊 Listen Chapter";
+                    if (button) {
+
+                        button.textContent =
+                            "🔊 Listen Chapter";
+
+                    }
 
                 };
 
@@ -1970,8 +1996,12 @@
                             error
                         );
 
-                        button.textContent =
-                            "🔊 Listen Chapter";
+                        if (button) {
+
+                            button.textContent =
+                                "🔊 Listen Chapter";
+
+                        }
 
                     }
 

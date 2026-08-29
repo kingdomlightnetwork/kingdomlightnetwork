@@ -6,7 +6,7 @@
    Testament → Book → Chapter → Verse
    Reading + Research + Audio + Zoom
    + Full Chapter Reading
-   + Improved Multi-Language Audio
+   + Multilingual Browser Audio
 ===================================================== */
 
 (function () {
@@ -60,26 +60,52 @@
         ============================================= */
 
         if (!testamentSelect) {
-            console.error("Bible Error: testamentSelect not found.");
+
+            console.error(
+                "Bible Error: testamentSelect not found."
+            );
+
             return;
+
         }
+
 
         if (!bookSelect) {
-            console.error("Bible Error: bookSelect not found.");
+
+            console.error(
+                "Bible Error: bookSelect not found."
+            );
+
             return;
+
         }
+
 
         if (!chapterSelect) {
-            console.error("Bible Error: chapterSelect not found.");
+
+            console.error(
+                "Bible Error: chapterSelect not found."
+            );
+
             return;
+
         }
+
 
         if (!verseSelect) {
-            console.error("Bible Error: verseSelect not found.");
+
+            console.error(
+                "Bible Error: verseSelect not found."
+            );
+
             return;
+
         }
 
-        console.log("Bible Selector HTML detected.");
+
+        console.log(
+            "Bible Selector HTML detected."
+        );
 
 
         /* =============================================
@@ -195,21 +221,33 @@
            RESET SELECT
         ============================================= */
 
-        function resetSelect(select, text) {
+        function resetSelect(
+            select,
+            text
+        ) {
 
             if (!select) {
                 return;
             }
 
+
             select.innerHTML = "";
+
 
             const option =
                 document.createElement("option");
 
-            option.value = "";
-            option.textContent = text;
 
-            select.appendChild(option);
+            option.value = "";
+
+
+            option.textContent =
+                text;
+
+
+            select.appendChild(
+                option
+            );
 
         }
 
@@ -220,22 +258,42 @@
 
         function loadBooks() {
 
-            resetSelect(bookSelect, "Select Book");
-            resetSelect(chapterSelect, "Select Chapter");
-            resetSelect(verseSelect, "Select Verse");
+            resetSelect(
+                bookSelect,
+                "Select Book"
+            );
+
+
+            resetSelect(
+                chapterSelect,
+                "Select Chapter"
+            );
+
+
+            resetSelect(
+                verseSelect,
+                "Select Verse"
+            );
+
 
             currentTestament =
                 testamentSelect.value || "";
 
+
             currentBook = "";
             currentChapter = "";
+
 
             if (!currentTestament) {
                 return;
             }
 
+
             const books =
-                BIBLE_BOOKS[currentTestament];
+                BIBLE_BOOKS[
+                    currentTestament
+                ];
+
 
             if (!books) {
 
@@ -245,21 +303,39 @@
                 );
 
                 return;
+
             }
 
-            books.forEach(function (book) {
 
-                const option =
-                    document.createElement("option");
+            books.forEach(
+                function (book) {
 
-                option.value = book[0];
-                option.textContent = book[0];
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
 
-                bookSelect.appendChild(option);
 
-            });
+                    option.value =
+                        book[0];
 
-            console.log("Books loaded:", books.length);
+
+                    option.textContent =
+                        book[0];
+
+
+                    bookSelect.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+
+            console.log(
+                "Books loaded:",
+                books.length
+            );
 
         }
 
@@ -268,20 +344,30 @@
            FIND BOOK
         ============================================= */
 
-        function findBook(testament, bookName) {
+        function findBook(
+            testament,
+            bookName
+        ) {
 
             const books =
                 BIBLE_BOOKS[testament];
+
 
             if (!books) {
                 return null;
             }
 
-            return books.find(function (book) {
 
-                return book[0] === bookName;
+            return books.find(
+                function (book) {
 
-            }) || null;
+                    return (
+                        book[0] ===
+                        bookName
+                    );
+
+                }
+            ) || null;
 
         }
 
@@ -292,26 +378,45 @@
 
         function loadChapters() {
 
-            resetSelect(chapterSelect, "Select Chapter");
-            resetSelect(verseSelect, "Select Verse");
+            resetSelect(
+                chapterSelect,
+                "Select Chapter"
+            );
+
+
+            resetSelect(
+                verseSelect,
+                "Select Verse"
+            );
+
 
             currentTestament =
                 testamentSelect.value || "";
 
+
             currentBook =
                 bookSelect.value || "";
 
+
             currentChapter = "";
 
-            if (!currentTestament || !currentBook) {
+
+            if (
+                !currentTestament ||
+                !currentBook
+            ) {
+
                 return;
+
             }
+
 
             const book =
                 findBook(
                     currentTestament,
                     currentBook
                 );
+
 
             if (!book) {
 
@@ -321,10 +426,13 @@
                 );
 
                 return;
+
             }
+
 
             const chapterCount =
                 Number(book[1]);
+
 
             for (
                 let chapter = 1;
@@ -333,16 +441,26 @@
             ) {
 
                 const option =
-                    document.createElement("option");
+                    document.createElement(
+                        "option"
+                    );
 
-                option.value = String(chapter);
+
+                option.value =
+                    String(chapter);
+
 
                 option.textContent =
-                    "Chapter " + chapter;
+                    "Chapter " +
+                    chapter;
 
-                chapterSelect.appendChild(option);
+
+                chapterSelect.appendChild(
+                    option
+                );
 
             }
+
 
             console.log(
                 "Chapters loaded:",
@@ -357,7 +475,9 @@
            GET BIBLE DATABASE
         ============================================= */
 
-        function getDatabase(language) {
+        function getDatabase(
+            language
+        ) {
 
             if (
                 typeof window.getBibleDatabase ===
@@ -381,17 +501,21 @@
 
             }
 
+
             if (
                 typeof BIBLE_DATABASE !==
                 "undefined"
             ) {
 
                 return (
-                    BIBLE_DATABASE[language] ||
+                    BIBLE_DATABASE[
+                        language
+                    ] ||
                     null
                 );
 
             }
+
 
             return null;
 
@@ -413,6 +537,7 @@
 
             }
 
+
             return "en";
 
         }
@@ -432,36 +557,55 @@
             const database =
                 getDatabase(language);
 
+
             if (!database) {
                 return [];
             }
+
 
             if (
                 !database[testament] ||
                 !database[testament][book] ||
                 !database[testament][book][chapter]
             ) {
+
                 return [];
+
             }
 
+
             return Object.keys(
-                database[testament][book][chapter]
+                database[
+                    testament
+                ][
+                    book
+                ][
+                    chapter
+                ]
             )
-            .map(function (value) {
+            .map(
+                function (value) {
 
-                return Number(value);
+                    return Number(value);
 
-            })
-            .filter(function (value) {
+                }
+            )
+            .filter(
+                function (value) {
 
-                return Number.isFinite(value);
+                    return Number.isFinite(
+                        value
+                    );
 
-            })
-            .sort(function (a, b) {
+                }
+            )
+            .sort(
+                function (a, b) {
 
-                return a - b;
+                    return a - b;
 
-            });
+                }
+            );
 
         }
 
@@ -477,28 +621,39 @@
                 "Select Verse"
             );
 
+
             currentTestament =
                 testamentSelect.value || "";
+
 
             currentBook =
                 bookSelect.value || "";
 
+
             currentChapter =
                 chapterSelect.value || "";
 
+
             const chapter =
-                Number(currentChapter);
+                Number(
+                    currentChapter
+                );
+
 
             if (
                 !currentTestament ||
                 !currentBook ||
                 !chapter
             ) {
+
                 return;
+
             }
+
 
             const language =
                 getLanguage();
+
 
             const verses =
                 getAvailableVerses(
@@ -508,22 +663,34 @@
                     chapter
                 );
 
+
             if (verses.length > 0) {
 
-                verses.forEach(function (verse) {
+                verses.forEach(
+                    function (verse) {
 
-                    const option =
-                        document.createElement("option");
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
 
-                    option.value =
-                        String(verse);
 
-                    option.textContent =
-                        "Verse " + verse;
+                        option.value =
+                            String(verse);
 
-                    verseSelect.appendChild(option);
 
-                });
+                        option.textContent =
+                            "Verse " +
+                            verse;
+
+
+                        verseSelect.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
 
                 console.log(
                     "Verses loaded:",
@@ -532,19 +699,29 @@
                     verses
                 );
 
+
                 return;
 
             }
 
+
             const option =
-                document.createElement("option");
+                document.createElement(
+                    "option"
+                );
+
 
             option.value = "";
+
 
             option.textContent =
                 "No verse text in local database";
 
-            verseSelect.appendChild(option);
+
+            verseSelect.appendChild(
+                option
+            );
+
 
             console.log(
                 "No verse data:",
@@ -594,8 +771,10 @@
 
             }
 
+
             const database =
                 getDatabase(language);
+
 
             if (
                 !database ||
@@ -603,12 +782,22 @@
                 !database[testament][book] ||
                 !database[testament][book][chapter]
             ) {
+
                 return null;
+
             }
 
+
             return (
-                database[testament][book][chapter][verse] ||
-                null
+                database[
+                    testament
+                ][
+                    book
+                ][
+                    chapter
+                ][
+                    verse
+                ] || null
             );
 
         }
@@ -628,40 +817,73 @@
             const database =
                 getDatabase(language);
 
+
             if (
                 !database ||
                 !database[testament] ||
                 !database[testament][book] ||
                 !database[testament][book][chapter]
             ) {
+
                 return [];
+
             }
 
-            const chapterData =
-                database[testament][book][chapter];
 
-            return Object.keys(chapterData)
-                .map(function (verseNumber) {
+            const chapterData =
+                database[
+                    testament
+                ][
+                    book
+                ][
+                    chapter
+                ];
+
+
+            return Object.keys(
+                chapterData
+            )
+            .map(
+                function (verseNumber) {
 
                     return {
-                        verse: Number(verseNumber),
-                        text: chapterData[verseNumber]
+
+                        verse:
+                            Number(
+                                verseNumber
+                            ),
+
+                        text:
+                            chapterData[
+                                verseNumber
+                            ]
+
                     };
 
-                })
-                .filter(function (item) {
+                }
+            )
+            .filter(
+                function (item) {
 
                     return (
-                        Number.isFinite(item.verse) &&
+                        Number.isFinite(
+                            item.verse
+                        ) &&
                         item.text
                     );
 
-                })
-                .sort(function (a, b) {
+                }
+            )
+            .sort(
+                function (a, b) {
 
-                    return a.verse - b.verse;
+                    return (
+                        a.verse -
+                        b.verse
+                    );
 
-                });
+                }
+            );
 
         }
 
@@ -670,18 +892,25 @@
            TEXT DIRECTION
         ============================================= */
 
-        function getDirection(language) {
+        function getDirection(
+            language
+        ) {
 
             const rtlLanguages = [
+
                 "ur",
                 "pa",
                 "ar",
                 "fa",
                 "he",
                 "arc"
+
             ];
 
-            return rtlLanguages.includes(language)
+
+            return rtlLanguages.includes(
+                language
+            )
                 ? "rtl"
                 : "ltr";
 
@@ -692,14 +921,31 @@
            HTML ESCAPE
         ============================================= */
 
-        function escapeHTML(value) {
+        function escapeHTML(
+            value
+        ) {
 
             return String(value)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
 
         }
 
@@ -718,10 +964,12 @@
 
             }
 
+
             const verseButton =
                 document.getElementById(
                     "verseAudioButton"
                 );
+
 
             if (verseButton) {
 
@@ -730,10 +978,12 @@
 
             }
 
+
             const chapterButton =
                 document.getElementById(
                     "chapterAudioButton"
                 );
+
 
             if (chapterButton) {
 
@@ -749,7 +999,9 @@
            AUDIO LANGUAGE MAP
         ============================================= */
 
-        function getSpeechLanguages(language) {
+        function getSpeechLanguages(
+            language
+        ) {
 
             const speechLanguages = {
 
@@ -913,36 +1165,43 @@
 
             };
 
+
             return (
-                speechLanguages[language] ||
-                ["en-US", "en"]
+                speechLanguages[
+                    language
+                ] ||
+                [
+                    "en-US",
+                    "en"
+                ]
             );
 
         }
 
 
         /* =============================================
-           LANGUAGE NAME MAP
+           LANGUAGE NAME MATCHING
         ============================================= */
 
-        function getLanguageNames(language) {
+        function getLanguageNames(
+            language
+        ) {
 
             const languageNames = {
 
                 ur: [
                     "urdu",
-                    "pakistan",
-                    "india"
+                    "اردو"
                 ],
 
                 pa: [
                     "punjabi",
-                    "pakistan",
-                    "india"
+                    "ਪੰਜਾਬੀ"
                 ],
 
                 ar: [
-                    "arabic"
+                    "arabic",
+                    "العربية"
                 ],
 
                 fa: [
@@ -995,8 +1254,7 @@
                 ],
 
                 bn: [
-                    "bengali",
-                    "bangla"
+                    "bengali"
                 ],
 
                 ta: [
@@ -1045,7 +1303,12 @@
 
             };
 
-            return languageNames[language] || [];
+
+            return (
+                languageNames[
+                    language
+                ] || []
+            );
 
         }
 
@@ -1064,12 +1327,14 @@
                 !voices ||
                 voices.length === 0
             ) {
+
                 return null;
+
             }
 
 
             /* =========================================
-               1. EXACT LANGUAGE MATCH
+               EXACT LANGUAGE MATCH
             ========================================= */
 
             for (
@@ -1082,105 +1347,168 @@
                     requestedLanguages[i]
                         .toLowerCase();
 
+
                 const exactVoice =
-                    voices.find(function (voice) {
+                    voices.find(
+                        function (voice) {
 
-                        return (
-                            voice.lang &&
-                            voice.lang
-                                .toLowerCase() ===
-                            requested
-                        );
+                            return (
+                                voice.lang &&
+                                voice.lang
+                                    .toLowerCase() ===
+                                requested
+                            );
 
-                    });
+                        }
+                    );
+
 
                 if (exactVoice) {
+
                     return exactVoice;
+
                 }
 
             }
 
 
             /* =========================================
-               2. BASE LANGUAGE MATCH
+               BASE LANGUAGE MATCH
             ========================================= */
 
             const baseLanguages =
-                requestedLanguages.map(function (value) {
+                requestedLanguages.map(
+                    function (value) {
 
-                    return value
-                        .toLowerCase()
-                        .split("-")[0];
-
-                });
-
-
-            const baseVoice =
-                voices.find(function (voice) {
-
-                    if (!voice.lang) {
-                        return false;
-                    }
-
-                    const voiceBase =
-                        voice.lang
+                        return value
                             .toLowerCase()
                             .split("-")[0];
 
-                    return baseLanguages.includes(
-                        voiceBase
-                    );
+                    }
+                );
 
-                });
+
+            const baseVoice =
+                voices.find(
+                    function (voice) {
+
+                        if (!voice.lang) {
+                            return false;
+                        }
+
+
+                        const voiceBase =
+                            voice.lang
+                                .toLowerCase()
+                                .split("-")[0];
+
+
+                        return baseLanguages.includes(
+                            voiceBase
+                        );
+
+                    }
+                );
 
 
             if (baseVoice) {
+
                 return baseVoice;
+
             }
 
 
             /* =========================================
-               3. VOICE NAME MATCH
+               VOICE NAME MATCH
             ========================================= */
 
             const names =
-                getLanguageNames(language);
+                getLanguageNames(
+                    language
+                );
 
 
-            if (names.length > 0) {
+            if (
+                names.length > 0
+            ) {
 
                 const namedVoice =
-                    voices.find(function (voice) {
+                    voices.find(
+                        function (voice) {
 
-                        const voiceName =
-                            (
-                                voice.name ||
-                                ""
-                            ).toLowerCase();
+                            const voiceName =
+                                (
+                                    voice.name ||
+                                    ""
+                                ).toLowerCase();
 
-                        const voiceLang =
-                            (
-                                voice.lang ||
-                                ""
-                            ).toLowerCase();
 
-                        return names.some(
-                            function (name) {
+                            const voiceLang =
+                                (
+                                    voice.lang ||
+                                    ""
+                                ).toLowerCase();
 
-                                return (
-                                    voiceName.includes(name) ||
-                                    voiceLang.includes(name)
-                                );
 
-                            }
-                        );
+                            return names.some(
+                                function (name) {
 
-                    });
+                                    return (
+                                        voiceName.includes(
+                                            name.toLowerCase()
+                                        ) ||
+                                        voiceLang.includes(
+                                            name.toLowerCase()
+                                        )
+                                    );
+
+                                }
+                            );
+
+                        }
+                    );
 
 
                 if (namedVoice) {
+
                     return namedVoice;
+
                 }
+
+            }
+
+
+            /* =========================================
+               LANGUAGE FAMILY FALLBACK
+            ========================================= */
+
+            const fallbackVoice =
+                voices.find(
+                    function (voice) {
+
+                        if (!voice.lang) {
+                            return false;
+                        }
+
+
+                        const voiceBase =
+                            voice.lang
+                                .toLowerCase()
+                                .split("-")[0];
+
+
+                        return (
+                            voiceBase ===
+                            language.toLowerCase()
+                        );
+
+                    }
+                );
+
+
+            if (fallbackVoice) {
+
+                return fallbackVoice;
 
             }
 
@@ -1191,33 +1519,52 @@
 
 
         /* =============================================
-           SET SPEECH LANGUAGE
+           CREATE SPEECH
         ============================================= */
 
-        function getSafeSpeechLanguage(
-            requestedLanguages,
-            voice
+        function createSpeech(
+            text,
+            voice,
+            requestedLanguages
         ) {
 
-            if (
-                voice &&
-                voice.lang
-            ) {
+            const speech =
+                new SpeechSynthesisUtterance(
+                    String(text || "")
+                );
 
-                return voice.lang;
+
+            if (voice) {
+
+                speech.voice =
+                    voice;
+
+
+                speech.lang =
+                    voice.lang ||
+                    requestedLanguages[0];
+
+            } else {
+
+                speech.lang =
+                    requestedLanguages[0];
 
             }
 
-            if (
-                requestedLanguages &&
-                requestedLanguages.length > 0
-            ) {
 
-                return requestedLanguages[0];
+            speech.rate =
+                0.85;
 
-            }
 
-            return "en-US";
+            speech.pitch =
+                1;
+
+
+            speech.volume =
+                1;
+
+
+            return speech;
 
         }
 
@@ -1234,10 +1581,13 @@
             button
         ) {
 
-            if (!text) {
+            if (
+                !voices ||
+                voices.length === 0
+            ) {
 
                 alert(
-                    "اس آیت کا متن موجود نہیں ہے۔"
+                    "No speech voice is available in this browser."
                 );
 
                 return;
@@ -1250,6 +1600,7 @@
                 language
             );
 
+
             console.log(
                 "Requested Speech Languages:",
                 requestedLanguages
@@ -1258,16 +1609,18 @@
 
             console.log(
                 "Available Browser Voices:",
-                voices.map(function (voice) {
+                voices.map(
+                    function (voice) {
 
-                    return (
-                        voice.name +
-                        " [" +
-                        voice.lang +
-                        "]"
-                    );
+                        return (
+                            voice.name +
+                            " [" +
+                            voice.lang +
+                            "]"
+                        );
 
-                })
+                    }
+                )
             );
 
 
@@ -1279,20 +1632,7 @@
                 );
 
 
-            const speech =
-                new SpeechSynthesisUtterance(
-                    String(text)
-                );
-
-
             if (voice) {
-
-                speech.voice =
-                    voice;
-
-                speech.lang =
-                    voice.lang;
-
 
                 console.log(
                     "Bible Audio Voice Selected:",
@@ -1302,24 +1642,20 @@
 
             } else {
 
-                speech.lang =
-                    getSafeSpeechLanguage(
-                        requestedLanguages,
-                        null
-                    );
-
-
                 console.warn(
-                    "No exact browser voice found. Browser language fallback used:",
-                    speech.lang
+                    "No exact matching voice found. Browser language fallback will be used.",
+                    requestedLanguages
                 );
 
             }
 
 
-            speech.rate = 0.85;
-            speech.pitch = 1;
-            speech.volume = 1;
+            const speech =
+                createSpeech(
+                    text,
+                    voice,
+                    requestedLanguages
+                );
 
 
             speech.onstart =
@@ -1348,15 +1684,18 @@
                         event
                     );
 
+
                     console.error(
                         "Bible Audio Language:",
                         language
                     );
 
+
                     console.error(
                         "Requested Languages:",
                         requestedLanguages
                     );
+
 
                     button.textContent =
                         "🔊 Listen";
@@ -1367,27 +1706,31 @@
             window.speechSynthesis.cancel();
 
 
-            setTimeout(function () {
+            setTimeout(
+                function () {
 
-                try {
+                    try {
 
-                    window.speechSynthesis.speak(
-                        speech
-                    );
+                        window.speechSynthesis.speak(
+                            speech
+                        );
 
-                } catch (error) {
+                    } catch (error) {
 
-                    console.error(
-                        "Bible Speech Error:",
-                        error
-                    );
+                        console.error(
+                            "Bible Speech Error:",
+                            error
+                        );
 
-                    button.textContent =
-                        "🔊 Listen";
 
-                }
+                        button.textContent =
+                            "🔊 Listen";
 
-            }, 100);
+                    }
+
+                },
+                150
+            );
 
         }
 
@@ -1396,7 +1739,23 @@
            GET BROWSER VOICES
         ============================================= */
 
-        function getBrowserVoices(callback) {
+        function getBrowserVoices(
+            callback
+        ) {
+
+            if (
+                !(
+                    "speechSynthesis" in
+                    window
+                )
+            ) {
+
+                callback([]);
+
+                return;
+
+            }
+
 
             let voices =
                 window.speechSynthesis.getVoices();
@@ -1408,85 +1767,57 @@
             ) {
 
                 callback(voices);
+
                 return;
 
             }
 
 
-            let finished = false;
+            let finished =
+                false;
 
 
-            function receiveVoices() {
-
-                if (finished) {
-                    return;
-                }
-
-                const available =
-                    window.speechSynthesis.getVoices();
-
-
-                if (
-                    available &&
-                    available.length > 0
-                ) {
-
-                    finished = true;
-
-                    window.speechSynthesis
-                        .removeEventListener(
-                            "voiceschanged",
-                            receiveVoices
-                        );
-
-                    callback(available);
-
-                }
-
-            }
-
-
-            window.speechSynthesis
-                .addEventListener(
-                    "voiceschanged",
-                    receiveVoices
-                );
-
-
-            setTimeout(function () {
+            function finish() {
 
                 if (finished) {
                     return;
                 }
-
-                const available =
-                    window.speechSynthesis.getVoices();
 
 
                 finished = true;
 
 
-                window.speechSynthesis
-                    .removeEventListener(
-                        "voiceschanged",
-                        receiveVoices
-                    );
+                const available =
+                    window.speechSynthesis
+                        .getVoices();
 
 
                 callback(
                     available || []
                 );
 
-            }, 1000);
+            }
+
+
+            window.speechSynthesis.onvoiceschanged =
+                finish;
+
+
+            setTimeout(
+                finish,
+                1000
+            );
 
         }
 
 
         /* =============================================
-           SETUP VERSE AUDIO
+           SETUP AUDIO
         ============================================= */
 
-        function setupAudio(text) {
+        function setupAudio(
+            text
+        ) {
 
             const button =
                 document.getElementById(
@@ -1512,8 +1843,14 @@
                 function () {
 
                     if (
-                        !("speechSynthesis" in window) ||
-                        !("SpeechSynthesisUtterance" in window)
+                        !(
+                            "speechSynthesis" in
+                            window
+                        ) ||
+                        !(
+                            "SpeechSynthesisUtterance" in
+                            window
+                        )
                     ) {
 
                         alert(
@@ -1532,8 +1869,10 @@
 
                         window.speechSynthesis.cancel();
 
+
                         button.textContent =
                             "🔊 Listen";
+
 
                         return;
 
@@ -1559,7 +1898,7 @@
                             ) {
 
                                 alert(
-                                    "اس براؤزر میں Speech Voice دستیاب نہیں ہے۔"
+                                    "No speech voice is available in this browser."
                                 );
 
                                 return;
@@ -1568,6 +1907,106 @@
 
 
                             playBibleAudio(
+                                voices,
+                                requestedLanguages,
+                                language,
+                                text,
+                                button
+                            );
+
+                        }
+                    );
+
+                };
+
+        }
+
+
+        /* =============================================
+           SETUP CHAPTER AUDIO
+        ============================================= */
+
+        function setupChapterAudio(
+            text,
+            button
+        ) {
+
+            if (!button) {
+                return;
+            }
+
+
+            button.onclick = null;
+
+
+            button.onclick =
+                function () {
+
+                    if (
+                        !(
+                            "speechSynthesis" in
+                            window
+                        ) ||
+                        !(
+                            "SpeechSynthesisUtterance" in
+                            window
+                        )
+                    ) {
+
+                        alert(
+                            "Audio is not supported by this browser."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        window.speechSynthesis.speaking ||
+                        window.speechSynthesis.pending
+                    ) {
+
+                        window.speechSynthesis.cancel();
+
+
+                        button.textContent =
+                            "🔊 Listen Chapter";
+
+
+                        return;
+
+                    }
+
+
+                    const language =
+                        getLanguage();
+
+
+                    const requestedLanguages =
+                        getSpeechLanguages(
+                            language
+                        );
+
+
+                    getBrowserVoices(
+                        function (voices) {
+
+                            if (
+                                !voices ||
+                                voices.length === 0
+                            ) {
+
+                                alert(
+                                    "No speech voice is available in this browser."
+                                );
+
+                                return;
+
+                            }
+
+
+                            playChapterAudio(
                                 voices,
                                 requestedLanguages,
                                 language,
@@ -1595,10 +2034,13 @@
             button
         ) {
 
-            if (!text) {
+            if (
+                !voices ||
+                voices.length === 0
+            ) {
 
                 alert(
-                    "اس باب کا متن موجود نہیں ہے۔"
+                    "No speech voice is available in this browser."
                 );
 
                 return;
@@ -1614,19 +2056,7 @@
                 );
 
 
-            const speech =
-                new SpeechSynthesisUtterance(
-                    String(text)
-                );
-
-
             if (voice) {
-
-                speech.voice =
-                    voice;
-
-                speech.lang =
-                    voice.lang;
 
                 console.log(
                     "Chapter Audio Voice Selected:",
@@ -1636,23 +2066,20 @@
 
             } else {
 
-                speech.lang =
-                    getSafeSpeechLanguage(
-                        requestedLanguages,
-                        null
-                    );
-
                 console.warn(
-                    "No exact chapter voice found. Browser language fallback used:",
-                    speech.lang
+                    "No exact chapter voice found. Browser fallback will be used.",
+                    requestedLanguages
                 );
 
             }
 
 
-            speech.rate = 0.85;
-            speech.pitch = 1;
-            speech.volume = 1;
+            const speech =
+                createSpeech(
+                    text,
+                    voice,
+                    requestedLanguages
+                );
 
 
             speech.onstart =
@@ -1681,6 +2108,7 @@
                         event
                     );
 
+
                     button.textContent =
                         "🔊 Listen Chapter";
 
@@ -1690,119 +2118,31 @@
             window.speechSynthesis.cancel();
 
 
-            setTimeout(function () {
-
-                try {
-
-                    window.speechSynthesis.speak(
-                        speech
-                    );
-
-                } catch (error) {
-
-                    console.error(
-                        "Bible Chapter Speech Error:",
-                        error
-                    );
-
-                    button.textContent =
-                        "🔊 Listen Chapter";
-
-                }
-
-            }, 100);
-
-        }
-
-
-        /* =============================================
-           SETUP CHAPTER AUDIO
-        ============================================= */
-
-        function setupChapterAudio(
-            text,
-            button
-        ) {
-
-            if (!button) {
-                return;
-            }
-
-
-            button.onclick = null;
-
-
-            button.onclick =
+            setTimeout(
                 function () {
 
-                    if (
-                        !("speechSynthesis" in window) ||
-                        !("SpeechSynthesisUtterance" in window)
-                    ) {
+                    try {
 
-                        alert(
-                            "Audio is not supported by this browser."
+                        window.speechSynthesis.speak(
+                            speech
                         );
 
-                        return;
+                    } catch (error) {
 
-                    }
+                        console.error(
+                            "Bible Chapter Speech Error:",
+                            error
+                        );
 
-
-                    if (
-                        window.speechSynthesis.speaking ||
-                        window.speechSynthesis.pending
-                    ) {
-
-                        window.speechSynthesis.cancel();
 
                         button.textContent =
                             "🔊 Listen Chapter";
 
-                        return;
-
                     }
 
-
-                    const language =
-                        getLanguage();
-
-
-                    const requestedLanguages =
-                        getSpeechLanguages(
-                            language
-                        );
-
-
-                    getBrowserVoices(
-                        function (voices) {
-
-                            if (
-                                !voices ||
-                                voices.length === 0
-                            ) {
-
-                                alert(
-                                    "اس براؤزر میں Speech Voice دستیاب نہیں ہے۔"
-                                );
-
-                                return;
-
-                            }
-
-
-                            playChapterAudio(
-                                voices,
-                                requestedLanguages,
-                                language,
-                                text,
-                                button
-                            );
-
-                        }
-                    );
-
-                };
+                },
+                150
+            );
 
         }
 
@@ -1832,10 +2172,12 @@
                     "verseZoomOutButton"
                 );
 
+
             const reset =
                 document.getElementById(
                     "verseZoomResetButton"
                 );
+
 
             const inButton =
                 document.getElementById(
@@ -1854,6 +2196,7 @@
                                 size - 2
                             );
 
+
                         target.style.fontSize =
                             size + "px";
 
@@ -1868,6 +2211,7 @@
                     function () {
 
                         size = 20;
+
 
                         target.style.fontSize =
                             size + "px";
@@ -1887,6 +2231,7 @@
                                 40,
                                 size + 2
                             );
+
 
                         target.style.fontSize =
                             size + "px";
@@ -1984,7 +2329,10 @@
             `;
 
 
-            setupAudio(displayText);
+            setupAudio(
+                displayText
+            );
+
 
             setupZoom();
 
@@ -2007,9 +2355,11 @@
                 testamentSelect.value ||
                 currentTestament;
 
+
             const book =
                 bookSelect.value ||
                 currentBook;
+
 
             const chapter =
                 Number(
@@ -2017,10 +2367,12 @@
                     currentChapter
                 );
 
+
             const verse =
                 Number(
                     verseSelect.value
                 );
+
 
             const language =
                 getLanguage();
@@ -2041,8 +2393,10 @@
             currentTestament =
                 testament;
 
+
             currentBook =
                 book;
+
 
             currentChapter =
                 String(chapter);
@@ -2079,15 +2433,18 @@
                 testamentSelect.value ||
                 currentTestament;
 
+
             const book =
                 bookSelect.value ||
                 currentBook;
+
 
             const chapter =
                 Number(
                     chapterSelect.value ||
                     currentChapter
                 );
+
 
             const language =
                 getLanguage();
@@ -2096,10 +2453,17 @@
             console.log(
                 "Full Chapter Selection:",
                 {
-                    testament: testament,
-                    book: book,
-                    chapter: chapter,
-                    language: language
+                    testament:
+                        testament,
+
+                    book:
+                        book,
+
+                    chapter:
+                        chapter,
+
+                    language:
+                        language
                 }
             );
 
@@ -2122,8 +2486,10 @@
             currentTestament =
                 testament;
 
+
             currentBook =
                 book;
+
 
             currentChapter =
                 String(chapter);
@@ -2201,7 +2567,9 @@
                                     );
 
                                 }
-                            ).join("<br><br>")}
+                            ).join(
+                                "<br><br>"
+                            )}
                         </p>
 
                     </div>
@@ -2287,10 +2655,12 @@
                     "chapterZoomOutButton"
                 );
 
+
             const reset =
                 document.getElementById(
                     "chapterZoomResetButton"
                 );
+
 
             const inButton =
                 document.getElementById(
@@ -2309,6 +2679,7 @@
                                 size - 2
                             );
 
+
                         target.style.fontSize =
                             size + "px";
 
@@ -2323,6 +2694,7 @@
                     function () {
 
                         size = 20;
+
 
                         target.style.fontSize =
                             size + "px";
@@ -2342,6 +2714,7 @@
                                 40,
                                 size + 2
                             );
+
 
                         target.style.fontSize =
                             size + "px";
@@ -2367,9 +2740,11 @@
                 testamentSelect.value ||
                 currentTestament;
 
+
             const book =
                 bookSelect.value ||
                 currentBook;
+
 
             const chapter =
                 Number(
@@ -2377,10 +2752,12 @@
                     currentChapter
                 );
 
+
             const verse =
                 Number(
                     verseSelect.value
                 );
+
 
             const language =
                 getLanguage();
@@ -2474,10 +2851,13 @@
             function () {
 
                 currentTestament =
-                    testamentSelect.value || "";
+                    testamentSelect.value ||
+                    "";
+
 
                 currentBook = "";
                 currentChapter = "";
+
 
                 loadBooks();
 
@@ -2490,9 +2870,12 @@
             function () {
 
                 currentBook =
-                    bookSelect.value || "";
+                    bookSelect.value ||
+                    "";
+
 
                 currentChapter = "";
+
 
                 loadChapters();
 
@@ -2505,7 +2888,9 @@
             function () {
 
                 currentChapter =
-                    chapterSelect.value || "";
+                    chapterSelect.value ||
+                    "";
+
 
                 loadVerses();
 
@@ -2557,11 +2942,14 @@
                         currentTestament =
                             testamentSelect.value;
 
+
                         currentBook =
                             bookSelect.value;
 
+
                         currentChapter =
                             chapterSelect.value;
+
 
                         loadVerses();
 
@@ -2591,7 +2979,9 @@
         ) {
 
             const fullChapterButton =
-                document.createElement("button");
+                document.createElement(
+                    "button"
+                );
 
 
             fullChapterButton.type =
@@ -2628,10 +3018,12 @@
             "Select Book"
         );
 
+
         resetSelect(
             chapterSelect,
             "Select Chapter"
         );
+
 
         resetSelect(
             verseSelect,
@@ -2651,7 +3043,8 @@
     ================================================= */
 
     if (
-        document.readyState === "loading"
+        document.readyState ===
+        "loading"
     ) {
 
         document.addEventListener(

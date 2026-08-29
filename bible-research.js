@@ -92,6 +92,15 @@
 
 
         /* =============================================
+           CURRENT SELECTION MEMORY
+        ============================================= */
+
+        let currentTestament = "";
+        let currentBook = "";
+        let currentChapter = "";
+
+
+        /* =============================================
            COMPLETE BIBLE BOOK LIST
         ============================================= */
 
@@ -235,21 +244,24 @@
                 "Select Verse"
             );
 
-            const testament =
-                testamentSelect.value;
+            currentTestament =
+                testamentSelect.value || "";
 
-            if (!testament) {
+            currentBook = "";
+            currentChapter = "";
+
+            if (!currentTestament) {
                 return;
             }
 
             const books =
-                BIBLE_BOOKS[testament];
+                BIBLE_BOOKS[currentTestament];
 
             if (!books) {
 
                 console.error(
                     "Bible Error: Testament not found:",
-                    testament
+                    currentTestament
                 );
 
                 return;
@@ -323,30 +335,32 @@
                 "Select Verse"
             );
 
-            const testament =
-                testamentSelect.value;
+            currentTestament =
+                testamentSelect.value || "";
 
-            const bookName =
-                bookSelect.value;
+            currentBook =
+                bookSelect.value || "";
+
+            currentChapter = "";
 
             if (
-                !testament ||
-                !bookName
+                !currentTestament ||
+                !currentBook
             ) {
                 return;
             }
 
             const book =
                 findBook(
-                    testament,
-                    bookName
+                    currentTestament,
+                    currentBook
                 );
 
             if (!book) {
 
                 console.error(
                     "Bible Error: Book not found:",
-                    bookName
+                    currentBook
                 );
 
                 return;
@@ -378,7 +392,7 @@
 
             console.log(
                 "Chapters loaded:",
-                bookName,
+                currentBook,
                 chapterCount
             );
 
@@ -509,18 +523,21 @@
                 "Select Verse"
             );
 
-            const testament =
-                testamentSelect.value;
+            currentTestament =
+                testamentSelect.value || "";
 
-            const book =
-                bookSelect.value;
+            currentBook =
+                bookSelect.value || "";
+
+            currentChapter =
+                chapterSelect.value || "";
 
             const chapter =
-                Number(chapterSelect.value);
+                Number(currentChapter);
 
             if (
-                !testament ||
-                !book ||
+                !currentTestament ||
+                !currentBook ||
                 !chapter
             ) {
                 return;
@@ -532,8 +549,8 @@
             const verses =
                 getAvailableVerses(
                     language,
-                    testament,
-                    book,
+                    currentTestament,
+                    currentBook,
                     chapter
                 );
 
@@ -562,7 +579,7 @@
 
                 console.log(
                     "Verses loaded:",
-                    book,
+                    currentBook,
                     chapter,
                     verses
                 );
@@ -586,7 +603,7 @@
 
             console.log(
                 "No verse data:",
-                book,
+                currentBook,
                 chapter,
                 language
             );
@@ -661,7 +678,6 @@
 
         /* =============================================
            GET COMPLETE CHAPTER TEXT
-           NEW FEATURE
         ============================================= */
 
         function getChapterVerses(
@@ -993,10 +1009,6 @@
             }
 
 
-            /* =====================================
-               EXACT LANGUAGE
-            ===================================== */
-
             for (
                 let i = 0;
                 i < requestedLanguages.length;
@@ -1027,10 +1039,6 @@
 
             }
 
-
-            /* =====================================
-               BASE LANGUAGE
-            ===================================== */
 
             const baseLanguages =
                 requestedLanguages.map(
@@ -1069,10 +1077,6 @@
                 return baseVoice;
             }
 
-
-            /* =====================================
-               VOICE NAME MATCH
-            ===================================== */
 
             const languageNames = {
 
@@ -1521,7 +1525,6 @@
 
         /* =============================================
            SETUP CHAPTER AUDIO
-           NEW FEATURE
         ============================================= */
 
         function setupChapterAudio(
@@ -1668,7 +1671,6 @@
 
         /* =============================================
            PLAY COMPLETE CHAPTER AUDIO
-           NEW FEATURE
         ============================================= */
 
         function playChapterAudio(
@@ -1993,14 +1995,17 @@
         function readVerse() {
 
             const testament =
-                testamentSelect.value;
+                testamentSelect.value ||
+                currentTestament;
 
             const book =
-                bookSelect.value;
+                bookSelect.value ||
+                currentBook;
 
             const chapter =
                 Number(
-                    chapterSelect.value
+                    chapterSelect.value ||
+                    currentChapter
                 );
 
             const verse =
@@ -2022,6 +2027,16 @@
                 return;
 
             }
+
+
+            currentTestament =
+                testament;
+
+            currentBook =
+                book;
+
+            currentChapter =
+                String(chapter);
 
 
             const text =
@@ -2047,24 +2062,37 @@
 
         /* =============================================
            READ COMPLETE CHAPTER
-           NEW FEATURE
         ============================================= */
 
         function readFullChapter() {
 
             const testament =
-                testamentSelect.value;
+                testamentSelect.value ||
+                currentTestament;
 
             const book =
-                bookSelect.value;
+                bookSelect.value ||
+                currentBook;
 
             const chapter =
                 Number(
-                    chapterSelect.value
+                    chapterSelect.value ||
+                    currentChapter
                 );
 
             const language =
                 getLanguage();
+
+
+            console.log(
+                "Full Chapter Selection:",
+                {
+                    testament: testament,
+                    book: book,
+                    chapter: chapter,
+                    language: language
+                }
+            );
 
 
             if (
@@ -2080,6 +2108,16 @@
                 return;
 
             }
+
+
+            currentTestament =
+                testament;
+
+            currentBook =
+                book;
+
+            currentChapter =
+                String(chapter);
 
 
             const chapterVerses =
@@ -2217,7 +2255,6 @@
 
         /* =============================================
            CHAPTER ZOOM
-           NEW FEATURE
         ============================================= */
 
         function setupChapterZoom() {
@@ -2318,14 +2355,17 @@
         function researchVerse() {
 
             const testament =
-                testamentSelect.value;
+                testamentSelect.value ||
+                currentTestament;
 
             const book =
-                bookSelect.value;
+                bookSelect.value ||
+                currentBook;
 
             const chapter =
                 Number(
-                    chapterSelect.value
+                    chapterSelect.value ||
+                    currentChapter
                 );
 
             const verse =
@@ -2422,19 +2462,45 @@
 
         testamentSelect.addEventListener(
             "change",
-            loadBooks
+            function () {
+
+                currentTestament =
+                    testamentSelect.value || "";
+
+                currentBook = "";
+                currentChapter = "";
+
+                loadBooks();
+
+            }
         );
 
 
         bookSelect.addEventListener(
             "change",
-            loadChapters
+            function () {
+
+                currentBook =
+                    bookSelect.value || "";
+
+                currentChapter = "";
+
+                loadChapters();
+
+            }
         );
 
 
         chapterSelect.addEventListener(
             "change",
-            loadVerses
+            function () {
+
+                currentChapter =
+                    chapterSelect.value || "";
+
+                loadVerses();
+
+            }
         );
 
 
@@ -2479,6 +2545,15 @@
                         chapterSelect.value
                     ) {
 
+                        currentTestament =
+                            testamentSelect.value;
+
+                        currentBook =
+                            bookSelect.value;
+
+                        currentChapter =
+                            chapterSelect.value;
+
                         loadVerses();
 
                     }
@@ -2492,7 +2567,6 @@
 
         /* =============================================
            ADD FULL CHAPTER BUTTON
-           NEW FEATURE
         ============================================= */
 
         const actionButtons =

@@ -715,7 +715,18 @@
                 "speechSynthesis" in window
             ) {
 
-                window.speechSynthesis.cancel();
+                try {
+
+                    window.speechSynthesis.cancel();
+
+                } catch (error) {
+
+                    console.error(
+                        "Speech stop error:",
+                        error
+                    );
+
+                }
 
             }
 
@@ -1097,7 +1108,9 @@
                 !voices ||
                 voices.length === 0
             ) {
+
                 return null;
+
             }
 
 
@@ -1128,7 +1141,9 @@
                     });
 
                 if (exact) {
+
                     return exact;
+
                 }
 
             }
@@ -1156,7 +1171,9 @@
                         );
 
                     if (!voiceLang) {
+
                         return false;
+
                     }
 
                     const voiceBase =
@@ -1170,7 +1187,9 @@
 
 
             if (baseVoice) {
+
                 return baseVoice;
+
             }
 
 
@@ -1212,15 +1231,18 @@
 
                     });
 
+
                 if (nameVoice) {
+
                     return nameVoice;
+
                 }
 
             }
 
 
             /* -----------------------------------------
-               WINDOWS MICROSOFT VOICE FALLBACK
+               WINDOWS URDU FALLBACK
             ----------------------------------------- */
 
             if (language === "ur") {
@@ -1233,19 +1255,33 @@
                                 voice.name || ""
                             ).toLowerCase();
 
+                        const lang =
+                            String(
+                                voice.lang || ""
+                            ).toLowerCase();
+
                         return (
                             name.includes("urdu") ||
-                            name.includes("pakistan")
+                            name.includes("pakistan") ||
+                            lang === "ur-pk" ||
+                            lang === "ur"
                         );
 
                     });
 
+
                 if (urduVoice) {
+
                     return urduVoice;
+
                 }
 
             }
 
+
+            /* -----------------------------------------
+               WINDOWS PUNJABI FALLBACK
+            ----------------------------------------- */
 
             if (language === "pa") {
 
@@ -1257,15 +1293,25 @@
                                 voice.name || ""
                             ).toLowerCase();
 
+                        const lang =
+                            String(
+                                voice.lang || ""
+                            ).toLowerCase();
+
                         return (
                             name.includes("punjabi") ||
-                            name.includes("pakistan")
+                            name.includes("pakistan") ||
+                            lang === "pa-pk" ||
+                            lang === "pa"
                         );
 
                     });
 
+
                 if (punjabiVoice) {
+
                     return punjabiVoice;
+
                 }
 
             }
@@ -1312,12 +1358,26 @@
         ) {
 
             if (
-                !voices ||
-                voices.length === 0
+                !("speechSynthesis" in window) ||
+                !("SpeechSynthesisUtterance" in window)
             ) {
 
                 alert(
-                    "No speech voice is available in this browser."
+                    "Audio is not supported by this browser."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                !text ||
+                !String(text).trim()
+            ) {
+
+                alert(
+                    "اس آیت کا متن موجود نہیں ہے۔"
                 );
 
                 return;
@@ -1347,40 +1407,94 @@
                 );
 
 
-            if (!voice) {
+            /*
+             * -----------------------------------------
+             * اگر زبان کی مخصوص Voice مل جائے
+             * -----------------------------------------
+             */
+
+            if (voice) {
+
+                console.log(
+                    "Bible Audio Voice Selected:",
+                    voice.name,
+                    voice.lang
+                );
+
+            } else {
 
                 console.warn(
                     "No matching voice found for:",
                     requestedLanguages
                 );
 
-                alert(
-                    "اس زبان کی آواز Windows میں دستیاب نہیں ملی۔ براہِ کرم Windows کی Language Settings میں اس زبان کی Speech Voice انسٹال کریں۔"
-                );
+                /*
+                 * Voice نہ ملنے پر بھی فوراً نظام بند نہ کریں۔
+                 * Browser کو مطلوبہ زبان خود دی جائے گی۔
+                 */
 
-                return;
+                console.warn(
+                    "Using browser speech language fallback:",
+                    requestedLanguages[0]
+                );
 
             }
 
 
-            console.log(
-                "Bible Audio Voice Selected:",
-                voice.name,
-                voice.lang
-            );
+            /*
+             * -----------------------------------------
+             * موجودہ Speech روکیں
+             * -----------------------------------------
+             */
 
+            try {
+
+                window.speechSynthesis.cancel();
+
+            } catch (error) {
+
+                console.error(
+                    "Speech cancel error:",
+                    error
+                );
+
+            }
+
+
+            /*
+             * -----------------------------------------
+             * Speech Object
+             * -----------------------------------------
+             */
 
             const speech =
                 new SpeechSynthesisUtterance(
-                    String(text || "")
+                    String(text)
                 );
 
 
-            speech.voice =
-                voice;
+            /*
+             * -----------------------------------------
+             * Voice موجود ہو تو Voice استعمال کریں
+             * -----------------------------------------
+             */
 
-            speech.lang =
-                voice.lang;
+            if (voice) {
+
+                speech.voice =
+                    voice;
+
+                speech.lang =
+                    voice.lang;
+
+            } else {
+
+                speech.lang =
+                    requestedLanguages[0] ||
+                    language ||
+                    "en-US";
+
+            }
 
 
             speech.rate =
@@ -1393,23 +1507,57 @@
                 1;
 
 
+            /*
+             * -----------------------------------------
+             * START
+             * -----------------------------------------
+             */
+
             speech.onstart =
                 function () {
 
-                    button.textContent =
-                        "⏹ Stop";
+                    console.log(
+                        "Bible Audio Started."
+                    );
+
+                    if (button) {
+
+                        button.textContent =
+                            "⏹ Stop";
+
+                    }
 
                 };
 
+
+            /*
+             * -----------------------------------------
+             * END
+             * -----------------------------------------
+             */
 
             speech.onend =
                 function () {
 
-                    button.textContent =
-                        "🔊 Listen";
+                    console.log(
+                        "Bible Audio Finished."
+                    );
+
+                    if (button) {
+
+                        button.textContent =
+                            "🔊 Listen";
+
+                    }
 
                 };
 
+
+            /*
+             * -----------------------------------------
+             * ERROR
+             * -----------------------------------------
+             */
 
             speech.onerror =
                 function (event) {
@@ -1425,41 +1573,64 @@
                     );
 
                     console.error(
-                        "Selected Voice:",
-                        voice.name,
-                        voice.lang
+                        "Requested Languages:",
+                        requestedLanguages
                     );
 
-                    button.textContent =
-                        "🔊 Listen";
+                    if (voice) {
+
+                        console.error(
+                            "Selected Voice:",
+                            voice.name,
+                            voice.lang
+                        );
+
+                    }
+
+                    if (button) {
+
+                        button.textContent =
+                            "🔊 Listen";
+
+                    }
 
                 };
 
 
-            window.speechSynthesis.cancel();
+            /*
+             * -----------------------------------------
+             * SPEAK
+             * -----------------------------------------
+             */
 
+            setTimeout(
+                function () {
 
-            setTimeout(function () {
+                    try {
 
-                try {
+                        window.speechSynthesis.speak(
+                            speech
+                        );
 
-                    window.speechSynthesis.speak(
-                        speech
-                    );
+                    } catch (error) {
 
-                } catch (error) {
+                        console.error(
+                            "Bible Speech Error:",
+                            error
+                        );
 
-                    console.error(
-                        "Bible Speech Error:",
-                        error
-                    );
+                        if (button) {
 
-                    button.textContent =
-                        "🔊 Listen";
+                            button.textContent =
+                                "🔊 Listen";
 
-                }
+                        }
 
-            }, 100);
+                    }
+
+                },
+                200
+            );
 
         }
 
@@ -1504,10 +1675,13 @@
             function finish() {
 
                 if (finished) {
+
                     return;
+
                 }
 
                 finished = true;
+
 
                 window.speechSynthesis
                     .removeEventListener(
@@ -1515,9 +1689,11 @@
                         finish
                     );
 
+
                 const loadedVoices =
                     window.speechSynthesis
                         .getVoices();
+
 
                 callback(
                     loadedVoices || []
@@ -1535,7 +1711,7 @@
 
             setTimeout(
                 finish,
-                1500
+                2000
             );
 
         }
@@ -1612,20 +1788,6 @@
                     getBrowserVoices(
                         function (voices) {
 
-                            if (
-                                !voices ||
-                                voices.length === 0
-                            ) {
-
-                                alert(
-                                    "No speech voice is available in this browser."
-                                );
-
-                                return;
-
-                            }
-
-
                             playBibleAudio(
                                 voices,
                                 requestedLanguages,
@@ -1655,12 +1817,26 @@
         ) {
 
             if (
-                !voices ||
-                voices.length === 0
+                !("speechSynthesis" in window) ||
+                !("SpeechSynthesisUtterance" in window)
             ) {
 
                 alert(
-                    "No speech voice is available in this browser."
+                    "Audio is not supported by this browser."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                !text ||
+                !String(text).trim()
+            ) {
+
+                alert(
+                    "اس چیپٹر کا متن موجود نہیں ہے۔"
                 );
 
                 return;
@@ -1676,40 +1852,60 @@
                 );
 
 
-            if (!voice) {
+            if (voice) {
+
+                console.log(
+                    "Chapter Audio Voice Selected:",
+                    voice.name,
+                    voice.lang
+                );
+
+            } else {
 
                 console.warn(
                     "No matching chapter voice found for:",
                     requestedLanguages
                 );
 
-                alert(
-                    "اس زبان کی Chapter Audio آواز Windows میں دستیاب نہیں ملی۔"
-                );
+            }
 
-                return;
+
+            try {
+
+                window.speechSynthesis.cancel();
+
+            } catch (error) {
+
+                console.error(
+                    "Chapter Speech cancel error:",
+                    error
+                );
 
             }
 
 
-            console.log(
-                "Chapter Audio Voice Selected:",
-                voice.name,
-                voice.lang
-            );
-
-
             const speech =
                 new SpeechSynthesisUtterance(
-                    String(text || "")
+                    String(text)
                 );
 
 
-            speech.voice =
-                voice;
+            if (voice) {
 
-            speech.lang =
-                voice.lang;
+                speech.voice =
+                    voice;
+
+                speech.lang =
+                    voice.lang;
+
+            } else {
+
+                speech.lang =
+                    requestedLanguages[0] ||
+                    language ||
+                    "en-US";
+
+            }
 
 
             speech.rate =
@@ -1748,42 +1944,40 @@
                         event
                     );
 
-                    console.error(
-                        "Chapter Audio Voice:",
-                        voice.name,
-                        voice.lang
-                    );
+                    if (button) {
 
-                    button.textContent =
-                        "🔊 Listen Chapter";
+                        button.textContent =
+                            "🔊 Listen Chapter";
+
+                    }
 
                 };
 
 
-            window.speechSynthesis.cancel();
+            setTimeout(
+                function () {
 
+                    try {
 
-            setTimeout(function () {
+                        window.speechSynthesis.speak(
+                            speech
+                        );
 
-                try {
+                    } catch (error) {
 
-                    window.speechSynthesis.speak(
-                        speech
-                    );
+                        console.error(
+                            "Bible Chapter Speech Error:",
+                            error
+                        );
 
-                } catch (error) {
+                        button.textContent =
+                            "🔊 Listen Chapter";
 
-                    console.error(
-                        "Bible Chapter Speech Error:",
-                        error
-                    );
+                    }
 
-                    button.textContent =
-                        "🔊 Listen Chapter";
-
-                }
-
-            }, 100);
+                },
+                200
+            );
 
         }
 
@@ -1798,7 +1992,9 @@
         ) {
 
             if (!button) {
+
                 return;
+
             }
 
 
@@ -1850,20 +2046,6 @@
                     getBrowserVoices(
                         function (voices) {
 
-                            if (
-                                !voices ||
-                                voices.length === 0
-                            ) {
-
-                                alert(
-                                    "No speech voice is available in this browser."
-                                );
-
-                                return;
-
-                            }
-
-
                             playChapterAudio(
                                 voices,
                                 requestedLanguages,
@@ -1892,7 +2074,9 @@
                 );
 
             if (!target) {
+
                 return;
+
             }
 
 
@@ -1986,7 +2170,9 @@
                 );
 
             if (!target) {
+
                 return;
+
             }
 
 
@@ -2081,7 +2267,9 @@
         ) {
 
             if (!result) {
+
                 return;
+
             }
 
 
@@ -2198,7 +2386,9 @@
                 !chapter ||
                 !verse
             ) {
+
                 return;
+
             }
 
 
@@ -2482,7 +2672,9 @@
 
 
             if (!result) {
+
                 return;
+
             }
 
 
@@ -2713,7 +2905,18 @@
             "speechSynthesis" in window
         ) {
 
-            window.speechSynthesis.getVoices();
+            try {
+
+                window.speechSynthesis.getVoices();
+
+            } catch (error) {
+
+                console.error(
+                    "Speech voice preload error:",
+                    error
+                );
+
+            }
 
         }
 

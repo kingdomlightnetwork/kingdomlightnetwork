@@ -122,8 +122,6 @@ const KJV_BIBLE = {
                 26: "And to Seth, to him also there was born a son; and he called his name Enos: then began men to call upon the name of the LORD."
             }
 
-            /* باب 5 سے آگے اسی Genesis object میں شامل کیے جائیں گے */
-
         }
 
     },
@@ -133,11 +131,8 @@ const KJV_BIBLE = {
         Mark: {
 
             3: {
-
                 6: "And the Pharisees went forth, and straightway took counsel with the Herodians against him, how they might destroy him.",
-
                 16: "And Simon he surnamed Peter."
-
             }
 
         },
@@ -145,11 +140,8 @@ const KJV_BIBLE = {
         Luke: {
 
             3: {
-
                 6: "And all flesh shall see the salvation of God.",
-
                 16: "John answered, saying unto them all, I indeed baptize you with water; but one mightier than I cometh, the latchet of whose shoes I am not worthy to unloose: he shall baptize you with the Holy Ghost and with fire."
-
             }
 
         }
@@ -157,3 +149,5 @@ const KJV_BIBLE = {
     }
 
 };
+
+      

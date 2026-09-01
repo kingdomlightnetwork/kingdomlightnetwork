@@ -150,4 +150,96 @@ const KJV_BIBLE = {
 
 };
 
-      
+ /* =====================================================
+   KINGDOM LIGHT NETWORK
+   BIBLE DATABASE CONNECTOR
+   Connect KJV_BIBLE with bible-research.js
+===================================================== */
+
+window.BIBLE_DATABASE = {
+    en: KJV_BIBLE
+};
+
+
+/* =====================================================
+   GET BIBLE DATABASE
+===================================================== */
+
+window.getBibleDatabase = function (language) {
+
+    language = String(language || "en")
+        .trim()
+        .toLowerCase();
+
+    /*
+     * ابھی KJV English Database موجود ہے۔
+     * اس لیے English کے لیے KJV_BIBLE استعمال ہوگا۔
+     */
+
+    if (language === "en") {
+        return KJV_BIBLE;
+    }
+
+    /*
+     * اگر کسی دوسری زبان کا Database بعد میں
+     * شامل کیا جائے تو یہاں سے آسانی سے شامل ہوگا۔
+     */
+
+    if (
+        window.BIBLE_DATABASE &&
+        window.BIBLE_DATABASE[language]
+    ) {
+        return window.BIBLE_DATABASE[language];
+    }
+
+    /*
+     * Fallback:
+     * اگر منتخب زبان کا Database موجود نہیں،
+     * تو English KJV استعمال ہوگا۔
+     */
+
+    return KJV_BIBLE;
+};
+
+
+/* =====================================================
+   GET SINGLE BIBLE VERSE
+===================================================== */
+
+window.getBibleVerse = function (
+    language,
+    testament,
+    book,
+    chapter,
+    verse
+) {
+
+    const database =
+        window.getBibleDatabase(language);
+
+    if (
+        !database ||
+        !database[testament] ||
+        !database[testament][book] ||
+        !database[testament][book][chapter]
+    ) {
+        return null;
+    }
+
+    return (
+        database[testament]
+            [book]
+            [chapter]
+            [verse] || null
+    );
+};
+
+
+console.log(
+    "Kingdom Light Network Bible Data loaded successfully."
+);
+
+console.log(
+    "KJV Bible Database connected:",
+    !!window.BIBLE_DATABASE.en
+);     

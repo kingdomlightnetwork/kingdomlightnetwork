@@ -214,8 +214,12 @@ window.getBibleVerse = function (
     verse
 ) {
 
+    language = String(language || DEFAULT_BIBLE_LANGUAGE)
+        .trim()
+        .toLowerCase();
+
     const database =
-        window.getBibleDatabase(language);
+        getBibleDatabase(language);
 
     if (
         !database ||
@@ -235,11 +239,38 @@ window.getBibleVerse = function (
 };
 
 
+/* =====================================================
+   EXPOSE BIBLE DATABASE FUNCTIONS
+===================================================== */
+
+window.getBibleDatabase = getBibleDatabase;
+
+window.getBibleLanguageInfo = getBibleLanguageInfo;
+
+window.isBibleLanguageAvailable = isBibleLanguageAvailable;
+
+window.getAllBibleLanguages = getAllBibleLanguages;
+
+
+/* =====================================================
+   SYSTEM READY
+===================================================== */
+
 console.log(
     "Kingdom Light Network Bible Data loaded successfully."
 );
 
 console.log(
     "KJV Bible Database connected:",
-    !!window.BIBLE_DATABASE.en
-);     
+    !!BIBLE_DATABASE.en
+);
+
+console.log(
+    "Urdu Bible Database connected:",
+    !!BIBLE_DATABASE.ur
+);
+
+console.log(
+    "Bible Database Languages:",
+    Object.keys(BIBLE_DATABASE)
+);

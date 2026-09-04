@@ -1,13 +1,24 @@
 /* =====================================================
    KINGDOM LIGHT NETWORK
    BIBLE RESEARCH / SELECTOR ENGINE
-   STABLE VERSION
-   SELECTOR + VERSE + FULL CHAPTER + AUDIO + ZOOM
+   UPDATED STABLE VERSION
+
+   Connected with:
+   - bible-data.js
+   - bible-research.html
+   - style.css
+   - language.js
+   - script.js
+
+   Features:
+   SELECTOR + VERSE + FULL CHAPTER
+   + AUDIO + ZOOM + RESEARCH
 ===================================================== */
 
 (function () {
 
     "use strict";
+
 
     /* =================================================
        START BIBLE SYSTEM
@@ -15,7 +26,9 @@
 
     function startBibleSystem() {
 
-        console.log("Bible Selector: starting...");
+        console.log(
+            "Bible Selector: starting..."
+        );
 
 
         /* =============================================
@@ -23,31 +36,49 @@
         ============================================= */
 
         const sourceLanguage =
-            document.getElementById("sourceLanguage");
+            document.getElementById(
+                "sourceLanguage"
+            );
 
         const translationLanguage =
-            document.getElementById("translationLanguage");
+            document.getElementById(
+                "translationLanguage"
+            );
 
         const testamentSelect =
-            document.getElementById("testamentSelect");
+            document.getElementById(
+                "testamentSelect"
+            );
 
         const bookSelect =
-            document.getElementById("bookSelect");
+            document.getElementById(
+                "bookSelect"
+            );
 
         const chapterSelect =
-            document.getElementById("chapterSelect");
+            document.getElementById(
+                "chapterSelect"
+            );
 
         const verseSelect =
-            document.getElementById("verseSelect");
+            document.getElementById(
+                "verseSelect"
+            );
 
         const readBibleButton =
-            document.getElementById("readBibleButton");
+            document.getElementById(
+                "readBibleButton"
+            );
 
         const researchBibleButton =
-            document.getElementById("researchBibleButton");
+            document.getElementById(
+                "researchBibleButton"
+            );
 
         const result =
-            document.getElementById("bibleResult");
+            document.getElementById(
+                "bibleResult"
+            );
 
 
         /* =============================================
@@ -55,26 +86,48 @@
         ============================================= */
 
         if (!testamentSelect) {
-            console.error("Bible Error: testamentSelect not found.");
+
+            console.error(
+                "Bible Error: testamentSelect not found."
+            );
+
             return;
+
         }
 
         if (!bookSelect) {
-            console.error("Bible Error: bookSelect not found.");
+
+            console.error(
+                "Bible Error: bookSelect not found."
+            );
+
             return;
+
         }
 
         if (!chapterSelect) {
-            console.error("Bible Error: chapterSelect not found.");
+
+            console.error(
+                "Bible Error: chapterSelect not found."
+            );
+
             return;
+
         }
 
         if (!verseSelect) {
-            console.error("Bible Error: verseSelect not found.");
+
+            console.error(
+                "Bible Error: verseSelect not found."
+            );
+
             return;
+
         }
 
-        console.log("Bible Selector HTML detected.");
+        console.log(
+            "Bible Selector HTML detected."
+        );
 
 
         /* =============================================
@@ -190,7 +243,10 @@
            RESET SELECT
         ============================================= */
 
-        function resetSelect(select, text) {
+        function resetSelect(
+            select,
+            text
+        ) {
 
             if (!select) {
                 return;
@@ -199,12 +255,16 @@
             select.innerHTML = "";
 
             const option =
-                document.createElement("option");
+                document.createElement(
+                    "option"
+                );
 
             option.value = "";
             option.textContent = text;
 
-            select.appendChild(option);
+            select.appendChild(
+                option
+            );
 
         }
 
@@ -218,36 +278,47 @@
             return String(value || "")
                 .trim()
                 .toLowerCase()
-                .replace(/[_-]+/g, " ")
-                .replace(/\s+/g, " ");
+                .replace(
+                    /[_-]+/g,
+                    " "
+                )
+                .replace(
+                    /\s+/g,
+                    " "
+                );
 
         }
 
 
         /* =============================================
            FIND OBJECT KEY
-           Supports:
-           Genesis
-           genesis
-           GENESIS
-           1 Samuel
-           1_Samuel
-           1-samuel
         ============================================= */
 
-        function findObjectKey(object, requestedKey) {
+        function findObjectKey(
+            object,
+            requestedKey
+        ) {
 
-            if (!object || typeof object !== "object") {
+            if (
+                !object ||
+                typeof object !== "object"
+            ) {
+
                 return null;
+
             }
 
             const requested =
-                normalizeKey(requestedKey);
+                normalizeKey(
+                    requestedKey
+                );
 
             const keys =
                 Object.keys(object);
 
-            /* Exact */
+
+            /* EXACT */
+
             if (
                 Object.prototype.hasOwnProperty.call(
                     object,
@@ -259,12 +330,19 @@
 
             }
 
-            /* Normalized */
-            for (let i = 0; i < keys.length; i++) {
+
+            /* NORMALIZED */
+
+            for (
+                let i = 0;
+                i < keys.length;
+                i++
+            ) {
 
                 if (
-                    normalizeKey(keys[i]) ===
-                    requested
+                    normalizeKey(
+                        keys[i]
+                    ) === requested
                 ) {
 
                     return keys[i];
@@ -282,7 +360,10 @@
            FIND TESTAMENT
         ============================================= */
 
-        function findTestamentObject(database, testament) {
+        function findTestamentObject(
+            database,
+            testament
+        ) {
 
             if (!database) {
                 return null;
@@ -303,6 +384,7 @@
                         "nt"
                     ];
 
+
             for (
                 let i = 0;
                 i < possibleKeys.length;
@@ -316,7 +398,9 @@
                     );
 
                 if (key) {
+
                     return database[key];
+
                 }
 
             }
@@ -348,11 +432,6 @@
 
             if (!testamentData) {
 
-                console.warn(
-                    "Bible: Testament data not found:",
-                    testament
-                );
-
                 return null;
 
             }
@@ -364,11 +443,6 @@
                 );
 
             if (!bookKey) {
-
-                console.warn(
-                    "Bible: Book data not found:",
-                    book
-                );
 
                 return null;
 
@@ -398,7 +472,9 @@
                 );
 
             if (!bookData) {
+
                 return null;
+
             }
 
             const chapterString =
@@ -408,17 +484,23 @@
 
                 chapterString,
 
-                "chapter " + chapterString,
+                "chapter " +
+                chapterString,
 
-                "Chapter " + chapterString,
+                "Chapter " +
+                chapterString,
 
-                "ch" + chapterString,
+                "ch" +
+                chapterString,
 
-                "ch-" + chapterString,
+                "ch-" +
+                chapterString,
 
-                "ch_" + chapterString
+                "ch_" +
+                chapterString
 
             ];
+
 
             for (
                 let i = 0;
@@ -440,12 +522,6 @@
 
             }
 
-            console.warn(
-                "Bible: Chapter data not found:",
-                book,
-                chapter
-            );
-
             return null;
 
         }
@@ -455,10 +531,20 @@
            GET DATABASE
         ============================================= */
 
-        function getDatabase(language) {
+        function getDatabase(
+            language
+        ) {
+
+            let requestedLanguage =
+                String(
+                    language || "en"
+                )
+                .trim()
+                .toLowerCase();
+
 
             /* -----------------------------------------
-               External function
+               Use official data-system function
             ----------------------------------------- */
 
             if (
@@ -470,15 +556,10 @@
 
                     const database =
                         window.getBibleDatabase(
-                            language
+                            requestedLanguage
                         );
 
                     if (database) {
-
-                        console.log(
-                            "Bible Database found through getBibleDatabase():",
-                            language
-                        );
 
                         return database;
 
@@ -497,47 +578,41 @@
 
 
             /* -----------------------------------------
-               Global BIBLE_DATABASE
+               Global BIBLE_DATABASE fallback
             ----------------------------------------- */
 
             if (
-                typeof window.BIBLE_DATABASE !==
-                "undefined"
+                window.BIBLE_DATABASE &&
+                typeof window.BIBLE_DATABASE ===
+                "object"
             ) {
 
-                const allDatabase =
-                    window.BIBLE_DATABASE;
-
                 if (
-                    allDatabase &&
-                    allDatabase[language]
+                    window.BIBLE_DATABASE[
+                        requestedLanguage
+                    ]
                 ) {
 
-                    console.log(
-                        "Bible Database found:",
-                        language
-                    );
-
-                    return allDatabase[language];
+                    return window.BIBLE_DATABASE[
+                        requestedLanguage
+                    ];
 
                 }
 
+
                 /*
-                 * اگر BIBLE_DATABASE خود language database
-                 * ہو تو اسے بھی استعمال کریں۔
+                 * اگر BIBLE_DATABASE خود language
+                 * database ہو
                  */
 
                 if (
-                    allDatabase &&
-                    (
-                        allDatabase.old ||
-                        allDatabase.new ||
-                        allDatabase.oldTestament ||
-                        allDatabase.newTestament
-                    )
+                    window.BIBLE_DATABASE.old ||
+                    window.BIBLE_DATABASE.new ||
+                    window.BIBLE_DATABASE.oldTestament ||
+                    window.BIBLE_DATABASE.newTestament
                 ) {
 
-                    return allDatabase;
+                    return window.BIBLE_DATABASE;
 
                 }
 
@@ -560,11 +635,63 @@
                 translationLanguage.value
             ) {
 
-                return translationLanguage.value;
+                return String(
+                    translationLanguage.value
+                )
+                .trim()
+                .toLowerCase();
+
+            }
+
+            if (
+                typeof window.DEFAULT_BIBLE_LANGUAGE ===
+                "string"
+            ) {
+
+                return window.DEFAULT_BIBLE_LANGUAGE;
 
             }
 
             return "en";
+
+        }
+
+
+        /* =============================================
+           CHECK LANGUAGE AVAILABILITY
+        ============================================= */
+
+        function isLanguageAvailable(
+            language
+        ) {
+
+            if (
+                typeof window.isBibleLanguageAvailable ===
+                "function"
+            ) {
+
+                try {
+
+                    return Boolean(
+                        window.isBibleLanguageAvailable(
+                            language
+                        )
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "Bible language check error:",
+                        error
+                    );
+
+                }
+
+            }
+
+            return Boolean(
+                getDatabase(language)
+            );
 
         }
 
@@ -597,11 +724,15 @@
             currentChapter = "";
 
             if (!currentTestament) {
+
                 return;
+
             }
 
             const books =
-                BIBLE_BOOKS[currentTestament];
+                BIBLE_BOOKS[
+                    currentTestament
+                ];
 
             if (!books) {
 
@@ -614,22 +745,28 @@
 
             }
 
-            books.forEach(function (book) {
 
-                const option =
-                    document.createElement("option");
+            books.forEach(
+                function (book) {
 
-                option.value =
-                    book[0];
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
 
-                option.textContent =
-                    book[0];
+                    option.value =
+                        book[0];
 
-                bookSelect.appendChild(
-                    option
-                );
+                    option.textContent =
+                        book[0];
 
-            });
+                    bookSelect.appendChild(
+                        option
+                    );
+
+                }
+            );
+
 
             console.log(
                 "Books loaded:",
@@ -649,22 +786,32 @@
         ) {
 
             const books =
-                BIBLE_BOOKS[testament];
+                BIBLE_BOOKS[
+                    testament
+                ];
 
             if (!books) {
+
                 return null;
+
             }
 
-            return books.find(
-                function (book) {
+            return (
+                books.find(
+                    function (book) {
 
-                    return (
-                        normalizeKey(book[0]) ===
-                        normalizeKey(bookName)
-                    );
+                        return (
+                            normalizeKey(
+                                book[0]
+                            ) ===
+                            normalizeKey(
+                                bookName
+                            )
+                        );
 
-                }
-            ) || null;
+                    }
+                ) || null
+            );
 
         }
 
@@ -722,6 +869,7 @@
             const chapterCount =
                 Number(book[1]);
 
+
             for (
                 let chapter = 1;
                 chapter <= chapterCount;
@@ -729,19 +877,23 @@
             ) {
 
                 const option =
-                    document.createElement("option");
+                    document.createElement(
+                        "option"
+                    );
 
                 option.value =
                     String(chapter);
 
                 option.textContent =
-                    "Chapter " + chapter;
+                    "Chapter " +
+                    chapter;
 
                 chapterSelect.appendChild(
                     option
                 );
 
             }
+
 
             console.log(
                 "Chapters loaded:",
@@ -763,15 +915,86 @@
             chapter
         ) {
 
+            /*
+             * -----------------------------------------
+             * Prefer bible-data.js official helper
+             * -----------------------------------------
+             */
+
+            if (
+                typeof window.getBibleAvailableVerses ===
+                "function"
+            ) {
+
+                try {
+
+                    const verses =
+                        window.getBibleAvailableVerses(
+                            language,
+                            testament,
+                            book,
+                            chapter
+                        );
+
+                    if (
+                        Array.isArray(verses)
+                    ) {
+
+                        return verses
+                            .map(
+                                function (verse) {
+
+                                    return Number(
+                                        verse
+                                    );
+
+                                }
+                            )
+                            .filter(
+                                function (verse) {
+
+                                    return (
+                                        Number.isFinite(
+                                            verse
+                                        )
+                                    );
+
+                                }
+                            )
+                            .sort(
+                                function (a, b) {
+
+                                    return a - b;
+
+                                }
+                            );
+
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Bible verse helper error:",
+                        error
+                    );
+
+                }
+
+            }
+
+
+            /*
+             * -----------------------------------------
+             * Local fallback
+             * -----------------------------------------
+             */
+
             const database =
-                getDatabase(language);
-
-            if (!database) {
-
-                console.error(
-                    "Bible: Database not available for:",
+                getDatabase(
                     language
                 );
+
+            if (!database) {
 
                 return [];
 
@@ -790,57 +1013,58 @@
                 typeof chapterData !== "object"
             ) {
 
-                console.warn(
-                    "Bible: No chapter data:",
-                    testament,
-                    book,
-                    chapter,
-                    language
-                );
-
                 return [];
 
             }
 
 
-            /* -----------------------------------------
-               اگر chapterData array ہو
-            ----------------------------------------- */
-
-            if (Array.isArray(chapterData)) {
+            if (
+                Array.isArray(
+                    chapterData
+                )
+            ) {
 
                 return chapterData
-                    .map(function (item, index) {
-
-                        /*
-                         * اگر array میں verse objects ہوں
-                         */
-                        if (
-                            item &&
-                            typeof item === "object" &&
-                            item.verse !== undefined
+                    .map(
+                        function (
+                            item,
+                            index
                         ) {
 
-                            return Number(
-                                item.verse
+                            if (
+                                item &&
+                                typeof item ===
+                                "object" &&
+                                item.verse !==
+                                undefined
+                            ) {
+
+                                return Number(
+                                    item.verse
+                                );
+
+                            }
+
+                            return index + 1;
+
+                        }
+                    )
+                    .filter(
+                        function (value) {
+
+                            return Number.isFinite(
+                                value
                             );
 
                         }
+                    )
+                    .sort(
+                        function (a, b) {
 
-                        /*
-                         * عام array:
-                         * [verse1, verse2, ...]
-                         */
-                        return index + 1;
+                            return a - b;
 
-                    })
-                    .filter(function (value) {
-
-                        return Number.isFinite(
-                            value
-                        );
-
-                    });
+                        }
+                    );
 
             }
 
@@ -848,34 +1072,39 @@
             return Object.keys(
                 chapterData
             )
-            .map(function (value) {
+            .map(
+                function (value) {
 
-                /*
-                 * verse1 / verse 1 / 1
-                 */
-                const cleaned =
-                    String(value)
-                        .replace(
-                            /^verse[\s_-]*/i,
-                            ""
-                        )
-                        .trim();
+                    const cleaned =
+                        String(value)
+                            .replace(
+                                /^verse[\s_-]*/i,
+                                ""
+                            )
+                            .trim();
 
-                return Number(cleaned);
+                    return Number(
+                        cleaned
+                    );
 
-            })
-            .filter(function (value) {
+                }
+            )
+            .filter(
+                function (value) {
 
-                return Number.isFinite(
-                    value
-                );
+                    return Number.isFinite(
+                        value
+                    );
 
-            })
-            .sort(function (a, b) {
+                }
+            )
+            .sort(
+                function (a, b) {
 
-                return a - b;
+                    return a - b;
 
-            });
+                }
+            );
 
         }
 
@@ -901,7 +1130,9 @@
                 chapterSelect.value || "";
 
             const chapter =
-                Number(currentChapter);
+                Number(
+                    currentChapter
+                );
 
             if (
                 !currentTestament ||
@@ -916,13 +1147,21 @@
             const language =
                 getLanguage();
 
+
             console.log(
                 "Loading verses:",
                 {
-                    language: language,
-                    testament: currentTestament,
-                    book: currentBook,
-                    chapter: chapter
+                    language:
+                        language,
+
+                    testament:
+                        currentTestament,
+
+                    book:
+                        currentBook,
+
+                    chapter:
+                        chapter
                 }
             );
 
@@ -936,7 +1175,9 @@
                 );
 
 
-            if (verses.length > 0) {
+            if (
+                verses.length > 0
+            ) {
 
                 verses.forEach(
                     function (verse) {
@@ -950,7 +1191,8 @@
                             String(verse);
 
                         option.textContent =
-                            "Verse " + verse;
+                            "Verse " +
+                            verse;
 
                         verseSelect.appendChild(
                             option
@@ -959,8 +1201,9 @@
                     }
                 );
 
+
                 console.log(
-                    "VERSes loaded successfully:",
+                    "Verses loaded:",
                     verses.length
                 );
 
@@ -971,38 +1214,14 @@
 
             /*
              * -----------------------------------------
-             * اگر database موجود ہے مگر verse نہیں ملا
-             * تو diagnostic information
+             * No verse data
              * -----------------------------------------
              */
 
-            const database =
-                getDatabase(language);
-
-            if (database) {
-
-                console.warn(
-                    "Bible database exists, but verses could not be resolved.",
-                    {
-                        testament: currentTestament,
-                        book: currentBook,
-                        chapter: chapter,
-                        language: language
-                    }
-                );
-
-            } else {
-
-                console.error(
-                    "Bible database does not exist:",
-                    language
-                );
-
-            }
-
-
             const option =
-                document.createElement("option");
+                document.createElement(
+                    "option"
+                );
 
             option.value = "";
 
@@ -1011,6 +1230,24 @@
 
             verseSelect.appendChild(
                 option
+            );
+
+
+            console.warn(
+                "Bible: Verse data not found.",
+                {
+                    language:
+                        language,
+
+                    testament:
+                        currentTestament,
+
+                    book:
+                        currentBook,
+
+                    chapter:
+                        chapter
+                }
             );
 
         }
@@ -1030,7 +1267,7 @@
 
             /*
              * -----------------------------------------
-             * پہلے external function
+             * Official bible-data.js function
              * -----------------------------------------
              */
 
@@ -1056,7 +1293,9 @@
                         String(text).trim() !== ""
                     ) {
 
-                        return text;
+                        return String(
+                            text
+                        );
 
                     }
 
@@ -1074,15 +1313,19 @@
 
             /*
              * -----------------------------------------
-             * Local database
+             * Local fallback
              * -----------------------------------------
              */
 
             const database =
-                getDatabase(language);
+                getDatabase(
+                    language
+                );
 
             if (!database) {
+
                 return null;
+
             }
 
             const chapterData =
@@ -1094,17 +1337,16 @@
                 );
 
             if (!chapterData) {
-                return null;
-            }
 
+                return null;
+
+            }
 
             const requestedVerse =
                 String(verse);
 
 
-            /*
-             * Exact key
-             */
+            /* EXACT */
 
             if (
                 Object.prototype.hasOwnProperty.call(
@@ -1113,41 +1355,36 @@
                 )
             ) {
 
-                const value =
+                return extractVerseText(
                     chapterData[
                         requestedVerse
-                    ];
-
-                return extractVerseText(
-                    value
+                    ]
                 );
 
             }
 
 
-            /*
-             * Verse 1 / verse-1 / verse_1
-             */
+            /* verse 1 / verse-1 / verse_1 */
 
             const verseKey =
                 findObjectKey(
                     chapterData,
-                    "verse " + requestedVerse
+                    "verse " +
+                    requestedVerse
                 );
-
 
             if (verseKey) {
 
                 return extractVerseText(
-                    chapterData[verseKey]
+                    chapterData[
+                        verseKey
+                    ]
                 );
 
             }
 
 
-            /*
-             * Numeric comparison
-             */
+            /* NUMERIC COMPARISON */
 
             const keys =
                 Object.keys(
@@ -1161,12 +1398,14 @@
             ) {
 
                 const cleaned =
-                    String(keys[i])
-                        .replace(
-                            /^verse[\s_-]*/i,
-                            ""
-                        )
-                        .trim();
+                    String(
+                        keys[i]
+                    )
+                    .replace(
+                        /^verse[\s_-]*/i,
+                        ""
+                    )
+                    .trim();
 
                 if (
                     Number(cleaned) ===
@@ -1174,7 +1413,9 @@
                 ) {
 
                     return extractVerseText(
-                        chapterData[keys[i]]
+                        chapterData[
+                            keys[i]
+                        ]
                     );
 
                 }
@@ -1191,7 +1432,9 @@
            EXTRACT VERSE TEXT
         ============================================= */
 
-        function extractVerseText(value) {
+        function extractVerseText(
+            value
+        ) {
 
             if (
                 value === null ||
@@ -1202,23 +1445,18 @@
 
             }
 
-            /*
-             * سیدھا text
-             */
 
             if (
                 typeof value === "string" ||
                 typeof value === "number"
             ) {
 
-                return String(value);
+                return String(
+                    value
+                );
 
             }
 
-
-            /*
-             * اگر verse object ہو
-             */
 
             if (
                 typeof value === "object"
@@ -1234,6 +1472,7 @@
 
                 ];
 
+
                 for (
                     let i = 0;
                     i < possibleFields.length;
@@ -1244,8 +1483,10 @@
                         possibleFields[i];
 
                     if (
-                        value[field] !== undefined &&
-                        value[field] !== null
+                        value[field] !==
+                            undefined &&
+                        value[field] !==
+                            null
                     ) {
 
                         return String(
@@ -1275,11 +1516,135 @@
             chapter
         ) {
 
+            /*
+             * -----------------------------------------
+             * Official database first
+             * -----------------------------------------
+             */
+
+            if (
+                typeof window.getBibleChapter ===
+                "function"
+            ) {
+
+                try {
+
+                    const officialChapter =
+                        window.getBibleChapter(
+                            language,
+                            testament,
+                            book,
+                            chapter
+                        );
+
+                    if (
+                        officialChapter &&
+                        typeof officialChapter ===
+                        "object"
+                    ) {
+
+                        const keys =
+                            Object.keys(
+                                officialChapter
+                            );
+
+                        if (
+                            keys.length > 0
+                        ) {
+
+                            return keys
+                                .map(
+                                    function (
+                                        verseKey
+                                    ) {
+
+                                        const cleaned =
+                                            String(
+                                                verseKey
+                                            )
+                                            .replace(
+                                                /^verse[\s_-]*/i,
+                                                ""
+                                            )
+                                            .trim();
+
+                                        return {
+
+                                            verse:
+                                                Number(
+                                                    cleaned
+                                                ),
+
+                                            text:
+                                                extractVerseText(
+                                                    officialChapter[
+                                                        verseKey
+                                                    ]
+                                                )
+
+                                        };
+
+                                    }
+                                )
+                                .filter(
+                                    function (
+                                        item
+                                    ) {
+
+                                        return (
+                                            Number.isFinite(
+                                                item.verse
+                                            ) &&
+                                            item.text
+                                        );
+
+                                    }
+                                )
+                                .sort(
+                                    function (
+                                        a,
+                                        b
+                                    ) {
+
+                                        return (
+                                            a.verse -
+                                            b.verse
+                                        );
+
+                                    }
+                                );
+
+                        }
+
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Bible chapter function error:",
+                        error
+                    );
+
+                }
+
+            }
+
+
+            /*
+             * -----------------------------------------
+             * Local fallback
+             * -----------------------------------------
+             */
+
             const database =
-                getDatabase(language);
+                getDatabase(
+                    language
+                );
 
             if (!database) {
+
                 return [];
+
             }
 
             const chapterData =
@@ -1300,27 +1665,47 @@
             }
 
 
-            /*
-             * ARRAY DATABASE
-             */
-
-            if (Array.isArray(chapterData)) {
+            if (
+                Array.isArray(
+                    chapterData
+                )
+            ) {
 
                 return chapterData
-                    .map(function (item, index) {
-
-                        if (
-                            item &&
-                            typeof item === "object" &&
-                            item.verse !== undefined
+                    .map(
+                        function (
+                            item,
+                            index
                         ) {
+
+                            if (
+                                item &&
+                                typeof item ===
+                                "object" &&
+                                item.verse !==
+                                undefined
+                            ) {
+
+                                return {
+
+                                    verse:
+                                        Number(
+                                            item.verse
+                                        ),
+
+                                    text:
+                                        extractVerseText(
+                                            item
+                                        )
+
+                                };
+
+                            }
 
                             return {
 
                                 verse:
-                                    Number(
-                                        item.verse
-                                    ),
+                                    index + 1,
 
                                 text:
                                     extractVerseText(
@@ -1330,85 +1715,79 @@
                             };
 
                         }
+                    )
+                    .filter(
+                        function (item) {
 
-                        return {
+                            return (
+                                Number.isFinite(
+                                    item.verse
+                                ) &&
+                                item.text
+                            );
 
-                            verse:
-                                index + 1,
-
-                            text:
-                                extractVerseText(
-                                    item
-                                )
-
-                        };
-
-                    })
-                    .filter(function (item) {
-
-                        return (
-                            Number.isFinite(
-                                item.verse
-                            ) &&
-                            item.text
-                        );
-
-                    });
+                        }
+                    );
 
             }
 
 
-            /*
-             * OBJECT DATABASE
-             */
-
             return Object.keys(
                 chapterData
             )
-            .map(function (verseKey) {
+            .map(
+                function (verseKey) {
 
-                const cleaned =
-                    String(verseKey)
+                    const cleaned =
+                        String(
+                            verseKey
+                        )
                         .replace(
                             /^verse[\s_-]*/i,
                             ""
                         )
                         .trim();
 
-                const verseNumber =
-                    Number(cleaned);
+                    return {
 
-                return {
+                        verse:
+                            Number(
+                                cleaned
+                            ),
 
-                    verse:
-                        verseNumber,
+                        text:
+                            extractVerseText(
+                                chapterData[
+                                    verseKey
+                                ]
+                            )
 
-                    text:
-                        extractVerseText(
-                            chapterData[verseKey]
-                        )
+                    };
 
-                };
+                }
+            )
+            .filter(
+                function (item) {
 
-            })
-            .filter(function (item) {
+                    return (
+                        Number.isFinite(
+                            item.verse
+                        ) &&
+                        item.text
+                    );
 
-                return (
-                    Number.isFinite(
-                        item.verse
-                    ) &&
-                    item.text
-                );
+                }
+            )
+            .sort(
+                function (a, b) {
 
-            })
-            .sort(function (a, b) {
+                    return (
+                        a.verse -
+                        b.verse
+                    );
 
-                return (
-                    a.verse -
-                    b.verse
-                );
-
-            });
+                }
+            );
 
         }
 
@@ -1417,7 +1796,9 @@
            TEXT DIRECTION
         ============================================= */
 
-        function getDirection(language) {
+        function getDirection(
+            language
+        ) {
 
             const rtlLanguages = [
 
@@ -1431,7 +1812,9 @@
             ];
 
             return rtlLanguages.includes(
-                normalizeLanguage(language)
+                normalizeLanguage(
+                    language
+                )
             )
                 ? "rtl"
                 : "ltr";
@@ -1443,29 +1826,33 @@
            HTML ESCAPE
         ============================================= */
 
-        function escapeHTML(value) {
+        function escapeHTML(
+            value
+        ) {
 
-            return String(value)
-                .replace(
-                    /&/g,
-                    "&amp;"
-                )
-                .replace(
-                    /</g,
-                    "&lt;"
-                )
-                .replace(
-                    />/g,
-                    "&gt;"
-                )
-                .replace(
-                    /"/g,
-                    "&quot;"
-                )
-                .replace(
-                    /'/g,
-                    "&#039;"
-                );
+            return String(
+                value
+            )
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
 
         }
 
@@ -1495,6 +1882,7 @@
 
             }
 
+
             const verseButton =
                 document.getElementById(
                     "verseAudioButton"
@@ -1506,6 +1894,7 @@
                     "🔊 Listen";
 
             }
+
 
             const chapterButton =
                 document.getElementById(
@@ -1526,7 +1915,9 @@
            SPEECH LANGUAGE MAP
         ============================================= */
 
-        function getSpeechLanguages(language) {
+        function getSpeechLanguages(
+            language
+        ) {
 
             const speechLanguages = {
 
@@ -1572,127 +1963,19 @@
                 grc: [
                     "el-GR",
                     "el"
-                ],
-
-                es: [
-                    "es-ES",
-                    "es-MX",
-                    "es"
-                ],
-
-                pt: [
-                    "pt-PT",
-                    "pt-BR",
-                    "pt"
-                ],
-
-                fr: [
-                    "fr-FR",
-                    "fr-CA",
-                    "fr"
-                ],
-
-                de: [
-                    "de-DE",
-                    "de"
-                ],
-
-                it: [
-                    "it-IT",
-                    "it"
-                ],
-
-                ru: [
-                    "ru-RU",
-                    "ru"
-                ],
-
-                nl: [
-                    "nl-NL",
-                    "nl"
-                ],
-
-                tr: [
-                    "tr-TR",
-                    "tr"
-                ],
-
-                bn: [
-                    "bn-BD",
-                    "bn-IN",
-                    "bn"
-                ],
-
-                ta: [
-                    "ta-IN",
-                    "ta"
-                ],
-
-                te: [
-                    "te-IN",
-                    "te"
-                ],
-
-                mr: [
-                    "mr-IN",
-                    "mr"
-                ],
-
-                "zh-CN": [
-                    "zh-CN",
-                    "zh"
-                ],
-
-                "zh-TW": [
-                    "zh-TW",
-                    "zh"
-                ],
-
-                ja: [
-                    "ja-JP",
-                    "ja"
-                ],
-
-                ko: [
-                    "ko-KR",
-                    "ko"
-                ],
-
-                vi: [
-                    "vi-VN",
-                    "vi"
-                ],
-
-                th: [
-                    "th-TH",
-                    "th"
-                ],
-
-                id: [
-                    "id-ID",
-                    "id"
-                ],
-
-                ms: [
-                    "ms-MY",
-                    "ms"
-                ],
-
-                fil: [
-                    "fil-PH",
-                    "fil"
-                ],
-
-                sw: [
-                    "sw-KE",
-                    "sw"
                 ]
 
             };
 
+
             return (
-                speechLanguages[language] ||
-                ["en-US", "en"]
+                speechLanguages[
+                    language
+                ] ||
+                [
+                    "en-US",
+                    "en"
+                ]
             );
 
         }
@@ -1702,7 +1985,9 @@
            LANGUAGE NAME MAP
         ============================================= */
 
-        function getLanguageNames(language) {
+        function getLanguageNames(
+            language
+        ) {
 
             const languageNames = {
 
@@ -1717,7 +2002,7 @@
                     "punjabi",
                     "pakistan",
                     "punjabi pakistan",
-                    "ਪੰਜਾਬੀ"
+                    "پنجابی"
                 ],
 
                 ar: [
@@ -1743,102 +2028,15 @@
 
                 en: [
                     "english"
-                ],
-
-                es: [
-                    "spanish",
-                    "español"
-                ],
-
-                pt: [
-                    "portuguese",
-                    "português"
-                ],
-
-                fr: [
-                    "french",
-                    "français"
-                ],
-
-                de: [
-                    "german",
-                    "deutsch"
-                ],
-
-                it: [
-                    "italian",
-                    "italiano"
-                ],
-
-                ru: [
-                    "russian",
-                    "русский"
-                ],
-
-                nl: [
-                    "dutch",
-                    "nederlands"
-                ],
-
-                tr: [
-                    "turkish",
-                    "türkçe"
-                ],
-
-                bn: [
-                    "bengali",
-                    "bangla"
-                ],
-
-                ta: [
-                    "tamil"
-                ],
-
-                te: [
-                    "telugu"
-                ],
-
-                mr: [
-                    "marathi"
-                ],
-
-                ja: [
-                    "japanese"
-                ],
-
-                ko: [
-                    "korean"
-                ],
-
-                vi: [
-                    "vietnamese"
-                ],
-
-                th: [
-                    "thai"
-                ],
-
-                id: [
-                    "indonesian"
-                ],
-
-                ms: [
-                    "malay"
-                ],
-
-                fil: [
-                    "filipino",
-                    "tagalog"
-                ],
-
-                sw: [
-                    "swahili"
                 ]
 
             };
 
+
             return (
-                languageNames[language] ||
+                languageNames[
+                    language
+                ] ||
                 []
             );
 
@@ -1849,15 +2047,19 @@
            NORMALIZE LANGUAGE
         ============================================= */
 
-        function normalizeLanguage(value) {
+        function normalizeLanguage(
+            value
+        ) {
 
-            return String(value || "")
-                .trim()
-                .toLowerCase()
-                .replace(
-                    /_/g,
-                    "-"
-                );
+            return String(
+                value || ""
+            )
+            .trim()
+            .toLowerCase()
+            .replace(
+                /_/g,
+                "-"
+            );
 
         }
 
@@ -1881,6 +2083,7 @@
 
             }
 
+
             const normalizedRequested =
                 requestedLanguages.map(
                     function (value) {
@@ -1893,7 +2096,7 @@
                 );
 
 
-            /* EXACT */
+            /* EXACT MATCH */
 
             for (
                 let i = 0;
@@ -1919,19 +2122,23 @@
                     );
 
                 if (exact) {
+
                     return exact;
+
                 }
 
             }
 
 
-            /* BASE */
+            /* BASE LANGUAGE MATCH */
 
             const baseLanguages =
                 normalizedRequested.map(
                     function (value) {
 
-                        return value.split("-")[0];
+                        return value.split(
+                            "-"
+                        )[0];
 
                     }
                 );
@@ -1947,11 +2154,15 @@
                             );
 
                         if (!voiceLang) {
+
                             return false;
+
                         }
 
                         const voiceBase =
-                            voiceLang.split("-")[0];
+                            voiceLang.split(
+                                "-"
+                            )[0];
 
                         return baseLanguages.includes(
                             voiceBase
@@ -1962,7 +2173,9 @@
 
 
             if (baseVoice) {
+
                 return baseVoice;
+
             }
 
 
@@ -1973,7 +2186,10 @@
                     language
                 );
 
-            if (names.length > 0) {
+
+            if (
+                names.length > 0
+            ) {
 
                 const nameVoice =
                     voices.find(
@@ -1981,20 +2197,26 @@
 
                             const voiceName =
                                 String(
-                                    voice.name || ""
-                                ).toLowerCase();
+                                    voice.name ||
+                                    ""
+                                )
+                                .toLowerCase();
 
                             const voiceLang =
                                 String(
-                                    voice.lang || ""
-                                ).toLowerCase();
+                                    voice.lang ||
+                                    ""
+                                )
+                                .toLowerCase();
 
                             return names.some(
                                 function (name) {
 
                                     const searchName =
-                                        String(name)
-                                            .toLowerCase();
+                                        String(
+                                            name
+                                        )
+                                        .toLowerCase();
 
                                     return (
                                         voiceName.includes(
@@ -2011,78 +2233,11 @@
                         }
                     );
 
+
                 if (nameVoice) {
+
                     return nameVoice;
-                }
 
-            }
-
-
-            /* URDU FALLBACK */
-
-            if (language === "ur") {
-
-                const urduVoice =
-                    voices.find(
-                        function (voice) {
-
-                            const name =
-                                String(
-                                    voice.name || ""
-                                ).toLowerCase();
-
-                            const lang =
-                                normalizeLanguage(
-                                    voice.lang
-                                );
-
-                            return (
-                                name.includes("urdu") ||
-                                name.includes("pakistan") ||
-                                lang === "ur-pk" ||
-                                lang === "ur"
-                            );
-
-                        }
-                    );
-
-                if (urduVoice) {
-                    return urduVoice;
-                }
-
-            }
-
-
-            /* PUNJABI FALLBACK */
-
-            if (language === "pa") {
-
-                const punjabiVoice =
-                    voices.find(
-                        function (voice) {
-
-                            const name =
-                                String(
-                                    voice.name || ""
-                                ).toLowerCase();
-
-                            const lang =
-                                normalizeLanguage(
-                                    voice.lang
-                                );
-
-                            return (
-                                name.includes("punjabi") ||
-                                name.includes("pakistan") ||
-                                lang === "pa-pk" ||
-                                lang === "pa"
-                            );
-
-                        }
-                    );
-
-                if (punjabiVoice) {
-                    return punjabiVoice;
                 }
 
             }
@@ -2106,8 +2261,14 @@
         ) {
 
             if (
-                !("speechSynthesis" in window) ||
-                !("SpeechSynthesisUtterance" in window)
+                !(
+                    "speechSynthesis" in
+                    window
+                ) ||
+                !(
+                    "SpeechSynthesisUtterance" in
+                    window
+                )
             ) {
 
                 alert(
@@ -2117,6 +2278,7 @@
                 return;
 
             }
+
 
             if (
                 !text ||
@@ -2131,12 +2293,14 @@
 
             }
 
+
             const voice =
                 findBestVoice(
                     voices,
                     requestedLanguages,
                     language
                 );
+
 
             try {
 
@@ -2151,10 +2315,12 @@
 
             }
 
+
             const speech =
                 new SpeechSynthesisUtterance(
                     String(text)
                 );
+
 
             if (voice) {
 
@@ -2173,29 +2339,37 @@
 
             }
 
+
             speech.rate = 0.85;
             speech.pitch = 1;
             speech.volume = 1;
+
 
             speech.onstart =
                 function () {
 
                     if (button) {
+
                         button.textContent =
                             "⏹ Stop";
+
                     }
 
                 };
+
 
             speech.onend =
                 function () {
 
                     if (button) {
+
                         button.textContent =
                             "🔊 Listen";
+
                     }
 
                 };
+
 
             speech.onerror =
                 function (event) {
@@ -2206,11 +2380,14 @@
                     );
 
                     if (button) {
+
                         button.textContent =
                             "🔊 Listen";
+
                     }
 
                 };
+
 
             setTimeout(
                 function () {
@@ -2238,13 +2415,18 @@
 
 
         /* =============================================
-           GET VOICES
+           GET BROWSER VOICES
         ============================================= */
 
-        function getBrowserVoices(callback) {
+        function getBrowserVoices(
+            callback
+        ) {
 
             if (
-                !("speechSynthesis" in window)
+                !(
+                    "speechSynthesis" in
+                    window
+                )
             ) {
 
                 callback([]);
@@ -2252,34 +2434,45 @@
 
             }
 
+
             const voices =
                 window.speechSynthesis.getVoices();
+
 
             if (
                 voices &&
                 voices.length > 0
             ) {
 
-                callback(voices);
+                callback(
+                    voices
+                );
+
                 return;
 
             }
 
+
             let finished = false;
+
 
             function finish() {
 
                 if (finished) {
+
                     return;
+
                 }
 
                 finished = true;
+
 
                 window.speechSynthesis
                     .removeEventListener(
                         "voiceschanged",
                         finish
                     );
+
 
                 callback(
                     window.speechSynthesis
@@ -2288,11 +2481,13 @@
 
             }
 
+
             window.speechSynthesis
                 .addEventListener(
                     "voiceschanged",
                     finish
                 );
+
 
             setTimeout(
                 finish,
@@ -2306,7 +2501,9 @@
            SETUP VERSE AUDIO
         ============================================= */
 
-        function setupAudio(text) {
+        function setupAudio(
+            text
+        ) {
 
             const button =
                 document.getElementById(
@@ -2314,17 +2511,27 @@
                 );
 
             if (!button) {
+
                 return;
+
             }
 
+
             button.onclick = null;
+
 
             button.onclick =
                 function () {
 
                     if (
-                        !("speechSynthesis" in window) ||
-                        !("SpeechSynthesisUtterance" in window)
+                        !(
+                            "speechSynthesis" in
+                            window
+                        ) ||
+                        !(
+                            "SpeechSynthesisUtterance" in
+                            window
+                        )
                     ) {
 
                         alert(
@@ -2335,9 +2542,12 @@
 
                     }
 
+
                     if (
-                        window.speechSynthesis.speaking ||
-                        window.speechSynthesis.pending
+                        window.speechSynthesis
+                            .speaking ||
+                        window.speechSynthesis
+                            .pending
                     ) {
 
                         window.speechSynthesis.cancel();
@@ -2349,6 +2559,7 @@
 
                     }
 
+
                     const language =
                         getLanguage();
 
@@ -2356,6 +2567,7 @@
                         getSpeechLanguages(
                             language
                         );
+
 
                     getBrowserVoices(
                         function (voices) {
@@ -2389,8 +2601,14 @@
         ) {
 
             if (
-                !("speechSynthesis" in window) ||
-                !("SpeechSynthesisUtterance" in window)
+                !(
+                    "speechSynthesis" in
+                    window
+                ) ||
+                !(
+                    "SpeechSynthesisUtterance" in
+                    window
+                )
             ) {
 
                 alert(
@@ -2400,6 +2618,7 @@
                 return;
 
             }
+
 
             if (
                 !text ||
@@ -2414,12 +2633,14 @@
 
             }
 
+
             const voice =
                 findBestVoice(
                     voices,
                     requestedLanguages,
                     language
                 );
+
 
             try {
 
@@ -2434,10 +2655,12 @@
 
             }
 
+
             const speech =
                 new SpeechSynthesisUtterance(
                     String(text)
                 );
+
 
             if (voice) {
 
@@ -2456,29 +2679,37 @@
 
             }
 
+
             speech.rate = 0.85;
             speech.pitch = 1;
             speech.volume = 1;
+
 
             speech.onstart =
                 function () {
 
                     if (button) {
+
                         button.textContent =
                             "⏹ Stop Chapter";
+
                     }
 
                 };
+
 
             speech.onend =
                 function () {
 
                     if (button) {
+
                         button.textContent =
                             "🔊 Listen Chapter";
+
                     }
 
                 };
+
 
             speech.onerror =
                 function (event) {
@@ -2489,11 +2720,14 @@
                     );
 
                     if (button) {
+
                         button.textContent =
                             "🔊 Listen Chapter";
+
                     }
 
                 };
+
 
             setTimeout(
                 function () {
@@ -2530,17 +2764,27 @@
         ) {
 
             if (!button) {
+
                 return;
+
             }
 
+
             button.onclick = null;
+
 
             button.onclick =
                 function () {
 
                     if (
-                        !("speechSynthesis" in window) ||
-                        !("SpeechSynthesisUtterance" in window)
+                        !(
+                            "speechSynthesis" in
+                            window
+                        ) ||
+                        !(
+                            "SpeechSynthesisUtterance" in
+                            window
+                        )
                     ) {
 
                         alert(
@@ -2551,9 +2795,12 @@
 
                     }
 
+
                     if (
-                        window.speechSynthesis.speaking ||
-                        window.speechSynthesis.pending
+                        window.speechSynthesis
+                            .speaking ||
+                        window.speechSynthesis
+                            .pending
                     ) {
 
                         window.speechSynthesis.cancel();
@@ -2565,6 +2812,7 @@
 
                     }
 
+
                     const language =
                         getLanguage();
 
@@ -2572,6 +2820,7 @@
                         getSpeechLanguages(
                             language
                         );
+
 
                     getBrowserVoices(
                         function (voices) {
@@ -2604,10 +2853,14 @@
                 );
 
             if (!target) {
+
                 return;
+
             }
 
+
             let size = 20;
+
 
             const out =
                 document.getElementById(
@@ -2623,6 +2876,7 @@
                 document.getElementById(
                     "verseZoomInButton"
                 );
+
 
             if (out) {
 
@@ -2642,6 +2896,7 @@
 
             }
 
+
             if (reset) {
 
                 reset.onclick =
@@ -2655,6 +2910,7 @@
                     };
 
             }
+
 
             if (inButton) {
 
@@ -2673,6 +2929,7 @@
                     };
 
             }
+
 
             target.style.fontSize =
                 size + "px";
@@ -2692,10 +2949,14 @@
                 );
 
             if (!target) {
+
                 return;
+
             }
 
+
             let size = 20;
+
 
             const out =
                 document.getElementById(
@@ -2711,6 +2972,7 @@
                 document.getElementById(
                     "chapterZoomInButton"
                 );
+
 
             if (out) {
 
@@ -2730,6 +2992,7 @@
 
             }
 
+
             if (reset) {
 
                 reset.onclick =
@@ -2743,6 +3006,7 @@
                     };
 
             }
+
 
             if (inButton) {
 
@@ -2761,6 +3025,7 @@
                     };
 
             }
+
 
             target.style.fontSize =
                 size + "px";
@@ -2781,14 +3046,19 @@
         ) {
 
             if (!result) {
+
                 return;
+
             }
 
+
             stopAudio();
+
 
             const displayText =
                 text ||
                 "اس آیت کا متن Bible Database میں موجود نہیں ہے۔";
+
 
             result.innerHTML = `
 
@@ -2805,7 +3075,9 @@
                     <div class="bible-verse-text">
 
                         <p>
-                            ${escapeHTML(displayText)}
+                            ${escapeHTML(
+                                displayText
+                            )}
                         </p>
 
                     </div>
@@ -2846,8 +3118,13 @@
 
             `;
 
-            setupAudio(displayText);
+
+            setupAudio(
+                displayText
+            );
+
             setupZoom();
+
 
             result.scrollIntoView({
                 behavior: "smooth",
@@ -2885,6 +3162,7 @@
             const language =
                 getLanguage();
 
+
             if (
                 !testament ||
                 !book ||
@@ -2896,6 +3174,7 @@
 
             }
 
+
             currentTestament =
                 testament;
 
@@ -2903,7 +3182,10 @@
                 book;
 
             currentChapter =
-                String(chapter);
+                String(
+                    chapter
+                );
+
 
             const text =
                 getVerseText(
@@ -2914,17 +3196,30 @@
                     verse
                 );
 
+
             console.log(
                 "Reading Verse:",
                 {
-                    language: language,
-                    testament: testament,
-                    book: book,
-                    chapter: chapter,
-                    verse: verse,
-                    textFound: !!text
+                    language:
+                        language,
+
+                    testament:
+                        testament,
+
+                    book:
+                        book,
+
+                    chapter:
+                        chapter,
+
+                    verse:
+                        verse,
+
+                    textFound:
+                        Boolean(text)
                 }
             );
+
 
             renderVerse(
                 book,
@@ -2960,6 +3255,7 @@
             const language =
                 getLanguage();
 
+
             if (
                 !testament ||
                 !book ||
@@ -2974,6 +3270,7 @@
 
             }
 
+
             currentTestament =
                 testament;
 
@@ -2981,7 +3278,10 @@
                 book;
 
             currentChapter =
-                String(chapter);
+                String(
+                    chapter
+                );
+
 
             const chapterVerses =
                 getChapterVerses(
@@ -2990,6 +3290,7 @@
                     book,
                     chapter
                 );
+
 
             if (
                 !chapterVerses ||
@@ -3004,9 +3305,12 @@
 
             }
 
+
             stopAudio();
 
+
             let chapterText = "";
+
 
             chapterVerses.forEach(
                 function (item) {
@@ -3019,6 +3323,7 @@
 
                 }
             );
+
 
             result.innerHTML = `
 
@@ -3035,24 +3340,26 @@
                     <div class="bible-verse-text">
 
                         <p>
-                            ${chapterVerses.map(
-                                function (item) {
+                            ${chapterVerses
+                                .map(
+                                    function (item) {
 
-                                    return (
-                                        "<strong>" +
-                                        escapeHTML(
-                                            item.verse
-                                        ) +
-                                        ".</strong> " +
-                                        escapeHTML(
-                                            item.text
-                                        )
-                                    );
+                                        return (
+                                            "<strong>" +
+                                            escapeHTML(
+                                                item.verse
+                                            ) +
+                                            ".</strong> " +
+                                            escapeHTML(
+                                                item.text
+                                            )
+                                        );
 
-                                }
-                            ).join(
-                                "<br><br>"
-                            )}
+                                    }
+                                )
+                                .join(
+                                    "<br><br>"
+                                )}
                         </p>
 
                     </div>
@@ -3093,6 +3400,7 @@
 
             `;
 
+
             setupChapterAudio(
                 chapterText,
                 document.getElementById(
@@ -3100,7 +3408,9 @@
                 )
             );
 
+
             setupChapterZoom();
+
 
             result.scrollIntoView({
                 behavior: "smooth",
@@ -3138,6 +3448,7 @@
             const language =
                 getLanguage();
 
+
             if (
                 !testament ||
                 !book ||
@@ -3153,6 +3464,7 @@
 
             }
 
+
             const text =
                 getVerseText(
                     language,
@@ -3162,11 +3474,23 @@
                     verse
                 );
 
+
             if (!result) {
+
                 return;
+
             }
 
+
             stopAudio();
+
+
+            const source =
+                sourceLanguage &&
+                sourceLanguage.value
+                    ? sourceLanguage.value
+                    : "Not selected";
+
 
             result.innerHTML = `
 
@@ -3200,9 +3524,15 @@
                         ${escapeHTML(language)}
                     </p>
 
+                    <p>
+                        Source Language:
+                        ${escapeHTML(source)}
+                    </p>
+
                 </div>
 
             `;
+
 
             result.scrollIntoView({
                 behavior: "smooth",
@@ -3213,7 +3543,7 @@
 
 
         /* =============================================
-           EVENTS
+           TESTAMENT CHANGE
         ============================================= */
 
         testamentSelect.addEventListener(
@@ -3226,11 +3556,17 @@
                 currentBook = "";
                 currentChapter = "";
 
+                stopAudio();
+
                 loadBooks();
 
             }
         );
 
+
+        /* =============================================
+           BOOK CHANGE
+        ============================================= */
 
         bookSelect.addEventListener(
             "change",
@@ -3241,11 +3577,17 @@
 
                 currentChapter = "";
 
+                stopAudio();
+
                 loadChapters();
 
             }
         );
 
+
+        /* =============================================
+           CHAPTER CHANGE
+        ============================================= */
 
         chapterSelect.addEventListener(
             "change",
@@ -3254,17 +3596,37 @@
                 currentChapter =
                     chapterSelect.value || "";
 
+                stopAudio();
+
                 loadVerses();
 
             }
         );
 
 
+        /* =============================================
+           VERSE CHANGE
+        ============================================= */
+
         verseSelect.addEventListener(
             "change",
-            readVerse
+            function () {
+
+                if (
+                    verseSelect.value
+                ) {
+
+                    readVerse();
+
+                }
+
+            }
         );
 
+
+        /* =============================================
+           READ BUTTON
+        ============================================= */
 
         if (readBibleButton) {
 
@@ -3276,6 +3638,10 @@
         }
 
 
+        /* =============================================
+           RESEARCH BUTTON
+        ============================================= */
+
         if (researchBibleButton) {
 
             researchBibleButton.addEventListener(
@@ -3286,6 +3652,10 @@
         }
 
 
+        /* =============================================
+           TRANSLATION LANGUAGE CHANGE
+        ============================================= */
+
         if (translationLanguage) {
 
             translationLanguage.addEventListener(
@@ -3293,6 +3663,7 @@
                 function () {
 
                     stopAudio();
+
 
                     if (
                         testamentSelect.value &&
@@ -3308,6 +3679,7 @@
 
                         currentChapter =
                             chapterSelect.value;
+
 
                         loadVerses();
 
@@ -3328,6 +3700,7 @@
                 ".bible-action-buttons"
             );
 
+
         if (
             actionButtons &&
             !document.getElementById(
@@ -3340,6 +3713,7 @@
                     "button"
                 );
 
+
             fullChapterButton.type =
                 "button";
 
@@ -3349,9 +3723,11 @@
             fullChapterButton.textContent =
                 "📖 Read Full Chapter";
 
+
             actionButtons.appendChild(
                 fullChapterButton
             );
+
 
             fullChapterButton.addEventListener(
                 "click",
@@ -3391,7 +3767,8 @@
 
             try {
 
-                window.speechSynthesis.getVoices();
+                window.speechSynthesis
+                    .getVoices();
 
             } catch (error) {
 
@@ -3401,6 +3778,27 @@
                 );
 
             }
+
+        }
+
+
+        /* =============================================
+           BIBLE DATA READY CHECK
+        ============================================= */
+
+        if (
+            window.bibleDataSystemReady
+        ) {
+
+            console.log(
+                "Bible Data System detected."
+            );
+
+        } else {
+
+            console.warn(
+                "Bible Data System flag not detected. Check bible-data.js loading order."
+            );
 
         }
 

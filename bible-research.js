@@ -505,6 +505,15 @@
             chapter
         ) {
 
+            const language =
+                getLanguage();
+
+            /*
+             * English is the primary reference structure.
+             * If English data is not available for a chapter,
+             * the selected language database is used instead.
+             */
+
             let referenceDatabase =
                 getDatabase("en");
 
@@ -516,12 +525,14 @@
                     chapter
                 );
 
+            /*
+             * Fallback to selected language.
+             */
+
             if (!verses.length) {
 
                 const selectedDatabase =
-                    getDatabase(
-                        getLanguage()
-                    );
+                    getDatabase(language);
 
                 verses =
                     getAvailableVersesFromDatabase(
@@ -532,6 +543,17 @@
                     );
 
             }
+
+            console.log(
+                "Reference verses loaded:",
+                {
+                    language: language,
+                    testament: testament,
+                    book: book,
+                    chapter: chapter,
+                    verses: verses
+                }
+            );
 
             return verses;
         }
@@ -576,6 +598,12 @@
                     chapter
                 );
 
+            /*
+             * Add every available verse number.
+             * Verse numbers come from the reference Bible
+             * structure and are independent of translation text.
+             */
+
             verses.forEach(
                 function (verse) {
 
@@ -616,16 +644,28 @@
             }
 
             console.log(
-                "Reference verses loaded:",
-                book,
-                chapter,
-                verses
+                "Verse selector populated:",
+                {
+                    book: book,
+                    chapter: chapter,
+                    verses: verses
+                }
             );
         }
 
 
         /* =================================================
            GET VERSE TEXT
+           
+           IMPORTANT:
+           bible-data.js expects:
+           getBibleVerse(
+               testament,
+               book,
+               chapter,
+               verse,
+               languageCode
+           )
         ================================================= */
 
         function getVerseText(
@@ -648,11 +688,11 @@
 
                     const value =
                         window.getBibleVerse(
-                            lang,
                             testament,
                             book,
                             chapter,
-                            verse
+                            verse,
+                            lang
                         );
 
                     if (value) {
@@ -1848,7 +1888,7 @@
 
         /* =================================================
            ADD FULL CHAPTER BUTTON
-           
+
            IMPORTANT:
            We create this button through JavaScript.
            Therefore bible.html does NOT need to change.

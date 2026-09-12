@@ -1151,107 +1151,181 @@
            SETUP AUDIO
         ================================================= */
 
-        function setupAudio(text) {
+      function setupAudio(text) {
 
-            const button =
-                document.getElementById(
-                    "verseAudioButton"
+    const button =
+        document.getElementById(
+            "verseAudioButton"
+        );
+
+    if (!button) return;
+
+    button.onclick =
+        function () {
+
+            if (
+                !(
+                    "speechSynthesis" in
+                    window
+                ) ||
+                !(
+                    "SpeechSynthesisUtterance" in
+                    window
+                )
+            ) {
+
+                alert(
+                    "Audio is not supported by this browser."
                 );
 
-            if (!button) return;
+                return;
+            }
 
-            button.onclick =
+
+            if (
+                window.speechSynthesis.speaking ||
+                window.speechSynthesis.pending
+            ) {
+
+                window.speechSynthesis.cancel();
+
+                button.textContent =
+                    "🔊 Listen";
+
+                return;
+            }
+
+
+            /*
+             * IMPORTANT:
+             * ہمیشہ موجودہ منتخب آیت کا اصل متن حاصل کریں۔
+             * صرف Verse نمبر آڈیو میں نہیں بھیجا جائے گا۔
+             */
+
+            const testament =
+                testamentSelect.value;
+
+            const book =
+                bookSelect.value;
+
+            const chapter =
+                Number(
+                    chapterSelect.value
+                );
+
+            const verse =
+                Number(
+                    verseSelect.value
+                );
+
+            const language =
+                getLanguage();
+
+
+            let actualText =
+                getVerseText(
+                    language,
+                    testament,
+                    book,
+                    chapter,
+                    verse
+                );
+
+
+            /*
+             * اگر موجودہ آیت کا متن نہ ملے
+             * تو پہلے سے موجود text استعمال کریں۔
+             */
+
+            if (!actualText) {
+
+                actualText =
+                    text || "";
+
+            }
+
+
+            actualText =
+                String(actualText).trim();
+
+
+            /*
+             * خالی متن کو آڈیو میں نہ بھیجیں۔
+             */
+
+            if (!actualText) {
+
+                alert(
+                    "اس آیت کا مکمل متن Bible Database میں موجود نہیں ہے۔"
+                );
+
+                return;
+            }
+
+
+            let voices =
+                window.speechSynthesis
+                    .getVoices();
+
+
+            if (
+                voices &&
+                voices.length
+            ) {
+
+                playBibleAudio(
+                    voices,
+                    language,
+                    actualText,
+                    button
+                );
+
+                return;
+            }
+
+
+            const loadAndPlay =
                 function () {
 
-                    if (
-                        !(
-                            "speechSynthesis" in
-                            window
-                        ) ||
-                        !(
-                            "SpeechSynthesisUtterance" in
-                            window
-                        )
-                    ) {
-
-                        alert(
-                            "Audio is not supported by this browser."
-                        );
-
-                        return;
-
-                    }
-
-                    if (
-                        window.speechSynthesis.speaking ||
-                        window.speechSynthesis.pending
-                    ) {
-
-                        window.speechSynthesis.cancel();
-
-                        button.textContent =
-                            "🔊 Listen";
-
-                        return;
-
-                    }
-
-                    const language =
-                        getLanguage();
-
-                    let voices =
+                    const loaded =
                         window.speechSynthesis
                             .getVoices();
 
                     if (
-                        voices &&
-                        voices.length
+                        loaded &&
+                        loaded.length
                     ) {
 
                         playBibleAudio(
-                            voices,
+                            loaded,
                             language,
-                            text,
+                            actualText,
                             button
                         );
 
-                        return;
+                    } else {
+
+                        console.warn(
+                            "Speech voices are still loading."
+                        );
 
                     }
 
-                    const loadAndPlay =
-                        function () {
-
-                            const loaded =
-                                window.speechSynthesis
-                                    .getVoices();
-
-                            if (
-                                loaded &&
-                                loaded.length
-                            ) {
-
-                                playBibleAudio(
-                                    loaded,
-                                    language,
-                                    text,
-                                    button
-                                );
-
-                            }
-
-                        };
-
-                    window.speechSynthesis
-                        .onvoiceschanged =
-                        loadAndPlay;
-
-                    setTimeout(
-                        loadAndPlay,
-                        700
-                    );
                 };
-        }
+
+
+            window.speechSynthesis
+                .onvoiceschanged =
+                loadAndPlay;
+
+
+            setTimeout(
+                loadAndPlay,
+                700
+            );
+
+        };
+}
 
 
         /* =================================================

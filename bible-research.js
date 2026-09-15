@@ -1014,139 +1014,241 @@
             );
         }
 
+/* =================================================
+   PLAY AUDIO
+================================================= */
 
-        /* =================================================
-           PLAY AUDIO
-        ================================================= */
+function playBibleAudio(
+    voices,
+    language,
+    text,
+    button
+) {
 
-        function playBibleAudio(
+    /* ---------------------------------------------
+       CHECK SPEECH SYNTHESIS
+    --------------------------------------------- */
+
+    if (!window.speechSynthesis) {
+
+        alert(
+            "اس براؤزر میں Text-to-Speech کی سہولت موجود نہیں ہے۔"
+        );
+
+        return;
+    }
+
+
+    /* ---------------------------------------------
+       CHECK VOICES
+    --------------------------------------------- */
+
+    if (
+        !voices ||
+        !voices.length
+    ) {
+
+        alert(
+            "اس براؤزر میں ابھی کوئی Speech Voice دستیاب نہیں ہے۔"
+        );
+
+        return;
+    }
+
+
+    /* ---------------------------------------------
+       NORMALIZE LANGUAGE
+    --------------------------------------------- */
+
+    language =
+        String(
+            language || "en"
+        ).toLowerCase();
+
+
+    /* ---------------------------------------------
+       FIND VOICE
+    --------------------------------------------- */
+
+    const voice =
+        chooseVoice(
             voices,
-            language,
-            text,
-            button
-        ) {
+            language
+        );
 
-            if (
-                !voices ||
-                !voices.length
-            ) {
 
-                alert(
-                    "No speech voice is available in this browser."
-                );
+    /* ---------------------------------------------
+       IMPORTANT:
+       URDU MUST HAVE A REAL URDU VOICE
+    --------------------------------------------- */
 
-                return;
+    if (
+        language === "ur" &&
+        !voice
+    ) {
+
+        console.error(
+            "URDU VOICE NOT FOUND.",
+            voices.map(
+                function (v) {
+                    return {
+                        name: v.name,
+                        lang: v.lang
+                    };
+                }
+            )
+        );
+
+        alert(
+            "اردو آواز اس براؤزر میں دستیاب نہیں ہے۔\n\n" +
+            "براؤزر میں اردو Text-to-Speech Voice انسٹال یا فعال کرنا ضروری ہے۔"
+        );
+
+        return;
+    }
+
+
+    /* ---------------------------------------------
+       OTHER LANGUAGES
+    --------------------------------------------- */
+
+    if (!voice) {
+
+        console.warn(
+            "No matching voice found for:",
+            language
+        );
+
+        alert(
+            "اس زبان کی Speech Voice دستیاب نہیں ہے۔"
+        );
+
+        return;
+    }
+
+
+    /* ---------------------------------------------
+       CREATE SPEECH
+    --------------------------------------------- */
+
+    const speech =
+        new SpeechSynthesisUtterance(
+            String(text || "")
+        );
+
+
+    speech.rate =
+        0.85;
+
+    speech.pitch =
+        1;
+
+    speech.volume =
+        1;
+
+
+    /* ---------------------------------------------
+       APPLY REAL VOICE
+    --------------------------------------------- */
+
+    speech.voice =
+        voice;
+
+    speech.lang =
+        voice.lang;
+
+
+    console.log(
+        "Bible Audio Voice Selected:",
+        voice.name,
+        voice.lang
+    );
+
+
+    /* ---------------------------------------------
+       START
+    --------------------------------------------- */
+
+    speech.onstart =
+        function () {
+
+            if (button) {
+
+                button.textContent =
+                    "⏹ Stop";
 
             }
 
-            const requested =
-                SPEECH_LANGUAGES[
-                    language
-                ] ||
-                [
-                    "en-US",
-                    "en"
-                ];
+        };
 
-            const voice =
-                chooseVoice(
-                    voices,
-                    language
-                );
 
-            const speech =
-                new SpeechSynthesisUtterance(
-                    String(text || "")
-                );
+    /* ---------------------------------------------
+       END
+    --------------------------------------------- */
 
-            speech.rate = 0.85;
+    speech.onend =
+        function () {
 
-            speech.pitch = 1;
+            if (button) {
 
-            speech.volume = 1;
-
-            if (voice) {
-
-                speech.voice =
-                    voice;
-
-                speech.lang =
-                    voice.lang;
-
-                console.log(
-                    "Bible Audio Voice Selected:",
-                    voice.name,
-                    voice.lang
-                );
-
-            } else {
-
-                speech.lang =
-                    requested[0];
-
-                console.warn(
-                    "No matching voice found for:",
-                    requested
-                );
+                button.textContent =
+                    "🔊 Listen";
 
             }
 
-            speech.onstart =
-                function () {
+        };
 
-                    if (button) {
 
-                        button.textContent =
-                            "⏹ Stop";
+    /* ---------------------------------------------
+       ERROR
+    --------------------------------------------- */
 
-                    }
+    speech.onerror =
+        function (event) {
 
-                };
-
-            speech.onend =
-                function () {
-
-                    if (button) {
-
-                        button.textContent =
-                            "🔊 Listen";
-
-                    }
-
-                };
-
-            speech.onerror =
-                function (event) {
-
-                    console.error(
-                        "Bible Audio Error:",
-                        event
-                    );
-
-                    if (button) {
-
-                        button.textContent =
-                            "🔊 Listen";
-
-                    }
-
-                };
-
-            window.speechSynthesis.cancel();
-
-            setTimeout(
-                function () {
-
-                    window.speechSynthesis.speak(
-                        speech
-                    );
-
-                },
-                100
+            console.error(
+                "Bible Audio Error:",
+                event
             );
-        }
+
+            if (button) {
+
+                button.textContent =
+                    "🔊 Listen";
+
+            }
+
+            alert(
+                "آڈیو چلانے میں مسئلہ آیا ہے۔ براہِ کرم دوبارہ کوشش کریں۔"
+            );
+
+        };
 
 
+    /* ---------------------------------------------
+       STOP PREVIOUS AUDIO
+    --------------------------------------------- */
+
+    window.speechSynthesis.cancel();
+
+
+    /* ---------------------------------------------
+       PLAY
+    --------------------------------------------- */
+
+    setTimeout(
+        function () {
+
+            window.speechSynthesis.speak(
+                speech
+            );
+
+        },
+        100
+    );
+
+}
+      
         /* =================================================
            SETUP AUDIO
         ================================================= */

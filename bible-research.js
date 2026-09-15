@@ -1736,21 +1736,16 @@ function playBibleAudio(
 
             stopAudio();
 
-            const chapterSpeechText =
-                chapterData
-                    .map(
-                        function (item) {
+          const chapterSpeechText =
+    chapterData
+        .map(
+            function (item) {
 
-                            return (
-                                "Verse " +
-                                item.verse +
-                                ". " +
-                                item.text
-                            );
+                return item.text;
 
-                        }
-                    )
-                    .join(" ");
+            }
+        )
+        .join(" ");
 
             let versesHTML = "";
 

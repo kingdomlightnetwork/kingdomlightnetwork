@@ -508,12 +508,6 @@
             const language =
                 getLanguage();
 
-            /*
-             * English is the primary reference structure.
-             * If English data is not available for a chapter,
-             * the selected language database is used instead.
-             */
-
             let referenceDatabase =
                 getDatabase("en");
 
@@ -524,10 +518,6 @@
                     book,
                     chapter
                 );
-
-            /*
-             * Fallback to selected language.
-             */
 
             if (!verses.length) {
 
@@ -598,12 +588,6 @@
                     chapter
                 );
 
-            /*
-             * Add every available verse number.
-             * Verse numbers come from the reference Bible
-             * structure and are independent of translation text.
-             */
-
             verses.forEach(
                 function (verse) {
 
@@ -656,16 +640,6 @@
 
         /* =================================================
            GET VERSE TEXT
-           
-           IMPORTANT:
-           bible-data.js expects:
-           getBibleVerse(
-               testament,
-               book,
-               chapter,
-               verse,
-               languageCode
-           )
         ================================================= */
 
         function getVerseText(
@@ -868,6 +842,10 @@
         };
 
 
+        /* =================================================
+           VOICE NAMES
+        ================================================= */
+
         const VOICE_NAMES = {
 
             ur: [
@@ -920,6 +898,10 @@
                     "en"
                 ];
 
+            /* ---------------------------------------------
+               EXACT LANGUAGE MATCH
+            --------------------------------------------- */
+
             for (
                 let i = 0;
                 i < requested.length;
@@ -946,6 +928,11 @@
                 if (exact) return exact;
 
             }
+
+
+            /* ---------------------------------------------
+               BASE LANGUAGE MATCH
+            --------------------------------------------- */
 
             const bases =
                 requested.map(
@@ -975,6 +962,11 @@
                 );
 
             if (base) return base;
+
+
+            /* ---------------------------------------------
+               VOICE NAME MATCH
+            --------------------------------------------- */
 
             const names =
                 VOICE_NAMES[
@@ -1014,420 +1006,426 @@
             );
         }
 
-/* =================================================
-   PLAY AUDIO
-================================================= */
 
-function playBibleAudio(
-    voices,
-    language,
-    text,
-    button
-) {
-
-    /* ---------------------------------------------
-       CHECK SPEECH SYNTHESIS
-    --------------------------------------------- */
-
-    if (!window.speechSynthesis) {
-
-        alert(
-            "اس براؤزر میں Text-to-Speech کی سہولت موجود نہیں ہے۔"
-        );
-
-        return;
-    }
-
-
-    /* ---------------------------------------------
-       CHECK VOICES
-    --------------------------------------------- */
-
-    if (
-        !voices ||
-        !voices.length
-    ) {
-
-        alert(
-            "اس براؤزر میں ابھی کوئی Speech Voice دستیاب نہیں ہے۔"
-        );
-
-        return;
-    }
-
-
-    /* ---------------------------------------------
-       NORMALIZE LANGUAGE
-    --------------------------------------------- */
-
-    language =
-        String(
-            language || "en"
-        ).toLowerCase();
-
-
-    /* ---------------------------------------------
-       FIND VOICE
-    --------------------------------------------- */
-
-    const voice =
-        chooseVoice(
-            voices,
-            language
-        );
-
-
-    /* ---------------------------------------------
-       IMPORTANT:
-       URDU MUST HAVE A REAL URDU VOICE
-    --------------------------------------------- */
-
-    if (
-        language === "ur" &&
-        !voice
-    ) {
-
-        console.error(
-            "URDU VOICE NOT FOUND.",
-            voices.map(
-                function (v) {
-                    return {
-                        name: v.name,
-                        lang: v.lang
-                    };
-                }
-            )
-        );
-
-        alert(
-            "اردو آواز اس براؤزر میں دستیاب نہیں ہے۔\n\n" +
-            "براؤزر میں اردو Text-to-Speech Voice انسٹال یا فعال کرنا ضروری ہے۔"
-        );
-
-        return;
-    }
-
-
-    /* ---------------------------------------------
-       OTHER LANGUAGES
-    --------------------------------------------- */
-
-    if (!voice) {
-
-        console.warn(
-            "No matching voice found for:",
-            language
-        );
-
-        alert(
-            "اس زبان کی Speech Voice دستیاب نہیں ہے۔"
-        );
-
-        return;
-    }
-
-
-    /* ---------------------------------------------
-       CREATE SPEECH
-    --------------------------------------------- */
-
-    const speech =
-        new SpeechSynthesisUtterance(
-            String(text || "")
-        );
-
-
-    speech.rate =
-        0.85;
-
-    speech.pitch =
-        1;
-
-    speech.volume =
-        1;
-
-
-    /* ---------------------------------------------
-       APPLY REAL VOICE
-    --------------------------------------------- */
-
-    speech.voice =
-        voice;
-
-    speech.lang =
-        voice.lang;
-
-
-    console.log(
-        "Bible Audio Voice Selected:",
-        voice.name,
-        voice.lang
-    );
-
-
-    /* ---------------------------------------------
-       START
-    --------------------------------------------- */
-
-    speech.onstart =
-        function () {
-
-            if (button) {
-
-                button.textContent =
-                    "⏹ Stop";
-
-            }
-
-        };
-
-
-    /* ---------------------------------------------
-       END
-    --------------------------------------------- */
-
-    speech.onend =
-        function () {
-
-            if (button) {
-
-                button.textContent =
-                    "🔊 Listen";
-
-            }
-
-        };
-
-
-    /* ---------------------------------------------
-       ERROR
-    --------------------------------------------- */
-
-    speech.onerror =
-        function (event) {
-
-            console.error(
-                "Bible Audio Error:",
-                event
-            );
-
-            if (button) {
-
-                button.textContent =
-                    "🔊 Listen";
-
-            }
-
-            alert(
-                "آڈیو چلانے میں مسئلہ آیا ہے۔ براہِ کرم دوبارہ کوشش کریں۔"
-            );
-
-        };
-
-
-    /* ---------------------------------------------
-       STOP PREVIOUS AUDIO
-    --------------------------------------------- */
-
-    window.speechSynthesis.cancel();
-
-
-    /* ---------------------------------------------
-       PLAY
-    --------------------------------------------- */
-
-    setTimeout(
-        function () {
-
-            window.speechSynthesis.speak(
-                speech
-            );
-
-        },
-        100
-    );
-
-}
-      
         /* =================================================
-           SETUP AUDIO
+           PLAY AUDIO
         ================================================= */
 
-      function setupAudio(text) {
+        function playBibleAudio(
+            voices,
+            language,
+            text,
+            button
+        ) {
 
-    const button =
-        document.getElementById(
-            "verseAudioButton"
-        );
+            if (!window.speechSynthesis) {
 
-    if (!button) return;
+                alert(
+                    "اس براؤزر میں Text-to-Speech کی سہولت موجود نہیں ہے۔"
+                );
 
-    button.onclick =
-        function () {
+                return;
+            }
+
 
             if (
-                !(
-                    "speechSynthesis" in
-                    window
-                ) ||
-                !(
-                    "SpeechSynthesisUtterance" in
-                    window
-                )
+                !voices ||
+                !voices.length
             ) {
 
                 alert(
-                    "Audio is not supported by this browser."
+                    "اس براؤزر میں ابھی کوئی Speech Voice دستیاب نہیں ہے۔"
                 );
 
                 return;
             }
 
 
-            if (
-                window.speechSynthesis.speaking ||
-                window.speechSynthesis.pending
-            ) {
-
-                window.speechSynthesis.cancel();
-
-                button.textContent =
-                    "🔊 Listen";
-
-                return;
-            }
+            language =
+                normalizeLanguage(language);
 
 
-            /*
-             * IMPORTANT:
-             * ہمیشہ موجودہ منتخب آیت کا اصل متن حاصل کریں۔
-             * صرف Verse نمبر آڈیو میں نہیں بھیجا جائے گا۔
-             */
+            /* ---------------------------------------------
+               FIND VOICE
+            --------------------------------------------- */
 
-            const testament =
-                testamentSelect.value;
-
-            const book =
-                bookSelect.value;
-
-            const chapter =
-                Number(
-                    chapterSelect.value
-                );
-
-            const verse =
-                Number(
-                    verseSelect.value
-                );
-
-            const language =
-                getLanguage();
-
-
-            let actualText =
-                getVerseText(
-                    language,
-                    testament,
-                    book,
-                    chapter,
-                    verse
-                );
-
-
-            /*
-             * اگر موجودہ آیت کا متن نہ ملے
-             * تو پہلے سے موجود text استعمال کریں۔
-             */
-
-            if (!actualText) {
-
-                actualText =
-                    text || "";
-
-            }
-
-
-            actualText =
-                String(actualText).trim();
-
-
-            /*
-             * خالی متن کو آڈیو میں نہ بھیجیں۔
-             */
-
-            if (!actualText) {
-
-                alert(
-                    "اس آیت کا مکمل متن Bible Database میں موجود نہیں ہے۔"
-                );
-
-                return;
-            }
-
-
-            let voices =
-                window.speechSynthesis
-                    .getVoices();
-
-
-            if (
-                voices &&
-                voices.length
-            ) {
-
-                playBibleAudio(
+            const voice =
+                chooseVoice(
                     voices,
-                    language,
-                    actualText,
-                    button
+                    language
                 );
 
-                return;
+
+            /* ---------------------------------------------
+               CREATE SPEECH
+            --------------------------------------------- */
+
+            const speech =
+                new SpeechSynthesisUtterance(
+                    String(text || "")
+                );
+
+
+            speech.rate =
+                0.85;
+
+            speech.pitch =
+                1;
+
+            speech.volume =
+                1;
+
+
+            /* ---------------------------------------------
+               IMPORTANT URDU AUDIO LOGIC
+
+               Urdu کے لیے:
+               - اگر اصل Urdu voice مل جائے تو اسے استعمال کریں۔
+               - اگر voice list میں Urdu voice نہ ملے،
+                 تو voice کو زبردستی English نہیں بنائیں گے۔
+               - Browser کو ur-PK کے ذریعے Urdu voice
+                 منتخب کرنے کا موقع دیں گے۔
+            --------------------------------------------- */
+
+            if (language === "ur") {
+
+                if (voice) {
+
+                    speech.voice =
+                        voice;
+
+                    speech.lang =
+                        voice.lang;
+
+                    console.log(
+                        "Urdu Bible Audio Voice Selected:",
+                        voice.name,
+                        voice.lang
+                    );
+
+                } else {
+
+                    speech.lang =
+                        "ur-PK";
+
+                    console.warn(
+                        "Exact Urdu voice was not exposed by getVoices(). Browser will try Urdu TTS using ur-PK."
+                    );
+
+                }
+
+            } else {
+
+                /* -----------------------------------------
+                   OTHER LANGUAGES
+
+                   Existing behavior preserved.
+                ----------------------------------------- */
+
+                if (!voice) {
+
+                    console.warn(
+                        "No matching voice found for:",
+                        language
+                    );
+
+                    alert(
+                        "اس زبان کی Speech Voice دستیاب نہیں ہے۔"
+                    );
+
+                    return;
+                }
+
+
+                speech.voice =
+                    voice;
+
+                speech.lang =
+                    voice.lang;
+
+
+                console.log(
+                    "Bible Audio Voice Selected:",
+                    voice.name,
+                    voice.lang
+                );
+
             }
 
 
-            const loadAndPlay =
+            /* =================================================
+               START
+            ================================================= */
+
+            speech.onstart =
                 function () {
 
-                    const loaded =
-                        window.speechSynthesis
-                            .getVoices();
+                    if (button) {
 
-                    if (
-                        loaded &&
-                        loaded.length
-                    ) {
-
-                        playBibleAudio(
-                            loaded,
-                            language,
-                            actualText,
-                            button
-                        );
-
-                    } else {
-
-                        console.warn(
-                            "Speech voices are still loading."
-                        );
+                        button.textContent =
+                            "⏹ Stop";
 
                     }
 
                 };
 
 
-            window.speechSynthesis
-                .onvoiceschanged =
-                loadAndPlay;
+            /* =================================================
+               END
+            ================================================= */
 
+            speech.onend =
+                function () {
+
+                    if (button) {
+
+                        if (
+                            button.id ===
+                            "chapterAudioButton"
+                        ) {
+
+                            button.textContent =
+                                "🔊 Listen Chapter";
+
+                        } else {
+
+                            button.textContent =
+                                "🔊 Listen";
+
+                        }
+
+                    }
+
+                };
+
+
+            /* =================================================
+               ERROR
+            ================================================= */
+
+            speech.onerror =
+                function (event) {
+
+                    console.error(
+                        "Bible Audio Error:",
+                        event
+                    );
+
+                    if (button) {
+
+                        if (
+                            button.id ===
+                            "chapterAudioButton"
+                        ) {
+
+                            button.textContent =
+                                "🔊 Listen Chapter";
+
+                        } else {
+
+                            button.textContent =
+                                "🔊 Listen";
+
+                        }
+
+                    }
+
+                    alert(
+                        "آڈیو چلانے میں مسئلہ آیا ہے۔ براہِ کرم دوبارہ کوشش کریں۔"
+                    );
+
+                };
+
+
+            /* =================================================
+               STOP PREVIOUS AUDIO
+            ================================================= */
+
+            window.speechSynthesis.cancel();
+
+
+            /* =================================================
+               PLAY
+            ================================================= */
 
             setTimeout(
-                loadAndPlay,
-                700
+                function () {
+
+                    window.speechSynthesis.speak(
+                        speech
+                    );
+
+                },
+                100
             );
 
-        };
-}
+        }
+
+
+        /* =================================================
+           SETUP AUDIO
+        ================================================= */
+
+        function setupAudio(text) {
+
+            const button =
+                document.getElementById(
+                    "verseAudioButton"
+                );
+
+            if (!button) return;
+
+            button.onclick =
+                function () {
+
+                    if (
+                        !(
+                            "speechSynthesis" in
+                            window
+                        ) ||
+                        !(
+                            "SpeechSynthesisUtterance" in
+                            window
+                        )
+                    ) {
+
+                        alert(
+                            "Audio is not supported by this browser."
+                        );
+
+                        return;
+                    }
+
+
+                    if (
+                        window.speechSynthesis.speaking ||
+                        window.speechSynthesis.pending
+                    ) {
+
+                        window.speechSynthesis.cancel();
+
+                        button.textContent =
+                            "🔊 Listen";
+
+                        return;
+                    }
+
+
+                    const testament =
+                        testamentSelect.value;
+
+                    const book =
+                        bookSelect.value;
+
+                    const chapter =
+                        Number(
+                            chapterSelect.value
+                        );
+
+                    const verse =
+                        Number(
+                            verseSelect.value
+                        );
+
+                    const language =
+                        getLanguage();
+
+
+                    let actualText =
+                        getVerseText(
+                            language,
+                            testament,
+                            book,
+                            chapter,
+                            verse
+                        );
+
+
+                    if (!actualText) {
+
+                        actualText =
+                            text || "";
+
+                    }
+
+
+                    actualText =
+                        String(actualText).trim();
+
+
+                    if (!actualText) {
+
+                        alert(
+                            "اس آیت کا مکمل متن Bible Database میں موجود نہیں ہے۔"
+                        );
+
+                        return;
+                    }
+
+
+                    let voices =
+                        window.speechSynthesis
+                            .getVoices();
+
+
+                    if (
+                        voices &&
+                        voices.length
+                    ) {
+
+                        playBibleAudio(
+                            voices,
+                            language,
+                            actualText,
+                            button
+                        );
+
+                        return;
+                    }
+
+
+                    const loadAndPlay =
+                        function () {
+
+                            const loaded =
+                                window.speechSynthesis
+                                    .getVoices();
+
+                            if (
+                                loaded &&
+                                loaded.length
+                            ) {
+
+                                playBibleAudio(
+                                    loaded,
+                                    language,
+                                    actualText,
+                                    button
+                                );
+
+                            } else {
+
+                                console.warn(
+                                    "Speech voices are still loading."
+                                );
+
+                            }
+
+                        };
+
+
+                    window.speechSynthesis
+                        .onvoiceschanged =
+                        loadAndPlay;
+
+
+                    setTimeout(
+                        loadAndPlay,
+                        700
+                    );
+
+                };
+        }
 
 
         /* =================================================
@@ -1710,7 +1708,7 @@ function playBibleAudio(
 
                         text:
                             text ||
-                            "اس آیت کا متن ابھی منتخب زبان کے Bible Database میں موجود نہیں ہے۔"
+                            "اس آیت کا متن ابھی منتخب زبان کے Bible Database میں موجود نہیں ہے."
 
                     });
 
@@ -1736,16 +1734,24 @@ function playBibleAudio(
 
             stopAudio();
 
-          const chapterSpeechText =
-    chapterData
-        .map(
-            function (item) {
 
-                return item.text;
+            /* ---------------------------------------------
+               IMPORTANT:
+               صرف اصل آیت کا متن آڈیو میں جائے گا۔
+               "Verse 1, Verse 2..." آڈیو میں شامل نہیں ہوگا۔
+            --------------------------------------------- */
 
-            }
-        )
-        .join(" ");
+            const chapterSpeechText =
+                chapterData
+                    .map(
+                        function (item) {
+
+                            return item.text;
+
+                        }
+                    )
+                    .join(" ");
+
 
             let versesHTML = "";
 
@@ -2059,10 +2065,6 @@ function playBibleAudio(
 
         /* =================================================
            ADD FULL CHAPTER BUTTON
-
-           IMPORTANT:
-           We create this button through JavaScript.
-           Therefore bible.html does NOT need to change.
         ================================================= */
 
         function addFullChapterButton() {

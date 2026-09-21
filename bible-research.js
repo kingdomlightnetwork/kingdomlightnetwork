@@ -1858,121 +1858,224 @@
         }
 
 
-        /* =================================================
-           SETUP CHAPTER AUDIO
-        ================================================= */
+      /* =================================================
+   SETUP CHAPTER AUDIO
+================================================= */
 
-        function setupChapterAudio(text) {
+function setupChapterAudio(text) {
 
-            const button =
-                document.getElementById(
-                    "chapterAudioButton"
+    const button =
+        document.getElementById(
+            "chapterAudioButton"
+        );
+
+    if (!button) return;
+
+    button.onclick =
+        function () {
+
+            const language =
+                getLanguage();
+
+            const testament =
+                testamentSelect
+                    ? testamentSelect.value
+                    : "";
+
+            const book =
+                bookSelect
+                    ? bookSelect.value
+                    : "";
+
+            const chapter =
+                chapterSelect
+                    ? chapterSelect.value
+                    : "";
+
+            /* -----------------------------------------
+               URDU GENESIS MP3 AUDIO
+            ----------------------------------------- */
+
+            const urduAudioPath =
+                getUrduChapterAudioPath(
+                    testament,
+                    book,
+                    chapter
                 );
 
-            if (!button) return;
+            if (urduAudioPath) {
 
-            button.onclick =
-                function () {
-
-                    if (
-                        !(
-                            "speechSynthesis" in
-                            window
-                        ) ||
-                        !(
-                            "SpeechSynthesisUtterance" in
-                            window
-                        )
-                    ) {
-
-                        alert(
-                            "Audio is not supported by this browser."
-                        );
-
-                        return;
-
-                    }
-
+                if (currentHTMLAudio) {
 
                     if (
-                        window.speechSynthesis.speaking ||
-                        window.speechSynthesis.pending
+                        !currentHTMLAudio.paused
                     ) {
 
-                        window.speechSynthesis.cancel();
+                        currentHTMLAudio.pause();
 
                         button.textContent =
-                            "🔊 Listen Chapter";
+                            "🔊 Listen Full Chapter";
 
                         return;
 
                     }
 
+                }
 
-                    const language =
-                        getLanguage();
+                stopAudio();
+
+                const audio =
+                    new Audio(
+                        urduAudioPath
+                    );
+
+                currentHTMLAudio =
+                    audio;
+
+                button.textContent =
+                    "⏸️ Stop Audio";
+
+                audio.onended =
+                    function () {
+
+                        button.textContent =
+                            "🔊 Listen Full Chapter";
+
+                        currentHTMLAudio =
+                            null;
+
+                    };
+
+                audio.onerror =
+                    function () {
+
+                        button.textContent =
+                            "🔊 Listen Full Chapter";
+
+                        currentHTMLAudio =
+                            null;
+
+                        alert(
+                            "Urdu audio file could not be loaded."
+                        );
+
+                    };
+
+                audio.play()
+                    .catch(
+                        function () {
+
+                            button.textContent =
+                                "🔊 Listen Full Chapter";
+
+                            currentHTMLAudio =
+                                null;
+
+                            alert(
+                                "Urdu audio could not be played."
+                            );
+
+                        }
+                    );
+
+                return;
+            }
 
 
-                    const voices =
+            /* -----------------------------------------
+               OTHER LANGUAGES — EXISTING TTS
+            ----------------------------------------- */
+
+            if (
+                !(
+                    "speechSynthesis" in
+                    window
+                ) ||
+                !(
+                    "SpeechSynthesisUtterance" in
+                    window
+                )
+            ) {
+
+                alert(
+                    "Audio is not supported by this browser."
+                );
+
+                return;
+            }
+
+
+            if (
+                window.speechSynthesis.speaking ||
+                window.speechSynthesis.pending
+            ) {
+
+                window.speechSynthesis.cancel();
+
+                button.textContent =
+                    "🔊 Listen Chapter";
+
+                return;
+            }
+
+
+            const voices =
+                window.speechSynthesis
+                    .getVoices();
+
+
+            if (
+                voices &&
+                voices.length
+            ) {
+
+                playBibleAudio(
+                    voices,
+                    language,
+                    text,
+                    button
+                );
+
+                return;
+            }
+
+
+            const loadAndPlay =
+                function () {
+
+                    const loaded =
                         window.speechSynthesis
                             .getVoices();
 
-
                     if (
-                        voices &&
-                        voices.length
+                        loaded &&
+                        loaded.length
                     ) {
 
                         playBibleAudio(
-                            voices,
+                            loaded,
                             language,
                             text,
                             button
                         );
 
-                        return;
-
                     }
 
-
-                    const loadAndPlay =
-                        function () {
-
-                            const loaded =
-                                window.speechSynthesis
-                                    .getVoices();
-
-                            if (
-                                loaded &&
-                                loaded.length
-                            ) {
-
-                                playBibleAudio(
-                                    loaded,
-                                    language,
-                                    text,
-                                    button
-                                );
-
-                            }
-
-                        };
-
-
-                    window.speechSynthesis
-                        .onvoiceschanged =
-                        loadAndPlay;
-
-
-                    setTimeout(
-                        loadAndPlay,
-                        700
-                    );
-
                 };
-        }
 
 
+            window.speechSynthesis
+                .onvoiceschanged =
+                loadAndPlay;
+
+
+            setTimeout(
+                loadAndPlay,
+                700
+            );
+
+        };
+}
         /* =================================================
            SETUP CHAPTER ZOOM
         ================================================= */

@@ -16,6 +16,7 @@
    - Full Chapter Audio
    - Full Chapter Zoom
    - Bible Research
+   - Urdu Genesis MP3 Chapter Audio
    - Ready for future complete Bible language expansion
 ===================================================== */
 
@@ -756,10 +757,97 @@
 
 
         /* =================================================
-           STOP AUDIO
+           URDU MP3 CHAPTER AUDIO
+        ================================================= */
+
+        let currentHTMLAudio = null;
+
+
+        function getUrduChapterAudioPath(
+            testament,
+            book,
+            chapter
+        ) {
+
+            const language =
+                getLanguage();
+
+
+            /* ---------------------------------------------
+               صرف Urdu Genesis Chapter Audio
+            --------------------------------------------- */
+
+            if (
+                language !== "ur" ||
+                testament !== "old" ||
+                book !== "Genesis" ||
+                !chapter
+            ) {
+
+                return null;
+            }
+
+
+            const chapterNumber =
+                String(chapter)
+                    .padStart(2, "0");
+
+
+            return (
+                "audio/urdu/genesis/Genesis-" +
+                chapterNumber +
+                ".mp3"
+            );
+        }
+
+
+        /* =================================================
+           STOP HTML MP3 AUDIO
+        ================================================= */
+
+        function stopHTMLAudio() {
+
+            if (!currentHTMLAudio) {
+                return;
+            }
+
+
+            try {
+
+                currentHTMLAudio.pause();
+
+                currentHTMLAudio.currentTime = 0;
+
+            } catch (error) {
+
+                console.warn(
+                    "HTML audio stop error:",
+                    error
+                );
+
+            }
+
+
+            currentHTMLAudio = null;
+        }
+
+
+        /* =================================================
+           STOP ALL AUDIO
         ================================================= */
 
         function stopAudio() {
+
+            /* ---------------------------------------------
+               Stop Urdu MP3 Audio
+            --------------------------------------------- */
+
+            stopHTMLAudio();
+
+
+            /* ---------------------------------------------
+               Stop Browser Text-to-Speech
+            --------------------------------------------- */
 
             if (
                 "speechSynthesis" in window
@@ -768,6 +856,11 @@
                 window.speechSynthesis.cancel();
 
             }
+
+
+            /* ---------------------------------------------
+               Reset Verse Audio Button
+            --------------------------------------------- */
 
             const verseButton =
                 document.getElementById(
@@ -780,6 +873,11 @@
                     "🔊 Listen";
 
             }
+
+
+            /* ---------------------------------------------
+               Reset Chapter Audio Button
+            --------------------------------------------- */
 
             const chapterButton =
                 document.getElementById(
@@ -897,6 +995,7 @@
                     "en-US",
                     "en"
                 ];
+
 
             /* ---------------------------------------------
                EXACT LANGUAGE MATCH
@@ -1263,7 +1362,7 @@
 
 
         /* =================================================
-           SETUP AUDIO
+           SETUP VERSE AUDIO
         ================================================= */
 
         function setupAudio(text) {
@@ -1737,8 +1836,11 @@
 
             /* ---------------------------------------------
                IMPORTANT:
-               صرف اصل آیت کا متن آڈیو میں جائے گا۔
+               صرف اصل آیت کا متن TTS میں جائے گا۔
                "Verse 1, Verse 2..." آڈیو میں شامل نہیں ہوگا۔
+
+               Urdu Genesis کے لیے setupChapterAudio()
+               MP3 فائل استعمال کرے گا۔
             --------------------------------------------- */
 
             const chapterSpeechText =
@@ -1858,224 +1960,325 @@
         }
 
 
-      /* =================================================
-   SETUP CHAPTER AUDIO
-================================================= */
+        /* =================================================
+           SETUP CHAPTER AUDIO
+        ================================================= */
 
-function setupChapterAudio(text) {
+        function setupChapterAudio(text) {
 
-    const button =
-        document.getElementById(
-            "chapterAudioButton"
-        );
-
-    if (!button) return;
-
-    button.onclick =
-        function () {
-
-            const language =
-                getLanguage();
-
-            const testament =
-                testamentSelect
-                    ? testamentSelect.value
-                    : "";
-
-            const book =
-                bookSelect
-                    ? bookSelect.value
-                    : "";
-
-            const chapter =
-                chapterSelect
-                    ? chapterSelect.value
-                    : "";
-
-            /* -----------------------------------------
-               URDU GENESIS MP3 AUDIO
-            ----------------------------------------- */
-
-            const urduAudioPath =
-                getUrduChapterAudioPath(
-                    testament,
-                    book,
-                    chapter
+            const button =
+                document.getElementById(
+                    "chapterAudioButton"
                 );
 
-            if (urduAudioPath) {
+            if (!button) return;
 
-                if (currentHTMLAudio) {
 
-                    if (
-                        !currentHTMLAudio.paused
-                    ) {
+            button.onclick =
+                function () {
 
-                        currentHTMLAudio.pause();
+                    const language =
+                        getLanguage();
 
-                        button.textContent =
-                            "🔊 Listen Full Chapter";
+                    const testament =
+                        testamentSelect
+                            ? testamentSelect.value
+                            : "";
 
-                        return;
+                    const book =
+                        bookSelect
+                            ? bookSelect.value
+                            : "";
 
-                    }
+                    const chapter =
+                        chapterSelect
+                            ? chapterSelect.value
+                            : "";
 
-                }
 
-                stopAudio();
+                    /* -----------------------------------------
+                       URDU GENESIS MP3 AUDIO
+                    ----------------------------------------- */
 
-                const audio =
-                    new Audio(
-                        urduAudioPath
-                    );
-
-                currentHTMLAudio =
-                    audio;
-
-                button.textContent =
-                    "⏸️ Stop Audio";
-
-                audio.onended =
-                    function () {
-
-                        button.textContent =
-                            "🔊 Listen Full Chapter";
-
-                        currentHTMLAudio =
-                            null;
-
-                    };
-
-                audio.onerror =
-                    function () {
-
-                        button.textContent =
-                            "🔊 Listen Full Chapter";
-
-                        currentHTMLAudio =
-                            null;
-
-                        alert(
-                            "Urdu audio file could not be loaded."
+                    const urduAudioPath =
+                        getUrduChapterAudioPath(
+                            testament,
+                            book,
+                            chapter
                         );
 
-                    };
 
-                audio.play()
-                    .catch(
-                        function () {
+                    if (urduAudioPath) {
 
-                            button.textContent =
-                                "🔊 Listen Full Chapter";
+                        /* -------------------------------------
+                           اگر Urdu MP3 پہلے سے چل رہا ہے
+                           تو اسے روک دیں۔
+                        ------------------------------------- */
 
-                            currentHTMLAudio =
-                                null;
+                        if (currentHTMLAudio) {
 
-                            alert(
-                                "Urdu audio could not be played."
+                            if (
+                                !currentHTMLAudio.paused
+                            ) {
+
+                                currentHTMLAudio.pause();
+
+                                currentHTMLAudio.currentTime =
+                                    0;
+
+                                currentHTMLAudio =
+                                    null;
+
+                                button.textContent =
+                                    "🔊 Listen Chapter";
+
+                                return;
+                            }
+
+                        }
+
+
+                        /* -------------------------------------
+                           Stop any previous TTS
+                        ------------------------------------- */
+
+                        stopAudio();
+
+
+                        /* -------------------------------------
+                           Create MP3 Audio
+                        ------------------------------------- */
+
+                        const audio =
+                            new Audio(
+                                urduAudioPath
+                            );
+
+
+                        currentHTMLAudio =
+                            audio;
+
+
+                        /* -------------------------------------
+                           Start Button State
+                        ------------------------------------- */
+
+                        button.textContent =
+                            "⏹ Stop Audio";
+
+
+                        /* -------------------------------------
+                           Audio Started
+                        ------------------------------------- */
+
+                        audio.onplay =
+                            function () {
+
+                                button.textContent =
+                                    "⏹ Stop Audio";
+
+                                console.log(
+                                    "Urdu Genesis MP3 playing:",
+                                    urduAudioPath
+                                );
+
+                            };
+
+
+                        /* -------------------------------------
+                           Audio Ended
+                        ------------------------------------- */
+
+                        audio.onended =
+                            function () {
+
+                                button.textContent =
+                                    "🔊 Listen Chapter";
+
+                                currentHTMLAudio =
+                                    null;
+
+                            };
+
+
+                        /* -------------------------------------
+                           Audio Error
+                        ------------------------------------- */
+
+                        audio.onerror =
+                            function (event) {
+
+                                console.error(
+                                    "Urdu MP3 Audio Error:",
+                                    event
+                                );
+
+
+                                button.textContent =
+                                    "🔊 Listen Chapter";
+
+
+                                currentHTMLAudio =
+                                    null;
+
+
+                                alert(
+                                    "Urdu audio file could not be loaded. براہِ کرم MP3 file کا نام اور GitHub path چیک کریں۔"
+                                );
+
+                            };
+
+
+                        /* -------------------------------------
+                           Play MP3
+                        ------------------------------------- */
+
+                        const playPromise =
+                            audio.play();
+
+
+                        if (
+                            playPromise &&
+                            typeof playPromise.catch ===
+                            "function"
+                        ) {
+
+                            playPromise.catch(
+                                function (error) {
+
+                                    console.error(
+                                        "Urdu MP3 playback error:",
+                                        error
+                                    );
+
+
+                                    button.textContent =
+                                        "🔊 Listen Chapter";
+
+
+                                    currentHTMLAudio =
+                                        null;
+
+
+                                    alert(
+                                        "Urdu audio could not be played."
+                                    );
+
+                                }
                             );
 
                         }
-                    );
-
-                return;
-            }
 
 
-            /* -----------------------------------------
-               OTHER LANGUAGES — EXISTING TTS
-            ----------------------------------------- */
-
-            if (
-                !(
-                    "speechSynthesis" in
-                    window
-                ) ||
-                !(
-                    "SpeechSynthesisUtterance" in
-                    window
-                )
-            ) {
-
-                alert(
-                    "Audio is not supported by this browser."
-                );
-
-                return;
-            }
+                        return;
+                    }
 
 
-            if (
-                window.speechSynthesis.speaking ||
-                window.speechSynthesis.pending
-            ) {
+                    /* -----------------------------------------
+                       OTHER LANGUAGES — EXISTING TTS
+                    ----------------------------------------- */
 
-                window.speechSynthesis.cancel();
+                    if (
+                        !(
+                            "speechSynthesis" in
+                            window
+                        ) ||
+                        !(
+                            "SpeechSynthesisUtterance" in
+                            window
+                        )
+                    ) {
 
-                button.textContent =
-                    "🔊 Listen Chapter";
+                        alert(
+                            "Audio is not supported by this browser."
+                        );
 
-                return;
-            }
-
-
-            const voices =
-                window.speechSynthesis
-                    .getVoices();
-
-
-            if (
-                voices &&
-                voices.length
-            ) {
-
-                playBibleAudio(
-                    voices,
-                    language,
-                    text,
-                    button
-                );
-
-                return;
-            }
+                        return;
+                    }
 
 
-            const loadAndPlay =
-                function () {
+                    /* -----------------------------------------
+                       STOP CURRENT TTS
+                    ----------------------------------------- */
 
-                    const loaded =
+                    if (
+                        window.speechSynthesis.speaking ||
+                        window.speechSynthesis.pending
+                    ) {
+
+                        window.speechSynthesis.cancel();
+
+                        button.textContent =
+                            "🔊 Listen Chapter";
+
+                        return;
+                    }
+
+
+                    const voices =
                         window.speechSynthesis
                             .getVoices();
 
+
                     if (
-                        loaded &&
-                        loaded.length
+                        voices &&
+                        voices.length
                     ) {
 
                         playBibleAudio(
-                            loaded,
+                            voices,
                             language,
                             text,
                             button
                         );
 
+                        return;
                     }
 
+
+                    /* -----------------------------------------
+                       WAIT FOR VOICES
+                    ----------------------------------------- */
+
+                    const loadAndPlay =
+                        function () {
+
+                            const loaded =
+                                window.speechSynthesis
+                                    .getVoices();
+
+
+                            if (
+                                loaded &&
+                                loaded.length
+                            ) {
+
+                                playBibleAudio(
+                                    loaded,
+                                    language,
+                                    text,
+                                    button
+                                );
+
+                            }
+
+                        };
+
+
+                    window.speechSynthesis
+                        .onvoiceschanged =
+                        loadAndPlay;
+
+
+                    setTimeout(
+                        loadAndPlay,
+                        700
+                    );
+
                 };
+        }
 
 
-            window.speechSynthesis
-                .onvoiceschanged =
-                loadAndPlay;
-
-
-            setTimeout(
-                loadAndPlay,
-                700
-            );
-
-        };
-}
         /* =================================================
            SETUP CHAPTER ZOOM
         ================================================= */

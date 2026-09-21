@@ -1959,324 +1959,374 @@
             });
         }
 
+/* =================================================
+   SETUP VERSE AUDIO
+================================================= */
 
-        /* =================================================
-           SETUP CHAPTER AUDIO
-        ================================================= */
+function setupAudio(text) {
 
-        function setupChapterAudio(text) {
+    const button =
+        document.getElementById(
+            "verseAudioButton"
+        );
 
-            const button =
-                document.getElementById(
-                    "chapterAudioButton"
+    if (!button) return;
+
+
+    button.onclick =
+        function () {
+
+            const language =
+                getLanguage();
+
+            const testament =
+                testamentSelect
+                    ? testamentSelect.value
+                    : "";
+
+            const book =
+                bookSelect
+                    ? bookSelect.value
+                    : "";
+
+            const chapter =
+                chapterSelect
+                    ? chapterSelect.value
+                    : "";
+
+
+            /* -----------------------------------------
+               URDU GENESIS — USE CHAPTER MP3
+
+               ہر آیت کے لیے الگ MP3 موجود نہیں ہے۔
+               اس لیے Genesis میں منتخب آیت کے لیے
+               اسی Chapter کی MP3 چلائی جائے گی۔
+            ----------------------------------------- */
+
+            const urduAudioPath =
+                getUrduChapterAudioPath(
+                    testament,
+                    book,
+                    chapter
                 );
 
-            if (!button) return;
+
+            if (urduAudioPath) {
+
+                /* -------------------------------------
+                   اگر Urdu Chapter MP3 پہلے سے چل رہی ہے
+                   تو اسے روک دیں۔
+                ------------------------------------- */
+
+                if (currentHTMLAudio) {
+
+                    if (
+                        !currentHTMLAudio.paused
+                    ) {
+
+                        currentHTMLAudio.pause();
+
+                        currentHTMLAudio.currentTime =
+                            0;
+
+                        currentHTMLAudio =
+                            null;
+
+                        button.textContent =
+                            "🔊 Listen";
+
+                        return;
+                    }
+
+                }
 
 
-            button.onclick =
-                function () {
+                /* -------------------------------------
+                   Stop previous audio
+                ------------------------------------- */
 
-                    const language =
-                        getLanguage();
-
-                    const testament =
-                        testamentSelect
-                            ? testamentSelect.value
-                            : "";
-
-                    const book =
-                        bookSelect
-                            ? bookSelect.value
-                            : "";
-
-                    const chapter =
-                        chapterSelect
-                            ? chapterSelect.value
-                            : "";
+                stopAudio();
 
 
-                    /* -----------------------------------------
-                       URDU GENESIS MP3 AUDIO
-                    ----------------------------------------- */
+                /* -------------------------------------
+                   Create Urdu Chapter MP3
+                ------------------------------------- */
 
-                    const urduAudioPath =
-                        getUrduChapterAudioPath(
-                            testament,
-                            book,
-                            chapter
+                const audio =
+                    new Audio(
+                        urduAudioPath
+                    );
+
+
+                currentHTMLAudio =
+                    audio;
+
+
+                /* -------------------------------------
+                   Button State
+                ------------------------------------- */
+
+                button.textContent =
+                    "⏹ Stop";
+
+
+                /* -------------------------------------
+                   AUDIO PLAY
+                ------------------------------------- */
+
+                audio.onplay =
+                    function () {
+
+                        button.textContent =
+                            "⏹ Stop";
+
+                        console.log(
+                            "Urdu Genesis Verse Button is using Chapter MP3:",
+                            urduAudioPath
+                        );
+
+                    };
+
+
+                /* -------------------------------------
+                   AUDIO ENDED
+                ------------------------------------- */
+
+                audio.onended =
+                    function () {
+
+                        button.textContent =
+                            "🔊 Listen";
+
+                        currentHTMLAudio =
+                            null;
+
+                    };
+
+
+                /* -------------------------------------
+                   AUDIO ERROR
+                ------------------------------------- */
+
+                audio.onerror =
+                    function (event) {
+
+                        console.error(
+                            "Urdu Verse MP3 Audio Error:",
+                            event
                         );
 
 
-                    if (urduAudioPath) {
-
-                        /* -------------------------------------
-                           اگر Urdu MP3 پہلے سے چل رہا ہے
-                           تو اسے روک دیں۔
-                        ------------------------------------- */
-
-                        if (currentHTMLAudio) {
-
-                            if (
-                                !currentHTMLAudio.paused
-                            ) {
-
-                                currentHTMLAudio.pause();
-
-                                currentHTMLAudio.currentTime =
-                                    0;
-
-                                currentHTMLAudio =
-                                    null;
-
-                                button.textContent =
-                                    "🔊 Listen Chapter";
-
-                                return;
-                            }
-
-                        }
-
-
-                        /* -------------------------------------
-                           Stop any previous TTS
-                        ------------------------------------- */
-
-                        stopAudio();
-
-
-                        /* -------------------------------------
-                           Create MP3 Audio
-                        ------------------------------------- */
-
-                        const audio =
-                            new Audio(
-                                urduAudioPath
-                            );
+                        button.textContent =
+                            "🔊 Listen";
 
 
                         currentHTMLAudio =
-                            audio;
+                            null;
 
 
-                        /* -------------------------------------
-                           Start Button State
-                        ------------------------------------- */
+                        alert(
+                            "Urdu audio file could not be loaded. براہِ کرم MP3 file کا GitHub path چیک کریں۔"
+                        );
 
-                        button.textContent =
-                            "⏹ Stop Audio";
-
-
-                        /* -------------------------------------
-                           Audio Started
-                        ------------------------------------- */
-
-                        audio.onplay =
-                            function () {
-
-                                button.textContent =
-                                    "⏹ Stop Audio";
-
-                                console.log(
-                                    "Urdu Genesis MP3 playing:",
-                                    urduAudioPath
-                                );
-
-                            };
+                    };
 
 
-                        /* -------------------------------------
-                           Audio Ended
-                        ------------------------------------- */
+                /* -------------------------------------
+                   PLAY MP3
+                ------------------------------------- */
 
-                        audio.onended =
-                            function () {
-
-                                button.textContent =
-                                    "🔊 Listen Chapter";
-
-                                currentHTMLAudio =
-                                    null;
-
-                            };
+                const playPromise =
+                    audio.play();
 
 
-                        /* -------------------------------------
-                           Audio Error
-                        ------------------------------------- */
+                if (
+                    playPromise &&
+                    typeof playPromise.catch ===
+                    "function"
+                ) {
 
-                        audio.onerror =
-                            function (event) {
+                    playPromise.catch(
+                        function (error) {
 
-                                console.error(
-                                    "Urdu MP3 Audio Error:",
-                                    event
-                                );
-
-
-                                button.textContent =
-                                    "🔊 Listen Chapter";
+                            console.error(
+                                "Urdu Verse MP3 playback error:",
+                                error
+                            );
 
 
-                                currentHTMLAudio =
-                                    null;
+                            button.textContent =
+                                "🔊 Listen";
 
 
-                                alert(
-                                    "Urdu audio file could not be loaded. براہِ کرم MP3 file کا نام اور GitHub path چیک کریں۔"
-                                );
-
-                            };
+                            currentHTMLAudio =
+                                null;
 
 
-                        /* -------------------------------------
-                           Play MP3
-                        ------------------------------------- */
-
-                        const playPromise =
-                            audio.play();
-
-
-                        if (
-                            playPromise &&
-                            typeof playPromise.catch ===
-                            "function"
-                        ) {
-
-                            playPromise.catch(
-                                function (error) {
-
-                                    console.error(
-                                        "Urdu MP3 playback error:",
-                                        error
-                                    );
-
-
-                                    button.textContent =
-                                        "🔊 Listen Chapter";
-
-
-                                    currentHTMLAudio =
-                                        null;
-
-
-                                    alert(
-                                        "Urdu audio could not be played."
-                                    );
-
-                                }
+                            alert(
+                                "Urdu audio could not be played."
                             );
 
                         }
+                    );
+
+                }
 
 
-                        return;
-                    }
+                return;
+            }
 
 
-                    /* -----------------------------------------
-                       OTHER LANGUAGES — EXISTING TTS
-                    ----------------------------------------- */
+            /* -----------------------------------------
+               OTHER LANGUAGES — EXISTING TTS
+            ----------------------------------------- */
 
-                    if (
-                        !(
-                            "speechSynthesis" in
-                            window
-                        ) ||
-                        !(
-                            "SpeechSynthesisUtterance" in
-                            window
-                        )
-                    ) {
+            if (
+                !(
+                    "speechSynthesis" in
+                    window
+                ) ||
+                !(
+                    "SpeechSynthesisUtterance" in
+                    window
+                )
+            ) {
 
-                        alert(
-                            "Audio is not supported by this browser."
-                        );
+                alert(
+                    "Audio is not supported by this browser."
+                );
 
-                        return;
-                    }
-
-
-                    /* -----------------------------------------
-                       STOP CURRENT TTS
-                    ----------------------------------------- */
-
-                    if (
-                        window.speechSynthesis.speaking ||
-                        window.speechSynthesis.pending
-                    ) {
-
-                        window.speechSynthesis.cancel();
-
-                        button.textContent =
-                            "🔊 Listen Chapter";
-
-                        return;
-                    }
+                return;
+            }
 
 
-                    const voices =
+            /* -----------------------------------------
+               STOP CURRENT TTS
+            ----------------------------------------- */
+
+            if (
+                window.speechSynthesis.speaking ||
+                window.speechSynthesis.pending
+            ) {
+
+                window.speechSynthesis.cancel();
+
+                button.textContent =
+                    "🔊 Listen";
+
+                return;
+            }
+
+
+            const chapterNumber =
+                Number(chapter);
+
+            const verse =
+                Number(
+                    verseSelect.value
+                );
+
+
+            let actualText =
+                getVerseText(
+                    language,
+                    testament,
+                    book,
+                    chapterNumber,
+                    verse
+                );
+
+
+            if (!actualText) {
+
+                actualText =
+                    text || "";
+
+            }
+
+
+            actualText =
+                String(actualText).trim();
+
+
+            if (!actualText) {
+
+                alert(
+                    "اس آیت کا مکمل متن Bible Database میں موجود نہیں ہے۔"
+                );
+
+                return;
+            }
+
+
+            let voices =
+                window.speechSynthesis
+                    .getVoices();
+
+
+            if (
+                voices &&
+                voices.length
+            ) {
+
+                playBibleAudio(
+                    voices,
+                    language,
+                    actualText,
+                    button
+                );
+
+                return;
+            }
+
+
+            /* -----------------------------------------
+               WAIT FOR VOICES
+            ----------------------------------------- */
+
+            const loadAndPlay =
+                function () {
+
+                    const loaded =
                         window.speechSynthesis
                             .getVoices();
 
 
                     if (
-                        voices &&
-                        voices.length
+                        loaded &&
+                        loaded.length
                     ) {
 
                         playBibleAudio(
-                            voices,
+                            loaded,
                             language,
-                            text,
+                            actualText,
                             button
                         );
 
-                        return;
+                    } else {
+
+                        console.warn(
+                            "Speech voices are still loading."
+                        );
+
                     }
 
-
-                    /* -----------------------------------------
-                       WAIT FOR VOICES
-                    ----------------------------------------- */
-
-                    const loadAndPlay =
-                        function () {
-
-                            const loaded =
-                                window.speechSynthesis
-                                    .getVoices();
-
-
-                            if (
-                                loaded &&
-                                loaded.length
-                            ) {
-
-                                playBibleAudio(
-                                    loaded,
-                                    language,
-                                    text,
-                                    button
-                                );
-
-                            }
-
-                        };
-
-
-                    window.speechSynthesis
-                        .onvoiceschanged =
-                        loadAndPlay;
-
-
-                    setTimeout(
-                        loadAndPlay,
-                        700
-                    );
-
                 };
-        }
+
+
+            window.speechSynthesis
+                .onvoiceschanged =
+                loadAndPlay;
+
+
+            setTimeout(
+                loadAndPlay,
+                700
+            );
+
+        };
+}
 
 
         /* =================================================
